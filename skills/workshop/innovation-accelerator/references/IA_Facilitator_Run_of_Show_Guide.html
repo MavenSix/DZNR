@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Innovation Accelerator – Facilitator Run-of-Show</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:       #0a0e16;
+  --surface:  #131c2b;
+  --surface2: #1a2436;
+  --border:   #283449;
+  --text:     #d4dfee;
+  --muted:    #6b7d96;
+
+  --d1:       #f0a832;
+  --d1L:      #2a200a;
+  --d2:       #1fad91;
+  --d2L:      #0a201d;
+  --ai:       #7c6af7;
+  --aiL:      #1c1838;
+  --warn:     #e0519a;
+  --green:    #34d399;
+  --gold:     #F5C400;
+  --critical: #ef4444;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+/* ── HEADER ──────────────────────────────────────────── */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: linear-gradient(to bottom, rgba(10,14,22,0.98), rgba(10,14,22,0.92));
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 28px;
+}
+.app-header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.brand {
+  display: flex;
+  flex-direction: column;
+}
+.brand-eye {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  color: var(--ai);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+.brand-title { font-size: 16px; font-weight: 700; color: #f0f5fc; }
+
+/* TIMER */
+.timer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 8px 6px 16px;
+}
+.timer-display {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--gold);
+  min-width: 80px;
+  letter-spacing: 1px;
+}
+.timer-display.running { color: var(--green); }
+.timer-controls { display: flex; gap: 4px; }
+.timer-btn {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  width: 32px; height: 32px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s;
+}
+.timer-btn:hover {
+  border-color: var(--ai);
+  color: var(--ai);
+}
+
+/* DAY TOGGLE */
+.day-toggle {
+  display: flex;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 4px;
+}
+.day-btn {
+  background: transparent;
+  border: none;
+  padding: 8px 18px;
+  color: var(--muted);
+  cursor: pointer;
+  border-radius: 5px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  transition: all 0.15s;
+}
+.day-btn:hover { color: var(--text); }
+.day-btn.active { color: white; }
+.day-btn[data-day="1"].active { background: var(--d1); }
+.day-btn[data-day="2"].active { background: var(--d2); }
+
+/* ── MAIN ───────────────────────────────────────────── */
+.main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 24px 80px;
+}
+
+/* DAY HEADER */
+.day-header { margin-bottom: 28px; }
+.day-eyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.day-title {
+  font-size: 32px;
+  font-weight: 800;
+  color: #f0f5fc;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+.day-meta {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: 'IBM Plex Mono', monospace;
+  letter-spacing: 1px;
+}
+
+/* TIMELINE STRIP */
+.timeline-strip {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 28px;
+  overflow-x: auto;
+}
+.timeline-bar {
+  display: grid;
+  grid-template-columns: repeat(48, 1fr);
+  gap: 0;
+  height: 36px;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+.tb-segment {
+  background: var(--c, var(--muted));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  font-weight: 700;
+  color: white;
+  font-family: 'IBM Plex Mono', monospace;
+  border-right: 2px solid var(--bg);
+  cursor: pointer;
+  transition: filter 0.15s;
+}
+.tb-segment:hover { filter: brightness(1.2); }
+.tb-segment.break {
+  background: var(--surface2);
+  color: var(--muted);
+  border-right: 2px solid var(--bg);
+}
+
+.timeline-labels {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+}
+
+/* ACTIVITY CARD */
+.activity {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 24px;
+  overflow: hidden;
+  transition: all 0.2s;
+}
+.activity.expanded {
+  border-color: color-mix(in srgb, var(--c) 50%, var(--border));
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+.act-header {
+  background: var(--surface2);
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+  border-left: 4px solid var(--c);
+  transition: background 0.15s;
+}
+.act-header:hover {
+  background: color-mix(in srgb, var(--c) 6%, var(--surface2));
+}
+.act-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--c);
+  letter-spacing: 1.5px;
+  margin-right: 8px;
+}
+.act-title-row {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.act-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #f0f5fc;
+}
+.act-time {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+}
+.act-toggle {
+  font-size: 18px;
+  color: var(--muted);
+  transition: transform 0.2s;
+  flex-shrink: 0;
+  margin-left: 12px;
+}
+.activity.expanded .act-toggle { transform: rotate(180deg); }
+
+.act-body {
+  display: none;
+  padding: 24px;
+  border-top: 1px solid var(--border);
+}
+.activity.expanded .act-body { display: block; }
+
+/* GOAL */
+.goal {
+  background: color-mix(in srgb, var(--c) 5%, transparent);
+  border-left: 3px solid var(--c);
+  padding: 12px 18px;
+  border-radius: 0 6px 6px 0;
+  font-size: 13px;
+  color: #b0c4de;
+  font-style: italic;
+  margin-bottom: 20px;
+}
+.goal strong { color: var(--c); font-style: normal; font-weight: 700; }
+
+/* TWO COLS: MATERIALS + AGENT */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+.col-card {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 16px;
+}
+.col-card.agent {
+  border-color: color-mix(in srgb, var(--ai) 40%, var(--border));
+  background: color-mix(in srgb, var(--ai) 5%, var(--surface2));
+}
+.col-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  color: var(--muted);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.col-card.agent .col-label { color: var(--ai); }
+.col-card ul { list-style: none; }
+.col-card li {
+  font-size: 11px;
+  color: #b0c4de;
+  padding-left: 14px;
+  position: relative;
+  margin-bottom: 4px;
+  line-height: 1.6;
+}
+.col-card li::before {
+  content: '·';
+  position: absolute;
+  left: 4px;
+  color: var(--muted);
+}
+.agent-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #f0f5fc;
+  margin-bottom: 4px;
+}
+.agent-trigger {
+  font-size: 11px;
+  color: #b0c4de;
+}
+.agent-trigger strong { color: var(--ai); font-weight: 600; }
+
+/* SECTION TITLES */
+.section-title {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  color: var(--c);
+  font-weight: 600;
+}
+
+/* STEPS */
+.steps {
+  margin-bottom: 22px;
+}
+.step {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  border-bottom: 1px solid var(--border);
+  padding: 10px 0;
+}
+.step:last-child { border-bottom: none; }
+.step-time {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--c);
+  letter-spacing: 0.5px;
+}
+.step-text {
+  font-size: 12px;
+  color: #b0c4de;
+  line-height: 1.6;
+}
+
+/* SCRIPTS */
+.scripts {
+  margin-bottom: 22px;
+}
+.script {
+  background: var(--surface2);
+  border-left: 3px solid #475569;
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  position: relative;
+}
+.script-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  color: var(--muted);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+.script-text {
+  font-size: 13px;
+  color: #d4dfee;
+  font-style: italic;
+  line-height: 1.6;
+}
+
+/* WATCH-FORS */
+.watch-fors { margin-bottom: 16px; }
+.watch-row {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  align-items: start;
+}
+.watch-row:last-child { border-bottom: none; }
+.watch-signal {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--warn);
+}
+.watch-signal::before {
+  content: '⚠ ';
+  margin-right: 4px;
+  opacity: 0.7;
+}
+.watch-response {
+  font-size: 12px;
+  color: #b0c4de;
+  line-height: 1.5;
+}
+.watch-response::before {
+  content: '→ ';
+  color: var(--warn);
+  margin-right: 4px;
+}
+
+/* OUTPUT */
+.output {
+  background: color-mix(in srgb, var(--green) 8%, transparent);
+  border-left: 3px solid var(--green);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  font-size: 12px;
+  color: #b0d4c4;
+}
+.output strong {
+  color: var(--green);
+  font-weight: 700;
+  margin-right: 6px;
+}
+
+/* WELCOME / WRAP CARDS */
+.simple-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--c);
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin-bottom: 20px;
+}
+.simple-card h3 {
+  font-size: 14px;
+  font-weight: 700;
+  color: #f0f5fc;
+  margin-bottom: 8px;
+}
+.simple-card .label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: var(--c);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+.simple-card ul { list-style: none; margin-top: 10px; }
+.simple-card li {
+  font-size: 12px;
+  color: #b0c4de;
+  padding-left: 14px;
+  position: relative;
+  margin-bottom: 4px;
+  line-height: 1.6;
+}
+.simple-card li::before {
+  content: '·';
+  position: absolute;
+  left: 0;
+  color: var(--c);
+}
+
+/* CHIPS */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 3px;
+  margin-right: 6px;
+}
+.chip.human { background: color-mix(in srgb, var(--d1) 12%, transparent); color: var(--d1); border: 1px solid color-mix(in srgb, var(--d1) 30%, transparent); }
+.chip.ai    { background: color-mix(in srgb, var(--ai) 12%, transparent); color: var(--ai); border: 1px solid color-mix(in srgb, var(--ai) 30%, transparent); }
+.chip.both  { background: color-mix(in srgb, var(--d2) 12%, transparent); color: var(--d2); border: 1px solid color-mix(in srgb, var(--d2) 30%, transparent); }
+.chip.crit  { background: color-mix(in srgb, var(--critical) 15%, transparent); color: var(--critical); border: 1px solid color-mix(in srgb, var(--critical) 35%, transparent); }
+.chip.break { background: var(--surface2); color: var(--muted); border: 1px solid var(--border); }
+
+/* DAY VIEW VISIBILITY */
+.day-view { display: none; }
+.day-view.active { display: block; }
+
+/* RESPONSIVE */
+@media (max-width: 800px) {
+  .two-col { grid-template-columns: 1fr; }
+  .step { grid-template-columns: 60px 1fr; }
+  .watch-row { grid-template-columns: 1fr; gap: 4px; }
+  .timeline-bar { grid-template-columns: repeat(24, 1fr); }
+  .day-title { font-size: 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="app-header">
+  <div class="app-header-inner">
+    <div class="brand">
+      <span class="brand-eye">ISHIR · Innovation Accelerator</span>
+      <span class="brand-title">Facilitator Run-of-Show</span>
+    </div>
+    <div class="timer">
+      <span class="timer-display" id="timer">0:00</span>
+      <div class="timer-controls">
+        <button class="timer-btn" id="timer-toggle" title="Start/Pause">▶</button>
+        <button class="timer-btn" id="timer-reset" title="Reset">↺</button>
+      </div>
+    </div>
+    <div class="day-toggle">
+      <button class="day-btn active" data-day="1">Day 1 · Discover</button>
+      <button class="day-btn" data-day="2">Day 2 · Define</button>
+    </div>
+  </div>
+</div>
+
+<main class="main">
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- DAY 1 -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="day-view active" data-day-view="1">
+
+<div class="day-header">
+  <div class="day-eyebrow" style="color: var(--d1)">DAY 1 · DISCOVER</div>
+  <h1 class="day-title">Explore the Problem</h1>
+  <div class="day-meta">4 hours · 4 activities · 5–8 participants · 3 AI agents active</div>
+</div>
+
+<!-- TIMELINE STRIP DAY 1 -->
+<div class="timeline-strip">
+  <div class="timeline-bar" id="timeline-day1"></div>
+  <div class="timeline-labels">
+    <span>0:00</span><span>1:00</span><span>2:00</span><span>3:00</span><span>4:00</span>
+  </div>
+</div>
+
+<!-- WELCOME -->
+<div class="simple-card" style="--c: var(--d1)">
+  <div class="label">WELCOME · 0:00 – 0:05 · 5 min · <span class="chip human">👤 Human</span></div>
+  <h3>Engagement Lead opens the workshop</h3>
+  <p style="font-size: 13px; color: #b0c4de; margin-bottom: 8px;">Brief opening, ground rules, intros, hand off to Design Strategist.</p>
+  <div class="script" style="margin: 12px 0;">
+    <div class="script-label">Opening</div>
+    <div class="script-text">"Welcome to your Innovation Accelerator. Over the next two half-days, we're going to take what's currently a bunch of ideas in different heads and turn it into a build-ready specification. Today is about exploring the problem broadly. Tomorrow is about converging on the solution. By Day 2 close, you'll sign off on what we're building. AI agents work alongside us — they're tools, you make the decisions. Let's go."</div>
+  </div>
+  <ul>
+    <li>Confirm transcription is recording</li>
+    <li>Quick round-the-room introductions: name, role, one thing you hope to leave with</li>
+    <li>Hand off to Design Strategist</li>
+  </ul>
+</div>
+
+<!-- ACTIVITY 1 -->
+<div class="activity" style="--c: var(--d1)" data-act="d1a1">
+  <div class="act-header" onclick="toggle(this)">
+    <div>
+      <span class="act-num">ACTIVITY 1</span>
+      <div class="act-title-row">
+        <span class="act-title">Lightning Talks</span>
+        <span class="act-time">⏱ 0:05 – 0:30  ·  25 min  ·  <span class="chip both">🤝 Human + AI</span></span>
+      </div>
+    </div>
+    <span class="act-toggle">▾</span>
+  </div>
+  <div class="act-body">
+    <div class="goal"><strong>Goal:</strong> Surface the problem from each stakeholder's perspective. Capture tensions and unknowns.</div>
+    <div class="two-col">
+      <div class="col-card"><div class="col-label">📋 Materials</div><ul>
+        <li>Timer (visible to room)</li><li>Notebook for facilitator notes</li><li>Otter.ai recording</li>
+      </ul></div>
+      <div class="col-card agent"><div class="col-label">🤖 AI Agent in Play</div>
+        <div class="agent-name">Agent 03 · Live Transcription & Insight</div>
+        <div class="agent-trigger"><strong>Trigger:</strong> Activates immediately — runs entire Day 1</div>
+      </div>
+    </div>
+    <div class="section-title">Step-by-Step</div>
+    <div class="steps">
+      <div class="step"><div class="step-time">0:05</div><div class="step-text">(2 min) Frame the activity: "Each of you has 3 minutes to tell us about the problem from your angle. No slides. Just talk. Then we have a quick Q&A."</div></div>
+      <div class="step"><div class="step-time">0:07</div><div class="step-text">(15 min) 5 SMEs × 3 min talks. Hold the timer firm. After each, 30 sec of clarifying questions only — not debate.</div></div>
+      <div class="step"><div class="step-time">0:22</div><div class="step-text">(5 min) DS pauses, asks: "What did we just hear that surprised someone? What's the tension between what people just said?"</div></div>
+      <div class="step"><div class="step-time">0:27</div><div class="step-text">(3 min) DS sets up break. Tech Lead pulls the AI Activity Summary on screen for after the break.</div></div>
+    </div>
+    <div class="section-title">Facilitator Script</div>
+    <div class="scripts">
+      <div class="script"><div class="script-label">Opening</div><div class="script-text">"Each of you sees this problem from a different angle. The most important thing we can do right now is hear all of those angles before we try to solve anything. Three minutes each. No slides. After every talk, 30 seconds of clarifying questions only — no debate yet."</div></div>
+      <div class="script"><div class="script-label">If pushback on time limit</div><div class="script-text">"I know three minutes feels short. We're going to come back to all of this throughout the day. Right now I just need to hear the headline from each of you."</div></div>
+    </div>
+    <div class="section-title" style="color: var(--warn)">Watch For · Recovery Moves</div>
+    <div class="watch-fors">
+      <div class="watch-row"><div class="watch-signal">Someone tries to dominate</div><div class="watch-response">Hand on shoulder, "Let's pause there — we'll come back after everyone's spoken."</div></div>
+      <div class="watch-row"><div class="watch-signal">Someone barely speaks</div><div class="watch-response">Note their name. During Q&A: "Sarah, you nodded a lot during Mark's talk — what's your read?"</div></div>
+      <div class="watch-row"><div class="watch-signal">Heavy disagreement breaks out</div><div class="watch-response">"There's real tension here — perfect. Let's capture it and come back in HMW."</div></div>
+      <div class="watch-row"><div class="watch-signal">Someone asks for slides</div><div class="watch-response">"Trust me — we'll cover structure later. Right now I want raw."</div></div>
+    </div>
+    <div class="output"><strong>📦 Output:</strong> Lightning Talk Insight Log (auto-generated by Agent 03 within 3 min of activity end). Conflict flags surfaced for facilitator.</div>
+  </div>
+</div>
+
+<!-- BREAK -->
+<div class="simple-card" style="--c: #475569; padding: 14px 24px;">
+  <div class="label" style="color: var(--muted); margin-bottom: 0;">☕ STAND-UP BREAK · 0:30 – 0:35 · 5 min</div>
+</div>
+
+<!-- ACTIVITY 2 -->
+<div class="activity" style="--c: var(--d1)" data-act="d1a2">
+  <div class="act-header" onclick="toggle(this)">
+    <div>
+      <span class="act-num">ACTIVITY 2</span>
+      <div class="act-title-row">
+        <span class="act-title">Product Vision Workshop</span>
+        <span class="act-time">⏱ 0:35 – 1:25  ·  50 min  ·  <span class="chip both">🤝 Human + AI</span></span>
+      </div>
+    </div>
+    <span class="act-toggle">▾</span>
+  </div>
+  <div class="act-body">
+    <div class="goal"><strong>Goal:</strong> Build a shared product vision using 7 structured prompts. Surface what's in scope and what's explicitly out.</div>
+    <div class="two-col">
+      <div class="col-card"><div class="col-label">📋 Materials</div><ul>
+        <li>Sticky notes (3 colors)</li><li>Sharpies</li><li>Wall space for the 7 prompts</li><li>Camera for capturing board</li>
+      </ul></div>
+      <div class="col-card agent"><div class="col-label">🤖 AI Agent in Play</div>
+        <div class="agent-name">Agent 04 · Vision Clustering</div>
+        <div class="agent-trigger"><strong>Trigger:</strong> When stickies are captured (10 min before activity ends)</div>
+      </div>
+    </div>
+    <div class="section-title">Step-by-Step</div>
+    <div class="steps">
+      <div class="step"><div class="step-time">0:35</div><div class="step-text">(3 min) DS introduces 7 prompts: FOR · WHAT · IS A TOOL FOR · SO THAT · UNLIKE · OUR PRODUCT WILL · BUT IT DOESN'T</div></div>
+      <div class="step"><div class="step-time">0:38</div><div class="step-text">(12 min) Silent sticky generation. 1–3 stickies per prompt per person. Stickies up on board as they go.</div></div>
+      <div class="step"><div class="step-time">0:50</div><div class="step-text">(15 min) Walk-through — DS reads stickies cluster by cluster, asking "any reactions?" after each.</div></div>
+      <div class="step"><div class="step-time">1:05</div><div class="step-text">(5 min) Tech Lead displays Agent 04 output: 3 candidate vision statements + heat map.</div></div>
+      <div class="step"><div class="step-time">1:10</div><div class="step-text">(10 min) Group selects, edits, confirms ONE vision statement. DS reads back. Group nods or pushes back.</div></div>
+      <div class="step"><div class="step-time">1:20</div><div class="step-text">(5 min) DS captures all "BUT IT DOESN'T" stickies as Won't Have seed list for Day 2.</div></div>
+    </div>
+    <div class="section-title">Facilitator Script</div>
+    <div class="scripts">
+      <div class="script"><div class="script-label">Opening</div><div class="script-text">"There's a structure called Geoffrey Moore's product vision template — we're using it to give us a shared mental model. Seven prompts on the board. You write 1–3 stickies per prompt, in silence, no second-guessing. We're looking for raw material, not polished thoughts."</div></div>
+      <div class="script"><div class="script-label">During silent generation</div><div class="script-text">(Walk the room. Stay quiet. If someone is staring at a blank prompt, just say: "What would your boss say?" — don't answer for them.)</div></div>
+      <div class="script"><div class="script-label">When AI shows 3 vision drafts</div><div class="script-text">"The AI took everything you wrote and produced three candidate vision statements. None of these are right. They're a starting point for us to react to. Let's read each one and tell me what you'd change."</div></div>
+    </div>
+    <div class="section-title" style="color: var(--warn)">Watch For · Recovery Moves</div>
+    <div class="watch-fors">
+      <div class="watch-row"><div class="watch-signal">"BUT IT DOESN'T" prompt has &lt; 3 stickies</div><div class="watch-response">"Out-of-scope is critical. Each of you, name one thing this is NOT."</div></div>
+      <div class="watch-row"><div class="watch-signal">Vision statements feel too vague</div><div class="watch-response">Pick the most specific draft. "This one feels closest. What words are wrong?"</div></div>
+      <div class="watch-row"><div class="watch-signal">Disagreement between two vision drafts</div><div class="watch-response">"Let's try a hybrid. What if we said [combine A's subject + B's differentiator]?"</div></div>
+      <div class="watch-row"><div class="watch-signal">Someone wants to argue scope</div><div class="watch-response">Capture as Won't Have. "We're not deciding scope yet — we're cataloging."</div></div>
+    </div>
+    <div class="output"><strong>📦 Output:</strong> Validated Product Vision Statement. Won't Have seed list. Consensus heat map for Day 2.</div>
+  </div>
+</div>
+
+<!-- BREAK -->
+<div class="simple-card" style="--c: #475569; padding: 14px 24px;">
+  <div class="label" style="color: var(--muted); margin-bottom: 0;">☕ COFFEE BREAK · 1:25 – 1:35 · 10 min</div>
+</div>
+
+<!-- ACTIVITY 3 -->
+<div class="activity" style="--c: var(--d1)" data-act="d1a3">
+  <div class="act-header" onclick="toggle(this)">
+    <div>
+      <span class="act-num">ACTIVITY 3</span>
+      <div class="act-title-row">
+        <span class="act-title">Persona Co-Creation</span>
+        <span class="act-time">⏱ 1:35 – 2:35  ·  60 min  ·  <span class="chip both">🤝 Human + AI</span></span>
+      </div>
+    </div>
+    <span class="act-toggle">▾</span>
+  </div>
+  <div class="act-body">
+    <div class="goal"><strong>Goal:</strong> Validate and enrich AI-generated draft personas. Land 2–3 personas the group commits to designing for.</div>
+    <div class="two-col">
+      <div class="col-card"><div class="col-label">📋 Materials</div><ul>
+        <li>Printed AI draft personas (one per participant)</li><li>Persona template handouts</li><li>Sticky notes for additions</li>
+      </ul></div>
+      <div class="col-card agent"><div class="col-label">🤖 AI Agent in Play</div>
+        <div class="agent-name">Agent 05 · Persona Generation</div>
+        <div class="agent-trigger"><strong>Trigger:</strong> Already produced drafts pre-workshop; updates live</div>
+      </div>
+    </div>
+    <div class="section-title">Step-by-Step</div>
+    <div class="steps">
+      <div class="step"><div class="step-time">1:35</div><div class="step-text">(5 min) DS displays 2–3 AI draft personas on screen. These are starting points based on pre-work, NOT the answer.</div></div>
+      <div class="step"><div class="step-time">1:40</div><div class="step-text">(15 min) Walk through Persona 1: read goals, frustrations, context. Group corrects, challenges, enriches. DS captures live.</div></div>
+      <div class="step"><div class="step-time">1:55</div><div class="step-text">(15 min) Same for Persona 2. Faster — group has the rhythm now.</div></div>
+      <div class="step"><div class="step-time">2:10</div><div class="step-text">(15 min) Same for Persona 3 (or skip if 2 only). End: "Did we miss anyone? Is there a user type that nobody represents?"</div></div>
+      <div class="step"><div class="step-time">2:25</div><div class="step-text">(5 min) Anti-Persona: "Who is NOT our user? Anyone we should explicitly NOT design for?"</div></div>
+      <div class="step"><div class="step-time">2:30</div><div class="step-text">(5 min) DS reads back final persona names + 1-line summary. Group confirms.</div></div>
+    </div>
+    <div class="section-title">Facilitator Script</div>
+    <div class="scripts">
+      <div class="script"><div class="script-label">Opening</div><div class="script-text">"AI took your pre-work surveys and generated draft personas. They're probably about 60% right and 40% wrong. Your job in the next hour is to fix them — challenge anything that doesn't match your lived experience."</div></div>
+      <div class="script"><div class="script-label">When group resists AI draft</div><div class="script-text">"Good — that's exactly why we generated drafts. It's easier to react than to start from blank. What's the AI got wrong?"</div></div>
+      <div class="script"><div class="script-label">Asking about Anti-Persona</div><div class="script-text">"Sometimes the most important question isn't 'who is our user' — it's 'who is NOT.' If we got this product into the wrong hands, who would that be? Naming the anti-persona prevents scope creep later."</div></div>
+    </div>
+    <div class="section-title" style="color: var(--warn)">Watch For · Recovery Moves</div>
+    <div class="watch-fors">
+      <div class="watch-row"><div class="watch-signal">Persona feels generic</div><div class="watch-response">Push for specificity: "Give me one detail about a real person who fits this persona."</div></div>
+      <div class="watch-row"><div class="watch-signal">Group accepts AI draft too quickly</div><div class="watch-response">"Wait — too easy. Each of you, give me ONE thing the AI got wrong."</div></div>
+      <div class="watch-row"><div class="watch-signal">Two personas overlap heavily</div><div class="watch-response">"Should these be one persona, or are the differences worth keeping? Vote."</div></div>
+      <div class="watch-row"><div class="watch-signal">Group can't agree on persona's goal</div><div class="watch-response">Capture both as alternative goals. "We'll resolve in MoSCoW tomorrow."</div></div>
+    </div>
+    <div class="output"><strong>📦 Output:</strong> 2–3 validated personas with goals, frustrations, context. Anti-persona named. Structured JSON for downstream.</div>
+  </div>
+</div>
+
+<!-- BREAK -->
+<div class="simple-card" style="--c: #475569; padding: 14px 24px;">
+  <div class="label" style="color: var(--muted); margin-bottom: 0;">☕ STRETCH BREAK · 2:35 – 2:40 · 5 min</div>
+</div>
+
+<!-- ACTIVITY 4 -->
+<div class="activity" style="--c: var(--d1)" data-act="d1a4">
+  <div class="act-header" onclick="toggle(this)">
+    <div>
+      <span class="act-num">ACTIVITY 4</span>
+      <div class="act-title-row">
+        <span class="act-title">How Might We + Voting</span>
+        <span class="act-time">⏱ 2:40 – 3:40  ·  60 min  ·  <span class="chip both">🤝 Human + AI</span></span>
+      </div>
+    </div>
+    <span class="act-toggle">▾</span>
+  </div>
+  <div class="act-body">
+    <div class="goal"><strong>Goal:</strong> Generate HMW questions, cluster with AI, vote on priorities. End Day 1 with the top problems to solve.</div>
+    <div class="two-col">
+      <div class="col-card"><div class="col-label">📋 Materials</div><ul>
+        <li>Sticky notes (different color from Vision)</li><li>Sharpies</li><li>5 dot stickers per person</li><li>Whiteboard for affinity map</li>
+      </ul></div>
+      <div class="col-card agent"><div class="col-label">🤖 AI Agents in Play</div>
+        <div class="agent-name">Agents 06 + 07 · HMW Affinity + Voting</div>
+        <div class="agent-trigger"><strong>Trigger:</strong> Agent 06 when HMWs are written. Agent 07 after voting.</div>
+      </div>
+    </div>
+    <div class="section-title">Step-by-Step</div>
+    <div class="steps">
+      <div class="step"><div class="step-time">2:40</div><div class="step-text">(3 min) DS introduces HMW format: "How might we [verb] [for whom] [outcome]?" — one example on the board.</div></div>
+      <div class="step"><div class="step-time">2:43</div><div class="step-text">(12 min) Silent HMW generation. Each person writes 3–5 HMWs, focused on validated personas' frustrations.</div></div>
+      <div class="step"><div class="step-time">2:55</div><div class="step-text">(5 min) Stickies up on the wall. Tech Lead photographs board, feeds to Agent 06.</div></div>
+      <div class="step"><div class="step-time">3:00</div><div class="step-text">(8 min) Agent 06 produces 4–6 themed clusters in ~3 min. DS reads cluster names aloud, group validates.</div></div>
+      <div class="step"><div class="step-time">3:08</div><div class="step-text">(5 min) Outliers: "These don't fit any cluster. Standalone or trash?"</div></div>
+      <div class="step"><div class="step-time">3:13</div><div class="step-text">(7 min) Voting: 5 dot stickers each. Vote on clusters that matter most. "Vote with your priorities, not for what you think we should build."</div></div>
+      <div class="step"><div class="step-time">3:20</div><div class="step-text">(5 min) Agent 07 tallies votes. DS reads top 3 cluster results aloud.</div></div>
+      <div class="step"><div class="step-time">3:25</div><div class="step-text">(10 min) Co-author Problem Statement: "[Persona] needs [need] because [insight], but currently [obstacle]." DS writes live.</div></div>
+      <div class="step"><div class="step-time">3:35</div><div class="step-text">(5 min) Read final Problem Statement aloud. Confirm verbal agreement from each participant.</div></div>
+    </div>
+    <div class="section-title">Facilitator Script</div>
+    <div class="scripts">
+      <div class="script"><div class="script-label">Opening</div><div class="script-text">"How Might We questions are the bridge from problem to solution. Each one starts with 'How might we...' — open enough to invite ideas, anchored in your personas' real frustrations. We're not solving yet. We're framing the problems we want to solve."</div></div>
+      <div class="script"><div class="script-label">Before voting</div><div class="script-text">"This vote is about priority, not solution. You're not voting for what we should build. You're voting for what matters most to solve. Five dots each. Spread them or stack them — your call."</div></div>
+      <div class="script"><div class="script-label">Closing Problem Statement</div><div class="script-text">"Read it back to me. Does this capture what we're here to solve? If anyone has even a 5% disagreement, say it now — tomorrow we build a spec from this."</div></div>
+    </div>
+    <div class="section-title" style="color: var(--warn)">Watch For · Recovery Moves</div>
+    <div class="watch-fors">
+      <div class="watch-row"><div class="watch-signal">HMWs are too solution-y</div><div class="watch-response">"Strip out the solution. 'How might we add chat' becomes 'How might we help users get answers faster.'"</div></div>
+      <div class="watch-row"><div class="watch-signal">Cluster labels are wrong</div><div class="watch-response">Take 30 sec — relabel with the group: "What unifies these? What's the root question?"</div></div>
+      <div class="watch-row"><div class="watch-signal">Voting concentrates on one person's passion</div><div class="watch-response">Note privately. In Day 2: "Was that genuine consensus or [name]'s strong feelings?"</div></div>
+      <div class="watch-row"><div class="watch-signal">Problem Statement is generic</div><div class="watch-response">"Add who. Add why. Specifics anchor the spec tomorrow."</div></div>
+    </div>
+    <div class="output"><strong>📦 Output:</strong> Top 3 priority clusters. Agreed Problem Statement. Persona-to-priority mapping. Day 2 prep package.</div>
+  </div>
+</div>
+
+<!-- WRAP-UP DAY 1 -->
+<div class="simple-card" style="--c: var(--d1)">
+  <div class="label">WRAP-UP & DAY 2 PREVIEW · 3:40 – 4:00 · 20 min · <span class="chip human">👤 Human</span></div>
+  <h3>Design Strategist closes Day 1</h3>
+  <ul style="margin-top: 12px; margin-bottom: 12px;">
+    <li>(5 min) Read back Day 1 outputs: vision, personas, top 3 clusters, problem statement. Group confirms.</li>
+    <li>(5 min) Preview Day 2 agenda: MoSCoW, Journey, Tech, Sign-Off.</li>
+    <li>(5 min) Open Q&A — what's on people's minds going into Day 2?</li>
+    <li>(5 min) DS thanks group. AI Agent 08 (End-of-Day Synthesis) auto-runs.</li>
+  </ul>
+  <div class="script">
+    <div class="script-label">Closing Script</div>
+    <div class="script-text">"Today you went from a fuzzy problem to a sharp problem statement. That's harder than it sounds. Tomorrow we'll turn this into a spec your team can build from. AI is going to keep working overnight — you'll get a Day 1 synthesis report tonight. Read it. Push back if anything's wrong. We start tomorrow at [time]. Thanks for the energy."</div>
+  </div>
+</div>
+
+</div><!-- end Day 1 -->
+
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- DAY 2 -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="day-view" data-day-view="2">
+
+<div class="day-header">
+  <div class="day-eyebrow" style="color: var(--d2)">DAY 2 · DEFINE</div>
+  <h1 class="day-title">Converge on the Solution</h1>
+  <div class="day-meta">4 hours · 4 activities · Sign-off gate · 4 AI agents active</div>
+</div>
+
+<div class="timeline-strip">
+  <div class="timeline-bar" id="timeline-day2"></div>
+  <div class="timeline-labels">
+    <span>0:00</span><span>1:00</span><span>2:00</span><span>3:00</span><span>4:00</span>
+  </div>
+</div>
+
+<!-- WELCOME -->
+<div class="simple-card" style="--c: var(--d2)">
+  <div class="label">WELCOME BACK & RECAP · 0:00 – 0:05 · 5 min · <span class="chip human">👤 Human</span></div>
+  <h3>Engagement Lead opens, Design Strategist recaps</h3>
+  <div class="script" style="margin-top: 10px;">
+    <div class="script-label">Opening Script</div>
+    <div class="script-text">"Welcome back. Yesterday we went from a fuzzy problem to a sharp problem statement. You should have received the Day 1 synthesis last night — anyone hit anything that needs adjustment? [Pause for responses.] Today is decision day. By close, you'll sign off on what we're building. We've got four activities, and they get progressively more concrete. Let's go."</div>
+  </div>
+  <ul>
+    <li>Display Day 1 outputs on screen: vision, personas, problem statement, top 3 priorities</li>
+    <li>Tech Lead loads MoSCoW Spec Matrix template on second screen</li>
+    <li>Call out any overnight changes from EL review of synthesis report</li>
+  </ul>
+</div>
+
+<!-- ACTIVITY 5: MoSCoW + Spec Matrix -->
+<div class="activity" style="--c: var(--d2)" data-act="d2a5">
+  <div class="act-header" onclick="toggle(this)">
+    <div>
+      <span class="act-num">ACTIVITY 5 ⭐</span>
+      <div class="act-title-row">
+        <span class="act-title">MoSCoW + Live Spec Matrix</span>
+        <span class="act-time">⏱ 0:05 – 1:20  ·  75 min  ·  <span class="chip both">🤝 Human + AI</span></span>
+      </div>
+    </div>
+    <span class="act-toggle">▾</span>
+  </div>
+  <div class="act-body">
+    <div class="goal"><strong>Goal:</strong> Take feature hypotheses from Day 1 and convert them into a prioritized, sized, dependency-mapped Spec Matrix the dev team can build from.</div>
+    <div class="two-col">
+      <div class="col-card"><div class="col-label">📋 Materials</div><ul>
+        <li>Two screens: Spec Matrix on main, facilitator slides on second</li><li>Printed feature hypothesis list from Day 1 synthesis</li><li>Sticky notes for new ideas</li>
+      </ul></div>
+      <div class="col-card agent"><div class="col-label">🤖 AI Agent in Play</div>
+        <div class="agent-name">Agent 09 ⭐ · MoSCoW Spec Matrix (most critical)</div>
+        <div class="agent-trigger"><strong>Trigger:</strong> Active throughout — updates Spec Matrix live as group decides</div>
+      </div>
+    </div>
+    <div class="section-title">Step-by-Step</div>
+    <div class="steps">
+      <div class="step"><div class="step-time">0:05</div><div class="step-text">(5 min) DS introduces MoSCoW: Must / Should / Could / Won't. "Must = product fails without it. Should = important but not critical. Could = nice-to-have. Won't = explicitly out of scope."</div></div>
+      <div class="step"><div class="step-time">0:10</div><div class="step-text">(5 min) Tech Lead displays Agent 09 pre-populated Spec Matrix on screen — features from Day 1 with AI-suggested MoSCoW tiers and reasoning.</div></div>
+      <div class="step"><div class="step-time">0:15</div><div class="step-text">(45 min) Walk through every feature row by row. SA gives feasibility, group decides M/S/C/W, AI updates live. Watch dependency conflicts. Hold ~1.5 min/feature average.</div></div>
+      <div class="step"><div class="step-time">1:00</div><div class="step-text">(10 min) Capacity check: total Must Have story points vs. sprint capacity. If over, group descopes. AI flags candidates.</div></div>
+      <div class="step"><div class="step-time">1:10</div><div class="step-text">(10 min) DS reads final Must Haves aloud. Group confirms. Reads Won't Haves aloud — "explicit out-of-scope. Anyone want to challenge?"</div></div>
+    </div>
+    <div class="section-title">Facilitator Script</div>
+    <div class="scripts">
+      <div class="script"><div class="script-label">Opening</div><div class="script-text">"Now we're prioritizing. MoSCoW is simple: Must Have means the product literally does not work without this. Should is important but not critical. Could is nice. Won't means we're explicitly NOT building it now — but we're writing it down so it doesn't come back as scope creep. The AI on screen has pre-suggested tiers based on what you said yesterday. We're going to walk through each feature and you'll override the AI wherever you disagree."</div></div>
+      <div class="script"><div class="script-label">When debating tier</div><div class="script-text">"Three things to consider: Does the product fail without this? Does it serve a Must persona? Are we sure we can ship without it? If two yeses, it's a Must."</div></div>
+      <div class="script"><div class="script-label">When over capacity</div><div class="script-text">"We have more Musts than fit in the sprint. Two options: descope a Must to Should, or extend timeline. Which?"</div></div>
+      <div class="script"><div class="script-label">Closing</div><div class="script-text">"Read it back. [Reads Must Haves and Won't Haves.] This is what we're building. This is what we're not. Last call to challenge — speak now."</div></div>
+    </div>
+    <div class="section-title" style="color: var(--warn)">Watch For · Recovery Moves</div>
+    <div class="watch-fors">
+      <div class="watch-row"><div class="watch-signal">Everything is becoming a Must</div><div class="watch-response">"If everything is critical, nothing is. Pick the top 5. Justify each."</div></div>
+      <div class="watch-row"><div class="watch-signal">SA blocks a Must on feasibility</div><div class="watch-response">"What's the technical concern? Can we descope to make it feasible, or do we need a different approach?"</div></div>
+      <div class="watch-row"><div class="watch-signal">AI suggestion is rejected</div><div class="watch-response">"Good — humans decide. Tech Lead, capture the override reason. AI updates."</div></div>
+      <div class="watch-row"><div class="watch-signal">Dependency conflict</div><div class="watch-response">"Feature B requires Feature A. A is currently Could. Either A becomes Must, or B descopes. Which?"</div></div>
+      <div class="watch-row"><div class="watch-signal">Stakeholder pushes pet feature</div><div class="watch-response">Validate respectfully. "Walk me through who this serves and what breaks without it."</div></div>
+    </div>
+    <div class="output"><strong>📦 Output:</strong> Complete MoSCoW Spec Matrix with story points, ACs for Must Haves, dependency map. Machine-readable JSON.</div>
+  </div>
+</div>
+
+<!-- BREAK -->
+<div class="simple-card" style="--c: #475569; padding: 14px 24px;">
+  <div class="label" style="color: var(--muted); margin-bottom: 0;">☕ COFFEE BREAK · 1:20 – 1:30 · 10 min</div>
+</div>
+
+<!-- ACTIVITY 6: User Journey -->
+<div class="activity" style="--c: var(--d2)" data-act="d2a6">
+  <div class="act-header" onclick="toggle(this)">
+    <div>
+      <span class="act-num">ACTIVITY 6</span>
+      <div class="act-title-row">
+        <span class="act-title">User Journey + Gap Analysis</span>
+        <span class="act-time">⏱ 1:30 – 2:20  ·  50 min  ·  <span class="chip both">🤝 Human + AI</span></span>
+      </div>
+    </div>
+    <span class="act-toggle">▾</span>
+  </div>
+  <div class="act-body">
+    <div class="goal"><strong>Goal:</strong> Map the primary persona's end-to-end journey. Identify gaps where Must Have features don't cover key steps.</div>
+    <div class="two-col">
+      <div class="col-card"><div class="col-label">📋 Materials</div><ul>
+        <li>Large whiteboard or 6-foot paper roll</li><li>Sticky notes (3 colors: action, emotion, pain)</li><li>Sharpies</li>
+      </ul></div>
+      <div class="col-card agent"><div class="col-label">🤖 AI Agent in Play</div>
+        <div class="agent-name">Agent 10 · Journey & Gap Analysis</div>
+        <div class="agent-trigger"><strong>Trigger:</strong> Drafts journey scaffold pre-activity; gap analysis runs after group fills in</div>
+      </div>
+    </div>
+    <div class="section-title">Step-by-Step</div>
+    <div class="steps">
+      <div class="step"><div class="step-time">1:30</div><div class="step-text">(3 min) DS picks primary persona (highest-priority from Day 1). "We're mapping their journey end-to-end — from 'I have a need' to 'I'm done.'"</div></div>
+      <div class="step"><div class="step-time">1:33</div><div class="step-text">(5 min) Tech Lead displays Agent 10 draft journey scaffold (6–8 steps) — group reacts.</div></div>
+      <div class="step"><div class="step-time">1:38</div><div class="step-text">(15 min) Walk through each step. Group adds emotional context (frustrated/hopeful/confused) and pain points. Tech Lead photographs board.</div></div>
+      <div class="step"><div class="step-time">1:53</div><div class="step-text">(10 min) Identify the Golden Path — 3–5 steps representing core value. These MUST be supported by Must Have features.</div></div>
+      <div class="step"><div class="step-time">2:03</div><div class="step-text">(10 min) Agent 10 runs gap analysis: which journey steps have no Must Have feature? Group decides: add a feature, or accept the gap.</div></div>
+      <div class="step"><div class="step-time">2:13</div><div class="step-text">(7 min) DS confirms journey + gap resolutions. Updates Spec Matrix if gap fills became new Must Haves.</div></div>
+    </div>
+    <div class="section-title">Facilitator Script</div>
+    <div class="scripts">
+      <div class="script"><div class="script-label">Opening</div><div class="script-text">"Up to now we've been talking about features. Now let's talk about flow. We're going to map [Persona]'s actual journey — from the moment they have a need to the moment they're successful. Then we'll check: do our Must Haves cover this whole journey, or are there gaps?"</div></div>
+      <div class="script"><div class="script-label">On Golden Path</div><div class="script-text">"The Golden Path is the sequence of steps a user MUST be able to complete for this product to be considered successful. Every Golden Path step needs a Must Have feature behind it."</div></div>
+      <div class="script"><div class="script-label">When gap surfaces</div><div class="script-text">"Step [X] has no Must Have feature behind it. Two choices: add a Must, or accept that [step] won't work in v1. Which?"</div></div>
+    </div>
+    <div class="section-title" style="color: var(--warn)">Watch For · Recovery Moves</div>
+    <div class="watch-fors">
+      <div class="watch-row"><div class="watch-signal">Journey is too generic</div><div class="watch-response">"Use specifics. What's the actual screen they see? What time of day? Who else is around?"</div></div>
+      <div class="watch-row"><div class="watch-signal">Group skips emotional context</div><div class="watch-response">"What does [persona] feel here? Naming the emotion is what design is for."</div></div>
+      <div class="watch-row"><div class="watch-signal">Golden Path is too long</div><div class="watch-response">"Five steps max. What's the absolute core?"</div></div>
+      <div class="watch-row"><div class="watch-signal">Gap analysis surfaces a big hole</div><div class="watch-response">"This is exactly why we mapped the journey. Better to find this now than in QA."</div></div>
+    </div>
+    <div class="output"><strong>📦 Output:</strong> Validated journey map with Golden Path. Gap analysis report. Updated Spec Matrix if needed.</div>
+  </div>
+</div>
+
+<!-- BREAK -->
+<div class="simple-card" style="--c: #475569; padding: 14px 24px;">
+  <div class="label" style="color: var(--muted); margin-bottom: 0;">☕ STAND-UP BREAK · 2:20 – 2:25 · 5 min</div>
+</div>
+
+<!-- ACTIVITY 7: Tech Solutioning -->
+<div class="activity" style="--c: var(--d2)" data-act="d2a7">
+  <div class="act-header" onclick="toggle(this)">
+    <div>
+      <span class="act-num">ACTIVITY 7</span>
+      <div class="act-title-row">
+        <span class="act-title">Tech Solutioning + Architecture Brief</span>
+        <span class="act-time">⏱ 2:25 – 3:15  ·  50 min  ·  <span class="chip both">🤝 Human + AI</span></span>
+      </div>
+    </div>
+    <span class="act-toggle">▾</span>
+  </div>
+  <div class="act-body">
+    <div class="goal"><strong>Goal:</strong> Solutions Architect leads tech stack and build-vs-buy decisions. AI drafts Architecture Brief in real-time.</div>
+    <div class="two-col">
+      <div class="col-card"><div class="col-label">📋 Materials</div><ul>
+        <li>Architecture template on second screen (auto-populating)</li><li>Whiteboard for system diagrams</li>
+      </ul></div>
+      <div class="col-card agent"><div class="col-label">🤖 AI Agent in Play</div>
+        <div class="agent-name">Agent 11 · Architecture Brief</div>
+        <div class="agent-trigger"><strong>Trigger:</strong> Drafts brief live as SA decides; uses web search for vendor recommendations</div>
+      </div>
+    </div>
+    <div class="section-title">Step-by-Step</div>
+    <div class="steps">
+      <div class="step"><div class="step-time">2:25</div><div class="step-text">(3 min) SA takes the floor. DS hands off facilitation. SA: "Now we look at how we'd actually build this."</div></div>
+      <div class="step"><div class="step-time">2:28</div><div class="step-text">(7 min) SA reviews top constraints from client: existing systems, compliance needs, budget signals, timeline.</div></div>
+      <div class="step"><div class="step-time">2:35</div><div class="step-text">(15 min) SA walks tech stack options — Frontend, Backend, DB, Auth, Hosting. For each: 2 options + recommendation. AI fills brief live.</div></div>
+      <div class="step"><div class="step-time">2:50</div><div class="step-text">(15 min) Build vs. Buy: for each Must Have feature area, decide BUILD / BUY / INTEGRATE. AI suggests vendors via web search.</div></div>
+      <div class="step"><div class="step-time">3:05</div><div class="step-text">(7 min) SA names top 3 technical risks. Group acknowledges. AI captures.</div></div>
+      <div class="step"><div class="step-time">3:12</div><div class="step-text">(3 min) SA hands back to DS for sign-off prep.</div></div>
+    </div>
+    <div class="section-title">Facilitator Script</div>
+    <div class="scripts">
+      <div class="script"><div class="script-label">SA Opening</div><div class="script-text">"My job in the next 50 minutes is to make sure what we've agreed to in MoSCoW is actually buildable in your timeline and budget. I'll lay out a recommended stack, walk through where we'd build vs. buy, and call out the technical risks I see. AI is drafting the Architecture Brief on the screen — feel free to interrupt anytime."</div></div>
+      <div class="script"><div class="script-label">On build vs. buy</div><div class="script-text">"Where it makes sense to use a third-party service — auth, payments, search — we should. It's cheaper, faster, and more reliable than building from scratch. Where the feature IS the differentiation, we build."</div></div>
+      <div class="script"><div class="script-label">On risks</div><div class="script-text">"Three risks I'm flagging: [list]. None of these are blockers. They're things we'll need to mitigate during the build."</div></div>
+    </div>
+    <div class="section-title" style="color: var(--warn)">Watch For · Recovery Moves</div>
+    <div class="watch-fors">
+      <div class="watch-row"><div class="watch-signal">Stakeholder pushes back on tech choice</div><div class="watch-response">"Help me understand the concern — is it cost, lock-in, or familiarity? We can address each."</div></div>
+      <div class="watch-row"><div class="watch-signal">Group wants too much custom build</div><div class="watch-response">"Anything we build, we own forever. Buy where you can. Build where you must."</div></div>
+      <div class="watch-row"><div class="watch-signal">Compliance flag missed</div><div class="watch-response">SA: "Wait — if you're handling [data type], that triggers [HIPAA/PCI/GDPR]. That changes our database choice."</div></div>
+      <div class="watch-row"><div class="watch-signal">AI vendor suggestion is wrong</div><div class="watch-response">"AI flagged [vendor]. SA, your call — does this fit?" SA overrides as needed.</div></div>
+    </div>
+    <div class="output"><strong>📦 Output:</strong> Draft Architecture Brief: tech stack, build vs. buy, NFR list, top 3 risks. SA reviews and approves same-day.</div>
+  </div>
+</div>
+
+<!-- BREAK -->
+<div class="simple-card" style="--c: #475569; padding: 14px 24px;">
+  <div class="label" style="color: var(--muted); margin-bottom: 0;">☕ STRETCH BREAK · 3:15 – 3:20 · 5 min</div>
+</div>
+
+<!-- ACTIVITY 8: Sign-Off -->
+<div class="activity" style="--c: var(--critical); border-color: color-mix(in srgb, var(--critical) 30%, var(--border))" data-act="d2a8">
+  <div class="act-header" onclick="toggle(this)">
+    <div>
+      <span class="act-num" style="color: var(--critical)">ACTIVITY 8 ⭐ CRITICAL</span>
+      <div class="act-title-row">
+        <span class="act-title">Stakeholder Alignment & Sign-Off</span>
+        <span class="act-time">⏱ 3:20 – 3:55  ·  35 min  ·  <span class="chip crit">✅ Sign-Off Gate</span></span>
+      </div>
+    </div>
+    <span class="act-toggle">▾</span>
+  </div>
+  <div class="act-body">
+    <div class="goal"><strong>Goal:</strong> Get explicit, recorded stakeholder approval on Spec Matrix, journey, and architecture. Trigger the post-workshop pipeline.</div>
+    <div class="two-col">
+      <div class="col-card"><div class="col-label">📋 Materials</div><ul>
+        <li>Final Spec Matrix on main screen</li><li>Sign-off form (digital or printed)</li><li>Audit trail tracker</li>
+      </ul></div>
+      <div class="col-card agent"><div class="col-label">🤖 AI Agent in Play</div>
+        <div class="agent-name">Agent 12 · Sign-Off & Amendment</div>
+        <div class="agent-trigger"><strong>Trigger:</strong> Tracks amendments live; produces formal sign-off record on confirmation</div>
+      </div>
+    </div>
+    <div class="section-title">Step-by-Step</div>
+    <div class="steps">
+      <div class="step"><div class="step-time">3:20</div><div class="step-text">(2 min) Engagement Lead takes the floor. "This is the most important moment of the workshop. We're asking you to approve what we build."</div></div>
+      <div class="step"><div class="step-time">3:22</div><div class="step-text">(8 min) EL displays final Spec Matrix on screen, reads each Must Have feature aloud. Pauses after each. "Any concerns?"</div></div>
+      <div class="step"><div class="step-time">3:30</div><div class="step-text">(5 min) Reviews persona set + Golden Path journey. "Are these still right?"</div></div>
+      <div class="step"><div class="step-time">3:35</div><div class="step-text">(5 min) Reviews Architecture Brief at high level. "Tech stack approved? Build vs. buy decisions OK?"</div></div>
+      <div class="step"><div class="step-time">3:40</div><div class="step-text">(8 min) Capture amendments. AI tracks each: who requested, what changed, who approved. EL confirms aloud.</div></div>
+      <div class="step"><div class="step-time">3:48</div><div class="step-text">(5 min) Final sign-off go-around: each stakeholder explicitly confirms verbally. EL captures: "[Name], you approve this scope?" Each says yes.</div></div>
+      <div class="step"><div class="step-time">3:53</div><div class="step-text">(2 min) EL announces: "Sign-off captured. Post-workshop pipeline triggered. Deliverables within 48 hours."</div></div>
+    </div>
+    <div class="section-title">Facilitator Script</div>
+    <div class="scripts">
+      <div class="script"><div class="script-label">EL Opening</div><div class="script-text">"This is the most important moment of these two days. Everything we've built — the personas, the priorities, the architecture — comes down to whether you, as stakeholders, are willing to commit. I'm going to walk through each piece. Listen carefully. If anything is wrong, now is the time."</div></div>
+      <div class="script"><div class="script-label">Amendment capture</div><div class="script-text">"You said [requested change]. Let me read it back: [paraphrase]. Anyone disagree with this amendment? [Pause.] OK, captured."</div></div>
+      <div class="script"><div class="script-label">Final go-around</div><div class="script-text">"Each of you, by name, I need a verbal yes. [Name], do you approve the scope, priorities, and architecture as displayed? [Wait for yes.] Thank you. [Next name.]"</div></div>
+      <div class="script"><div class="script-label">Closing</div><div class="script-text">"Sign-off captured. The pipeline triggers now — within 48 hours you'll have a Spec Matrix PDF, a Linear board with every ticket, and a draft Architecture Brief. Day 3 is when development can start."</div></div>
+    </div>
+    <div class="section-title" style="color: var(--warn)">Watch For · Recovery Moves</div>
+    <div class="watch-fors">
+      <div class="watch-row"><div class="watch-signal">Stakeholder hedges on yes</div><div class="watch-response">"That sounds like a no. Tell me what needs to change for it to be a yes."</div></div>
+      <div class="watch-row"><div class="watch-signal">Last-minute scope add</div><div class="watch-response">"That's a Should Have, not a Must. We can add it for sprint 2. Agreed?"</div></div>
+      <div class="watch-row"><div class="watch-signal">Silence from a stakeholder</div><div class="watch-response">"[Name] — I want to make sure you have a real chance to push back. Does this work?"</div></div>
+      <div class="watch-row"><div class="watch-signal">Key stakeholder absent</div><div class="watch-response">"[Name] is absent. Their approval is assumed unless they raise an objection within 3 business days." Capture in record.</div></div>
+      <div class="watch-row"><div class="watch-signal">Group wants to amend mid-signoff</div><div class="watch-response">Capture amendment, get explicit re-confirmation. "With that change, do you approve?"</div></div>
+    </div>
+    <div class="output"><strong>📦 Output:</strong> Signed-off Spec Matrix + Approval Record. Pipeline triggered: Agents 13, 14, 15 run automatically.</div>
+  </div>
+</div>
+
+<!-- WRAP-UP DAY 2 -->
+<div class="simple-card" style="--c: var(--d2)">
+  <div class="label">WRAP-UP & NEXT STEPS · 3:55 – 4:00 · 5 min · <span class="chip human">👤 Human</span></div>
+  <h3>Engagement Lead closes</h3>
+  <ul style="margin-top: 12px; margin-bottom: 12px;">
+    <li>Thank the room — name everyone who contributed something distinctive</li>
+    <li>Confirm next steps: deliverables in 48 hours · Sprint 1 begins Day 3 · Weekly demos thereafter</li>
+    <li>Set expectation for client check-in: "We'll have a 30-min review of the deliverables Friday."</li>
+    <li>Capture client CSAT survey link sent within 1 hour</li>
+  </ul>
+  <div class="script">
+    <div class="script-label">Closing Script</div>
+    <div class="script-text">"Two days ago we had a problem. Now we have a build-ready spec, a prioritized backlog, an architecture, and your signature on what we're building. That's a hard thing to do. Your team showed up. Our team showed up. AI did its part. Day 3 starts the build. We'll see you Friday for the deliverables review. Thank you."</div>
+  </div>
+</div>
+
+</div><!-- end Day 2 -->
+
+</main>
+
+<script>
+// Day toggle
+document.querySelectorAll('.day-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const day = btn.dataset.day;
+    document.querySelectorAll('.day-btn').forEach(b => b.classList.toggle('active', b.dataset.day === day));
+    document.querySelectorAll('.day-view').forEach(v => v.classList.toggle('active', v.dataset.dayView === day));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+
+// Activity expand/collapse
+function toggle(header) {
+  const activity = header.closest('.activity');
+  activity.classList.toggle('expanded');
+}
+
+// Timeline strips - paint segments based on time
+const day1Activities = [
+  { name: 'Welcome',         start: 0,   dur: 5,  color: '#f0a832', break: false },
+  { name: 'Lightning',       start: 5,   dur: 25, color: '#1fad91', break: false },
+  { name: 'Break',           start: 30,  dur: 5,  color: '#475569', break: true },
+  { name: 'Vision',          start: 35,  dur: 50, color: '#1fad91', break: false },
+  { name: 'Coffee',          start: 85,  dur: 10, color: '#475569', break: true },
+  { name: 'Persona',         start: 95,  dur: 60, color: '#1fad91', break: false },
+  { name: 'Stretch',         start: 155, dur: 5,  color: '#475569', break: true },
+  { name: 'HMW + Vote',      start: 160, dur: 60, color: '#1fad91', break: false },
+  { name: 'Wrap',            start: 220, dur: 20, color: '#f0a832', break: false },
+];
+
+const day2Activities = [
+  { name: 'Welcome',         start: 0,   dur: 5,  color: '#1fad91', break: false },
+  { name: 'MoSCoW',          start: 5,   dur: 75, color: '#1fad91', break: false },
+  { name: 'Coffee',          start: 80,  dur: 10, color: '#475569', break: true },
+  { name: 'Journey',         start: 90,  dur: 50, color: '#1fad91', break: false },
+  { name: 'Break',           start: 140, dur: 5,  color: '#475569', break: true },
+  { name: 'Tech',            start: 145, dur: 50, color: '#1fad91', break: false },
+  { name: 'Stretch',         start: 195, dur: 5,  color: '#475569', break: true },
+  { name: 'Sign-Off',        start: 200, dur: 35, color: '#ef4444', break: false },
+  { name: 'Wrap',            start: 235, dur: 5,  color: '#1fad91', break: false },
+];
+
+function paintTimeline(elementId, activities) {
+  const el = document.getElementById(elementId);
+  // 240 minutes total = 4 hours
+  // Grid is 48 columns, each = 5 min
+  el.innerHTML = '';
+  el.style.gridTemplateColumns = `repeat(${activities.reduce((s,a)=>s+a.dur,0)}, 1fr)`;
+
+  activities.forEach(a => {
+    const seg = document.createElement('div');
+    seg.className = a.break ? 'tb-segment break' : 'tb-segment';
+    seg.style.gridColumn = `span ${a.dur}`;
+    seg.style.setProperty('--c', a.color);
+    seg.style.background = a.color;
+    seg.title = `${a.name} · ${a.dur} min`;
+    if (a.dur >= 25) seg.textContent = a.name;
+    el.appendChild(seg);
+  });
+}
+
+paintTimeline('timeline-day1', day1Activities);
+paintTimeline('timeline-day2', day2Activities);
+
+// Timer
+let timerSeconds = 0;
+let timerInterval = null;
+const timerDisplay = document.getElementById('timer');
+const timerToggle = document.getElementById('timer-toggle');
+const timerReset = document.getElementById('timer-reset');
+
+function updateTimer() {
+  const h = Math.floor(timerSeconds / 3600);
+  const m = Math.floor((timerSeconds % 3600) / 60);
+  const s = timerSeconds % 60;
+  timerDisplay.textContent = h > 0
+    ? `${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`
+    : `${m}:${String(s).padStart(2,'0')}`;
+}
+
+timerToggle.addEventListener('click', () => {
+  if (timerInterval) {
+    clearInterval(timerInterval);
+    timerInterval = null;
+    timerToggle.textContent = '▶';
+    timerDisplay.classList.remove('running');
+  } else {
+    timerInterval = setInterval(() => {
+      timerSeconds++;
+      updateTimer();
+    }, 1000);
+    timerToggle.textContent = '⏸';
+    timerDisplay.classList.add('running');
+  }
+});
+
+timerReset.addEventListener('click', () => {
+  if (confirm('Reset timer to 0:00?')) {
+    clearInterval(timerInterval);
+    timerInterval = null;
+    timerSeconds = 0;
+    timerDisplay.classList.remove('running');
+    timerToggle.textContent = '▶';
+    updateTimer();
+  }
+});
+
+// Auto-expand the first activity of the visible day for guidance
+document.querySelector('[data-day-view="1"] .activity').classList.add('expanded');
+</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+name: Routing Validation
+
+on:
+  pull_request:
+    paths:
+      - 'dznr/routing/**'
+      - 'dznr/tests/**'
+      - 'dznr/governance/EVOLUTION.md'
+      - 'dznr/scripts/**'
+  push:
+    branches:
+      - main
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run routing validation
+        run: |
+          chmod +x dznr/scripts/validate-routing.sh
+          ./dznr/scripts/validate-routing.sh
+
+  markdown-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Markdown lint
+        uses: DavidAnson/markdownlint-cli2-action@v15
+        with:
+          globs: 'dznr/**/*.md'
+          config: |
+            {
+              "MD013": false,
+              "MD024": false,
+              "MD033": false,
+              "MD041": false
+            }

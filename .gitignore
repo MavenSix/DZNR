@@ -1,0 +1,52 @@
+## OS files
+.DS_Store
+Thumbs.db
+.Spotlight-V100
+.Trashes
+
+## Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.cursor/
+
+## Node (if scripts need it)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+package-lock.json
+
+## Python (if scripts use it)
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+.venv/
+venv/
+
+## Claude Code internals
+.claude/cache/
+.claude/sessions/
+
+## Test outputs
+tests/output/
+tests/snapshots/.tmp/
+
+## Secrets — never commit
+.env
+.env.local
+*.pem
+*.key
+secrets.json
+
+## Generated docs
+docs/_build/
+docs/.cache/
+
+## Archive (kept for audit, but not pushed to remote)
+# Comment out the next line if you DO want archive pushed
+# archive/

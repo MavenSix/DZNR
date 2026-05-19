@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Innovation Accelerator – High-Level Flow</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:       #0a0e16;
+  --surface:  #131c2b;
+  --border:   #1f2d44;
+  --text:     #d4dfee;
+  --muted:    #6b7d96;
+  --gold:     #F5C400;
+
+  --c1: #7c6af7;  /* Pre */
+  --c2: #f0a832;  /* Day 1 */
+  --c3: #1fad91;  /* Day 2 */
+  --c4: #3ab4f5;  /* Post */
+  --c5: #F5C400;  /* Build */
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(124,106,247,0.06) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(31,173,145,0.06) 0%, transparent 40%),
+    var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  padding: 50px 28px 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* HEADER */
+.hdr {
+  text-align: center;
+  margin-bottom: 48px;
+  max-width: 1200px;
+}
+.eyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: var(--gold);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+h1 {
+  font-size: 32px;
+  font-weight: 800;
+  color: #f0f5fc;
+  letter-spacing: -0.5px;
+  margin-bottom: 10px;
+  line-height: 1.15;
+}
+.sub {
+  font-size: 14px;
+  color: var(--muted);
+  font-weight: 400;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* TIMELINE STRIP */
+.timeline-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 48px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.tb-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+}
+.tb-pill::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--c, var(--gold));
+}
+
+/* ─── MAIN FLOW ─────────────────────────────────────────── */
+.flow {
+  max-width: 1280px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+/* ROW 1: 5 stages horizontal */
+.stages {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+  position: relative;
+}
+
+.stage {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 4px solid var(--c);
+  border-radius: 8px;
+  padding: 22px 18px 20px;
+  position: relative;
+  transition: transform 0.2s, box-shadow 0.2s;
+  margin: 0 6px;
+}
+.stage:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4),
+              0 0 0 1px color-mix(in srgb, var(--c) 30%, transparent);
+}
+
+.stage-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--c);
+  letter-spacing: 2px;
+  margin-bottom: 4px;
+}
+.stage-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #f0f5fc;
+  margin-bottom: 4px;
+  line-height: 1.2;
+}
+.stage-when {
+  font-size: 10px;
+  color: var(--muted);
+  font-family: 'IBM Plex Mono', monospace;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+.stage-desc {
+  font-size: 11.5px;
+  color: #8aaccc;
+  line-height: 1.6;
+  margin-bottom: 14px;
+  min-height: 50px;
+}
+
+/* mode indicator (human/AI/both) */
+.mode-row {
+  display: flex; gap: 4px; flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.mode-chip {
+  font-size: 9px;
+  font-family: 'IBM Plex Mono', monospace;
+  padding: 2px 7px;
+  border-radius: 3px;
+  letter-spacing: 0.5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.mode-chip.human { background: color-mix(in srgb, #f0a832 10%, transparent); color: #f0a832; border: 1px solid color-mix(in srgb, #f0a832 30%, transparent); }
+.mode-chip.ai    { background: color-mix(in srgb, #7c6af7 10%, transparent); color: #7c6af7; border: 1px solid color-mix(in srgb, #7c6af7 30%, transparent); }
+.mode-chip.both  { background: color-mix(in srgb, #1fad91 10%, transparent); color: #1fad91; border: 1px solid color-mix(in srgb, #1fad91 30%, transparent); }
+
+/* output mini-list */
+.outputs {
+  border-top: 1px dashed var(--border);
+  padding-top: 10px;
+}
+.outputs-label {
+  font-size: 9px;
+  font-family: 'IBM Plex Mono', monospace;
+  color: var(--muted);
+  letter-spacing: 1.5px;
+  margin-bottom: 6px;
+}
+.output-item {
+  font-size: 10.5px;
+  color: #aabbcc;
+  line-height: 1.6;
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+.output-item::before {
+  content: '◆';
+  color: var(--c);
+  font-size: 8px;
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+
+/* arrow connectors between stages */
+.stage::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -12px;
+  width: 24px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--c), color-mix(in srgb, var(--c-next, var(--c)) 70%, transparent));
+  z-index: 1;
+}
+.stage::before {
+  content: '▶';
+  position: absolute;
+  top: 50%;
+  right: -16px;
+  transform: translateY(-50%);
+  font-size: 12px;
+  color: var(--c-next, var(--c));
+  z-index: 2;
+}
+.stage:last-child::after, .stage:last-child::before { display: none; }
+
+/* ─── METRICS BAR ────────────────────────────────────── */
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--gold) 4%, var(--surface)) 0%,
+    var(--surface) 100%);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 24px 28px;
+  margin-top: 16px;
+}
+.metric {
+  text-align: center;
+  border-right: 1px solid var(--border);
+  padding-right: 16px;
+}
+.metric:last-child { border-right: none; padding-right: 0; }
+.metric-num {
+  font-size: 38px;
+  font-weight: 800;
+  color: var(--gold);
+  line-height: 1;
+  letter-spacing: -1px;
+  margin-bottom: 6px;
+}
+.metric-num span { font-size: 18px; vertical-align: super; opacity: 0.7; }
+.metric-label {
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+/* ─── HANDOFF FOOTER ─────────────────────────────────── */
+.handoff {
+  margin-top: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 20px 28px;
+  background: color-mix(in srgb, var(--gold) 4%, var(--surface));
+  border: 1px dashed color-mix(in srgb, var(--gold) 30%, transparent);
+  border-radius: 8px;
+  flex-wrap: wrap;
+}
+.handoff-icon { font-size: 24px; }
+.handoff-text {
+  font-size: 13px;
+  color: #b0c4de;
+  text-align: left;
+  line-height: 1.5;
+}
+.handoff-text strong { color: var(--gold); font-weight: 700; }
+
+/* ─── LEGEND ─────────────────────────────────────────── */
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+.lg-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--muted);
+}
+.lg-dot {
+  width: 12px; height: 12px;
+  border-radius: 3px;
+  background: var(--c);
+}
+.lg-mode {
+  font-size: 10px;
+  font-family: 'IBM Plex Mono', monospace;
+  padding: 2px 7px;
+  border-radius: 3px;
+  letter-spacing: 0.5px;
+}
+
+/* responsive */
+@media (max-width: 1100px) {
+  .stages { grid-template-columns: 1fr; gap: 16px; }
+  .stage { margin: 0; }
+  .stage::after, .stage::before { display: none; }
+  .metrics { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .metric { border-right: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="eyebrow">ISHIR · Innovation Accelerator</div>
+  <h1>From Idea to Development-Ready in 2 Days</h1>
+  <p class="sub">Five connected stages. Human design thinking + AI agent acceleration. The fastest path from a fuzzy idea to a complete, prioritized, build-ready specification.</p>
+</div>
+
+<!-- TIMELINE BAR -->
+<div class="timeline-bar">
+  <div class="tb-pill" style="--c: var(--c1)">2–3 Days Before</div>
+  <span>→</span>
+  <div class="tb-pill" style="--c: var(--c2)">Day 1</div>
+  <span>→</span>
+  <div class="tb-pill" style="--c: var(--c3)">Day 2</div>
+  <span>→</span>
+  <div class="tb-pill" style="--c: var(--c4)">Same Day</div>
+  <span>→</span>
+  <div class="tb-pill" style="--c: var(--c5)">Day 3</div>
+</div>
+
+<!-- MAIN FLOW -->
+<div class="flow">
+
+  <!-- ─── 5 STAGES ─── -->
+  <div class="stages">
+
+    <div class="stage" style="--c: var(--c1); --c-next: var(--c2)">
+      <div class="stage-num">STAGE 01</div>
+      <div class="stage-title">Prepare</div>
+      <div class="stage-when">2–3 days before</div>
+      <div class="stage-desc">AI agents ingest your brief, research your domain, and arm our team with the right questions.</div>
+      <div class="mode-row">
+        <span class="mode-chip ai">🤖 AI-Led</span>
+        <span class="mode-chip human">👤 Review</span>
+      </div>
+      <div class="outputs">
+        <div class="outputs-label">YOU GET</div>
+        <div class="output-item">Intelligence Brief</div>
+        <div class="output-item">Tailored agenda</div>
+        <div class="output-item">Risk & alignment flags</div>
+      </div>
+    </div>
+
+    <div class="stage" style="--c: var(--c2); --c-next: var(--c3)">
+      <div class="stage-num">STAGE 02</div>
+      <div class="stage-title">Discover</div>
+      <div class="stage-when">Day 1 · 6 hrs</div>
+      <div class="stage-desc">Lightning Talks, vision workshop, persona co-creation, and HMW affinity mapping. Humans diverge — AI captures everything.</div>
+      <div class="mode-row">
+        <span class="mode-chip both">🤝 Human + AI</span>
+      </div>
+      <div class="outputs">
+        <div class="outputs-label">YOU GET</div>
+        <div class="output-item">Product vision</div>
+        <div class="output-item">Validated personas</div>
+        <div class="output-item">Problem statement</div>
+      </div>
+    </div>
+
+    <div class="stage" style="--c: var(--c3); --c-next: var(--c4)">
+      <div class="stage-num">STAGE 03</div>
+      <div class="stage-title">Define</div>
+      <div class="stage-when">Day 2 · 6 hrs</div>
+      <div class="stage-desc">MoSCoW prioritization, live spec matrix, journey mapping, technical solutioning, and stakeholder sign-off.</div>
+      <div class="mode-row">
+        <span class="mode-chip both">🤝 Human + AI</span>
+        <span class="mode-chip human">✅ Sign-Off</span>
+      </div>
+      <div class="outputs">
+        <div class="outputs-label">YOU GET</div>
+        <div class="output-item">MoSCoW spec matrix</div>
+        <div class="output-item">User journey map</div>
+        <div class="output-item">Architecture brief</div>
+      </div>
+    </div>
+
+    <div class="stage" style="--c: var(--c4); --c-next: var(--c5)">
+      <div class="stage-num">STAGE 04</div>
+      <div class="stage-title">Synthesize</div>
+      <div class="stage-when">Same day · auto</div>
+      <div class="stage-desc">AI extracts requirements, populates Linear, and produces estimation. ISHIR team validates before delivery.</div>
+      <div class="mode-row">
+        <span class="mode-chip ai">🤖 AI-Led</span>
+        <span class="mode-chip human">👤 Validate</span>
+      </div>
+      <div class="outputs">
+        <div class="outputs-label">YOU GET</div>
+        <div class="output-item">Requirements + specs</div>
+        <div class="output-item">Linear backlog</div>
+        <div class="output-item">Investment estimate</div>
+      </div>
+    </div>
+
+    <div class="stage" style="--c: var(--c5); --c-next: var(--c5)">
+      <div class="stage-num">STAGE 05</div>
+      <div class="stage-title">Build</div>
+      <div class="stage-when">Day 3 onward</div>
+      <div class="stage-desc">Development pipeline activates. Sprint 1 begins immediately with AI-powered software development agents.</div>
+      <div class="mode-row">
+        <span class="mode-chip both">🤝 Human + AI</span>
+      </div>
+      <div class="outputs">
+        <div class="outputs-label">YOU GET</div>
+        <div class="output-item">Working software</div>
+        <div class="output-item">Sprint demos</div>
+        <div class="output-item">Live product</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ─── METRICS ─── -->
+  <div class="metrics">
+    <div class="metric">
+      <div class="metric-num">2<span>days</span></div>
+      <div class="metric-label">Workshop Length</div>
+    </div>
+    <div class="metric">
+      <div class="metric-num">15</div>
+      <div class="metric-label">AI Agents Deployed</div>
+    </div>
+    <div class="metric">
+      <div class="metric-num">10<span>+</span></div>
+      <div class="metric-label">Deliverables Produced</div>
+    </div>
+    <div class="metric">
+      <div class="metric-num">~75<span>%</span></div>
+      <div class="metric-label">Faster vs. Traditional</div>
+    </div>
+  </div>
+
+  <!-- ─── HANDOFF FOOTER ─── -->
+  <div class="handoff">
+    <div class="handoff-icon">🚀</div>
+    <div class="handoff-text">
+      <strong>Day 3: Pipeline activates.</strong> Every artifact from Stages 01–04 feeds directly into ISHIR's AI-powered software development process — no manual handoff, no lost context, no waiting.
+    </div>
+  </div>
+
+  <!-- ─── LEGEND ─── -->
+  <div class="legend">
+    <div class="lg-item"><div class="lg-dot" style="--c: var(--c1)"></div>Prepare</div>
+    <div class="lg-item"><div class="lg-dot" style="--c: var(--c2)"></div>Discover</div>
+    <div class="lg-item"><div class="lg-dot" style="--c: var(--c3)"></div>Define</div>
+    <div class="lg-item"><div class="lg-dot" style="--c: var(--c4)"></div>Synthesize</div>
+    <div class="lg-item"><div class="lg-dot" style="--c: var(--c5)"></div>Build</div>
+    <div class="lg-item" style="margin-left: 16px;">
+      <span class="lg-mode" style="background: color-mix(in srgb, #f0a832 10%, transparent); color: #f0a832; border: 1px solid color-mix(in srgb, #f0a832 30%, transparent);">👤 Human</span>
+    </div>
+    <div class="lg-item">
+      <span class="lg-mode" style="background: color-mix(in srgb, #7c6af7 10%, transparent); color: #7c6af7; border: 1px solid color-mix(in srgb, #7c6af7 30%, transparent);">🤖 AI</span>
+    </div>
+    <div class="lg-item">
+      <span class="lg-mode" style="background: color-mix(in srgb, #1fad91 10%, transparent); color: #1fad91; border: 1px solid color-mix(in srgb, #1fad91 30%, transparent);">🤝 Both</span>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

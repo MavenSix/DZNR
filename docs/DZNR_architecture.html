@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DZNR Agent Architecture</title>
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --bg-elev: #14141c;
+    --bg-card: #1a1a26;
+    --border: #2a2a3a;
+    --border-glow: #3a3a55;
+    --text: #e8e8f0;
+    --text-dim: #8a8aa0;
+    --text-muted: #5a5a70;
+    --accent: #b9a4ff;
+
+    --tar: #f4d03f;
+    --snape: #9b59ff;
+    --sherlock: #4ea6ff;
+    --gibson: #4ade80;
+    --neo: #ff9d4a;
+    --morpheus: #ff6fb5;
+    --gandalf: #2dd4bf;
+    --snake: #ef4444;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-image:
+      radial-gradient(ellipse at top, rgba(155, 89, 255, 0.08), transparent 50%),
+      radial-gradient(ellipse at bottom right, rgba(45, 212, 191, 0.05), transparent 50%);
+  }
+
+  .container {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 48px 32px;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  h1 {
+    font-size: 48px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #fff 0%, #b9a4ff 50%, #2dd4bf 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+  }
+
+  .subtitle {
+    color: var(--text-dim);
+    font-size: 16px;
+    letter-spacing: 0.02em;
+  }
+
+  .meta {
+    color: var(--text-muted);
+    font-size: 12px;
+    margin-top: 8px;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+  }
+
+  /* === FLOW DIAGRAM === */
+
+  .architecture {
+    position: relative;
+    margin: 48px 0;
+  }
+
+  .flow-stage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 32px;
+    position: relative;
+  }
+
+  .flow-arrow {
+    width: 2px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--border-glow), transparent);
+    margin: 0 auto;
+    position: relative;
+  }
+  .flow-arrow::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid var(--border-glow);
+    border-bottom: 2px solid var(--border-glow);
+  }
+
+  /* User node */
+  .user-node {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--bg-elev);
+    border: 2px solid var(--border-glow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+  }
+
+  .request-node {
+    padding: 12px 24px;
+    background: var(--bg-elev);
+    border: 1px solid var(--border-glow);
+    border-radius: 24px;
+    font-size: 14px;
+    color: var(--text-dim);
+  }
+
+  /* DZNR front door */
+  .dznr-node {
+    padding: 20px 48px;
+    background: linear-gradient(135deg, #9b59ff15, #2dd4bf15);
+    border: 1px solid var(--snape);
+    border-radius: 16px;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    box-shadow: 0 0 40px rgba(155, 89, 255, 0.15);
+  }
+
+  /* Tár (orchestrator) */
+  .tar-node {
+    padding: 20px 32px;
+    background: var(--bg-card);
+    border: 2px solid var(--tar);
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(244, 208, 63, 0.2);
+    min-width: 220px;
+  }
+  .tar-node .name { font-size: 24px; font-weight: 700; color: var(--tar); }
+  .tar-node .role { font-size: 12px; color: var(--text-dim); margin-top: 4px; letter-spacing: 0.05em; }
+
+  /* Subagent row */
+  .subagents-row {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 16px;
+    margin-top: 24px;
+  }
+
+  .subagent {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 16px;
+    cursor: default;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .subagent::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--node-color);
+  }
+
+  .subagent:hover {
+    transform: translateY(-4px);
+    border-color: var(--node-color);
+    box-shadow: 0 12px 40px -8px var(--node-color-glow);
+  }
+
+  .subagent .name {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--node-color);
+    margin-bottom: 4px;
+  }
+
+  .subagent .domain {
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.4;
+    margin-bottom: 12px;
+    min-height: 32px;
+  }
+
+  .subagent .count {
+    font-size: 11px;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text-muted);
+    padding: 4px 8px;
+    background: var(--bg);
+    border-radius: 4px;
+    display: inline-block;
+  }
+
+  .subagent .archetype {
+    font-size: 10px;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-top: 8px;
+    line-height: 1.4;
+  }
+
+  /* Per-character colors */
+  .snape { --node-color: var(--snape); --node-color-glow: rgba(155, 89, 255, 0.3); }
+  .sherlock { --node-color: var(--sherlock); --node-color-glow: rgba(78, 166, 255, 0.3); }
+  .gibson { --node-color: var(--gibson); --node-color-glow: rgba(74, 222, 128, 0.3); }
+  .neo { --node-color: var(--neo); --node-color-glow: rgba(255, 157, 74, 0.3); }
+  .morpheus { --node-color: var(--morpheus); --node-color-glow: rgba(255, 111, 181, 0.3); }
+  .gandalf { --node-color: var(--gandalf); --node-color-glow: rgba(45, 212, 191, 0.3); }
+
+  /* Snape clarifier badge */
+  .clarifier-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 9px;
+    padding: 2px 6px;
+    background: var(--snape);
+    color: var(--bg);
+    border-radius: 4px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+
+  /* Gandalf dual-role badge */
+  .dual-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 9px;
+    padding: 2px 6px;
+    background: var(--gandalf);
+    color: var(--bg);
+    border-radius: 4px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+
+  /* Tool-call connections - dashed lines from active subagents to Gandalf */
+  .gandalf-callouts {
+    margin-top: 32px;
+    padding: 16px 20px;
+    background: rgba(45, 212, 191, 0.05);
+    border: 1px dashed var(--gandalf);
+    border-radius: 8px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+  .gandalf-callouts strong { color: var(--gandalf); }
+
+  /* Snake Eyes parked zone */
+  .parked-zone {
+    margin-top: 64px;
+    padding: 32px;
+    background: var(--bg-elev);
+    border: 1px dashed var(--snake);
+    border-radius: 12px;
+    text-align: center;
+    position: relative;
+  }
+
+  .parked-zone::before {
+    content: 'PARKED ARSENAL';
+    position: absolute;
+    top: -10px;
+    left: 24px;
+    background: var(--bg);
+    padding: 0 12px;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--snake);
+    font-weight: 700;
+  }
+
+  .snake-node {
+    display: inline-block;
+    padding: 20px 32px;
+    background: var(--bg-card);
+    border: 1px solid var(--snake);
+    border-radius: 12px;
+    min-width: 240px;
+  }
+  .snake-node .name { font-size: 22px; font-weight: 700; color: var(--snake); }
+  .snake-node .domain { font-size: 12px; color: var(--text-dim); margin-top: 4px; }
+  .snake-node .count { font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--text-muted); margin-top: 8px; }
+  .snake-node .archetype { font-size: 10px; color: var(--text-muted); font-style: italic; margin-top: 8px; }
+
+  /* === BOTTOM SECTIONS === */
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 64px;
+  }
+
+  .info-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+  }
+
+  .info-card h2 {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--text-dim);
+    margin-bottom: 16px;
+    font-weight: 600;
+  }
+
+  .rule {
+    display: flex;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .rule:last-child { border-bottom: none; }
+  .rule-num {
+    color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    min-width: 20px;
+  }
+  .rule-text { color: var(--text); }
+  .rule-text strong { color: var(--accent); }
+
+  .defaults {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .default-card {
+    padding: 16px;
+    background: var(--bg);
+    border-left: 3px solid var(--card-color);
+    border-radius: 6px;
+  }
+  .default-card .word {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    color: var(--card-color);
+    font-weight: 700;
+  }
+  .default-card .arrow {
+    color: var(--text-muted);
+    margin: 4px 0;
+    font-size: 11px;
+  }
+  .default-card .destination {
+    font-size: 13px;
+    color: var(--text);
+  }
+  .default-card .note {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 6px;
+    line-height: 1.4;
+  }
+
+  .chain {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    line-height: 1.6;
+  }
+  .chain:last-child { border-bottom: none; }
+  .chain-name {
+    color: var(--accent);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 11px;
+    margin-bottom: 4px;
+    display: block;
+  }
+  .chain-flow { color: var(--text-dim); }
+  .chain-flow .step { color: var(--text); }
+  .chain-flow .arrow { color: var(--text-muted); margin: 0 4px; }
+
+  /* Footer */
+  footer {
+    margin-top: 64px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* Responsive */
+  @media (max-width: 1100px) {
+    .subagents-row { grid-template-columns: repeat(3, 1fr); }
+    .info-grid { grid-template-columns: 1fr; }
+    .defaults { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 700px) {
+    .subagents-row { grid-template-columns: repeat(2, 1fr); }
+    h1 { font-size: 32px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <header>
+    <h1>DZNR Agent</h1>
+    <div class="subtitle">Master orchestrator with 7 specialist subagents + parked arsenal</div>
+    <div class="meta">v2 · 2026-05-18 · 7 active + Snake Eyes</div>
+  </header>
+
+  <div class="architecture">
+
+    <!-- User → Request → DZNR -->
+    <div class="flow-stage">
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 16px;">
+        <div class="user-node">👤</div>
+        <div style="font-size: 11px; color: var(--text-muted); letter-spacing: 0.1em;">USER</div>
+      </div>
+    </div>
+
+    <div class="flow-arrow"></div>
+
+    <div class="flow-stage">
+      <div class="request-node">User Request or Task</div>
+    </div>
+
+    <div class="flow-arrow"></div>
+
+    <div class="flow-stage">
+      <div class="dznr-node">DZNR AGENT</div>
+    </div>
+
+    <div class="flow-arrow"></div>
+
+    <!-- Tár -->
+    <div class="flow-stage">
+      <div class="tar-node">
+        <div class="name">Tár</div>
+        <div class="role">ORCHESTRATOR · routing · memory · tempo</div>
+      </div>
+    </div>
+
+    <div class="flow-arrow"></div>
+
+    <!-- 6 active subagents -->
+    <div class="subagents-row">
+      <div class="subagent snape">
+        <div class="clarifier-badge">+ CLARIFIER</div>
+        <div class="name">Snape</div>
+        <div class="domain">Brand &amp; Design Systems</div>
+        <div class="count">32 skills</div>
+        <div class="archetype">The alchemist. Mixes identity + visual scaffolding in exact proportions. Also voices Tár's clarifying questions.</div>
+      </div>
+
+      <div class="subagent sherlock">
+        <div class="name">Sherlock</div>
+        <div class="domain">Discovery &amp; Research</div>
+        <div class="count">22 skills</div>
+        <div class="archetype">Observation. Deduction. Reads patterns. Audits. Synthesizes. Never builds.</div>
+      </div>
+
+      <div class="subagent gibson">
+        <div class="name">Gibson</div>
+        <div class="domain">Experience Eng + AI Product</div>
+        <div class="count">19 skills</div>
+        <div class="archetype">William Gibson. Speculative futures. Immersive, 3D, spatial, AI-driven worlds.</div>
+      </div>
+
+      <div class="subagent neo">
+        <div class="name">Neo</div>
+        <div class="domain">Delivery &amp; Code</div>
+        <div class="count">24 skills</div>
+        <div class="archetype">Sees the code beneath the surface. Turns specs into shipping software.</div>
+      </div>
+
+      <div class="subagent morpheus">
+        <div class="name">Morpheus</div>
+        <div class="domain">Pitch &amp; Story</div>
+        <div class="count">19 skills</div>
+        <div class="archetype">The teacher. Shows the door. Translates work into stories that get a yes.</div>
+      </div>
+
+      <div class="subagent gandalf">
+        <div class="dual-badge">PEER + TOOL</div>
+        <div class="name">Gandalf</div>
+        <div class="domain">Workshop (peer + tool)</div>
+        <div class="count">38 skills</div>
+        <div class="archetype">The wizard. Kevin's accumulated craft. Called by Tár directly OR by other subagents mid-work.</div>
+      </div>
+    </div>
+
+    <div class="gandalf-callouts">
+      <strong>Gandalf's dual role:</strong> any active subagent (Snape, Sherlock, Gibson, Neo, Morpheus) can pull Gandalf in mid-work for workshop tools (design-taste-frontend, harden, polish, imagegen-*, etc.). Gandalf's workshop versions override plugin/core equivalents when they overlap.
+    </div>
+
+    <!-- Snake Eyes parked zone -->
+    <div class="parked-zone">
+      <div class="snake-node">
+        <div class="name">Snake Eyes</div>
+        <div class="domain">Specialist Arsenal</div>
+        <div class="count">~55 skills</div>
+        <div class="archetype">Silent. Deployed by name. Tár does NOT auto-route here — except SEO (soft rule).</div>
+      </div>
+      <div style="margin-top: 16px; font-size: 11px; color: var(--text-muted); line-height: 1.6;">
+        Bio research · Legal · Product tracking · Operations · Adobe creativity · SearchFit SEO · Data analytics
+      </div>
+    </div>
+  </div>
+
+  <!-- INFO GRID -->
+  <div class="info-grid">
+
+    <div class="info-card">
+      <h2>Tár's Routing Logic</h2>
+      <div class="rule">
+        <div class="rule-num">01</div>
+        <div class="rule-text">Check <strong>memory</strong> first. Has this project / domain been touched before?</div>
+      </div>
+      <div class="rule">
+        <div class="rule-num">02</div>
+        <div class="rule-text">Explicit <strong>Snake Eyes invocation</strong>? Deploy directly, skip routing.</div>
+      </div>
+      <div class="rule">
+        <div class="rule-num">03</div>
+        <div class="rule-text">Scan for <strong>primary triggers</strong> across all 7 active subagents.</div>
+      </div>
+      <div class="rule">
+        <div class="rule-num">04</div>
+        <div class="rule-text">Apply <strong>disambiguation defaults</strong>. If still ambiguous → Snape clarifies.</div>
+      </div>
+      <div class="rule">
+        <div class="rule-num">05</div>
+        <div class="rule-text">Mid-chain, any subagent can <strong>call Gandalf</strong> as a tool.</div>
+      </div>
+      <div class="rule">
+        <div class="rule-num">06</div>
+        <div class="rule-text">Listen for <strong>handoff signals</strong> ("I'm good", "ready for next phase") or infer and ask.</div>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <h2>Disambiguation Defaults</h2>
+      <div class="defaults">
+        <div class="default-card" style="--card-color: var(--snape);">
+          <div class="word">"design"</div>
+          <div class="arrow">defaults to →</div>
+          <div class="destination">Snape</div>
+          <div class="note">Unless another character has a stronger trigger.</div>
+        </div>
+        <div class="default-card" style="--card-color: var(--sherlock);">
+          <div class="word">"audit"</div>
+          <div class="arrow">defaults to →</div>
+          <div class="destination">Sherlock</div>
+          <div class="note">Unless design / code / telemetry-specific.</div>
+        </div>
+        <div class="default-card" style="--card-color: var(--snake);">
+          <div class="word">"SEO"</div>
+          <div class="arrow">soft-routes to →</div>
+          <div class="destination">Snake Eyes</div>
+          <div class="note">Snape clarifies if overlaps with content / Morpheus.</div>
+        </div>
+        <div class="default-card" style="--card-color: var(--tar);">
+          <div class="word">"handoff"</div>
+          <div class="arrow">inferred when →</div>
+          <div class="destination">Output complete + new topic</div>
+          <div class="note">Tár asks if not explicitly stated.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-grid" style="grid-template-columns: 1fr;">
+    <div class="info-card">
+      <h2>Standard Chain Flows</h2>
+
+      <div class="chain">
+        <span class="chain-name">Discovery flow</span>
+        <div class="chain-flow">
+          <span class="step" style="color: var(--sherlock)">Sherlock</span>
+          <span class="arrow">→</span>
+          <span class="step" style="color: var(--snape)">Snape</span> or <span class="step" style="color: var(--gibson)">Gibson</span>
+          <span class="arrow">→</span>
+          <span class="step" style="color: var(--neo)">Neo</span>
+          <span style="color: var(--gandalf)"> (with Gandalf for polish / harden)</span>
+          <span class="arrow">→</span>
+          <span class="step" style="color: var(--morpheus)">Morpheus</span>
+        </div>
+      </div>
+
+      <div class="chain">
+        <span class="chain-name">Brand build flow</span>
+        <div class="chain-flow">
+          <span class="step" style="color: var(--sherlock)">Sherlock</span>
+          <span class="arrow">→</span>
+          <span class="step" style="color: var(--snape)">Snape</span>
+          <span style="color: var(--gandalf)"> (calls Gandalf for taste / polish)</span>
+          <span class="arrow">→</span>
+          <span class="step" style="color: var(--neo)">Neo</span>
+          <span class="arrow">→</span>
+          <span class="step" style="color: var(--morpheus)">Morpheus</span>
+        </div>
+      </div>
+
+      <div class="chain">
+        <span class="chain-name">Experience build flow</span>
+        <div class="chain-flow">
+          <span class="step" style="color: var(--sherlock)">Sherlock</span>
+          <span class="arrow">→</span>
+          <span class="step" style="color: var(--gibson)">Gibson</span>
+          <span style="color: var(--gandalf)"> (calls Gandalf for imagegen)</span>
+          <span class="arrow">→</span>
+          <span class="step" style="color: var(--neo)">Neo</span>
+          <span class="arrow">→</span>
+          <span class="step" style="color: var(--morpheus)">Morpheus</span>
+        </div>
+      </div>
+
+      <div class="chain">
+        <span class="chain-name">Delivery flow</span>
+        <div class="chain-flow">
+          <span class="step" style="color: var(--sherlock)">Sherlock</span>
+          <span class="arrow">→</span>
+          <span class="step" style="color: var(--snape)">Snape</span>
+          <span class="arrow">→</span>
+          <span class="step" style="color: var(--neo)">Neo</span>
+          <span style="color: var(--gandalf)"> (calls Gandalf for harden)</span>
+          <span class="arrow">→</span>
+          <span class="step" style="color: var(--morpheus)">Morpheus</span>
+        </div>
+      </div>
+
+      <div class="chain">
+        <span class="chain-name">SEO flow (specialist)</span>
+        <div class="chain-flow">
+          <span class="step" style="color: var(--snake)">Snake Eyes (audit/keyword)</span>
+          <span style="color: var(--text-muted)">or</span>
+          <span class="step" style="color: var(--morpheus)">Morpheus (content)</span>
+          <span style="color: var(--text-muted)"> — Snape clarifies if ambiguous</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    DZNR Agent · 7 active subagents + Snake Eyes (parked arsenal)<br>
+    Synced with TRIGGERS.md · SUBAGENT_ROSTERS.md · DECISIONS.md · 2026-05-18
+  </footer>
+
+</div>
+
+</body>
+</html>

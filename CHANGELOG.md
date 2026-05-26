@@ -7,6 +7,37 @@ All notable changes to DZNR are documented here. Versioning follows the EVOLUTIO
 
 ---
 
+## [1.9.0] - 2026-05-26
+
+### Added - Phase 3.9: Morpheus subagent build (sixth production subagent)
+
+- `agents/morpheus/AGENT.md` expanded from stub (33 lines) to production system prompt (454 lines)
+- **Industry posture as input, not driver**: Morpheus reads industry tag from project memory but treats it as informative rather than deterministic. Vocabulary defaults toward industry-typical patterns. Narrative arc selection is content-driven, not industry-driven. Deviations from industry-typical posture are noted in the artifact (optional, recommended).
+- **Narrative architecture selection by content and audience**: four arcs (Burning Platform, Discovery Arc, Vision Cast, Recommendation Stack) from `presentation-storytelling`. Morpheus presents two candidates when the choice is ambiguous, lets the user pick. Otherwise selects based on audience state, input shape, and decision being asked for.
+- **Per-claim source attribution**: every factual claim in a Morpheus artifact carries inline citation of subagent and skill ("[Sherlock, site-audit]", "[Gibson, 3d-experience-design concept doc]"). External sources preserved in citation chain. Quotes attributed with anonymization where appropriate. Source attribution drops to section-level for lightweight internal deliverables.
+- **Deliverables organized by format**: PPTX (pitch decks, presentations), DOCX (case studies, write-ups, press releases), Markdown (status reports, stakeholder updates), Web (interactive HTML pitches), plus campaign and email outputs. Format-first organization for fast retrieval.
+- **Gandalf calls routed via Snape**: Morpheus does NOT call Gandalf directly. When workshop polish is needed (onboard, teach-impeccable, quieter), Morpheus routes through Snape who has the established Gandalf relationship. Adds a hop but keeps Morpheus focused on outbound translation.
+- Cross-subagent patterns documented: receives Sherlock handoff in Morpheus-shaped format, receives Snape brand voice and visual assets directly, receives Gibson concept + four-lens artifact (translates four-lens to pitch-safe language), receives Neo specs and metrics. Co-works with Snape on brand-aligned outbound (direct, no Gandalf hop). Routes Gandalf through Snape when workshop skills needed.
+- Special role within Innovation Accelerator (Chain 6): Morpheus invoked across all five stages by Gandalf in orchestrator mode.
+
+### Validated
+
+- 5 stress tests walked: TEST 3 (Web3 fintech brand + pitch deck), TEST 14 (compound brand + heuristic + pitch with multi-phase attribution), TEST 17 (rebuild pitch with conditional Sherlock baseline), TEST 20 (native AI chat with four-lens translation), TEST 23 (IA Chain 6 multi-stage Morpheus invocation). All PASS.
+- Narrative architecture selection verified across all four arcs.
+- Industry-as-input behavior verified (deviates from industry default when content/audience demands).
+- Per-claim source attribution verified under multi-phase compound chains.
+- Gandalf-via-Snape routing pattern verified.
+- Direct Snape calls (brand-review, brand-voice-enforcement, visual brand application) verified as distinct from Gandalf routing.
+- Zero em-dashes. Zero XCentium references.
+
+### Notes
+
+- Six subagents now in production: Tár, Neo, Snape, Sherlock, Gibson, Morpheus
+- Remaining subagents: Gandalf, Snake Eyes (the lightest two)
+- Three subagents stand out for architectural rigor: Snape (dual role + heaviest industry), Gibson (two modes + four-lens), Morpheus (per-claim attribution). Each has practitioner-grade reliability baked in.
+
+---
+
 ## [1.8.0] - 2026-05-26
 
 ### Added - Phase 3.8: Gibson subagent build (fifth production subagent)

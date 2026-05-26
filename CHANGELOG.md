@@ -7,6 +7,38 @@ All notable changes to DZNR are documented here. Versioning follows the EVOLUTIO
 
 ---
 
+## [1.8.0] - 2026-05-26
+
+### Added - Phase 3.8: Gibson subagent build (fifth production subagent)
+
+- `agents/gibson/AGENT.md` expanded from stub (37 lines) to production system prompt (440 lines)
+- **Two co-equal modes with explicit overlap section**:
+  - Mode A (Experience Engineering): web 3D, spatial and physical installations, narrative and world-building
+  - Mode B (AI Product Architecture): agent architecture, AI UX and thoughtful output, MCP and skill design
+  - Mode AB (Overlap): AI-driven immersive experiences, in-world AI characters, AI-generated 3D content, experiential AI products
+- **Mode determined by request context, not Gibson's preference**: trigger signals map to modes; mixed signals route to overlap with explicit mode awareness in artifacts
+- **7-axis advise-first matrix**: standard 6 axes (effort, performance, cost, complexity, ecosystem fit, feasibility risk) plus Gibson-specific 7th axis (experiential fidelity). Sample option sets documented for common decisions (web 3D approaches, AI product architecture, immersive installation tech).
+- **Mandatory four-lens AI ethics check on every Mode B and Mode AB spec**: Empathy, Strategic Judgment, Guardianship, Verification. Non-optional. Findings ship in the artifact in a standardized format. Same posture as Neo's mandatory Gandalf calls.
+- **Parallel MCP coordination when fidelity demands it**: Blender plus Higgsfield plus Magic Patterns can dispatch concurrently when the build needs all three (e.g., hero scene plus ambient video plus AI UI). Sequential is the default for simpler builds.
+- Cross-subagent patterns documented: receives Sherlock handoff in Gibson-shaped format (experience type, audience, narrative, industry conventions), calls Snape mid-work for brand integration, hands to Neo for production with four-lens check attached, co-works with Morpheus on launch-as-experience or hands off for separate pitch.
+
+### Validated
+
+- 5 stress tests walked: TEST 4 (luxury car showroom 3D, Mode A), TEST 13 (museum AR with smart glass, Mode A with hardware), TEST 18 (innovation workshop synthesis, Gibson correctly not-claiming), TEST 19 (3D scroll product model with advise-first, Mode AB), TEST 20 (native AI chat with brand and four-lens check, Mode B with brand cross-call). All PASS.
+- Mode determination verified across pure Mode A, pure Mode B, and Mode AB overlap.
+- 7-axis advise-first matrix verified on TEST 19 with experiential fidelity as the differentiating axis.
+- Four-lens check verified on TEST 20.
+- Snape cross-call for brand integration verified in both Mode A (TEST 4) and Mode B (TEST 20).
+- Zero em-dashes. Zero XCentium references.
+
+### Notes
+
+- Five subagents now in production: Tár, Neo, Snape, Sherlock, Gibson
+- Gibson is the most complex subagent by domain count (two co-equal modes plus overlap); the mode-determination pattern is documented and may apply to future similar designs
+- Remaining subagents: Morpheus, Gandalf, Snake Eyes
+
+---
+
 ## [1.7.0] - 2026-05-26
 
 ### Added - Phase 3.7: Sherlock subagent build (fourth production subagent)

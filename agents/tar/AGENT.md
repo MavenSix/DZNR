@@ -91,7 +91,7 @@ Apply rules in this order until resolved:
 
 1. **Anti-triggers**: eliminate subagents whose anti-trigger words appear in the request
 2. **Auto-trigger rules**:
-   - "rebuild" / "redesign" / "replatform" / "modernize" / "refresh" / "revamp" / "overhaul" / "reimagine" → silently auto-invoke Sherlock for current-state pass before downstream work
+   - "rebuild" / "redesign" / "replatform" / "modernize" / "refresh" / "revamp" / "overhaul" / "reimagine" → dispatch Sherlock who asks the user whether to run a current-state discovery pass before downstream work (changed in Phase 3.7 from silent auto-invoke to confirm-before-run)
 3. **Default disambiguation rules** (per TRIGGERS.md):
    - "design" alone → Snape
    - "audit" alone → Sherlock

@@ -7,6 +7,44 @@ All notable changes to DZNR are documented here. Versioning follows the EVOLUTIO
 
 ---
 
+## [1.7.0] - 2026-05-26
+
+### Added - Phase 3.7: Sherlock subagent build (fourth production subagent)
+
+- `agents/sherlock/AGENT.md` expanded from stub (38 lines) to production system prompt (400 lines)
+- **Confirm-before-auto-run on rebuild language**: Sherlock no longer silently auto-invokes on "rebuild" / "redesign" / "replatform" / "modernize" / "refresh" / "revamp" / "overhaul" / "reimagine". Instead, asks the user whether to run a current-state discovery before downstream subagent starts. Honors Kevin's preference for transparency over speed. (Reverses the silent-auto-invoke rule from earlier phases.)
+- **identify-industry step**: multi-signal inference protocol that writes the project industry tag to memory frontmatter.
+  - Signal priority: explicit user mention > client domain > vocabulary > competitive set > web research
+  - Confidence-driven action: high confidence writes tag autonomously; medium confidence writes with marker; low confidence returns top 2 candidates for user pick
+  - Multi-industry projects supported via primary + industry-secondary frontmatter fields
+- **Source priority protocol**: project memory first, then direct project sources, then enterprise-search cluster, then domain-specific sources, then web. Stops when answer is well-supported (typically 3 confirming sources).
+- **Structured handoffs by downstream subagent**: Snape handoff (brand inputs, visual extraction, competitive aesthetics, industry posture). Neo handoff (platform stack, technical constraints, feasibility risks). Gibson handoff (experience type signals, audience context, narrative research). Morpheus handoff (narrative angles, audience, proof points, industry-typical pitch vocabulary). User handoff (executive summary, detailed findings, recommendations, methodology).
+- **Source contradiction protocol**: when sources disagree, Sherlock flags the contradiction in findings rather than arbitrating.
+- **Discovery scope creep handling**: when findings keep expanding the question space, Sherlock pauses and presents current state for scope decision.
+- Cross-subagent patterns documented: receives from Tár directly, calls Gandalf for distill/extract/clarify/normalize/critique/audit, hands off via the structured handoff protocol.
+
+### Changed
+
+- `routing/TRIGGERS.md`: rebuild auto-trigger rule updated from "silently auto-invoke" to "confirm before auto-run". Honors Kevin's Phase 3.7 decision for collaborative tempo.
+- `agents/tar/AGENT.md`: rebuild line in routing algorithm updated to match the new confirm-before-run behavior.
+
+### Validated
+
+- 5 stress tests walked: TEST 2 (compound discovery), TEST 7 (audit default), TEST 11 (interactive journey map), TEST 14 (compound brand + heuristic + pitch), TEST 17 (rebuild auto-discovery with new confirm-before-run rule). All PASS.
+- identify-industry step verified across high/medium/low confidence paths.
+- Source priority protocol verified.
+- Structured handoff shapes verified for all four downstream subagents.
+- Updated rebuild rule verified on TEST 17.
+- Zero em-dashes. Zero XCentium references.
+
+### Notes
+
+- Four subagents now in production: Tár, Neo, Snape, Sherlock
+- Sherlock is the chain entry point for almost every flow; his presence in production unlocks reliable downstream behavior across the system
+- Remaining subagents: Gibson, Morpheus, Gandalf, Snake Eyes
+
+---
+
 ## [1.6.0] - 2026-05-26
 
 ### Added - Phase 3.6.5: MCP integration framework

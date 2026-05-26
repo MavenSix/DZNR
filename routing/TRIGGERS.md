@@ -121,13 +121,22 @@ Example: "Tár's uncertain whether this is Snape's work or Gibson's. Are you ask
 - "what do users want", "what's the problem"
 - "informs design" — Sherlock work that feeds design decisions
 
-### Auto-trigger on rebuild framing (NEW)
-The following words **silently auto-invoke Sherlock for a current-state discovery pass** even if the user didn't explicitly ask for research:
+### Confirm-before-discovery on rebuild framing (UPDATED in Phase 3.7)
+The following words **prompt Sherlock to ASK before running a current-state discovery pass** (changed from silent auto-invoke in Phase 3.7):
 - "rebuild", "redesign", "replatform", "modernize", "refresh", "revamp", "overhaul", "reimagine"
 
-When these words appear with downstream chain triggers (pitch, brand, build, etc.), Sherlock runs a brief current-state research pass FIRST so the downstream work isn't guessing. Sherlock's output feeds the next subagent automatically — no extra clarification needed.
+When these words appear with downstream chain triggers (pitch, brand, build, etc.), Sherlock asks the user:
 
-Example: "Rebuild their immersive experience" → Sherlock auto-runs discover-brand + site-audit on the existing experience → Gibson uses Sherlock's output as input for the rebuild concept.
+> "You mentioned [rebuild / redesign / etc]. Want me to run a quick current-state discovery before [downstream subagent] starts? Takes about 5 to 10 minutes and downstream work will be much sharper with the baseline. Or skip and proceed directly."
+
+If the user confirms, Sherlock runs the discovery pass and feeds output to the downstream subagent. If the user declines, the chain proceeds without baseline (downstream subagent flags any assumptions in absence of discovery).
+
+Why confirm rather than silent auto-run:
+- Discovery passes consume meaningful time; auto-running surprises the user
+- Sometimes "rebuild" is a quick-pivot signal, not a from-scratch signal
+- Confirmation creates the right collaborative tempo
+
+Example: "Rebuild their immersive experience" → Sherlock asks user → if confirmed, Sherlock auto-runs discover-brand + site-audit → Gibson uses Sherlock's output as input for the rebuild concept. If declined, Gibson proceeds without baseline and flags the assumption.
 
 ### Context-dependent
 - "design" — Sherlock claims if request is about RESEARCH that will inform design. (e.g. "do design research on this category")

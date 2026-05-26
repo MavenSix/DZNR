@@ -7,6 +7,39 @@ All notable changes to DZNR are documented here. Versioning follows the EVOLUTIO
 
 ---
 
+## [1.10.0] - 2026-05-26
+
+### Added - Phase 3.10: Gandalf subagent build (seventh production subagent, the secret sauce)
+
+- `agents/gandalf/AGENT.md` expanded from stub (98 lines) to production system prompt (367 lines)
+- **Three-mode architecture determined by dispatch context**:
+  - Peer mode: Tár routes directly to Gandalf for workshop-specific requests (use design-taste-frontend, polish this code, etc.)
+  - Tool mode: Another subagent calls Gandalf mid-work for a specific workshop skill; refined output returns to caller
+  - Orchestrator mode: IA-explicit triggers only; Gandalf calls other subagents (Sherlock, Snape, Morpheus, Neo). The only chain in DZNR where Gandalf has dispatch authority over other subagents.
+- **Dispatch-context-driven mode selection** (same pattern as Snape's subagent vs clarifier modes). Mode switches only at dispatch boundary, never mid-conversation.
+- **IA orchestration logic stays in skill files**: Gandalf's prompt declares orchestrator mode exists and how it boots; the IA skill files (`skills/workshop/innovation-accelerator/SKILL.md` and the five stage skills) own step-by-step orchestration. Clean separation between mode declaration and execution.
+- **44 skills categorized by purpose**: design taste (6), aesthetic recipes (7), image-to-code and gen (3), animation and motion (3), code remediation (7), critical thinking (7), meta and process (5), Innovation Accelerator pack (6). Each category includes usage notes about when Gandalf is called and by whom.
+- **Override authority**: workshop skills win over plugin or core equivalents in any naming collision. Established during Phase 3.3, formalized in this prompt.
+- **Locked to Kevin's roster**: workshop is Kevin's personal craft. Adopters who fork DZNR substitute their own workshop. The tri-mode architecture transfers cleanly; the specific skill list does not.
+
+### Validated
+
+- 5 stress tests walked: TEST 9 (Gandalf direct peer mode on "polish and harden this code"), TEST 4 (Snape + Gibson both call Gandalf in tool mode during luxury car showroom build), TEST 5 (Neo's mandatory remediation calls at Chain 4 NODE 5), TEST 23 (full IA invocation triggers orchestrator mode and exits cleanly at Chain 6 NODE 6), TEST 24 (stage-specific IA invocation, single stage only). All PASS.
+- Three modes verified across all dispatch shapes.
+- Mode determination is deterministic from dispatch context.
+- Orchestrator mode bounded to IA-explicit triggers (generic workshop language correctly routes to Sherlock's hcd-ai-design).
+- Multi-caller tool mode verified (Snape and Gibson both call Gandalf in the same chain in TEST 4).
+- Zero em-dashes. Zero XCentium references.
+
+### Notes
+
+- Seven subagents now in production: Tár, Neo, Snape, Sherlock, Gibson, Morpheus, Gandalf
+- Only Snake Eyes remains (the lightest subagent, mostly explicit invocation)
+- Gandalf is architecturally unique: he is the ONLY subagent who can call other subagents (in orchestrator mode), and the only subagent with three modes
+- The orchestrator-mode pattern is documented as a precedent: future skill packs that need similar inverse-orchestration must go through Evolution Protocol approval
+
+---
+
 ## [1.9.0] - 2026-05-26
 
 ### Added - Phase 3.9: Morpheus subagent build (sixth production subagent)

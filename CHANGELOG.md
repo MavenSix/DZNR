@@ -7,6 +7,54 @@ All notable changes to DZNR are documented here. Versioning follows the EVOLUTIO
 
 ---
 
+## [1.11.0] - 2026-05-26
+
+### Added - Phase 3.11: Snake Eyes subagent build (eighth and final production subagent, v1.x cast COMPLETE)
+
+- `agents/snake-eyes/AGENT.md` expanded from stub (44 lines) to production system prompt (367 lines)
+- **Seven specialist clusters documented**:
+  - Bio Research (6 skills, parked capability for Kevin; adopter-relevant)
+  - Legal (9 skills, parked capability for Kevin; adopter-relevant)
+  - Product Tracking and Telemetry (7 skills, moderate Kevin use)
+  - Operations (9 skills, moderate use)
+  - Adobe Creativity (6 skills, Kevin-relevant for design and creative work)
+  - SearchFit SEO (11 skills, Kevin-relevant, soft-routed)
+  - Data Analytics (10 skills, Kevin-relevant and Sherlock-cross-called)
+- **Four invocation patterns**:
+  - Explicit skill name invocation (most common)
+  - Domain declaration (Snake Eyes maps to most likely cluster)
+  - Tár SEO soft-route (the one documented exception)
+  - Sherlock cross-call for any specialist skill mid-research
+- **Off-domain clusters acknowledged as "parked capability"**: Bio Research and Legal are present in the arsenal but rarely deployed by Kevin. Adopters in those domains use them more heavily. Honest framing without judgment.
+- **SEO soft-route as the one routing exception**: Tár auto-routes SEO-flavored work to Snake Eyes per TRIGGERS.md. Snape voices clarifier on ambiguous cases (SEO content can be Morpheus or Snake Eyes depending on whether the focus is writing or keyword research).
+- **Cross-call from Sherlock for any specialist need**: more flexible than data-analytics-only. Sherlock can pull Snake Eyes for legal context check, telemetry audit during product research, statistical analysis during competitive research, dashboard build for findings visualization.
+- Cluster coverage notes for adopters: which clusters Kevin uses heavily, which are parked, how adopters can substitute or extend clusters based on their domain.
+
+### Validated
+
+- 5 stress tests walked: TEST 6 (SEO ambiguity with Snape clarifier), TEST 10 (legal-risk-assessment explicit invocation), plus 3 new tests for Adobe explicit, Sherlock cross-call to Data Analytics, and product-tracking audit disambiguation. All PASS.
+- SEO soft-route verified.
+- Sherlock cross-call pattern verified for Data Analytics cluster.
+- Adobe cluster explicit invocation verified.
+- Tracking audit disambiguation verified (routes to Snake Eyes, not Sherlock).
+- Zero em-dashes. Zero XCentium references.
+
+### Notes
+
+- **EIGHT subagents now in production. DZNR v1.x production cast is COMPLETE.**
+- Tár (orchestrator), Neo (delivery), Snape (brand and clarifier), Sherlock (discovery), Gibson (experience and AI product), Morpheus (pitch and story), Gandalf (workshop tri-mode), Snake Eyes (specialist arsenal)
+- Phase 4 options: release-readiness pass (final QA, documentation polish, adopter onboarding guide) OR moving into actual project use to exercise the full system
+- The architectural patterns developed across the cast are documented and available for adopters who fork DZNR:
+  - Dispatch-context-driven mode determination (Snape, Gandalf)
+  - Industry posture system as a first-class concept
+  - Per-claim source attribution for outbound traceability
+  - Mandatory four-lens AI ethics check on AI product work
+  - Confirm-before-auto-run on rebuild language
+  - Three-mode architecture with bounded orchestrator exception
+  - MCP integration framework with explicit lifecycle
+
+---
+
 ## [1.10.0] - 2026-05-26
 
 ### Added - Phase 3.10: Gandalf subagent build (seventh production subagent, the secret sauce)

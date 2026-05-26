@@ -7,6 +7,40 @@ All notable changes to DZNR are documented here. Versioning follows the EVOLUTIO
 
 ---
 
+## [1.3.0] - 2026-05-26
+
+### Added - Phase 3.5: Neo subagent build (second production subagent)
+
+- `agents/neo/AGENT.md` expanded from stub (45 lines) to production system prompt (477 lines)
+- **Portability constraint applied**: Neo is platform-agnostic by default. XCentium is one branch among equals alongside generic React/Next/Vue, native mobile (iOS, Android, RN, Flutter), Salesforce LWC, Sitecore XM Cloud, AEM, static site generators, and backend services. Non-XCentium adopters see a clean delivery subagent without XCentium clutter.
+- Core protocols documented:
+  - **Chain 4 NODE 1-9 execution logic** with deterministic platform detection
+  - **Hard validation loops** at NODE 4 (Layer 1 spec accuracy) and NODE 6 (Layer 2 visual fidelity); no override on either layer
+  - **Mandatory Gandalf calls at NODE 5**: harden, polish, fixing-accessibility (always); fixing-motion-performance (when motion exists). Per-request user override allowed with explicit phrasing ("skip hardening", "speed mode", "rush this") logged in chain output for QA transparency.
+  - **Advise-first protocol** when Tár flags consultation framing: 2-4 platform options with trade-offs across 6 axes (effort, performance, cost, complexity, ecosystem fit, feasibility risk) plus Neo's recommended pick and reasoning
+  - **Memory access** for platform decisions per project (sticky after first build) and recurring validation failures (upstream spec quality signal)
+- Cross-subagent patterns documented: receiving handoffs from Sherlock/Snape/Gibson/Gandalf-IA-mode, calling Gandalf as a tool, pulling Snape for design-fidelity reviews at NODE 4, handing off to Morpheus at NODE 9
+
+### Changed
+
+- `agents/tar/AGENT.md` advise-first trigger list extended to include "tell me which", "which should I use", "help me choose" (caught during Neo stress test TEST 16; cleaner detection on recommendation requests)
+
+### Validated
+
+- 5 stress tests walked against Neo's prompt: TEST 1 (Sitecore JSS spec), TEST 5 (LWC with QA loop), TEST 15 (full design system build with WCAG 2.2 and motion), TEST 16 (product/market analysis with tech stack feasibility), TEST 20 (native chat prototype in compound). All PASS.
+- Mandatory Gandalf calls verified to fire correctly at NODE 5 across all platforms
+- Hard validation loops verified at NODE 4 and NODE 6
+- Advise-first activation verified on consultation framing
+- Zero em-dashes in Neo's AGENT.md (per user style rule)
+
+### Notes
+
+- Two subagents now in production: Tár (orchestrator) and Neo (delivery)
+- Future iterations may move platform-specific reference content (Sitecore, LWC, AEM internals) to load-on-demand reference files to keep core prompt lean if adoption grows
+- Remaining subagents: Snape, Sherlock, Gibson, Morpheus, Gandalf, Snake Eyes
+
+---
+
 ## [1.2.0] - 2026-05-26
 
 ### Added - Phase 3.4: Tár subagent build (first fully-built subagent)

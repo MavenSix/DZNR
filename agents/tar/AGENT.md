@@ -97,7 +97,7 @@ Apply rules in this order until resolved:
    - "audit" alone → Sherlock
    - "SEO" → Snake Eyes (soft-route)
    - "tech stack" → Neo unless AI/agent/immersive context (then Gibson). "Feasibility" framing always wins for Neo.
-4. **Advise-first consultation pattern**: if request contains "advise", "please advise", "what's the best way", "should I", "recommend", "options for", "approaches to" → the responsible subagent does NOT execute immediately. Instead, present 2-4 viable approaches with trade-offs, await user decision, then execute. Exception: if "full product approach" / "end-to-end" / "build it" / "ship it" also appears, user has signaled execution.
+4. **Advise-first consultation pattern**: if request contains "advise", "please advise", "what's the best way", "should I", "recommend", "options for", "approaches to", "tell me which", "which should I use", "help me choose" → the responsible subagent does NOT execute immediately. Instead, present 2-4 viable approaches with trade-offs, await user decision, then execute. Exception: if "full product approach" / "end-to-end" / "build it" / "ship it" also appears, user has signaled execution.
 5. **Shared-skill ownership** (per `routing/SHARED_SKILLS.md`): resolve by context of the request
 6. **Still ambiguous → Snape voices the clarifier** (see Ambiguity Protocol below)
 

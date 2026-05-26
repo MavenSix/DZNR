@@ -7,6 +7,52 @@ All notable changes to DZNR are documented here. Versioning follows the EVOLUTIO
 
 ---
 
+## [1.12.0] - 2026-05-26
+
+### Added - Phase 4A: Release-readiness pass for adopter use
+
+Kevin wants colleagues outside XCentium to kick the tires. This release brings every adopter-facing document up to current state and adds the missing piece (ADOPTERS.md).
+
+**Documentation refresh:**
+
+- `README.md`: rewritten for adopter readiness. Cast table updated (Gandalf 44 not 38, 8 subagents not 7). Mentions industry posture system and MCP framework. New "For adopters" section linking to ADOPTERS.md. Version reflects v1.11.0 beta.
+- `docs/GETTING_STARTED.md`: rewritten for current state. Industry tagging, four-lens check, per-claim attribution, confirm-before-rebuild, advise-first all documented with examples. Install/invocation syntax marked with verification notes (Claude Code plugin conventions, verify with CLI version).
+- `docs/INSTALLATION.md`: stub disclaimer removed. Workshop sync script behavior documented (three cases). Plugin install commands marked as Claude Code convention with verification note. Troubleshooting section expanded for industry posture and MCP framework. Optional vs required plugins clarified.
+- `docs/ARCHITECTURE.md`: expanded from 50 lines to ~200. Documents all ten architectural patterns developed across the cast (mode determination, industry posture, per-claim attribution, four-lens, confirm-before-rebuild, three-mode Gandalf, MCP framework, hard validation loops, cross-call patterns, confidence-threshold escalation). High-level flow diagram updated for current state.
+- `docs/TEAM_REFERENCE_CARD.md`: refreshed for current state. Industry tagging row, advise-first row, four-lens findings row added. Direct invocation syntax marked with verification note. Updated routing rule changes from recent phases.
+
+**New documentation:**
+
+- `docs/ADOPTERS.md`: brand new. ~270 lines covering what's universal vs Kevin-specific in DZNR, pre-fork checklist, step-by-step fork and customize guide (10 steps from clone to commit), four common adopter patterns (solo design practice, small design team, adjacent-domain practitioner, AI product team), upstream merge strategy, honest limits.
+
+**Plugin manifest:**
+
+- `.claude-plugin/plugin.json`: description updated. Now says "8 specialist subagents" not "7" and explicitly lists subagent names. Mentions industry posture system, MCP framework, per-claim attribution, four-lens check.
+
+**Validation script upgrade:**
+
+- `scripts/validate-routing.sh`: expanded to cover routing files added in Phase 3 (INDUSTRIES.md, MCPS.md, mcps/ directory), all 8 AGENT.md files (verifies production status and minimum size), em-dash check on agent prompts (style rule enforcement), memory templates, plugin manifest. Currently passes cleanly on v1.11.0 state.
+
+### Validated
+
+- All 6 updated docs verified em-dash clean (Kevin's style rule)
+- All 8 AGENT.md files verified em-dash clean by the upgraded validator
+- All 7 routing docs present and above minimum size
+- All 9 MCP specs present (plus _template.md)
+- 30 stress tests documented
+- Memory template present
+- Plugin manifest at correct version and beta stability
+- `validate-routing.sh` runs end-to-end successfully
+
+### Notes
+
+- DZNR is now genuinely adopter-ready. Architecture patterns documented in ARCHITECTURE.md. Fork-and-customize guide in ADOPTERS.md. Verification notes added wherever install or invocation syntax depends on Claude Code CLI version.
+- The architecture HTML at `docs/DZNR_architecture.html` remains stale (predates Phase 3 additions). Refresh deferred to a future visual pass; the text-based ARCHITECTURE.md is what adopters will read first.
+- Stress test execution remains manual. Automating the stress test trace is on the roadmap.
+- Eight subagents, two release-readiness passes (this one and any future fixes from adopter feedback) before considering "stable" stability flag.
+
+---
+
 ## [1.11.0] - 2026-05-26
 
 ### Added - Phase 3.11: Snake Eyes subagent build (eighth and final production subagent, v1.x cast COMPLETE)

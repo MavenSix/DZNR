@@ -77,6 +77,7 @@ For the routing system internals, see:
 - [routing/FAILURE_MODES.md](./routing/FAILURE_MODES.md) — failure-mode playbook
 - [routing/SUBAGENT_ROSTERS.md](./routing/SUBAGENT_ROSTERS.md) — full skill rosters
 - [routing/INDUSTRIES.md](./routing/INDUSTRIES.md) — industry posture system (8 industries across 4 clusters; how subagents adjust per industry)
+- [routing/MCPS.md](./routing/MCPS.md) — MCP integration framework (how to add MCPs, status lifecycle, per-MCP specs in `routing/mcps/`)
 
 ### A note on skill naming
 

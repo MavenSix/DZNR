@@ -7,6 +7,54 @@ All notable changes to DZNR are documented here. Versioning follows the EVOLUTIO
 
 ---
 
+## [1.6.0] - 2026-05-26
+
+### Added - Phase 3.6.5: MCP integration framework
+
+Kevin asked two structural questions during Phase 3.6 review: why is Magic Patterns still PENDING, and what happens when new MCPs (Higgsfield, Mobbin, Blender, etc.) need to be connected. This release ships the framework that answers both.
+
+**New file: `routing/MCPS.md`** documents the MCP integration framework:
+- Why MCPs need a documented lifecycle (PROPOSED → DOCUMENTED → PENDING → CONFIGURED-NOT-ACTIVE → ACTIVE → DEPRECATED)
+- How MCPs map to subagents (primary owner plus secondary owners)
+- Spec file shape with frontmatter (mcp-name, status, primary-owner, secondary-owners, proposal-doc, activated-date)
+- How subagent prompts should reference MCPs (pointer plus status flag, not embedded detail)
+- How to add a new MCP (proposal, documentation, regression test, connection, activation)
+- How to deprecate an MCP
+
+**New directory: `routing/mcps/`** holds per-MCP spec files:
+- `_template.md` for new MCP additions
+- `figma.md` (ACTIVE) - Snape and Neo, design system orchestration
+- `pencil.md` (ACTIVE) - Snape and Neo, .pen file design editing
+- `adobe.md` (ACTIVE) - Snake Eyes primary, Snape and Morpheus secondary
+- `blender.md` (ACTIVE) - Gibson, 3D scene work via Python scripting
+- `magic-patterns.md` (CONFIGURED-NOT-ACTIVE) - Snape primary, Gibson secondary
+- `mobbin.md` (PENDING) - Sherlock primary, Snape secondary, design pattern research
+- `higgsfield.md` (PENDING) - Gibson primary, Morpheus and Snape secondary, AI video
+- `workspace-and-data.md` (ACTIVE cluster) - Slack, Google Drive, Granola, Notion, Gmail/Calendar, PDF Tools, Gong, Shopify, Apple Notes, Apify
+- `deployment-and-infra.md` (ACTIVE cluster) - Vercel, Netlify, Supabase
+
+### Changed
+
+- `agents/snape/AGENT.md`: replaced inline Magic Patterns section with a framework reference table pointing to spec files. Net line count decreased from 367 to 348 (more compact, more maintainable).
+- `README.md`: routing index now includes MCPS.md
+
+### Magic Patterns status correction
+
+Investigation during this phase revealed that Magic Patterns is connected at the Claude account/registry level (`connected: true, enabledInChat: true`) but its tools are not currently surfaced in active sessions. Best hypothesis: the MCP loads tools on-demand when a Magic Patterns design URL is shared in conversation. The MCP's actual tool shapes (`get_design`, `read_files`, `update_design`) confirm it operates on existing designs, not blank-slate variant generation as the earlier Snape prompt assumed.
+
+Snape's prompt updated to reflect this: Magic Patterns is an iteration partner (work with existing designs) rather than a blank-slate variant generator. New status added to the framework: CONFIGURED-NOT-ACTIVE for MCPs that are connected but whose tools haven't surfaced in session yet.
+
+### Rationale
+
+Two structural gaps without this framework:
+
+1. Magic Patterns sat as "PENDING" since 2026-05-18 with no clear path to activation. The framework now documents the lifecycle and current state explicitly.
+2. New MCPs (Higgsfield, Mobbin, etc.) had no consistent pattern for addition. Every new MCP would have been added ad-hoc to subagent prompts, accumulating mess. The framework makes the path predictable.
+
+Adopter benefit: the same framework lets people running DZNR add their own MCPs (e.g., their proprietary internal tools) without modifying core DZNR routing. Just add a spec file to `routing/mcps/`.
+
+---
+
 ## [1.5.0] - 2026-05-26
 
 ### Added - Phase 3.6: Snape subagent build (third production subagent)

@@ -537,6 +537,15 @@ These are real requests pulled from Kevin's actual work. Traced rigorously below
 - The "AI chat" framing is correctly routed to Gibson (ai-product-architecture handles agent design).
 - "Full product approach" is a useful phrase — should we formally add it to compound detection? See gap below.
 
+**Sequential phase vs cross-call decision (Phase 2/3 nuance, added 2026-05-26):**
+
+The expected trace above shows Gibson Phase 2 then Snape Phase 3 as sequential phases. Gibson's prompt and Snape's prompt both also document cross-call patterns where Gibson pulls Snape mid-work for brand layer. Both are valid execution shapes. Tár picks based on:
+
+- **Sequential phases** when the brand needs to be fully extracted and applied BEFORE the AI architecture is locked (the brand shapes the architecture, e.g., a brand voice that constrains chat tone or persona)
+- **Cross-call** when the AI architecture is largely brand-independent and brand layers on after (the architecture is generic; brand decorates the UI surface)
+
+For TEST 20 ("incorporates their brand") the brand is mentioned but not dominant; either shape is defensible. The trace picks sequential phases for traceability under per-claim source attribution (Morpheus's pitch later needs to cite Snape's brand work as upstream input, which is cleaner with sequential phasing). Adopters running similar work should pick based on which shape produces clearer source attribution downstream.
+
 **MINOR GAP:** "Full product approach" / "full build" / "end-to-end" are strong compound signals. Add to TRIGGERS.md compound detection: these phrases ALWAYS imply compound regardless of how many primary triggers fire.
 
 ---

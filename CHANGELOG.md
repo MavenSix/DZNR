@@ -7,6 +7,50 @@ All notable changes to DZNR are documented here. Versioning follows the EVOLUTIO
 
 ---
 
+## [1.12.1] - 2026-05-26
+
+### Fixed - Phase 4A.11: Three friction points surfaced by TEST 20 dry walkthrough
+
+Before live testing DZNR in a Claude Code session, walked TEST 20 (heavy compound: native AI chat prototype with brand and "full product approach") through Tár's documented routing algorithm step by step. Surfaced three real friction points worth fixing.
+
+**Fix 1: Tár's Step 6.3 now documents the plan-then-ask pattern for scope questions.**
+
+Previously, Tár's compound protocol said "present the plan ONCE before executing" without a documented pattern for handling scope questions that affect setup (e.g., which native platform Neo should target). TEST 20's expected trace said Snape clarifies platform "up front", which was correct but not explicitly supported by Tár's prompt.
+
+Patched Step 6.3 to document the pattern:
+1. Tár builds the plan with [SCOPE TBD] flags for any phase needing upfront info
+2. Tár presents the plan listing the open scope questions
+3. Tár asks the scope questions in her own voice (or via Snape if routing-flavored)
+4. User answers; plan locks with resolved scope
+5. Execution begins
+
+This is NOT the same as mid-flight clarification. Scope questions resolved upfront are part of plan presentation. Mid-flight clarification still fires during execution when something unexpected surfaces.
+
+**Fix 2: Tár's bundle plan format now mentions identify-industry as a Phase 1 sub-step.**
+
+When Sherlock is in Phase 1 of a compound and no industry tag exists in project memory, Sherlock runs the identify-industry step automatically. Previously this was invisible in the bundle plan presented to the user. Now the format example explicitly includes "(includes identify-industry step if new project with no industry tag)" so users can see it happening.
+
+**Fix 3: TEST 20 trace now clarifies sequential phases vs cross-call decision for Gibson/Snape.**
+
+Gibson's prompt and Snape's prompt both document cross-call patterns where Gibson pulls Snape mid-work for brand layer. TEST 20's expected trace shows Gibson Phase 2 then Snape Phase 3 as sequential phases. Both are valid; Tár picks based on whether brand needs to fully exist before architecture (sequential) or layers on after (cross-call).
+
+Added a "Sequential phase vs cross-call decision" note to TEST 20 documenting the heuristic: sequential phases when brand shapes architecture (e.g., brand voice constrains chat tone), cross-call when architecture is largely brand-independent and brand decorates the UI. For TEST 20 specifically, sequential phasing is preferred because Morpheus's downstream pitch needs per-claim source attribution cleanly anchored to Snape's brand work as upstream input.
+
+### Validated
+
+- Re-walked TEST 20 against patched Tár prompt: all three frictions resolved at the prompt level
+- Walked TEST 5 (single-route LWC + QA) against patched Tár prompt to verify no regression on non-compound dispatch: PASS, Step 6.3 patches only fire on compound requests
+- `scripts/validate-routing.sh` passes end-to-end
+- Zero new em-dashes introduced in patches
+- Plugin version bumped 1.12.0 to 1.12.1 (patch release, doc/prompt clarifications only, no architectural change)
+
+### Notes
+
+- The dry walkthrough is a prompt-level test, not a live Claude Code session test. Live test still requires opening Claude Code with DZNR installed and pasting a prompt on Kevin's machine.
+- These three patches reduce friction colleagues kicking the tires would likely encounter on their first compound request.
+
+---
+
 ## [1.12.0] - 2026-05-26
 
 ### Added - Phase 4A: Release-readiness pass for adopter use

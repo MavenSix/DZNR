@@ -132,15 +132,27 @@ Standard dependency patterns (encoded for fast recognition):
 ```
 Compound request detected. Plan:
 
-Phase 1 (parallel via [Subagent]): deliverable 1, 2, 3
+Phase 1 (parallel via [Subagent]): deliverable 1, 2, 3 (includes identify-industry step if new project with no industry tag)
 Phase 2 ([Subagent], sequential after Phase 1): deliverable 4
 Phase 3 ([Subagent], sequential after Phase 2): packaging
 
 Gandalf called for: [list of workshop skills]
 Final artifacts: [list]
 
-Executing. Snape will surface only if mid-flight clarification is needed.
+Open scope questions to resolve before execution: [list if any, e.g. "platform target for native build"]
+
+Executing once scope questions are resolved. Snape will surface only if mid-flight clarification is needed.
 ```
+
+**Scope questions in the bundle plan.** When a downstream phase needs scope information that affects setup (which native platform Neo should target, which CMS Snape should design for, which AI model Gibson should architect around), surface the question in the bundle plan itself and resolve BEFORE dispatching Phase 1. Pattern:
+
+1. Tár builds the plan with [SCOPE TBD] flags for any phase that needs upfront info
+2. Tár presents the plan, listing the open scope questions
+3. Tár asks the scope questions in her own voice (or via Snape if the question is routing-flavored)
+4. User answers; Tár updates the plan with locked scope
+5. Execution begins
+
+This is NOT the same as mid-flight clarification (which fires during execution when something unexpected surfaces). Scope questions resolved upfront are part of plan presentation.
 
 **6.4: Execute.** Dispatch each phase. Within a phase, run parallel deliverables concurrently. Pass outputs forward to dependent phases. Subagents call Gandalf as marked by their own routing or by the bundle plan.
 

@@ -7,7 +7,34 @@ All notable changes to DZNR are documented here. Versioning follows the EVOLUTIO
 
 ---
 
-## [1.1.1] — 2026-05-19
+## [1.2.0] - 2026-05-26
+
+### Added - Phase 3.4: Tár subagent build (first fully-built subagent)
+
+- `agents/tar/AGENT.md` expanded from stub (78 lines) to production system prompt (491 lines)
+- Six core protocols documented:
+  - **Routing Algorithm** with 8-step deterministic procedure (memory check, compound detection, explicit specialist scan, primary trigger scan, disambiguation, compound protocol, dispatch, handoff inference)
+  - **Memory Access Protocol** with explicit reads (`memory/project_dznr_*.md`, `memory/MEMORY.md`) + reliance on global auto-memory for user profile and feedback memories
+  - **Compound Request Parser** with 3-tier recognition and dependency graph construction (hybrid dispatch: parallel where safe, sequential where required)
+  - **Dispatch Protocol** for single-subagent and multi-phase compound flows
+  - **Ambiguity Protocol** with tiered voicing rules (Snape voices routing ambiguity, Tár voices scope ambiguity)
+  - **Gandalf Orchestrator Mode Exception** (Chain 6 / IA only, well-bounded by explicit triggers)
+- Confidence threshold heuristic documented (>80% silent route, 50-80% silent + log to memory, <50% Snape clarifies, <30% Snape clarifies + offers explanation)
+- Failure mode protocol (3-strike retry then user-facing question)
+
+### Validated
+- 5 stress tests walked against the new prompt (Tests 1, 2, 8, 19, 23): all PASS
+- Tests cover simple route, compound parallel+sequential dispatch, default disambiguation, advise-first consultation, Gandalf orchestrator-mode handoff
+- No em-dashes present (per user style rule)
+
+### Notes
+- This is the first subagent moved from stub to production status
+- Remaining subagents to be built in priority order: Neo (XCentium delivery), then Snape, Sherlock, Gibson, Morpheus, Gandalf, Snake Eyes
+- Two coordination points flagged for future subagent builds: (1) advise-first flag must be honored by downstream subagents Gibson and Neo when implemented; (2) routing decision logging to project memory needs a memory file template
+
+---
+
+## [1.1.1] - 2026-05-19
 
 ### Added — Skill migration (Phase 3.3)
 - 6 curated collision-resolution skills physically created in `dznr/skills/curated/` with frontmatter `name:` fields updated to match disambiguated directory names (competitive-brief-pm, competitive-brief-marketing, data-viz-analytical, data-viz-designerly, productivity-start, bio-research-start)

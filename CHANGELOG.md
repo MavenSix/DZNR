@@ -7,6 +7,64 @@ All notable changes to DZNR are documented here. Versioning follows the EVOLUTIO
 
 ---
 
+## [1.4.0] - 2026-05-26
+
+### Added - Phase 3.5.2: Industry posture system
+
+- `routing/INDUSTRIES.md`: 8 industries across 4 clusters (luxury, automotive, retail, cpg, fintech, healthcare, technology, media-entertainment, public-sector). Each industry has a posture profile with aesthetic defaults, tone defaults, research weights, compliance considerations, and pitch vocabulary.
+- Hybrid tagging trigger: Sherlock infers industry during discovery, user can override or refine. If user explicitly stated industry in original request, Tár writes the tag immediately and skips inference.
+- Industry tag lives in `memory/project_[name].md` frontmatter as `industry:` field with optional `industry-secondary:` for sub-vertical specificity.
+- Per-subagent application rules documented: Snape heaviest reader (aesthetic, voice, system priorities); Sherlock sets the tag and applies in research weighting; Morpheus heavy reader for outbound vocabulary; Gibson applies for experience conventions; Neo mostly ignores (code is code, with rare platform-expectation flags).
+- New directory `memory-templates/` with `project-template.md` showing the project memory file shape including industry frontmatter.
+- Sherlock's `identify-industry` step documented as stub; full implementation lands in Phase 3.6+ when Sherlock is built.
+
+### Changed
+
+- `agents/tar/AGENT.md`: Memory Access Protocol section extended with industry posture check and industry inference path (depends on Sherlock availability)
+- `README.md`: routing index now includes INDUSTRIES.md
+
+### Rationale
+
+Kevin flagged during Phase 3.5 review that XCentium-as-branch in Neo was a category error: XCentium is an employer, not a kind of work. The platform (Sitecore, LWC, AEM) is the real branch; XCentium is just one client of that branch. The deeper question this surfaced: what IS the right cross-cutting axis for adjusting work to context?
+
+Industry is that axis. Luxury, fintech, healthcare, and the others have meaningfully different vocabulary, conventions, audience expectations, and risk profiles. Tagging by industry gives DZNR adaptive intelligence without splintering into separate subagents per vertical.
+
+### Notes
+
+- Industry-specific reference files (luxury-aesthetics.md, fintech-compliance.md, etc.) will be added as adopters request them
+- Industries to consider in v1.1+: real estate, travel/hospitality (luxury sub-vertical), manufacturing/industrial B2B, energy/utilities, telecommunications, logistics, sports, higher education
+
+---
+
+## [1.3.1] - 2026-05-26
+
+### Changed - XCentium positioning scrub
+
+Following Kevin's review of Phase 3.5, all XCentium-as-positioning framing removed from DZNR routing docs and subagent prompts. XCentium is an employer of Kevin's, not a kind of work or a structural branch in DZNR. The xcm-* skills (xcm-spec-generator, xcm-user-stories, xcm-component-gen, xcm-context-package, xcm-validation) remain referenced by their plugin names because they are external Anthropic-distributed plugin skills; the `xcm-` prefix is legacy upstream naming, not a DZNR positioning claim.
+
+**Files updated:**
+
+- `agents/neo/AGENT.md`: full rewrite of Platform Posture section. Platforms now listed alphabetically as peers (no privileged default). Description and prose updated. Skills section renamed from "XCentium delivery" to "Specs, stories, validation, and CMS delivery". "Offshore handoff package" reframed as "Downstream team handoff package" with explicit note that adopters may have offshore, in-house, partner agency, or independent dev teams.
+- `routing/CHAINS.md`: Chain 4 heading changed from "Delivery Flow (XCentium pipeline)" to "Delivery Flow"
+- `routing/TRIGGERS.md`: Neo section subtitle changed from "XCentium pipeline" to "Multi-platform delivery pipeline"
+- `routing/SUBAGENT_ROSTERS.md`: Neo role description rewritten to list supported platforms explicitly. "XCentium Delivery" section header renamed to "Specs, stories, validation, and CMS delivery"
+- `routing/FAILURE_MODES.md`: forward-looking phase note neutralized
+- `README.md`: added "A note on skill naming" section explaining the `xcm-` prefix as legacy upstream artifact
+
+**Validated:**
+
+- All 5 Neo stress tests still pass (TEST 1 Sitecore, TEST 5 LWC, TEST 15 design system, TEST 16 tech stack, TEST 20 native chat). Branch labels changed but trigger resolution is identical.
+- Zero new XCentium-as-positioning references outside of CHANGELOG and governance/MIGRATION_REPORT history files.
+- One XCentium mention remains intentional: in `routing/INDUSTRIES.md` Why-industries-not-companies reasoning section, used as the example of why org-name is the wrong organizing branch.
+
+### Rationale
+
+Kevin's quote when this was flagged: "I don't want companies to be a branch of this skill for designers. Now there could be industry branches like luxury, automotive, retail, finance, technology, manufacturing, and etc."
+
+This patch removes the company-as-branch framing. The companion 1.4.0 release introduces industry-as-branch as the correct organizing axis.
+
+---
+
 ## [1.3.0] - 2026-05-26
 
 ### Added - Phase 3.5: Neo subagent build (second production subagent)

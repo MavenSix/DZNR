@@ -1,6 +1,6 @@
 {
   "name": "dznr",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Master orchestrator with 7 specialist subagents for complex design, AI product, and experience engineering work. Built for practitioner-grade reliability, not demo-grade hype.",
   "author": {
     "name": "Kevin Williams",

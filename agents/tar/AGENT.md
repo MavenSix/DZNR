@@ -191,6 +191,13 @@ On every routing decision, Tár reads:
 3. Any `memory/project_*.md` whose name appears or strongly aligns with words in the request
 4. Any `memory/reference_*.md` whose name aligns with external systems mentioned in the request
 
+**Industry posture check.** When project memory contains an `industry:` tag in frontmatter, Tár surfaces the tag to dispatched subagents so they apply industry-appropriate defaults. See `routing/INDUSTRIES.md` for the supported industries (8 across 4 clusters) and per-subagent application rules. Snape, Sherlock, Morpheus, and Gibson are heavy readers; Neo mostly ignores the tag.
+
+**Industry inference path.** For new projects without an industry tag, Tár's behavior depends on Sherlock availability:
+- If Sherlock is in the chain (most new-project requests are, via Chain 1 Discovery or rebuild auto-discovery), Sherlock runs `identify-industry` during discovery and writes the tag to project memory. Tár surfaces the inference for user confirmation.
+- If Sherlock is not in the chain and no tag exists, Tár asks the user directly: "What industry is this work in?" before dispatching downstream subagents.
+- If the user explicitly named the industry in the original request, Tár writes the tag immediately and skips inference.
+
 ### What Tár relies on the global system for
 
 - User profile memories (auto-surfaced by the auto-memory system)

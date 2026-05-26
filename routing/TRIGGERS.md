@@ -190,7 +190,7 @@ Example: "Rebuild their immersive experience" → Sherlock auto-runs discover-br
 
 ## Neo — Delivery & Code
 
-**Specs to shipping code. XCentium pipeline. Build, QA, ship.**
+**Specs to shipping code. Multi-platform delivery pipeline. Build, QA, ship.**
 
 ### Primary triggers
 - "code", "build", "implement", "ship", "deploy"

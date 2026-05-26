@@ -296,7 +296,7 @@ NODE 6: Morpheus packages the launch
 
 ---
 
-## Chain 4 — Delivery Flow (XCentium pipeline)
+## Chain 4 — Delivery Flow
 
 **Purpose:** Receive design input (typically Figma + brief), produce specs → user stories → code → QA → ship.
 

@@ -76,6 +76,13 @@ For the routing system internals, see:
 - [routing/SHARED_SKILLS.md](./routing/SHARED_SKILLS.md) — shared-skill disambiguation
 - [routing/FAILURE_MODES.md](./routing/FAILURE_MODES.md) — failure-mode playbook
 - [routing/SUBAGENT_ROSTERS.md](./routing/SUBAGENT_ROSTERS.md) — full skill rosters
+- [routing/INDUSTRIES.md](./routing/INDUSTRIES.md) — industry posture system (8 industries across 4 clusters; how subagents adjust per industry)
+
+### A note on skill naming
+
+Some delivery skills Neo uses are prefixed `xcm-` (xcm-spec-generator, xcm-user-stories, xcm-component-gen, xcm-context-package, xcm-validation). The `xcm-` prefix is a legacy artifact of the upstream Anthropic plugin that ships these skills. The skills themselves are platform-agnostic and operate across any stack Neo supports (Sitecore, Salesforce, AEM, generic React/Next/Vue, native mobile, static sites, backend services). Treat the prefix as a forgettable name detail, not a positioning claim.
+
+DZNR routing docs and subagent prompts treat these skills as platform-neutral. The prefix may be reconciled in a future Anthropic plugin release.
 
 ---
 

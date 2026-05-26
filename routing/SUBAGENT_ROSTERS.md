@@ -218,11 +218,11 @@ image-to-code, imagegen-frontend-web, imagegen-frontend-mobile, animate, delight
 
 **Archetype:** The one who sees the code. Bends reality through implementation. The "make it real" subagent that turns specs into shipping software.
 
-**Role:** Owns specs, code generation, QA, repo scaffolding, engineering documentation, and the XCentium delivery pipeline that Kevin's professional work depends on. Neo is where the work goes when it's time to actually build and ship.
+**Role:** Owns specs, code generation, QA, repo scaffolding, engineering documentation, and the full delivery pipeline across any platform (Sitecore, Salesforce, AEM, generic React/Next/Vue, native mobile, static sites, backend services). Neo is where the work goes when it is time to actually build and ship.
 
 **Skills (24 total):**
 
-### XCentium Delivery (8)
+### Specs, stories, validation, and CMS delivery (8)
 | Skill | Source |
 |-------|--------|
 | xcm-spec-generator | anthropic-skills |
@@ -488,4 +488,4 @@ Some skills serve multiple domains. Tár disambiguates by context:
 3. 🔄 FigJam board annotation — add skill counts and legend
 4. ⏭ Migration script (dry-run) — physically organize skills into DZNR repo structure
 5. ⏭ Repo scaffold — folder layout matching this roster
-6. ⏭ Start Subagent 1 build — recommend Tár first (the orchestrator), then Neo (because XCentium pressure)
+6. ⏭ Start Subagent 1 build (recommend Tár first as the orchestrator, then Neo for delivery work)

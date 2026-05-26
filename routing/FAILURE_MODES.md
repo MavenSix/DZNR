@@ -428,5 +428,5 @@ All routing decisions are documented. All failure modes have protocols. All Snap
 What gets built next:
 - Phase 3.1: DZNR repo scaffold (folder structure, contracts, conventions)
 - Phase 3.2: First subagent build (Tár — the orchestrator)
-- Phase 3.3: Second subagent build (recommended: Neo, given XCentium project pressure)
+- Phase 3.3: Second subagent build (recommended: Neo, given delivery work is foundational across most chains)
 - Phase 3.4+: Remaining subagents

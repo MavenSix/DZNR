@@ -7,6 +7,37 @@ All notable changes to DZNR are documented here. Versioning follows the EVOLUTIO
 
 ---
 
+## [1.5.0] - 2026-05-26
+
+### Added - Phase 3.6: Snape subagent build (third production subagent)
+
+- `agents/snape/AGENT.md` expanded from stub (43 lines) to production system prompt (367 lines)
+- **Dual voice mode determined by dispatch context**:
+  - Subagent voice when Tár dispatches Snape for brand or design work (precise, confident, sparing with praise, technically literate, direct about deviation, long-form when work demands)
+  - Clarifier voice when Tár flags Snape to voice a routing question (terse, slightly impatient, surgically precise, no warmth, no reasoning justification)
+  - Mode switches only at dispatch boundary, never mid-conversation
+- **Heaviest industry posture reader in DZNR**: industry posture is primary default for every brand and design decision. Reads `industry:` tag from project memory frontmatter. Falls back to neutral defaults with flag when no tag exists.
+- **Explicit deviation log**: every divergence from industry posture defaults is logged in the artifact with reasoning and revert instructions. Non-optional.
+- **Pushback-with-reasoning conflict resolution**: when user direction conflicts with industry posture, brand context, or design judgment, Snape voices the concern with specific reasoning and presents 1-2 alternatives before executing. Bounded to one pushback per decision (no condescension).
+- **Magic Patterns MCP documented as PENDING**: triggers and workflow encoded in prompt so activation requires no rewrite. Manual UI exploration substitute documented for use until MCP connects.
+- Cross-subagent patterns documented: receiving handoffs from Sherlock/Tár/Gandalf-IA, calling Gandalf at multiple points per brand/design pass, handing to Neo with full token + spec package, handing to Morpheus with brand voice + tone, co-working with Gibson on immersive brand work.
+
+### Validated
+
+- 5 stress tests walked: TEST 3 (Web3 fintech brand from scratch), TEST 8 (design ambiguity default), TEST 14 (compound brand + heuristic + pitch), TEST 15 (full design system with WCAG 2.2 and motion), TEST 25 (Snape voicing clarifier on IA ambiguity). All PASS.
+- Voice mode switching verified across subagent and clarifier dispatches.
+- Industry posture reading verified including asking-up-front behavior when no tag exists.
+- Pushback voice and one-pushback-per-decision rule verified.
+- Zero em-dashes (per user style rule). Zero XCentium references.
+
+### Notes
+
+- Three subagents now in production: Tár, Neo, Snape
+- Snape is the first DZNR subagent with dual-role architecture; the pattern (subagent mode + meta-tool mode) is documented and can be referenced for future similar designs
+- Remaining subagents: Sherlock (next), Gibson, Morpheus, Gandalf, Snake Eyes
+
+---
+
 ## [1.4.0] - 2026-05-26
 
 ### Added - Phase 3.5.2: Industry posture system

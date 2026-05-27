@@ -1,40 +1,11 @@
 {
   "name": "dznr",
-  "version": "1.12.2",
+  "version": "1.12.3",
   "description": "Master orchestrator with 8 specialist subagents (Tár, Snape, Sherlock, Gibson, Neo, Morpheus, Gandalf, Snake Eyes) for complex design, AI product, and experience engineering work. Industry posture system, MCP integration framework, per-claim source attribution, mandatory four-lens AI ethics check. Built for practitioner-grade reliability, not demo-grade hype.",
   "author": {
     "name": "Kevin Williams",
     "email": "brandlessons@gmail.com"
   },
   "license": "UNLICENSED",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/MavenSix/DZNR.git"
-  },
-  "agents": [
-    "./agents/tar/AGENT.md",
-    "./agents/snape/AGENT.md",
-    "./agents/sherlock/AGENT.md",
-    "./agents/gibson/AGENT.md",
-    "./agents/neo/AGENT.md",
-    "./agents/morpheus/AGENT.md",
-    "./agents/gandalf/AGENT.md",
-    "./agents/snake-eyes/AGENT.md"
-  ],
-  "skills": {
-    "workshop": "./skills/workshop",
-    "curated": "./skills/curated"
-  },
-  "routing": "./routing",
-  "tags": [
-    "design",
-    "experience-engineering",
-    "ai-product",
-    "orchestration",
-    "multi-agent",
-    "design-systems",
-    "immersive",
-    "xcentium"
-  ],
-  "stability": "beta"
+  "repository": "https://github.com/MavenSix/DZNR"
 }

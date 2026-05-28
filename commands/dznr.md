@@ -1,6 +1,6 @@
 ---
-description: "Talk to DZNR. The orchestrator (Tár) routes your request to the right specialist subagent or composes a compound chain. The everyday way to use DZNR; for power-user direct invocations of specific subagents see @dznr:tar:tar, @dznr:snape:snape, etc."
-argument-hint: "[your request, or leave empty for cast introduction]"
+description: Talk to DZNR. Tár orchestrates from here. Routes to the right specialist subagent or composes a compound chain across the cast.
+argument-hint: "<your request, or leave empty for cast introduction>"
 ---
 
 # /dznr

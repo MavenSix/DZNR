@@ -39,9 +39,9 @@ Gandalf is called for distill, extract, and critique along the way. All six deli
 | "speed mode" / "skip hardening" | Override Neo's mandatory Gandalf calls (logged for QA) |
 | "advise" / "what's the best way" / "should I" / "recommend" / "tell me which" | Get options before execution |
 | "full product approach" / "end-to-end" | Force compound mode |
-| "@dznr-os:[name]" | Direct subagent invocation |
+| "@dznr:[name]" | Direct subagent invocation |
 
-> The `@dznr-os:[name]` direct-invocation syntax follows Claude Code plugin conventions as of 2026-05-26. Verify the exact syntax with your Claude CLI version (`claude agent --help`) if the prefix differs.
+> The `@dznr:[name]` direct-invocation syntax follows Claude Code plugin conventions as of 2026-05-26. Verify the exact syntax with your Claude CLI version (`claude agent --help`) if the prefix differs.
 
 ## Industry tagging
 
@@ -85,7 +85,7 @@ Neo applies the same pattern for platform decisions (Sitecore vs Salesforce vs g
 
 When you know exactly who you want:
 
-> "@dznr-os:gandalf, run polish and harden on this code"
+> "@dznr:gandalf, run polish and harden on this code"
 
 Skips Tár's routing and goes straight to Gandalf.
 

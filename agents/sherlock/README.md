@@ -9,7 +9,7 @@
 - **Chains:** see `routing/CHAINS.md`
 
 ## To invoke
-Use `@dznr-os:sherlock` in Claude Code, or just describe what you need to DZNR — Tár will route automatically.
+Use `@dznr:sherlock` in Claude Code, or just describe what you need to DZNR — Tár will route automatically.
 
 ## Status
 Stub. Full build pending.

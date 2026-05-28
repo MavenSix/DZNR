@@ -92,14 +92,14 @@ Inside Claude Code, run:
 
 You should see eight DZNR subagents under the `dznr:` namespace:
 
-- `dznr-os:tar:tar` (orchestrator)
-- `dznr-os:snape:snape` (brand and design systems)
-- `dznr-os:sherlock:sherlock` (discovery and research)
-- `dznr-os:gibson:gibson` (experience engineering and AI product)
-- `dznr-os:neo:neo` (delivery and code)
-- `dznr-os:morpheus:morpheus` (pitch and story)
-- `dznr-os:gandalf:gandalf` (workshop tri-mode)
-- `dznr-os:snake-eyes:snake-eyes` (specialist arsenal)
+- `dznr:tar:tar` (orchestrator)
+- `dznr:snape:snape` (brand and design systems)
+- `dznr:sherlock:sherlock` (discovery and research)
+- `dznr:gibson:gibson` (experience engineering and AI product)
+- `dznr:neo:neo` (delivery and code)
+- `dznr:morpheus:morpheus` (pitch and story)
+- `dznr:gandalf:gandalf` (workshop tri-mode)
+- `dznr:snake-eyes:snake-eyes` (specialist arsenal)
 
 If they appear, DZNR loaded successfully. Run `/dznr` (with no arguments) to see Tár introduce the cast in her own voice.
 
@@ -171,7 +171,7 @@ Check that `~/.claude/skills` exists or does not exist (the sync script will tel
 
 ### "Subagent not found" or `/dznr` does not appear
 
-DZNR's subagents are namespaced under `dznr:`. Direct invocation uses the triple-colon pattern: `@dznr-os:tar:tar`, `@dznr-os:snape:snape`, and so on. Verify with `/agents` inside Claude Code; you should see all eight DZNR subagents listed under the Library tab.
+DZNR's subagents are namespaced under `dznr:`. Direct invocation uses the triple-colon pattern: `@dznr:tar:tar`, `@dznr:snape:snape`, and so on. Verify with `/agents` inside Claude Code; you should see all eight DZNR subagents listed under the Library tab.
 
 If `/dznr` does not appear when you type `/`, the slash command may not be registered. Confirm `~/DZNR/commands/dznr.md` exists. If it does, the `--plugin-dir` load may not be picking up commands; check Claude Code's release notes for plugin command support in your CLI version.
 

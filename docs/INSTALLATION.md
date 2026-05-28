@@ -42,18 +42,33 @@ If a plugin is missing when DZNR routes to a skill from it, the subagent will fl
 ## Install
 
 ```bash
-# Clone the repo
-git clone https://github.com/MavenSix/DZNR.git
-cd DZNR
-
-# Install as a Claude Code plugin
-claude plugin install ./dznr
-
-# Set up the workshop symlink (so ~/.claude/skills feeds into Gandalf)
-./dznr/scripts/sync-workshop.sh
+# Clone the repo to your home directory
+git clone https://github.com/MavenSix/DZNR.git ~/DZNR
 ```
 
-The `sync-workshop.sh` script handles three cases:
+That's the only required install step. DZNR loads as a local plugin via the `--plugin-dir` flag when you run Claude Code:
+
+```bash
+claude --plugin-dir ~/DZNR
+```
+
+You can also pass `--plugin-dir` from anywhere by pointing at the absolute path. If you prefer to run Claude Code from inside the repo, `claude --plugin-dir .` works too.
+
+### Why not `claude plugin install ./dznr`?
+
+The `claude plugin install` command requires a configured marketplace. DZNR is not currently published to one, so the install command would fail with "Plugin not found in any configured marketplace." The `--plugin-dir` flag is Claude Code's official path for loading a local plugin directly during development or for solo and small-team use.
+
+If you want to publish DZNR to your own marketplace (or fork it into a team marketplace), see `claude plugin marketplace --help`.
+
+### Optional: workshop sync
+
+The workshop sync makes Gandalf's 38 personally-authored craft skills available outside DZNR's namespace (so you can use them in non-DZNR projects):
+
+```bash
+~/DZNR/scripts/sync-workshop.sh
+```
+
+The script handles three cases:
 
 1. **No existing `~/.claude/skills`:** creates the symlink to `dznr/skills/workshop/`. Done.
 2. **`~/.claude/skills` is already a symlink to the workshop:** detects and exits cleanly.
@@ -63,33 +78,48 @@ If you have a custom workshop in `~/.claude/skills`, back it up first (the scrip
 
 ## Verify install
 
-```bash
-# Confirm DZNR registered as a plugin
-claude plugin list | grep dznr
-
-# Confirm subagents are available
-claude agent list | grep dznr
-```
-
-Expected agents: `dznr:tar`, `dznr:snape`, `dznr:sherlock`, `dznr:gibson`, `dznr:neo`, `dznr:morpheus`, `dznr:gandalf`, `dznr:snake-eyes`.
-
-> The exact `claude plugin list` and `claude agent list` syntax depends on your Claude CLI version. If those commands do not return the expected output, check `claude --help` for the equivalent commands.
-
-## First run
+Open a Claude Code session with DZNR loaded:
 
 ```bash
-claude chat
+claude --plugin-dir ~/DZNR
 ```
 
-Then try:
+Inside Claude Code, run:
 
-> "What can DZNR do?"
+```
+/agents
+```
 
-Tár will respond with an overview of the cast. Then try a real request:
+You should see eight DZNR subagents under the `dznr:` namespace:
 
-> "Audit https://example.com"
+- `dznr:tar:tar` (orchestrator)
+- `dznr:snape:snape` (brand and design systems)
+- `dznr:sherlock:sherlock` (discovery and research)
+- `dznr:gibson:gibson` (experience engineering and AI product)
+- `dznr:neo:neo` (delivery and code)
+- `dznr:morpheus:morpheus` (pitch and story)
+- `dznr:gandalf:gandalf` (workshop tri-mode)
+- `dznr:snake-eyes:snake-eyes` (specialist arsenal)
 
-Sherlock should respond with a site audit. Sherlock may run the `identify-industry` step during the audit and write an industry tag to project memory.
+If they appear, DZNR loaded successfully. Run `/dznr` (with no arguments) to see Tár introduce the cast in her own voice.
+
+You can also run `claude plugin validate ~/DZNR` from a shell to validate the plugin manifest and agent definitions. Expected output: "Validation passed with warnings" (the warnings are about README.md files in agent directories, which are cosmetic).
+
+Then try a real request via the everyday command:
+
+```
+/dznr audit https://example.com
+```
+
+Tár routes to Sherlock for the audit. Sherlock may run the `identify-industry` step during the audit and write an industry tag to project memory. You'll see Tár's in-character status announcements at each phase boundary so you can watch the routing happen.
+
+For a compound test, try:
+
+```
+/dznr discover the brand at https://stripe.com and propose how their docs design system could evolve, end-to-end
+```
+
+Tár will detect compound (the `end-to-end` Tier 1 phrase), present the bundle plan with any scope questions she needs answered upfront, then dispatch in phases. Each phase announces who's working and what they're doing in that character's voice.
 
 ## Industry tagging on first project
 
@@ -115,11 +145,14 @@ You can connect additional MCPs through your Claude app. DZNR will not interfere
 
 ## Uninstall
 
-```bash
-claude plugin uninstall dznr
+Since DZNR is loaded via `--plugin-dir`, "uninstalling" is just:
 
-# Optionally remove the workshop symlink
-# (confirm with ls -la ~/.claude/skills before removing; restore your backup if applicable)
+1. Stop using the `--plugin-dir ~/DZNR` flag in your `claude` commands.
+2. Optionally delete the cloned repo: `rm -rf ~/DZNR`
+3. Optionally remove the workshop symlink:
+
+```bash
+# Confirm with ls -la ~/.claude/skills before removing
 ls -la ~/.claude/skills
 rm ~/.claude/skills
 ```
@@ -128,21 +161,27 @@ If you backed up a previous `~/.claude/skills` to `~/.claude/skills.backup-[date
 
 ## Troubleshooting
 
-### "Plugin manifest not found"
+### "Plugin not found in any configured marketplace"
 
-Make sure you are inside the DZNR repo root and the `dznr/` subdirectory exists. The plugin path is `./dznr`, not just `.`.
+You used `claude plugin install ./dznr`. That command requires a marketplace; DZNR is loaded via `--plugin-dir` instead. Use `claude --plugin-dir ~/DZNR` to launch Claude Code with DZNR loaded.
 
 ### "Workshop sync failed"
 
 Check that `~/.claude/skills` exists or does not exist (the sync script will tell you). If it has unsaved skills, the script backs them up; check `~/.claude/skills.backup-[date]/` after running.
 
-### "Subagent not found"
+### "Subagent not found" or `/dznr` does not appear
 
-DZNR's subagents are namespaced under `dznr:`. Make sure you are using `@dznr:snape` not `@snape`. Verify with `claude agent list` (or your CLI version's equivalent).
+DZNR's subagents are namespaced under `dznr:`. Direct invocation uses the triple-colon pattern: `@dznr:tar:tar`, `@dznr:snape:snape`, and so on. Verify with `/agents` inside Claude Code; you should see all eight DZNR subagents listed under the Library tab.
+
+If `/dznr` does not appear when you type `/`, the slash command may not be registered. Confirm `~/DZNR/commands/dznr.md` exists. If it does, the `--plugin-dir` load may not be picking up commands; check Claude Code's release notes for plugin command support in your CLI version.
 
 ### "Skill X not available"
 
-Some skill came from a plugin you have not installed. Check `claude plugin list` (or equivalent) to see what is available, then install the missing plugin from the required-plugins list above.
+Some skill came from a plugin you have not installed. The DZNR plugin only ships agents, not other plugins' skills. Install the missing plugin from your Claude Code marketplace if you want the full skill set.
+
+### Plugin validation warnings
+
+Running `claude plugin validate ~/DZNR` may show 8 warnings about README.md files in agent directories lacking frontmatter. These are cosmetic and do not affect plugin behavior. They will be addressed in a future cleanup pass.
 
 ### Industry tag not appearing in project memory
 

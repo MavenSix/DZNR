@@ -72,12 +72,19 @@ Quick version:
 
 ```bash
 git clone https://github.com/MavenSix/DZNR.git
-cd DZNR
-claude plugin install ./dznr
-./dznr/scripts/sync-workshop.sh
+cd ~
+claude --plugin-dir ~/DZNR
 ```
 
-> Install commands follow Claude Code plugin conventions as of 2026-05-26. If your Claude CLI version differs, check `claude --help` or the official docs for current syntax.
+That launches Claude Code with DZNR loaded as a local plugin. Confirm registration with `/agents`; you should see the eight DZNR subagents (`dznr:tar:tar`, `dznr:snape:snape`, and so on).
+
+For workshop sync (optional, only if you want Gandalf's skills available outside DZNR):
+
+```bash
+./scripts/sync-workshop.sh
+```
+
+> **Note on install paths.** `claude plugin install` requires a configured marketplace; the `--plugin-dir` flag loads a local plugin directly and is the recommended adopter install path. If you want to publish DZNR to your own marketplace, see `claude plugin marketplace --help`.
 
 ---
 
@@ -85,7 +92,27 @@ claude plugin install ./dznr
 
 See [docs/GETTING_STARTED.md](./docs/GETTING_STARTED.md) for examples and patterns.
 
-The short version: talk to DZNR like you would any other agent. The routing handles the rest. For multi-subagent work, describe everything you need in one request and DZNR will bundle it.
+Two ways to use DZNR:
+
+**Everyday command (recommended):**
+
+```
+/dznr [your request]
+```
+
+This routes to Tár, the orchestrator. She figures out which specialist subagent handles your request, or composes a compound chain across multiple subagents. Empty `/dznr` triggers Tár introducing herself and the cast.
+
+**Direct subagent invocation (power user):**
+
+```
+@dznr:gandalf:gandalf polish this React component
+@dznr:sherlock:sherlock audit https://example.com
+@dznr:morpheus:morpheus write a launch narrative from these inputs
+```
+
+Useful when you know exactly which subagent fits and want to skip Tár's routing layer.
+
+Each invocation surfaces in-character status announcements at handoff points so you can watch the orchestration happen, not just the final output.
 
 ---
 

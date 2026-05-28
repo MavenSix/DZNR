@@ -7,6 +7,82 @@ All notable changes to DZNR are documented here. Versioning follows the EVOLUTIO
 
 ---
 
+## [1.13.0] - 2026-05-28
+
+### Added - Level 1 in-character status announcements (Patch 3, headline feature)
+
+Every subagent's AGENT.md now contains a **Visibility Protocol (Status Announcements)** section describing how that subagent narrates orchestration in their own voice at handoff points. The pattern is Pencil's design agent swarm rendered as text. Users see who is on stage and what they are doing at each phase boundary.
+
+Voices, with one canonical example each:
+
+- **Tár (conductor):** "Phase 2. Snape on deck. Brand layer, in sequence, the score requires it before Neo touches paint."
+- **Snape (alchemist):** "Wealth-management posture, then. Restraint, materiality, the absence of noise. I begin with the typography pairing. The rest follows from the type."
+- **Sherlock (observer):** evidence-led, names specific signals before conclusions. Confirms before running a rebuild discovery pass.
+- **Gibson (cyberpunk pragmatist):** "AI chat for a private wealth audience. Mode B with a brand surface, that puts us in the overlap. I am running the four-lens in parallel with the architecture sketch. Guardianship is the load-bearing one here."
+- **Neo (builder):** "React Native, Expo 52. Scaffold first, components second, then the hardening pass. I install before I declare anything done."
+- **Morpheus (teacher):** "The work upstream is the case. Sherlock surfaced three opportunities. Snape gave the brand. Gibson architected the experience. The pitch writes itself in Discovery Arc, walk the audience through what we found."
+- **Gandalf (wizard):** "Polish pass complete. I tightened the heading rhythm and pulled the secondary CTA out of competition with the primary. Returning to Snape."
+- **Snake Eyes (silent specialist):** "Legal-risk-assessment deployed. Findings attached."
+
+Each Visibility Protocol section includes voice description, multiple usage patterns (opening, mid-work, completion, deviation, failure), and voice constraints (length limits, prohibited phrasing, narration style).
+
+### Added - Mandatory npm install validation at Neo's NODE 5 (Patch 1)
+
+Neo now treats `npm install` exit code zero as a Layer 1 validation gate for JS/TS platform work. The 2026-05-27 live test surfaced two package-hallucination bugs (a nonexistent `expo-svg` package and a nonexistent `react@18.3.2` version) that an install validation would have caught immediately. New rules:
+
+- Neo MUST run `npm install` after writing `package.json` and any dependency change
+- Exit code zero is required before any "build complete" claim
+- ETARGET, ERESOLVE, E404 errors loop back to Layer 1 fix-and-retry
+- For Expo projects, Neo prefers `npx expo install --check` to honor SDK-pinned versions
+- Every dependency declared in `package.json` must exist on npm; no fabricated names or versions
+- No per-request override allowed; the gate is unconditional
+
+### Added - /dznr slash command (Patch 4)
+
+New `/dznr [your request]` command at `commands/dznr.md` provides an everyday invocation path for talking to DZNR. The command routes the user's request to Tár, the orchestrator. Empty `/dznr` triggers Tár introducing herself and the cast.
+
+Power users can still invoke subagents directly via `@dznr:[name]:[name]` (e.g., `@dznr:sherlock:sherlock audit https://example.com`).
+
+### Fixed - README install command (Patch 2)
+
+`README.md` and `docs/INSTALLATION.md` previously instructed users to run `claude plugin install ./dznr`. That command requires a configured marketplace and produces "Plugin not found in any configured marketplace" on a fresh clone. The correct invocation for a local plugin is `claude --plugin-dir ~/DZNR`.
+
+Both docs updated. The marketplace-vs-`--plugin-dir` distinction is explained in a new INSTALLATION subsection ("Why not `claude plugin install ./dznr`?") so adopters do not retry the failing path.
+
+### Added - v1.14.0 design spec for orchestration visibility (Levels 2 and 3)
+
+`governance/proposals/2026-05-27-orchestration-visibility.md` documents the multi-level visibility roadmap. Level 1 (this release) covers in-character text narration. Level 2 (v1.14.0 candidate) covers Cowork progress widgets. Level 3 (v1.14.0 candidate) covers a persistent orchestration ledger at `.dznr/orchestration.log` (JSON Lines) that adopters can use for debugging, analytics, and regression testing.
+
+Proposal is in REVIEW status. Six open design questions (three per level) await Kevin's review before APPROVED.
+
+### Validated
+
+- `scripts/validate-routing.sh` passes against all eight AGENT.md files
+- Em-dash sweep across all eight AGENT.md files: clean
+- Plugin version bumped to 1.13.0
+- The 2026-05-27 live test scenario (React Native fintech chat prototype) is the regression bar: every narration point shown in the live test now corresponds to a Visibility Protocol section in the relevant AGENT.md
+
+### Notes
+
+- All eight subagents now have documented voices for narration. The collapsed-dispatch architecture (Tár absorbing subagent prompts as context) still applies; visibility lives at the narration layer, not the dispatch layer.
+- This release does not change routing behavior. Compound flows, industry posture, MCP routing, and the four-lens AI ethics check are unchanged.
+- The README.md warnings in `agents/<name>/README.md` directories remain as cosmetic plugin-validate output. Cleanup is queued under task #92 and will ship in a subsequent doc pass.
+
+---
+
+## [1.12.3] - 2026-05-27
+
+### Fixed - Plugin manifest version pin after live test
+
+After the end-to-end live test on 2026-05-27 (React Native chat prototype rendering on iOS simulator under fintech industry posture), the plugin manifest was bumped to 1.12.3 to mark the validated state. No code or routing changes; this version pin captures the state used in the live test before the v1.13.0 patches landed.
+
+### Notes
+
+- v1.12.3 is a "snapshot" version corresponding to the artifact that ran end-to-end without orchestration visibility, without npm install validation, and with the broken install instruction in the README
+- v1.13.0 captures the three patches plus the slash command and the design spec for v1.14.0
+
+---
+
 ## [1.12.2] - 2026-05-26
 
 ### Fixed - Phase 4A.12: GitHub Actions CI workflow paths

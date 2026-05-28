@@ -7,6 +7,35 @@ All notable changes to DZNR are documented here. Versioning follows the EVOLUTIO
 
 ---
 
+## [1.13.1] - 2026-05-28
+
+### Fixed - Plugin name collision blocking plain /dznr slash command
+
+The v1.13.0 release shipped `commands/dznr.md` intending to register a `/dznr` slash command. Claude Code resolved it as `/dznr:dznr` because the plugin name (`dznr`) collided with the command name (`dznr`). Same-name plugin and command triggers automatic namespacing in the slash menu, which produced an unusable user experience.
+
+**Resolution:**
+
+Renamed the plugin in `.claude-plugin/plugin.json` from `dznr` to `dznr-os`. With the plugin name no longer matching the command file name, `commands/dznr.md` registers as plain `/dznr` in the slash menu.
+
+**Cascading rename:**
+
+All eight subagent invocations updated from `@dznr:[name]:[name]` to `@dznr-os:[name]:[name]`. Docs updated to match:
+
+- `README.md`, `docs/INSTALLATION.md`, `docs/GETTING_STARTED.md`, `docs/TEAM_REFERENCE_CARD.md`
+- All eight `agents/<name>/README.md` files
+- The CHANGELOG entry for v1.13.0 (the historical record of how to invoke is now correct)
+
+Subagent agent `name:` frontmatter fields are unchanged (they were never the namespace anchor; the plugin `name:` is). Routing logic and the visibility protocol are unchanged.
+
+### Notes
+
+- Users now type plain `/dznr` to invoke the orchestrator
+- Power users invoke specific subagents as `@dznr-os:tar:tar`, `@dznr-os:snape:snape`, etc.
+- Plugin install path is unchanged: `claude --plugin-dir ~/DZNR`
+- This patch closes the slash command UX gap surfaced immediately after the v1.13.0 ship
+
+---
+
 ## [1.13.0] - 2026-05-28
 
 ### Added - Level 1 in-character status announcements (Patch 3, headline feature)
@@ -41,7 +70,7 @@ Neo now treats `npm install` exit code zero as a Layer 1 validation gate for JS/
 
 New `/dznr [your request]` command at `commands/dznr.md` provides an everyday invocation path for talking to DZNR. The command routes the user's request to Tár, the orchestrator. Empty `/dznr` triggers Tár introducing herself and the cast.
 
-Power users can still invoke subagents directly via `@dznr:[name]:[name]` (e.g., `@dznr:sherlock:sherlock audit https://example.com`).
+Power users can still invoke subagents directly via `@dznr-os:[name]:[name]` (e.g., `@dznr-os:sherlock:sherlock audit https://example.com`).
 
 ### Fixed - README install command (Patch 2)
 

@@ -61,7 +61,7 @@ Supported industries: luxury, automotive, retail, CPG, fintech, healthcare, tech
 | "speed mode" / "skip hardening" | Override mandatory Gandalf calls |
 | "advise" / "what's the best way" / "tell me which" / "recommend" | Get options before execution |
 | "full product approach" / "end-to-end" | Force compound mode |
-| "@dznr:[name]" | Direct subagent invocation |
+| "@dznr-os:[name]" | Direct subagent invocation |
 | "this is [industry]" | Lock the industry tag |
 | "no, this should go to [subagent]" | Reroute Tár (remembered for project) |
 
@@ -83,8 +83,8 @@ Morpheus or Snape will log the deviation and adjust.
 
 When you know exactly who you want:
 
-> "@dznr:gandalf, run polish and harden on this code"
-> "@dznr:morpheus, write me a status update for the team"
+> "@dznr-os:gandalf, run polish and harden on this code"
+> "@dznr-os:morpheus, write me a status update for the team"
 
 Skips Tár's routing. Useful when you know the path.
 

@@ -76,7 +76,7 @@ cd ~
 claude --plugin-dir ~/DZNR
 ```
 
-That launches Claude Code with DZNR loaded as a local plugin. Confirm registration with `/agents`; you should see the eight DZNR subagents (`dznr:tar:tar`, `dznr:snape:snape`, and so on).
+That launches Claude Code with DZNR loaded as a local plugin. Confirm registration with `/agents`; you should see the eight DZNR subagents (`dznr-os:tar:tar`, `dznr-os:snape:snape`, and so on).
 
 For workshop sync (optional, only if you want Gandalf's skills available outside DZNR):
 
@@ -105,9 +105,9 @@ This routes to Tár, the orchestrator. She figures out which specialist subagent
 **Direct subagent invocation (power user):**
 
 ```
-@dznr:gandalf:gandalf polish this React component
-@dznr:sherlock:sherlock audit https://example.com
-@dznr:morpheus:morpheus write a launch narrative from these inputs
+@dznr-os:gandalf:gandalf polish this React component
+@dznr-os:sherlock:sherlock audit https://example.com
+@dznr-os:morpheus:morpheus write a launch narrative from these inputs
 ```
 
 Useful when you know exactly which subagent fits and want to skip Tár's routing layer.

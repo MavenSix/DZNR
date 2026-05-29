@@ -7,6 +7,31 @@ All notable changes to DZNR are documented here. Versioning follows the EVOLUTIO
 
 ---
 
+## [1.13.2] - 2026-05-28
+
+### Fixed - Plain /dznr command via user-level commands directory
+
+Claude Code namespaces ALL plugin commands as `/plugin-name:command-name` in the slash menu. There is no plugin-side configuration that surfaces a plugin command as a plain short name. The v1.13.0 and v1.13.1 attempts to chase a plain `/dznr` via plugin configuration alternatives all hit this wall.
+
+**What actually works:** copy the command file to the user-level commands directory at `~/.claude/commands/`. User-level commands surface as plain `/[name]` with no namespace prefix.
+
+**Install step added to INSTALLATION.md:**
+
+```bash
+mkdir -p ~/.claude/commands && cp ~/DZNR/commands/conduct.md ~/.claude/commands/dznr.md
+```
+
+After this copy and a Claude Code restart, typing `/d` shows `/dznr` plain in the slash menu. The plugin still ships `commands/conduct.md` (registers as `/dznr:conduct` for adopters who skip the copy step), and the same command body powers both invocations.
+
+### Notes
+
+- Users get plain `/dznr` after one copy command
+- Power users invoke specific subagents as `@dznr:tar:tar`, `@dznr:snape:snape`, etc.
+- Plugin install path is unchanged: `claude --plugin-dir ~/DZNR`
+- This pattern matches the user-level command convention documented for Claude Code
+
+---
+
 ## [1.13.1] - 2026-05-28
 
 ### Fixed - Slash command renamed from /dznr to /conduct to avoid plugin-name collision

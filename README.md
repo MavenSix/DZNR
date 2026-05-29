@@ -102,6 +102,8 @@ Two ways to use DZNR:
 
 This routes to Tár, the orchestrator. She figures out which specialist subagent handles your request, or composes a compound chain across multiple subagents. Empty `/dznr` triggers Tár introducing herself and the cast.
 
+`/dznr` is a user-level slash command that you install with one copy command after cloning (see [INSTALLATION.md](./docs/INSTALLATION.md)). Without the copy step, the same command is available as the plugin-namespaced `/dznr:conduct`.
+
 **Direct subagent invocation (power user):**
 
 ```

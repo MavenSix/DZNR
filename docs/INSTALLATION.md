@@ -46,13 +46,25 @@ If a plugin is missing when DZNR routes to a skill from it, the subagent will fl
 git clone https://github.com/MavenSix/DZNR.git ~/DZNR
 ```
 
-That's the only required install step. DZNR loads as a local plugin via the `--plugin-dir` flag when you run Claude Code:
+DZNR loads as a local plugin via the `--plugin-dir` flag when you run Claude Code:
 
 ```bash
 claude --plugin-dir ~/DZNR
 ```
 
 You can also pass `--plugin-dir` from anywhere by pointing at the absolute path. If you prefer to run Claude Code from inside the repo, `claude --plugin-dir .` works too.
+
+### Get the plain `/dznr` slash command
+
+Plugin commands in Claude Code are namespaced as `/[plugin]:[command]` (in DZNR's case, `/dznr:conduct`). To get a plain `/dznr` that you can type without the namespace prefix, install the command file at the user level:
+
+```bash
+mkdir -p ~/.claude/commands && cp ~/DZNR/commands/conduct.md ~/.claude/commands/dznr.md
+```
+
+After this and a Claude Code restart, type `/d` and `/dznr` appears as a plain entry in the slash menu. Tár picks up the request from there.
+
+The plugin still ships `commands/conduct.md` for adopters who skip the copy step; both `/dznr` (user-level) and `/dznr:conduct` (plugin-level) hand off to the same Tár orchestration.
 
 ### Why not `claude plugin install ./dznr`?
 

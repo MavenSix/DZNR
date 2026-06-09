@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DZNR Prompt Library</title>
+<style>
+:root {
+  --bg: #FAF8F4;
+  --surface: #FFFFFF;
+  --text: #1A1A1A;
+  --text-muted: #6E6E6E;
+  --text-faint: #9B9B9B;
+  --border: #E8E5DF;
+  --border-strong: #D4CFC4;
+  --code-bg: #F1EEE8;
+  --bracket: #8B6914;
+  --accent: #2C2C2C;
+  --success: #2D6A4F;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.container {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 64px 32px 96px;
+}
+
+header.page-header {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 32px;
+  margin-bottom: 48px;
+}
+
+h1 {
+  font-family: Charter, "Iowan Old Style", "Hoefler Text", Georgia, serif;
+  font-size: 48px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+  line-height: 1.05;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-size: 16px;
+  max-width: 620px;
+  margin: 0;
+}
+
+.meta {
+  margin-top: 20px;
+  font-size: 12px;
+  color: var(--text-faint);
+  display: flex;
+  gap: 24px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 500;
+  flex-wrap: wrap;
+}
+
+h2 {
+  font-family: Charter, "Iowan Old Style", "Hoefler Text", Georgia, serif;
+  font-size: 28px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  margin: 0 0 8px;
+  line-height: 1.2;
+}
+
+h3 {
+  font-size: 17px;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+}
+
+p { margin: 0 0 14px; }
+p:last-child { margin-bottom: 0; }
+
+.section {
+  margin-bottom: 64px;
+}
+
+.section-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-faint);
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.section-intro {
+  color: var(--text-muted);
+  margin-bottom: 28px;
+  max-width: 680px;
+}
+
+.install-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 28px 32px;
+}
+
+.install-step {
+  margin-bottom: 20px;
+}
+
+.install-step:last-child { margin-bottom: 0; }
+
+.install-step-num {
+  font-size: 11px;
+  color: var(--text-faint);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.install-step-desc {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.code-wrap {
+  position: relative;
+  margin: 0;
+}
+
+pre {
+  font-family: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  font-size: 13px;
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 14px 18px;
+  margin: 0;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+.bracket {
+  color: var(--bracket);
+  font-weight: 500;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  color: var(--text-muted);
+  font-size: 10px;
+  font-family: inherit;
+  padding: 4px 10px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.copy-btn:hover {
+  background: var(--code-bg);
+  color: var(--text);
+  border-color: var(--text-muted);
+}
+
+.copy-btn.copied {
+  background: var(--success);
+  border-color: var(--success);
+  color: var(--bg);
+}
+
+.pattern-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 24px 28px;
+}
+
+.pattern-card pre {
+  background: var(--code-bg);
+  font-size: 14px;
+  padding: 16px 20px;
+}
+
+.controls {
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  z-index: 10;
+  padding: 18px 0;
+  margin: 0 -32px 40px;
+  padding-left: 32px;
+  padding-right: 32px;
+  border-bottom: 1px solid var(--border);
+}
+
+.search-box {
+  width: 100%;
+  font-family: inherit;
+  font-size: 15px;
+  padding: 12px 16px;
+  border: 1px solid var(--border-strong);
+  border-radius: 3px;
+  background: var(--surface);
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.search-box:focus {
+  border-color: var(--accent);
+}
+
+.search-box::placeholder {
+  color: var(--text-faint);
+}
+
+.pills {
+  display: flex;
+  gap: 6px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.pill {
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  color: var(--text-muted);
+  font-size: 12px;
+  padding: 6px 14px;
+  border-radius: 100px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s ease;
+  letter-spacing: 0.01em;
+}
+
+.pill:hover {
+  background: var(--code-bg);
+  color: var(--text);
+  border-color: var(--text-muted);
+}
+
+.pill.active {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
+}
+
+.category-header {
+  margin-bottom: 24px;
+}
+
+.category-number {
+  font-family: Charter, "Iowan Old Style", "Hoefler Text", Georgia, serif;
+  font-size: 14px;
+  color: var(--text-faint);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.prompt-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 28px 32px;
+  margin-bottom: 16px;
+  transition: border-color 0.15s ease;
+}
+
+.prompt-card:hover {
+  border-color: var(--border-strong);
+}
+
+.prompt-header {
+  display: flex;
+  gap: 16px;
+  align-items: baseline;
+  margin-bottom: 6px;
+}
+
+.prompt-num {
+  font-family: Charter, "Iowan Old Style", "Hoefler Text", Georgia, serif;
+  font-size: 15px;
+  color: var(--text-faint);
+  font-weight: 400;
+  min-width: 24px;
+  font-feature-settings: "tnum";
+}
+
+.prompt-title { flex: 1; }
+
+.use-case {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin: 0 0 18px;
+  margin-left: 40px;
+}
+
+.prompt-body { margin-left: 40px; }
+
+.field { margin-top: 16px; }
+
+.field-label {
+  color: var(--text-faint);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.field-content {
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.55;
+}
+
+.field-content.muted {
+  color: var(--text-muted);
+}
+
+.divider {
+  border-top: 1px solid var(--border);
+  margin: 18px 0 0;
+}
+
+.patterns-card {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 32px 36px;
+  margin-top: 64px;
+}
+
+.patterns-card h2 { margin-bottom: 8px; }
+
+.patterns-list {
+  margin-top: 20px;
+}
+
+.pattern-item {
+  margin-bottom: 18px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--border);
+}
+
+.pattern-item:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.pattern-item strong {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.pattern-item p {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin: 0;
+}
+
+.pattern-item pre {
+  margin-top: 10px;
+  font-size: 12px;
+  padding: 12px 14px;
+}
+
+footer {
+  margin-top: 80px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+  color: var(--text-faint);
+  font-size: 12px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+footer span { margin: 0 8px; }
+
+.hidden { display: none !important; }
+
+.no-results {
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--text-muted);
+}
+
+@media (max-width: 720px) {
+  .container { padding: 40px 20px 64px; }
+  h1 { font-size: 36px; }
+  h2 { font-size: 22px; }
+  .prompt-card { padding: 24px 22px; }
+  .prompt-body, .use-case { margin-left: 0; }
+  .install-card { padding: 24px 22px; }
+  .patterns-card { padding: 24px 22px; }
+  .controls { margin: 0 -20px 32px; padding: 16px 20px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header class="page-header">
+  <h1>DZNR Prompt Library</h1>
+  <p class="subtitle">Thirty-one prompts your team can copy, swap brackets, send. Organized by discipline. Each prompt is a real workflow we run.</p>
+  <div class="meta">
+    <span>Version 1.13.5</span>
+    <span>31 prompts</span>
+    <span>9 categories</span>
+  </div>
+</header>
+
+<section class="section">
+  <div class="section-label">Install (one time, takes a minute)</div>
+  <div class="install-card">
+    <div class="install-step">
+      <div class="install-step-num">Step 1</div>
+      <div class="install-step-desc">Clone the DZNR repo to your home directory.</div>
+      <div class="code-wrap">
+        <button class="copy-btn">Copy</button>
+        <pre>git clone https://github.com/MavenSix/DZNR.git ~/DZNR</pre>
+      </div>
+    </div>
+    <div class="install-step">
+      <div class="install-step-num">Step 2</div>
+      <div class="install-step-desc">Install the plain /dznr slash command at the user level.</div>
+      <div class="code-wrap">
+        <button class="copy-btn">Copy</button>
+        <pre>mkdir -p ~/.claude/commands &amp;&amp; cp ~/DZNR/commands/conduct.md ~/.claude/commands/dznr.md</pre>
+      </div>
+    </div>
+    <div class="install-step">
+      <div class="install-step-num">Step 3</div>
+      <div class="install-step-desc">Launch Claude Code with DZNR loaded.</div>
+      <div class="code-wrap">
+        <button class="copy-btn">Copy</button>
+        <pre>claude --plugin-dir ~/DZNR</pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-label">The prompt pattern</div>
+  <div class="pattern-card">
+    <p>Every prompt in this library follows the same shape:</p>
+    <div class="code-wrap">
+      <button class="copy-btn">Copy</button>
+      <pre>/dznr <span class="bracket">[verb]</span> <span class="bracket">[subject]</span> <span class="bracket">[outcome you want]</span>. Industry is <span class="bracket">[INDUSTRY]</span>, sub-vertical <span class="bracket">[SUB-VERTICAL]</span>. <span class="bracket">[Optional constraints]</span>.</pre>
+    </div>
+    <p style="margin-top: 16px; color: var(--text-muted); font-size: 14px;">Swap the brackets, send. Tár picks the routing from there.</p>
+    <p style="margin-top: 12px; color: var(--text-muted); font-size: 14px;"><strong style="color: var(--text); font-weight: 600;">Industry tags DZNR knows:</strong> luxury, automotive, retail, CPG, fintech, healthcare, technology, media-entertainment, public-sector. Naming the industry up front sharpens every subagent's defaults.</p>
+  </div>
+</section>
+
+<div class="controls">
+  <input type="text" id="search" class="search-box" placeholder="Search prompts by title, use case, or keyword...">
+  <div class="pills">
+    <button class="pill active" data-category="all">All</button>
+    <button class="pill" data-category="discovery">Discovery &amp; Audits</button>
+    <button class="pill" data-category="brand">Brand &amp; Design Systems</button>
+    <button class="pill" data-category="ux">UX &amp; Product Design</button>
+    <button class="pill" data-category="ai">AI Product &amp; Experience</button>
+    <button class="pill" data-category="pitch">Pitch &amp; Story</button>
+    <button class="pill" data-category="delivery">Delivery &amp; Polish</button>
+    <button class="pill" data-category="craft">Craft &amp; Workshop</button>
+    <button class="pill" data-category="specialist">Specialist Arsenal</button>
+    <button class="pill" data-category="connectors">Connector Briefs</button>
+  </div>
+</div>
+
+<div id="prompts">
+
+<section class="category-section" data-category="discovery">
+  <div class="category-header">
+    <div class="category-number">Category 01</div>
+    <h2>Discovery &amp; Audits</h2>
+  </div>
+
+  <article class="prompt-card" data-category="discovery">
+    <div class="prompt-header">
+      <div class="prompt-num">01</div>
+      <div class="prompt-title"><h3>Site experience audit</h3></div>
+    </div>
+    <p class="use-case">Comprehensive audit of an existing site across UX, brand, content, and technical health.</p>
+    <div class="prompt-body">
+      <div class="code-wrap">
+        <button class="copy-btn">Copy</button>
+        <pre>/dznr audit <span class="bracket">[URL]</span> across UX, brand, content, and technical health. Industry is <span class="bracket">[INDUSTRY]</span>, sub-vertical <span class="bracket">[SUB-VERTICAL]</span>. Deliver as a prioritized findings list with severity and recovery steps.</pre>
+      </div>
+      <div class="field">
+        <div class="field-label">What you get</div>
+        <div class="field-content muted">Sherlock-led audit report. Findings tiered by severity, each with a recovery step. Industry tag set in project memory for the rest of the engagement.</div>
+      </div>
+      <div class="divider"></div>
+      <div class="field">
+        <div class="field-label">Variation</div>
+        <div class="field-content muted">Replace <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">prioritized findings list</code> with <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">executive scorecard</code> for leadership audiences, or <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">sprint backlog</code> for engineering teams.</div>
+      </div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="discovery">
+    <div class="prompt-header">
+      <div class="prompt-num">02</div>
+      <div class="prompt-title"><h3>Brand decode</h3></div>
+    </div>
+    <p class="use-case">Decode another brand's design language so you can reference it, differentiate from it, or learn from it.</p>
+    <div class="prompt-body">
+      <div class="code-wrap">
+        <button class="copy-btn">Copy</button>
+        <pre>/dznr decode the visual design language of <span class="bracket">[BRAND]</span> from their website <span class="bracket">[URL]</span>. Capture typography, color, spacing rhythm, photographic grammar, and the underlying brand posture. Industry is <span class="bracket">[INDUSTRY]</span>.</pre>
+      </div>
+      <div class="field">
+        <div class="field-label">What you get</div>
+        <div class="field-content muted">Visual language extraction from Snape. Brand posture analysis. Pattern library you can reference in your own work.</div>
+      </div>
+      <div class="divider"></div>
+      <div class="field">
+        <div class="field-label">Variation</div>
+        <div class="field-content muted">Add <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">compare against [COMPETITOR BRAND]</code> to get a side-by-side decode showing where the two brands diverge.</div>
+      </div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="discovery">
+    <div class="prompt-header">
+      <div class="prompt-num">03</div>
+      <div class="prompt-title"><h3>Competitive read</h3></div>
+    </div>
+    <p class="use-case">Compare your client against direct competitors on positioning, design, and messaging.</p>
+    <div class="prompt-body">
+      <div class="code-wrap">
+        <button class="copy-btn">Copy</button>
+        <pre>/dznr run a competitive read on <span class="bracket">[CLIENT/BRAND]</span> against <span class="bracket">[COMPETITOR 1]</span>, <span class="bracket">[COMPETITOR 2]</span>, and <span class="bracket">[COMPETITOR 3]</span>. Industry is <span class="bracket">[INDUSTRY]</span>. I need positioning gaps, messaging differentiation opportunities, and design language deltas.</pre>
+      </div>
+      <div class="field">
+        <div class="field-label">What you get</div>
+        <div class="field-content muted">Sherlock plus Morpheus competitive analysis. Positioning matrix. Three to five differentiation opportunities your client could own.</div>
+      </div>
+      <div class="divider"></div>
+      <div class="field">
+        <div class="field-label">Variation</div>
+        <div class="field-content muted">Add <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">prepare it as a sales battlecard</code> for outbound use, or <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">prepare it as a strategy brief</code> for internal planning.</div>
+      </div>
+    </div>
+  </article>
+</section>
+
+<section class="category-section" data-category="brand">
+  <div class="category-header">
+    <div class="category-number">Category 02</div>
+    <h2>Brand &amp; Design Systems</h2>
+  </div>
+
+  <article class="prompt-card" data-category="brand">
+    <div class="prompt-header">
+      <div class="prompt-num">04</div>
+      <div class="prompt-title"><h3>Brand from scratch</h3></div>
+    </div>
+    <p class="use-case">Build a complete visual identity from a logo, mood board, reference images, or just a vibe description.</p>
+    <div class="prompt-body">
+      <div class="code-wrap">
+        <button class="copy-btn">Copy</button>
+        <pre>/dznr build a brand from scratch for <span class="bracket">[CLIENT NAME]</span>. They make <span class="bracket">[PRODUCT/SERVICE]</span> for <span class="bracket">[AUDIENCE]</span>. Industry is <span class="bracket">[INDUSTRY]</span>, sub-vertical <span class="bracket">[SUB-VERTICAL]</span>. The vibe is <span class="bracket">[DESCRIBE: e.g., warm minimalist with editorial undertones]</span>. I have <span class="bracket">[LOGO / MOODBOARD / REFERENCE IMAGES / NOTHING]</span> to start from.</pre>
+      </div>
+      <div class="field">
+        <div class="field-label">What you get</div>
+        <div class="field-content muted">Snape-led brand foundation. Voice and tone, typography pairing, color system with light and dark modes, motion principles, design tokens ready to drop into a config file.</div>
+      </div>
+      <div class="divider"></div>
+      <div class="field">
+        <div class="field-label">Variation</div>
+        <div class="field-content muted">Add <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">produce a brand one-pager I can show the client</code> to get an outbound-ready summary alongside the tokens.</div>
+      </div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="brand">
+    <div class="prompt-header">
+      <div class="prompt-num">05</div>
+      <div class="prompt-title"><h3>Design system audit</h3></div>
+    </div>
+    <p class="use-case">Audit an existing design system for token inconsistencies, component drift, and accessibility gaps.</p>
+    <div class="prompt-body">
+      <div class="code-wrap">
+        <button class="copy-btn">Copy</button>
+        <pre>/dznr audit the design system at <span class="bracket">[REPO URL or FIGMA URL]</span> for <span class="bracket">[CLIENT/BRAND]</span>. I need findings on token inconsistencies, component drift, missing patterns, and accessibility gaps. Industry is <span class="bracket">[INDUSTRY]</span>. Output as a prioritized backlog the team can work from.</pre>
+      </div>
+      <div class="field">
+        <div class="field-label">What you get</div>
+        <div class="field-content muted">System audit from Snape. Prioritized backlog of fixes. Accessibility findings tied to WCAG criteria. Recommendations for missing patterns.</div>
+      </div>
+      <div class="divider"></div>
+      <div class="field">
+        <div class="field-label">Variation</div>
+        <div class="field-content muted">Replace <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">prioritized backlog</code> with <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">health scorecard</code> for leadership reviews, or <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">migration plan</code> if the goal is a system rebuild.</div>
+      </div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="brand">
+    <div class="prompt-header">
+      <div class="prompt-num">06</div>
+      <div class="prompt-title"><h3>Theme a design system for a brand</h3></div>
+    </div>
+    <p class="use-case">Apply a brand identity to an off-the-shelf design system. Produces production-ready config files.</p>
+    <div class="prompt-body">
+      <div class="code-wrap">
+        <button class="copy-btn">Copy</button>
+        <pre>/dznr theme <span class="bracket">[DESIGN SYSTEM: shadcn / MUI / Hero UI / Radix / Chakra]</span> for <span class="bracket">[BRAND/CLIENT]</span>. Brand inputs: <span class="bracket">[LIVE URL / FIGMA / BRAND GUIDE PDF / DESCRIPTION]</span>. Industry is <span class="bracket">[INDUSTRY]</span>. Output production-ready config files: CSS variables, Tailwind config, theme provider.</pre>
+      </div>
+      <div class="field">
+        <div class="field-label">What you get</div>
+        <div class="field-content muted">Production-ready token files. Theme configuration. Example components rendered in the new theme. Drop-in code your engineering team can merge.</div>
+      </div>
+      <div class="divider"></div>
+      <div class="field">
+        <div class="field-label">Variation</div>
+        <div class="field-content muted">Add <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">light and dark mode</code> or <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">white-label across [N] brands</code> if the system needs multi-theme support.</div>
+      </div>
+    </div>
+  </article>
+</section>
+
+<section class="category-section" data-category="ux">
+  <div class="category-header">
+    <div class="category-number">Category 03</div>
+    <h2>UX &amp; Product Design</h2>
+  </div>
+
+  <article class="prompt-card" data-category="ux">
+    <div class="prompt-header">
+      <div class="prompt-num">07</div>
+      <div class="prompt-title"><h3>Customer journey map</h3></div>
+    </div>
+    <p class="use-case">Map how a customer moves through a real or proposed experience, with emotional arc and opportunities.</p>
+    <div class="prompt-body">
+      <div class="code-wrap">
+        <button class="copy-btn">Copy</button>
+        <pre>/dznr build a customer journey map for <span class="bracket">[CLIENT/BRAND]</span>'s <span class="bracket">[JOURNEY: e.g., new customer onboarding, purchase flow, loyalty enrollment]</span>. Industry is <span class="bracket">[INDUSTRY]</span>, sub-vertical <span class="bracket">[SUB-VERTICAL]</span>. Map touchpoints, emotional arc, pain points, and opportunities. Deliver as a journey artifact I can hand to stakeholders.</pre>
+      </div>
+      <div class="field">
+        <div class="field-label">What you get</div>
+        <div class="field-content muted">Gibson-led journey map. Touchpoint inventory. Emotional arc. Three to five opportunities ranked by impact. Stakeholder-ready artifact.</div>
+      </div>
+      <div class="divider"></div>
+      <div class="field">
+        <div class="field-label">Variation</div>
+        <div class="field-content muted">Replace <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">customer journey map</code> with <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">service blueprint</code> for back-stage operational mapping, or <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">experience map</code> for cross-channel work.</div>
+      </div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="ux">
+    <div class="prompt-header">
+      <div class="prompt-num">08</div>
+      <div class="prompt-title"><h3>Wireframe a feature</h3></div>
+    </div>
+    <p class="use-case">Wireframe a new feature, page, or flow at the right fidelity for the audience reviewing it.</p>
+    <div class="prompt-body">
+      <div class="code-wrap">
+        <button class="copy-btn">Copy</button>
+        <pre>/dznr wireframe <span class="bracket">[FEATURE: e.g., a multi-step checkout, a member dashboard, a content discovery flow]</span> for <span class="bracket">[CLIENT/BRAND]</span>. Industry is <span class="bracket">[INDUSTRY]</span>. Form factor is <span class="bracket">[WEB / MOBILE / KIOSK / XR]</span>. Fidelity needed: <span class="bracket">[LOW / MID / HIGH]</span>. Audience: <span class="bracket">[WHO WILL REVIEW THIS]</span>.</pre>
+      </div>
+      <div class="field">
+        <div class="field-label">What you get</div>
+        <div class="field-content muted">Wireframes at requested fidelity. Screen flow. Interaction notes. Edge cases. Handoff annotations if fidelity is high.</div>
+      </div>
+      <div class="divider"></div>
+      <div class="field">
+        <div class="field-label">Variation</div>
+        <div class="field-content muted">Add <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">with content and microcopy filled in</code> if the wireframe needs to feel real for stakeholder review, or <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">with annotations for engineering handoff</code> if next stop is build.</div>
+      </div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="ux">
+    <div class="prompt-header">
+      <div class="prompt-num">09</div>
+      <div class="prompt-title"><h3>Content taxonomy audit</h3></div>
+    </div>
+    <p class="use-case">Decide what content lives, dies, and consolidates on a large site. Includes language to push back on SEO objections.</p>
+    <div class="prompt-body">
+      <div class="code-wrap">
+        <button class="copy-btn">Copy</button>
+        <pre>/dznr run a content taxonomy audit on <span class="bracket">[URL or SITEMAP]</span>. Industry is <span class="bracket">[INDUSTRY]</span>. I need a page-by-page inventory with keep, improve, consolidate, deprecate, and delete decisions, plus a redirect strategy. The stakeholder owns SEO and is protective of page count, so include the rebuttal toolkit.</pre>
+      </div>
+      <div class="field">
+        <div class="field-label">What you get</div>
+        <div class="field-content muted">Scored page inventory. Information architecture recommendation. Redirect map. Stakeholder rebuttal language for the conversations where SEO leads push back on deletions.</div>
+      </div>
+      <div class="divider"></div>
+      <div class="field">
+        <div class="field-label">Variation</div>
+        <div class="field-content muted">Add <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">compare against [COMPETITOR URL]</code> to ground the recommendation in industry benchmarks.</div>
+      </div>
+    </div>
+  </article>
+</section>
+
+<section class="category-section" data-category="ai">
+  <div class="category-header">
+    <div class="category-number">Category 04</div>
+    <h2>AI Product &amp; Experience</h2>
+  </div>
+
+  <article class="prompt-card" data-category="ai">
+    <div class="prompt-header">
+      <div class="prompt-num">10</div>
+      <div class="prompt-title"><h3>AI feature spec with four-lens check</h3></div>
+    </div>
+    <p class="use-case">Spec an AI feature with the mandatory Empathy, Strategic Judgment, Guardianship, and Verification check.</p>
+    <div class="prompt-body">
+      <div class="code-wrap">
+        <button class="copy-btn">Copy</button>
+        <pre>/dznr spec an AI feature for <span class="bracket">[CLIENT/BRAND]</span>: <span class="bracket">[FEATURE: e.g., an AI shopping advisor, a content recommendation engine, an in-product copilot]</span>. Industry is <span class="bracket">[INDUSTRY]</span>, sub-vertical <span class="bracket">[SUB-VERTICAL]</span>. The audience is <span class="bracket">[WHO]</span>. Run the four-lens check and flag any surfaces that should not ship as AI.</pre>
+      </div>
+      <div class="field">
+        <div class="field-label">What you get</div>
+        <div class="field-content muted">Gibson-led AI feature spec. Four-lens artifact attached. Decline list naming surfaces that should not ship as AI (with reasoning). Verification plan.</div>
+      </div>
+      <div class="divider"></div>
+      <div class="field">
+        <div class="field-label">Variation</div>
+        <div class="field-content muted">Add <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">compare a fine-tune approach against a RAG approach</code> if the architecture is still open, or <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">with safety review for [REGULATION: HIPAA / GDPR / fiduciary]</code> for regulated industries.</div>
+      </div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="ai">
+    <div class="prompt-header">
+      <div class="prompt-num">11</div>
+      <div class="prompt-title"><h3>Immersive experience concept</h3></div>
+    </div>
+    <p class="use-case">Concept an immersive or interactive experience: web 3D, installation, AR, VR, hybrid physical-digital.</p>
+    <div class="prompt-body">
+      <div class="code-wrap">
+        <button class="copy-btn">Copy</button>
+        <pre>/dznr concept an immersive experience for <span class="bracket">[CLIENT/BRAND]</span>: <span class="bracket">[BRIEF: e.g., a scroll-driven 3D product story, an in-store interactive installation, an AR try-on]</span>. Industry is <span class="bracket">[INDUSTRY]</span>. Tech surface: <span class="bracket">[WEB 3D / SPATIAL / AR / VR / PHYSICAL-DIGITAL HYBRID]</span>. I need narrative architecture, technical sketch, and feasibility flags.</pre>
+      </div>
+      <div class="field">
+        <div class="field-label">What you get</div>
+        <div class="field-content muted">Gibson concept doc. Narrative arc. Technical sketch with stack recommendation. Feasibility flags. Production budget tier estimate.</div>
+      </div>
+      <div class="divider"></div>
+      <div class="field">
+        <div class="field-label">Variation</div>
+        <div class="field-content muted">Add <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">with a participant journey overlay</code> if the experience is live or installation-based, or <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">with platform comparison Three.js vs Unity vs WebGL</code> if the tech surface is contested.</div>
+      </div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="ai">
+    <div class="prompt-header">
+      <div class="prompt-num">12</div>
+      <div class="prompt-title"><h3>Synthetic audience test</h3></div>
+    </div>
+    <p class="use-case">Stress-test a concept against a constructed audience panel before exposing it to real users.</p>
+    <div class="prompt-body">
+      <div class="code-wrap">
+        <button class="copy-btn">Copy</button>
+        <pre>/dznr run a synthetic audience test on this concept: <span class="bracket">[PASTE CONCEPT or LINK]</span>. The target audience is <span class="bracket">[DEMOGRAPHIC / PSYCHOGRAPHIC: e.g., $200k+ HHI urban professionals, Gen Z streetwear collectors]</span>. Industry is <span class="bracket">[INDUSTRY]</span>. Surface where it lands, where it falls flat, and what would make it land harder.</pre>
+      </div>
+      <div class="field">
+        <div class="field-label">What you get</div>
+        <div class="field-content muted">Synthetic audience reactions across three to five constructed personas. Blind spots. Refinement recommendations ranked by impact.</div>
+      </div>
+      <div class="divider"></div>
+      <div class="field">
+        <div class="field-label">Variation</div>
+        <div class="field-content muted">Add <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">test the messaging variants A, B, and C</code> for multi-variant testing, or <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">against [COMPETITOR BRAND]'s positioning</code> to find the differentiation gap.</div>
+      </div>
+    </div>
+  </article>
+</section>
+
+<section class="category-section" data-category="pitch">
+  <div class="category-header">
+    <div class="category-number">Category 05</div>
+    <h2>Pitch &amp; Story</h2>
+  </div>
+
+  <article class="prompt-card" data-category="pitch">
+    <div class="prompt-header">
+      <div class="prompt-num">13</div>
+      <div class="prompt-title"><h3>Pitch deck from upstream work</h3></div>
+    </div>
+    <p class="use-case">Package research and design work into a pitch deck with per-claim source attribution.</p>
+    <div class="prompt-body">
+      <div class="code-wrap">
+        <button class="copy-btn">Copy</button>
+        <pre>/dznr build a pitch deck for <span class="bracket">[CLIENT/BRAND]</span> from the work we have so far. The audience is <span class="bracket">[INVESTORS / BOARD / PROSPECT / INTERNAL LEADERSHIP]</span>. Industry is <span class="bracket">[INDUSTRY]</span>. The ask is <span class="bracket">[WHAT YOU ARE PITCHING FOR: e.g., a $250k engagement, board approval, project green-light]</span>. Use <span class="bracket">[DISCOVERY ARC / VISION CAST / BURNING PLATFORM / RECOMMENDATION STACK]</span> as the narrative architecture, or let Morpheus pick the right one.</pre>
+      </div>
+      <div class="field">
+        <div class="field-label">What you get</div>
+        <div class="field-content muted">Morpheus-led pitch deck. Slide-by-slide. Per-claim source attribution inline (every claim cites Sherlock, Snape, Gibson, or named benchmark). Speaker notes optional.</div>
+      </div>
+      <div class="divider"></div>
+      <div class="field">
+        <div class="field-label">Variation</div>
+        <div class="field-content muted">Add <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">as a PPTX file</code> for editable handoff, <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">as a Gamma deck</code> for web presentation, or <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">as a long-form web pitch</code> for high-context audiences.</div>
+      </div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="pitch">
+    <div class="prompt-header">
+      <div class="prompt-num">14</div>
+      <div class="prompt-title"><h3>Investor pitch script</h3></div>
+    </div>
+    <p class="use-case">Turn a deck into a slide-by-slide talking-points script for live presentation.</p>
+    <div class="prompt-body">
+      <div class="code-wrap">
+        <button class="copy-btn">Copy</button>
+        <pre>/dznr write a pitch script for <span class="bracket">[CLIENT/BRAND]</span>'s <span class="bracket">[DECK FILE OR LINK]</span>. The presenter is <span class="bracket">[FOUNDER / EXEC / DESIGNER]</span>. The audience is <span class="bracket">[WHO]</span>. The duration is <span class="bracket">[LENGTH]</span>. The ask is <span class="bracket">[WHAT THEY ARE PITCHING FOR]</span>. Industry is <span class="bracket">[INDUSTRY]</span>.</pre>
+      </div>
+      <div class="field">
+        <div class="field-label">What you get</div>
+        <div class="field-content muted">Slide-by-slide script. Transition language between slides. Handle-the-question prep for the three to five questions the audience is most likely to ask.</div>
+      </div>
+      <div class="divider"></div>
+      <div class="field">
+        <div class="field-label">Variation</div>
+        <div class="field-content muted">Add <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">with a 30-second elevator version up top</code> for the cold open, or <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">with anticipated objections and responses</code> for difficult audiences.</div>
+      </div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="pitch">
+    <div class="prompt-header">
+      <div class="prompt-num">15</div>
+      <div class="prompt-title"><h3>Proposal write-up</h3></div>
+    </div>
+    <p class="use-case">Long-form proposal narrative (not a deck) for high-context audiences who prefer to read.</p>
+    <div class="prompt-body">
+      <div class="code-wrap">
+        <button class="copy-btn">Copy</button>
+        <pre>/dznr write a proposal for <span class="bracket">[CLIENT/BRAND]</span> covering <span class="bracket">[WHAT YOU ARE PROPOSING]</span>. The audience is <span class="bracket">[WHO]</span>. Industry is <span class="bracket">[INDUSTRY]</span>, sub-vertical <span class="bracket">[SUB-VERTICAL]</span>. Format as a long-form narrative write-up, not a deck. Length <span class="bracket">[SHORT / MEDIUM / LONG]</span>. Tone <span class="bracket">[FORMAL / WARM / TECHNICAL]</span>.</pre>
+      </div>
+      <div class="field">
+        <div class="field-label">What you get</div>
+        <div class="field-content muted">Long-form proposal narrative from Morpheus. Per-claim source attribution. Executive summary up top. Appendices with supporting work.</div>
+      </div>
+      <div class="divider"></div>
+      <div class="field">
+        <div class="field-label">Variation</div>
+        <div class="field-content muted">Add <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">as a DOCX file</code> for editable handoff, or <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">with a one-pager summary</code> for cover-letter use.</div>
+      </div>
+    </div>
+  </article>
+</section>
+
+<section class="category-section" data-category="delivery">
+  <div class="category-header">
+    <div class="category-number">Category 06</div>
+    <h2>Delivery &amp; Polish</h2>
+  </div>
+
+  <article class="prompt-card" data-category="delivery">
+    <div class="prompt-header">
+      <div class="prompt-num">16</div>
+      <div class="prompt-title"><h3>Spec from Figma</h3></div>
+    </div>
+    <p class="use-case">Turn a Figma design into a functional and technical spec offshore can build from.</p>
+    <div class="prompt-body">
+      <div class="code-wrap">
+        <button class="copy-btn">Copy</button>
+        <pre>/dznr write a functional and technical spec from <span class="bracket">[FIGMA URL]</span> for <span class="bracket">[CLIENT/BRAND]</span>. Target platform is <span class="bracket">[SITECORE XM CLOUD / SALESFORCE LWC / AEM / REACT / NATIVE MOBILE / SHOPIFY HYDROGEN]</span>. Include component anatomy, props, states, edge cases, and offshore-ready acceptance criteria.</pre>
+      </div>
+      <div class="field">
+        <div class="field-label">What you get</div>
+        <div class="field-content muted">Functional spec. Technical spec for the target platform. Jobs-to-be-done hybrid user stories. QA narrative covering experiential quality, not just functional pass-fail.</div>
+      </div>
+      <div class="divider"></div>
+      <div class="field">
+        <div class="field-label">Variation</div>
+        <div class="field-content muted">Add <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">with three-layer validation against the Figma</code> to get Layer 1 spec accuracy, Layer 2 visual fidelity, and Layer 3 experiential checks baked into the handoff.</div>
+      </div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="delivery">
+    <div class="prompt-header">
+      <div class="prompt-num">17</div>
+      <div class="prompt-title"><h3>Repo scaffold</h3></div>
+    </div>
+    <p class="use-case">Generate a production-ready repo with cursor rules, CI/CD config, and pre-populated docs.</p>
+    <div class="prompt-body">
+      <div class="code-wrap">
+        <button class="copy-btn">Copy</button>
+        <pre>/dznr scaffold a repo for <span class="bracket">[PROJECT NAME]</span>. Stack is <span class="bracket">[REACT NATIVE / NEXT.JS / SHOPIFY HYDROGEN / NATIVE IOS / OTHER]</span>. Include cursor rules, CI/CD config, a /docs folder with the planning artifacts, and a README that hands off cleanly to engineering. Industry is <span class="bracket">[INDUSTRY]</span>.</pre>
+      </div>
+      <div class="field">
+        <div class="field-label">What you get</div>
+        <div class="field-content muted">Full repo scaffold. Cursor rules tuned to the stack. CI/CD configuration. Populated /docs folder. README that bridges planning work to implementation work.</div>
+      </div>
+      <div class="divider"></div>
+      <div class="field">
+        <div class="field-label">Variation</div>
+        <div class="field-content muted">Add <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">with the design system at [DS REPO] pre-integrated</code> to wire the system in from the start, or <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">with telemetry instrumented for [ANALYTICS PLATFORM]</code> to ship tracking baseline.</div>
+      </div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="delivery">
+    <div class="prompt-header">
+      <div class="prompt-num">18</div>
+      <div class="prompt-title"><h3>QA handoff package</h3></div>
+    </div>
+    <p class="use-case">Generate test scenarios, acceptance criteria, and a QA narrative for a component or feature.</p>
+    <div class="prompt-body">
+      <div class="code-wrap">
+        <button class="copy-btn">Copy</button>
+        <pre>/dznr generate a QA handoff package for <span class="bracket">[COMPONENT/FEATURE]</span> in <span class="bracket">[PROJECT]</span>. Stack is <span class="bracket">[STACK]</span>. Industry is <span class="bracket">[INDUSTRY]</span>. Include test scenarios, edge cases, browser and device matrix, accessibility checklist, and the n8n-ready JSON payload for automated dispatch.</pre>
+      </div>
+      <div class="field">
+        <div class="field-label">What you get</div>
+        <div class="field-content muted">Full QA package. Test matrix. Browser and device coverage. Accessibility checklist tied to WCAG. Automation payload ready to dispatch.</div>
+      </div>
+      <div class="divider"></div>
+      <div class="field">
+        <div class="field-label">Variation</div>
+        <div class="field-content muted">Add <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">as a QA-first workflow</code> if QA needs to be defined before development begins, or <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">with offshore handoff narrative</code> for distributed teams.</div>
+      </div>
+    </div>
+  </article>
+</section>
+
+<section class="category-section" data-category="craft">
+  <div class="category-header">
+    <div class="category-number">Category 07</div>
+    <h2>Craft &amp; Workshop (Gandalf)</h2>
+    <p style="color: var(--text-muted); font-size: 14px; max-width: 680px; margin-top: 8px;">Gandalf is DZNR's craft layer. Forty-four personally-authored skills covering polish, hardening, aesthetic recipes, immersive experience, and workshop facilitation. Call him directly when you need craft depth that Snape's brand work or Gibson's product work would not reach.</p>
+  </div>
+
+  <article class="prompt-card" data-category="craft">
+    <div class="prompt-header">
+      <div class="prompt-num">19</div>
+      <div class="prompt-title"><h3>Polish pass</h3></div>
+    </div>
+    <p class="use-case">Accessibility, motion, and aesthetic refinement on a component, page, or artifact before it ships.</p>
+    <div class="prompt-body">
+      <div class="code-wrap">
+        <button class="copy-btn">Copy</button>
+        <pre>@dznr:gandalf:gandalf run a polish pass on <span class="bracket">[COMPONENT/PAGE/ARTIFACT: e.g., this React component, this landing page hero, this presentation slide]</span>. Industry is <span class="bracket">[INDUSTRY]</span>. Tighten accessibility (WCAG AA at minimum), motion budget, focus order, type rhythm, and overall aesthetic refinement. Return findings and the polished output.</pre>
+      </div>
+      <div class="field">
+        <div class="field-label">What you get</div>
+        <div class="field-content muted">Polished output. Specific craft moves named (tightened heading rhythm, pulled secondary CTA out of competition, etc.). WCAG AA compliance check. Motion budget verification.</div>
+      </div>
+      <div class="divider"></div>
+      <div class="field">
+        <div class="field-label">Variation</div>
+        <div class="field-content muted">Add <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">for high-contrast environments</code> if the surface needs WCAG AAA, or <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">with reduced motion</code> if accessibility takes priority over visual richness.</div>
+      </div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="craft">
+    <div class="prompt-header">
+      <div class="prompt-num">20</div>
+      <div class="prompt-title"><h3>Apply a named aesthetic direction</h3></div>
+    </div>
+    <p class="use-case">Take a brand, component, or scene and apply a named aesthetic movement from Gandalf's aesthetic system.</p>
+    <div class="prompt-body">
+      <div class="code-wrap">
+        <button class="copy-btn">Copy</button>
+        <pre>@dznr:gandalf:gandalf apply the <span class="bracket">[AESTHETIC: Brutalism / Dark Luxe / Wabi-Sabi / New Minimalism / Retro-Futurism / Solarpunk / Cyberpunk / Swiss Modernism / Organic-Digital / Maximalism / Vaporwave / Biomimicry]</span> aesthetic to <span class="bracket">[SUBJECT: this component / this landing page / this brand identity / this Three.js scene]</span>. Industry is <span class="bracket">[INDUSTRY]</span>. Return the aesthetic spec, sample tokens, and the applied output.</pre>
+      </div>
+      <div class="field">
+        <div class="field-label">What you get</div>
+        <div class="field-content muted">Aesthetic specification (typography, color, spacing, motion). Sample tokens. Applied output rendered in the new aesthetic. Cross-medium consistency notes if the aesthetic spans multiple surfaces.</div>
+      </div>
+      <div class="divider"></div>
+      <div class="field">
+        <div class="field-label">Variation</div>
+        <div class="field-content muted">Add <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">as a compound aesthetic mixing [X] and [Y]</code> for hybrid directions, or <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">for [domain: UI / spatial / generative art / presentation]</code> to target a specific output surface.</div>
+      </div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="craft">
+    <div class="prompt-header">
+      <div class="prompt-num">21</div>
+      <div class="prompt-title"><h3>Innovation Accelerator workshop</h3></div>
+    </div>
+    <p class="use-case">Run the 5-stage client engagement framework. Takes a fuzzy idea to build-ready specification in two days plus pre-work. The one workflow where Gandalf orchestrates other subagents as tools.</p>
+    <div class="prompt-body">
+      <div class="code-wrap">
+        <button class="copy-btn">Copy</button>
+        <pre>@dznr:gandalf:gandalf run an Innovation Accelerator for <span class="bracket">[CLIENT/PROJECT]</span>. The fuzzy idea is <span class="bracket">[DESCRIBE THE IDEA]</span>. Industry is <span class="bracket">[INDUSTRY]</span>, sub-vertical <span class="bracket">[SUB-VERTICAL]</span>. The team running it is <span class="bracket">[WHO]</span>. The desired outcome is <span class="bracket">[WHAT YOU WANT AT THE END: e.g., build-ready spec, board approval, prototype scope]</span>.</pre>
+      </div>
+      <div class="field">
+        <div class="field-label">What you get</div>
+        <div class="field-content muted">Stage-by-stage IA execution: Prepare, Discover (Day 1), Define (Day 2), Synthesize, Build Handoff. Gandalf calls Sherlock for discovery, Snape for brand work, Morpheus for synthesis, Neo for build feasibility. Final deliverable is a build-ready specification.</div>
+      </div>
+      <div class="divider"></div>
+      <div class="field">
+        <div class="field-label">Variation</div>
+        <div class="field-content muted">Add <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">condensed to 1 day</code> for faster cycles, or <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">with synthetic audience validation built in</code> to pressure-test the concept against constructed personas mid-workshop.</div>
+      </div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="craft">
+    <div class="prompt-header">
+      <div class="prompt-num">22</div>
+      <div class="prompt-title"><h3>Web 3D scene from a creative brief</h3></div>
+    </div>
+    <p class="use-case">Build an interactive 3D web scene (Three.js, React Three Fiber, shaders, post-processing) from a creative brief or narrative direction.</p>
+    <div class="prompt-body">
+      <div class="code-wrap">
+        <button class="copy-btn">Copy</button>
+        <pre>@dznr:gandalf:gandalf build a Three.js scene for <span class="bracket">[CLIENT/PROJECT]</span>: <span class="bracket">[BRIEF: e.g., a scroll-driven product hero, a generative particle field for a campaign landing, an interactive 3D logo reveal]</span>. Industry is <span class="bracket">[INDUSTRY]</span>. Aesthetic direction: <span class="bracket">[DESCRIBE OR NAME]</span>. Performance budget: <span class="bracket">[TARGET DEVICE / FPS]</span>. Deliver scene code, shaders if needed, and production notes.</pre>
+      </div>
+      <div class="field">
+        <div class="field-label">What you get</div>
+        <div class="field-content muted">Three.js or React Three Fiber scene code. Custom GLSL shaders if the brief calls for them. Performance optimization notes. Camera rig and lighting setup. Production handoff doc with stack rationale.</div>
+      </div>
+      <div class="divider"></div>
+      <div class="field">
+        <div class="field-label">Variation</div>
+        <div class="field-content muted">Add <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">with scroll-driven camera and post-processing</code> for editorial story-driven scenes, or <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">with WebGL fallback for low-power devices</code> if mobile is a target.</div>
+      </div>
+    </div>
+  </article>
+</section>
+
+<section class="category-section" data-category="specialist">
+  <div class="category-header">
+    <div class="category-number">Category 08</div>
+    <h2>Specialist Arsenal (Snake Eyes)</h2>
+    <p style="color: var(--text-muted); font-size: 14px; max-width: 680px; margin-top: 8px;">Snake Eyes is silent by design. He deploys when explicitly named, runs the specialist cluster, returns findings, exits. Each cluster connects to a specific MCP family. Use him when you need a domain capability outside the eight-character cast.</p>
+    <p style="color: var(--text-faint); font-size: 13px; max-width: 680px; margin-top: 8px;"><strong style="color: var(--text-muted); font-weight: 600;">Available clusters:</strong> SEO (searchfit-seo), PDF Tools (pdf-viewer), Adobe (adobe-for-creativity), Operations (operations), Legal (legal), Telemetry (product-tracking-skills), Bio Research (bio-research).</p>
+  </div>
+
+  <article class="prompt-card" data-category="specialist">
+    <div class="prompt-header">
+      <div class="prompt-num">23</div>
+      <div class="prompt-title"><h3>SEO audit and content strategy</h3></div>
+    </div>
+    <p class="use-case">Run the SEO cluster on a site or codebase. Technical SEO, content strategy, keyword clustering, schema markup, broken link checks, and AI visibility analysis (how the brand surfaces in ChatGPT, Claude, Gemini, Perplexity).</p>
+    <div class="prompt-body">
+      <div class="code-wrap">
+        <button class="copy-btn">Copy</button>
+        <pre>@dznr:snake-eyes:snake-eyes deploy the SEO cluster on <span class="bracket">[URL]</span>. I need <span class="bracket">[SEO AUDIT / CONTENT STRATEGY / KEYWORD CLUSTERING / SCHEMA MARKUP / AI VISIBILITY ANALYSIS / BROKEN LINK CHECK]</span>. Industry is <span class="bracket">[INDUSTRY]</span>. Target audience: <span class="bracket">[WHO]</span>. Primary keywords or content goals: <span class="bracket">[WHAT]</span>.</pre>
+      </div>
+      <div class="field">
+        <div class="field-label">What you get</div>
+        <div class="field-content muted">Findings from the SEO cluster. Prioritized recommendations. Schema markup ready to paste. Content gap analysis. AI visibility report.</div>
+      </div>
+      <div class="divider"></div>
+      <div class="field">
+        <div class="field-label">Variation</div>
+        <div class="field-content muted">Add <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">compared against [COMPETITOR URL]</code> for competitive SEO, or <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">with content briefs for the top 5 opportunities</code> to get drafting kits alongside the audit.</div>
+      </div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="specialist">
+    <div class="prompt-header">
+      <div class="prompt-num">24</div>
+      <div class="prompt-title"><h3>PDF workflow</h3></div>
+    </div>
+    <p class="use-case">Fill forms, place signatures, merge or split documents, extract text or tables from PDFs at scale.</p>
+    <div class="prompt-body">
+      <div class="code-wrap">
+        <button class="copy-btn">Copy</button>
+        <pre>@dznr:snake-eyes:snake-eyes deploy the PDF Tools cluster on <span class="bracket">[PDF FILE OR URL]</span>. I need to <span class="bracket">[FILL THE FORM / SIGN AT FIELD X / MERGE WITH ANOTHER PDF / SPLIT INTO PAGES / EXTRACT TEXT TO CSV / ANNOTATE FOR REVIEW]</span>. Output as <span class="bracket">[PDF / CSV / TEXT]</span>.</pre>
+      </div>
+      <div class="field">
+        <div class="field-label">What you get</div>
+        <div class="field-content muted">Modified PDF or extracted data. Form filled with values you provided. Signature placed at the right field. Merged or split documents. Tabular extraction for downstream use.</div>
+      </div>
+      <div class="divider"></div>
+      <div class="field">
+        <div class="field-label">Variation</div>
+        <div class="field-content muted">Add <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">with a signing packet for multiple signers</code> for contract workflows, or <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">with bulk fill from this CSV</code> to populate forms at scale.</div>
+      </div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="specialist">
+    <div class="prompt-header">
+      <div class="prompt-num">25</div>
+      <div class="prompt-title"><h3>Adobe batch creative workflow</h3></div>
+    </div>
+    <p class="use-case">Process a folder of photos or videos through Adobe tools at scale. Designed for photographers, content teams, and social production work.</p>
+    <div class="prompt-body">
+      <div class="code-wrap">
+        <button class="copy-btn">Copy</button>
+        <pre>@dznr:snake-eyes:snake-eyes deploy the Adobe cluster on <span class="bracket">[FOLDER OR FILE]</span>. I need <span class="bracket">[BATCH EDIT FOR COHESIVE LOOK / RETOUCH PORTRAITS / RESIZE FOR SOCIAL PLATFORMS / RESIZE TO EXACT DIMENSIONS / DESIGN FROM TEMPLATE / QUICK CUT VIDEO]</span>. Style or target: <span class="bracket">[DESCRIBE LOOK OR SPEC]</span>. Industry is <span class="bracket">[INDUSTRY]</span>.</pre>
+      </div>
+      <div class="field">
+        <div class="field-label">What you get</div>
+        <div class="field-content muted">Batch-processed images or videos. Cohesive style across the set. Platform-optimized variants if requested. Direct file URLs and an in-chat preview grid. Optional Firefly Board link for client review.</div>
+      </div>
+      <div class="divider"></div>
+      <div class="field">
+        <div class="field-label">Variation</div>
+        <div class="field-content muted">Add <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">with Firefly board for client review</code> for stakeholder approval flow, or <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">prepare all of them for Instagram, LinkedIn, and TikTok</code> for multi-platform social production.</div>
+      </div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="specialist">
+    <div class="prompt-header">
+      <div class="prompt-num">26</div>
+      <div class="prompt-title"><h3>Operations runbook or status report</h3></div>
+    </div>
+    <p class="use-case">Generate operational documentation: runbooks, SOPs, status reports, change requests, capacity plans, vendor reviews, compliance tracking.</p>
+    <div class="prompt-body">
+      <div class="code-wrap">
+        <button class="copy-btn">Copy</button>
+        <pre>@dznr:snake-eyes:snake-eyes deploy the Operations cluster. I need <span class="bracket">[A RUNBOOK FOR (PROCESS) / A STATUS REPORT FOR (PROJECT) / A CHANGE REQUEST FOR (CHANGE) / A CAPACITY PLAN FOR (TEAM) / A VENDOR REVIEW FOR (VENDOR) / A COMPLIANCE TRACKING DOC FOR (REQUIREMENT)]</span>. Audience: <span class="bracket">[WHO]</span>. Cadence: <span class="bracket">[WEEKLY / MONTHLY / ONE-TIME]</span>.</pre>
+      </div>
+      <div class="field">
+        <div class="field-label">What you get</div>
+        <div class="field-content muted">Production-ready ops document tailored to the audience and cadence. Risk flags. Escalation paths where appropriate. KPI structure if the doc is a status report.</div>
+      </div>
+      <div class="divider"></div>
+      <div class="field">
+        <div class="field-label">Variation</div>
+        <div class="field-content muted">Add <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">with KPIs from [DATA SOURCE]</code> for data-driven reports, or <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">with green-yellow-red status</code> for executive readability.</div>
+      </div>
+    </div>
+  </article>
+</section>
+
+<section class="category-section" data-category="connectors">
+  <div class="category-header">
+    <div class="category-number">Category 09</div>
+    <h2>Specialty Connector Briefs</h2>
+    <p style="color: var(--text-muted); font-size: 14px; max-width: 680px; margin-top: 8px;">This category covers tools that live outside DZNR's eight-character cast: video generators, voice production, AI IDEs, pattern libraries, presentation builders. DZNR generates the brief or prompt; you paste it into the external tool.</p>
+    <div style="margin-top: 12px; max-width: 680px;">
+      <p style="color: var(--text-faint); font-size: 13px; margin-bottom: 8px;"><strong style="color: var(--text-muted); font-weight: 600;">Tools DZNR drives directly via active MCPs:</strong> Figma, Blender, Adobe, Magic Patterns, Pencil. These are used inside other prompts and do not need brief-generation here.</p>
+      <p style="color: var(--text-faint); font-size: 13px; margin-bottom: 0;"><strong style="color: var(--text-muted); font-weight: 600;">Tools DZNR generates a brief for:</strong> Runway, Higgsfield, Pika, Kling (video), ElevenLabs (voice), Cursor and Windsurf (AI IDEs), Mobbin (pattern research), Gamma (presentations), Affinity and Sketch (design app handoff, covered under prompt 16 by naming the tool as target platform). As MCPs land, these prompts upgrade from brief-generation to direct invocation.</p>
+    </div>
+  </div>
+
+  <article class="prompt-card" data-category="connectors">
+    <div class="prompt-header">
+      <div class="prompt-num">27</div>
+      <div class="prompt-title"><h3>Generative video brief</h3></div>
+    </div>
+    <p class="use-case">DZNR produces a complete brief for AI video generation tools: shot list, camera direction, motion notes, the exact prompt you paste into the tool.</p>
+    <div class="prompt-body">
+      <div class="code-wrap">
+        <button class="copy-btn">Copy</button>
+        <pre>@dznr:morpheus:morpheus generate a video brief for <span class="bracket">[TOOL: Runway / Higgsfield / Pika / Kling]</span> to produce <span class="bracket">[DESCRIBE VIDEO: e.g., a 10-second product hero, a brand mood film, a campaign teaser]</span>. Industry is <span class="bracket">[INDUSTRY]</span>. Brand reference: <span class="bracket">[LINK OR DESCRIPTION]</span>. Aesthetic direction: <span class="bracket">[DESCRIBE]</span>. Audio direction: <span class="bracket">[DESCRIBE OR "no audio"]</span>. Output: shot list, camera direction, motion notes, and the exact prompt I paste into <span class="bracket">[TOOL]</span>.</pre>
+      </div>
+      <div class="field">
+        <div class="field-label">What you get</div>
+        <div class="field-content muted">Shot list. Camera direction. Motion vocabulary. Aesthetic specification. The exact paste-ready prompt for the chosen tool, calibrated to that tool's prompt syntax (Runway's style words versus Higgsfield's motion grammar).</div>
+      </div>
+      <div class="divider"></div>
+      <div class="field">
+        <div class="field-label">Variation</div>
+        <div class="field-content muted">Add <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">with three variant prompts so I can test approaches</code> to get A/B/C generations, or <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">as a 30-second sequence built from 3 shots</code> for longer-form storytelling.</div>
+      </div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="connectors">
+    <div class="prompt-header">
+      <div class="prompt-num">28</div>
+      <div class="prompt-title"><h3>Voice and audio production brief</h3></div>
+    </div>
+    <p class="use-case">DZNR writes the script with delivery notes and the ElevenLabs parameters (voice selection guidance, stability, style, pacing).</p>
+    <div class="prompt-body">
+      <div class="code-wrap">
+        <button class="copy-btn">Copy</button>
+        <pre>@dznr:morpheus:morpheus generate an ElevenLabs production brief for <span class="bracket">[PROJECT/BRAND]</span>. Content: <span class="bracket">[WHAT NEEDS VOICING: e.g., a 60-second brand spot, character dialogue for an experience, narration for a product video]</span>. Industry is <span class="bracket">[INDUSTRY]</span>. Voice direction: <span class="bracket">[DESCRIBE: e.g., warm female narrator, gravelly conspirator, ambient voiceover]</span>. Pacing: <span class="bracket">[DESCRIBE]</span>. Output: full script with delivery notes, voice selection guidance, and ElevenLabs parameter recommendations.</pre>
+      </div>
+      <div class="field">
+        <div class="field-label">What you get</div>
+        <div class="field-content muted">Full script with line-by-line delivery notes (pause, emphasis, breath). Voice character profile to guide ElevenLabs voice selection. Suggested ElevenLabs parameters (stability, similarity, style exaggeration). Production notes for the recording session.</div>
+      </div>
+      <div class="divider"></div>
+      <div class="field">
+        <div class="field-label">Variation</div>
+        <div class="field-content muted">Add <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">with multiple voice candidates for A/B test</code> to spec out two or three voice options, or <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">with background music direction</code> to brief the audio bed alongside the voice.</div>
+      </div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="connectors">
+    <div class="prompt-header">
+      <div class="prompt-num">29</div>
+      <div class="prompt-title"><h3>Cursor build session brief</h3></div>
+    </div>
+    <p class="use-case">DZNR plans the work, Cursor implements it. Produces the .cursorrules, the system prompt for the Cursor agent, the task breakdown, and the validation checklist.</p>
+    <div class="prompt-body">
+      <div class="code-wrap">
+        <button class="copy-btn">Copy</button>
+        <pre>@dznr:neo:neo generate a Cursor build session brief for <span class="bracket">[PROJECT/FEATURE]</span>. The work to do is <span class="bracket">[WHAT NEEDS BUILDING]</span>. Stack is <span class="bracket">[STACK]</span>. Industry is <span class="bracket">[INDUSTRY]</span>. I have <span class="bracket">[DESIGN ARTIFACTS / SPEC / REPO LINK]</span>. Output: the .cursorrules file, the system prompt for the Cursor agent, the task breakdown in dependency order, and the validation checklist I run after Cursor finishes.</pre>
+      </div>
+      <div class="field">
+        <div class="field-label">What you get</div>
+        <div class="field-content muted">Production-ready .cursorrules tuned to your stack. System prompt that gives Cursor the right scope and the right constraints (no package hallucination, install validation, no scope creep). Task breakdown in dependency order. Validation checklist you run before merging.</div>
+      </div>
+      <div class="divider"></div>
+      <div class="field">
+        <div class="field-label">Variation</div>
+        <div class="field-content muted">Add <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">with parallel agent strategy</code> if the work splits across two or three Cursor sessions, or <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">with test-first instructions</code> if you want Cursor writing the failing tests before the implementation.</div>
+      </div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="connectors">
+    <div class="prompt-header">
+      <div class="prompt-num">30</div>
+      <div class="prompt-title"><h3>Pattern research brief</h3></div>
+    </div>
+    <p class="use-case">Find production UI patterns for a feature, or research how leading apps solve a specific problem. Pulls from Mobbin-style pattern libraries.</p>
+    <div class="prompt-body">
+      <div class="code-wrap">
+        <button class="copy-btn">Copy</button>
+        <pre>@dznr:sherlock:sherlock generate a pattern research brief for <span class="bracket">[FEATURE / INTERACTION PATTERN: e.g., a multi-step onboarding, an account recovery flow, a content discovery surface]</span>. Industry is <span class="bracket">[INDUSTRY]</span>. Reference apps to study: <span class="bracket">[LIST: e.g., Linear, Notion, Hermès, Stripe]</span>. Tool to search: <span class="bracket">[Mobbin / Dribbble / Behance / direct app screenshots]</span>. Output: pattern variations observed, what each does well, what fails, and the synthesized recommendation for our use case.</pre>
+      </div>
+      <div class="field">
+        <div class="field-label">What you get</div>
+        <div class="field-content muted">Pattern variations observed across the reference apps. Strengths and weaknesses per pattern. Synthesized recommendation grounded in the comparison. Annotated screenshots if available. Decision criteria for picking between patterns.</div>
+      </div>
+      <div class="divider"></div>
+      <div class="field">
+        <div class="field-label">Variation</div>
+        <div class="field-content muted">Add <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">for [FORM FACTOR: web / mobile / kiosk]</code> to constrain the search, or <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">with annotated screenshots saved as a reference doc</code> for stakeholder review.</div>
+      </div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="connectors">
+    <div class="prompt-header">
+      <div class="prompt-num">31</div>
+      <div class="prompt-title"><h3>Presentation generation brief (Gamma, Beautiful.ai, Pitch)</h3></div>
+    </div>
+    <p class="use-case">DZNR writes the full presentation structure and the paste-ready prompt for Gamma or any AI presentation tool. The deck comes back on-brand because the prompt does the heavy lifting.</p>
+    <div class="prompt-body">
+      <div class="code-wrap">
+        <button class="copy-btn">Copy</button>
+        <pre>@dznr:morpheus:morpheus generate a Gamma presentation prompt for <span class="bracket">[CLIENT/PROJECT]</span>. Audience: <span class="bracket">[WHO]</span>. Industry is <span class="bracket">[INDUSTRY]</span>. Length: <span class="bracket">[SLIDE COUNT or DURATION]</span>. Narrative architecture: <span class="bracket">[DISCOVERY ARC / VISION CAST / BURNING PLATFORM / RECOMMENDATION STACK or "let Morpheus pick"]</span>. Brand reference: <span class="bracket">[LINK OR DESCRIPTION]</span>. Output: slide-by-slide outline with speaker notes, the exact prompt I paste into Gamma, and the visual direction guidance.</pre>
+      </div>
+      <div class="field">
+        <div class="field-label">What you get</div>
+        <div class="field-content muted">Slide-by-slide outline with speaker notes. The paste-ready Gamma prompt (or Beautiful.ai, Pitch, etc.) calibrated to that tool's structure. Visual direction guidance. Brand color and typography hints Gamma will respect.</div>
+      </div>
+      <div class="divider"></div>
+      <div class="field">
+        <div class="field-label">Variation</div>
+        <div class="field-content muted">Add <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">as a web pitch instead of slides</code> for high-context audiences who prefer to read, or <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">with theme reference to match [BRAND] aesthetic</code> to lock the visual language up front.</div>
+      </div>
+    </div>
+  </article>
+</section>
+
+</div>
+
+<div id="no-results" class="no-results hidden">
+  No prompts match that search. Try a broader keyword or reset the filter.
+</div>
+
+<section class="patterns-card">
+  <div class="section-label">A few patterns worth knowing</div>
+  <h2>How DZNR thinks about your requests</h2>
+  <div class="patterns-list">
+    <div class="pattern-item">
+      <strong>Compound requests trigger DZNR's compound dispatch.</strong>
+      <p>If you ask for two or more things in one prompt (audit and pitch, decode and theme, spec and scaffold), Tár builds a phased plan, asks scope questions if needed, then dispatches across multiple subagents and delivers everything together.</p>
+    </div>
+    <div class="pattern-item">
+      <strong>Industry tags propagate.</strong>
+      <p>Name the industry in your first prompt. Sherlock sets the tag in project memory. Every subagent reads the tag and adjusts defaults. You do not need to re-state it on every prompt in the same session.</p>
+    </div>
+    <div class="pattern-item">
+      <strong>Direct subagent invocation is available for power users.</strong>
+      <p>When you know exactly who you want, skip Tár and call the subagent directly:</p>
+      <div class="code-wrap" style="margin-top: 10px;">
+        <button class="copy-btn">Copy</button>
+        <pre>@dznr:gandalf:gandalf polish this React component for accessibility
+@dznr:sherlock:sherlock audit https://example.com
+@dznr:morpheus:morpheus write a launch narrative from these inputs</pre>
+      </div>
+    </div>
+    <div class="pattern-item">
+      <strong>The visibility narration is the feature.</strong>
+      <p>At each handoff DZNR announces who is working and what they are doing in that character's voice. Watch the orchestration happen, not just the final output.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>DZNR Prompt Library</span>
+  <span>·</span>
+  <span>v1.13.5</span>
+  <span>·</span>
+  <span>2026-06-08</span>
+</footer>
+
+</div>
+
+<script>
+(function() {
+  // Copy buttons
+  document.querySelectorAll('.copy-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var pre = btn.parentElement.querySelector('pre');
+      var text = pre.innerText;
+      navigator.clipboard.writeText(text).then(function() {
+        btn.textContent = 'Copied';
+        btn.classList.add('copied');
+        setTimeout(function() {
+          btn.textContent = 'Copy';
+          btn.classList.remove('copied');
+        }, 1400);
+      }).catch(function() {
+        // Fallback if clipboard API blocked
+        var range = document.createRange();
+        range.selectNode(pre);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+        try {
+          document.execCommand('copy');
+          btn.textContent = 'Copied';
+          btn.classList.add('copied');
+        } catch (e) {
+          btn.textContent = 'Error';
+        }
+        window.getSelection().removeAllRanges();
+        setTimeout(function() {
+          btn.textContent = 'Copy';
+          btn.classList.remove('copied');
+        }, 1400);
+      });
+    });
+  });
+
+  // Search and category filter
+  var searchBox = document.getElementById('search');
+  var noResults = document.getElementById('no-results');
+  var cards = document.querySelectorAll('.prompt-card');
+  var sections = document.querySelectorAll('.category-section');
+  var activeCategory = 'all';
+
+  function filter() {
+    var q = searchBox.value.toLowerCase().trim();
+    var visibleCount = 0;
+
+    cards.forEach(function(card) {
+      var text = card.innerText.toLowerCase();
+      var cardCategory = card.dataset.category;
+      var matchesSearch = !q || text.indexOf(q) !== -1;
+      var matchesCategory = activeCategory === 'all' || cardCategory === activeCategory;
+      var visible = matchesSearch && matchesCategory;
+      card.classList.toggle('hidden', !visible);
+      if (visible) visibleCount++;
+    });
+
+    sections.forEach(function(section) {
+      var sectionCategory = section.dataset.category;
+      var matchesCategory = activeCategory === 'all' || sectionCategory === activeCategory;
+      var visibleCardsInSection = section.querySelectorAll('.prompt-card:not(.hidden)').length;
+      section.classList.toggle('hidden', !matchesCategory || visibleCardsInSection === 0);
+    });
+
+    noResults.classList.toggle('hidden', visibleCount > 0);
+  }
+
+  searchBox.addEventListener('input', filter);
+
+  document.querySelectorAll('.pill').forEach(function(pill) {
+    pill.addEventListener('click', function() {
+      document.querySelectorAll('.pill').forEach(function(p) { p.classList.remove('active'); });
+      pill.classList.add('active');
+      activeCategory = pill.dataset.category;
+      filter();
+    });
+  });
+})();
+</script>
+</body>
+</html>

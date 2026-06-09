@@ -120,7 +120,19 @@ Each invocation surfaces in-character status announcements at handoff points so 
 
 ## For your team
 
-If a teammate is using DZNR, hand them [docs/TEAM_REFERENCE_CARD.md](./docs/TEAM_REFERENCE_CARD.md). One page covering what DZNR says when it asks for clarification, how to invoke specific subagents, and what the system does on routing ambiguity.
+Three things to hand a teammate:
+
+- **[docs/QUICKSTART.md](./docs/QUICKSTART.md)** for designers who do not live in Terminal. Step-by-step from "Open Terminal" to "your first DZNR prompt" with what-you-see and what-if-it-breaks for every step. Visual version at [docs/quickstart.html](./docs/quickstart.html). The fastest path for non-technical adopters.
+- **[docs/PROMPT_LIBRARY.md](./docs/PROMPT_LIBRARY.md)** with 31 copy-paste prompts across nine design disciplines. Interactive HTML version at [docs/prompt-library.html](./docs/prompt-library.html) with search and copy buttons.
+- **[docs/TEAM_REFERENCE_CARD.md](./docs/TEAM_REFERENCE_CARD.md)** as a one-page cheat sheet covering clarification flow, subagent invocation, and routing ambiguity behavior.
+
+**One-line install for non-technical teammates:**
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/MavenSix/DZNR/main/install.sh | bash
+```
+
+That single line handles prereq checks, the clone, the slash command setup, and the optional workshop sync.
 
 ---
 

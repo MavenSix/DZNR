@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DZNR Quickstart for Designers</title>
+<style>
+:root {
+  --bg: #FAF8F4;
+  --surface: #FFFFFF;
+  --text: #1A1A1A;
+  --text-muted: #6E6E6E;
+  --text-faint: #9B9B9B;
+  --border: #E8E5DF;
+  --border-strong: #D4CFC4;
+  --code-bg: #F1EEE8;
+  --accent: #2C2C2C;
+  --success: #2D6A4F;
+  --warn: #B45309;
+  --error: #991B1B;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.container {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 64px 32px 96px;
+}
+
+header.page-header {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 32px;
+  margin-bottom: 48px;
+}
+
+h1 {
+  font-family: Charter, "Iowan Old Style", "Hoefler Text", Georgia, serif;
+  font-size: 48px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+  line-height: 1.05;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-size: 17px;
+  max-width: 640px;
+  margin: 0;
+  line-height: 1.55;
+}
+
+.meta {
+  margin-top: 20px;
+  font-size: 12px;
+  color: var(--text-faint);
+  display: flex;
+  gap: 24px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 500;
+  flex-wrap: wrap;
+}
+
+.intro-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 28px 32px;
+  margin-bottom: 48px;
+}
+
+.intro-card h2 {
+  margin-top: 0;
+}
+
+.intro-card p {
+  color: var(--text-muted);
+  margin-bottom: 0;
+}
+
+.intro-card p:not(:last-child) {
+  margin-bottom: 14px;
+}
+
+h2 {
+  font-family: Charter, "Iowan Old Style", "Hoefler Text", Georgia, serif;
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  margin: 0 0 16px;
+  line-height: 1.25;
+}
+
+h3 {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-faint);
+}
+
+p { margin: 0 0 14px; }
+p:last-child { margin-bottom: 0; }
+
+.step {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 32px 36px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.step-header {
+  display: flex;
+  gap: 18px;
+  align-items: baseline;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.step-num {
+  font-family: Charter, "Iowan Old Style", "Hoefler Text", Georgia, serif;
+  font-size: 32px;
+  color: var(--text-faint);
+  font-weight: 400;
+  min-width: 48px;
+  line-height: 1;
+  font-feature-settings: "tnum";
+}
+
+.step-title {
+  font-family: Charter, "Iowan Old Style", "Hoefler Text", Georgia, serif;
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  margin: 0;
+  flex: 1;
+  line-height: 1.25;
+}
+
+.block {
+  margin-top: 20px;
+}
+
+.block-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.block-label .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.block-do .dot { background: var(--accent); }
+.block-see .dot { background: var(--success); }
+.block-break .dot { background: var(--warn); }
+
+.block-label-text {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 600;
+  color: var(--text-faint);
+}
+
+.block-content {
+  color: var(--text);
+  margin-bottom: 0;
+}
+
+.block-content.muted {
+  color: var(--text-muted);
+}
+
+.code-wrap {
+  position: relative;
+  margin: 10px 0;
+}
+
+pre {
+  font-family: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  font-size: 13px;
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 14px 18px;
+  margin: 0;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 1.55;
+  color: var(--text);
+}
+
+.copy-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  color: var(--text-muted);
+  font-size: 10px;
+  font-family: inherit;
+  padding: 4px 10px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.copy-btn:hover {
+  background: var(--code-bg);
+  color: var(--text);
+  border-color: var(--text-muted);
+}
+
+.copy-btn.copied {
+  background: var(--success);
+  border-color: var(--success);
+  color: var(--bg);
+}
+
+code {
+  font-family: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  background: var(--code-bg);
+  padding: 1px 6px;
+  border-radius: 2px;
+  font-size: 0.92em;
+}
+
+.breakage-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.breakage-list li {
+  padding-left: 20px;
+  position: relative;
+  margin-bottom: 10px;
+  color: var(--text-muted);
+}
+
+.breakage-list li:last-child { margin-bottom: 0; }
+
+.breakage-list li::before {
+  content: "↳";
+  position: absolute;
+  left: 0;
+  color: var(--text-faint);
+}
+
+.section {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 32px 36px;
+  margin-top: 48px;
+}
+
+.section h2 {
+  margin-top: 0;
+}
+
+.habit, .trouble-item {
+  margin-bottom: 18px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--border);
+}
+
+.habit:last-child,
+.trouble-item:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.habit strong,
+.trouble-item strong {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.habit p,
+.trouble-item p {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin: 0;
+}
+
+.closing {
+  margin-top: 64px;
+  padding: 32px 36px;
+  background: var(--surface);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 4px 4px 0;
+}
+
+.closing p {
+  color: var(--text-muted);
+  margin: 0;
+}
+
+footer {
+  margin-top: 80px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+  color: var(--text-faint);
+  font-size: 12px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+footer span { margin: 0 8px; }
+
+@media (max-width: 720px) {
+  .container { padding: 40px 20px 64px; }
+  h1 { font-size: 36px; }
+  .step { padding: 24px 22px; }
+  .step-num { font-size: 24px; min-width: 36px; }
+  .step-title { font-size: 20px; }
+  .section, .closing, .intro-card { padding: 24px 22px; }
+  .step-header { flex-direction: row; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header class="page-header">
+  <h1>DZNR Quickstart for Designers</h1>
+  <p class="subtitle">You are a designer. You make beautiful, thoughtful work. You are not a software engineer, and that is fine. This guide gets you from zero to your first DZNR prompt without assuming you have ever opened Terminal before.</p>
+  <div class="meta">
+    <span>Time: about 10 minutes</span>
+    <span>System: macOS</span>
+    <span>Version 1.13.6</span>
+  </div>
+</header>
+
+<div class="intro-card">
+  <h2>Before we start: what is DZNR?</h2>
+  <p>DZNR is a Claude Code plugin. It gives Claude eight specialist subagents who handle design work, AI product work, and experience engineering work for you. You talk to it like a colleague. It produces real artifacts: audits, brand systems, pitches, specs, code.</p>
+  <p>It runs inside Claude Code, which is Anthropic's command-line tool for working with Claude. We will install Claude Code first, then DZNR.</p>
+</div>
+
+<section class="step">
+  <div class="step-header">
+    <div class="step-num">01</div>
+    <h2 class="step-title">Install Node.js</h2>
+  </div>
+  <div class="block block-do">
+    <div class="block-label"><span class="dot"></span><span class="block-label-text">What you do</span></div>
+    <p class="block-content">Go to <a href="https://nodejs.org" style="color: var(--text);">nodejs.org</a>. Click the big green button that says "LTS" (it stands for Long Term Support; LTS is the safer of the two options). Download finishes, double-click the file, click Continue through the installer.</p>
+  </div>
+  <div class="block block-see">
+    <div class="block-label"><span class="dot"></span><span class="block-label-text">What you should see</span></div>
+    <p class="block-content muted">After install, an "Installer Succeeded" screen. Close it.</p>
+  </div>
+  <div class="block block-break">
+    <div class="block-label"><span class="dot"></span><span class="block-label-text">If it breaks</span></div>
+    <p class="block-content muted">If the installer says you do not have permission, your Mac administrator (could be you, could be your IT team) needs to approve it. Try again with the password. If you cannot get past this, talk to your IT team. Tell them you need Node.js LTS installed.</p>
+  </div>
+</section>
+
+<section class="step">
+  <div class="step-header">
+    <div class="step-num">02</div>
+    <h2 class="step-title">Open Terminal</h2>
+  </div>
+  <div class="block block-do">
+    <div class="block-label"><span class="dot"></span><span class="block-label-text">What you do</span></div>
+    <p class="block-content">On your Mac, press <code>Command + Space</code> to open Spotlight Search. Type <code>Terminal</code>. Hit Enter. A black or dark grey window opens with text in it.</p>
+  </div>
+  <div class="block block-see">
+    <div class="block-label"><span class="dot"></span><span class="block-label-text">What you should see</span></div>
+    <p class="block-content muted">A window with your username and a <code>%</code> or <code>$</code> character waiting for input. Something like:</p>
+    <pre style="margin-top: 10px;">designerkevin@MacBook-Pro ~ %</pre>
+    <p class="block-content muted" style="margin-top: 10px;">The <code>%</code> is called a "prompt." You type here. The window is your Terminal.</p>
+  </div>
+  <div class="block block-break">
+    <div class="block-label"><span class="dot"></span><span class="block-label-text">If it breaks</span></div>
+    <p class="block-content muted">If Terminal does not open, look in <code>Applications</code> → <code>Utilities</code> → <code>Terminal.app</code>. Double-click it.</p>
+  </div>
+</section>
+
+<section class="step">
+  <div class="step-header">
+    <div class="step-num">03</div>
+    <h2 class="step-title">Install Claude Code</h2>
+  </div>
+  <div class="block block-do">
+    <div class="block-label"><span class="dot"></span><span class="block-label-text">What you do</span></div>
+    <p class="block-content">In Terminal, paste this and hit Enter:</p>
+    <div class="code-wrap">
+      <button class="copy-btn">Copy</button>
+      <pre>npm install -g @anthropic-ai/claude-code</pre>
+    </div>
+    <p class="block-content muted" style="margin-top: 10px;">Wait. You will see a lot of text scroll by. This is normal.</p>
+  </div>
+  <div class="block block-see">
+    <div class="block-label"><span class="dot"></span><span class="block-label-text">What you should see</span></div>
+    <p class="block-content muted">A few lines of text ending with <code>added X packages in Y seconds</code>. Warnings are fine, errors are not.</p>
+  </div>
+  <div class="block block-break">
+    <div class="block-label"><span class="dot"></span><span class="block-label-text">If it breaks</span></div>
+    <ul class="breakage-list">
+      <li>If you see <code>command not found: npm</code>, Node.js did not install correctly. Go back to Step 1.</li>
+      <li>If you see <code>EACCES</code> or "permission denied," try this instead: <code>sudo npm install -g @anthropic-ai/claude-code</code>. Terminal will ask for your Mac password. Type it (the cursor will not move; that is intentional, just type and hit Enter).</li>
+    </ul>
+  </div>
+</section>
+
+<section class="step">
+  <div class="step-header">
+    <div class="step-num">04</div>
+    <h2 class="step-title">Log in to Claude Code</h2>
+  </div>
+  <div class="block block-do">
+    <div class="block-label"><span class="dot"></span><span class="block-label-text">What you do</span></div>
+    <p class="block-content">In Terminal, paste this and hit Enter:</p>
+    <div class="code-wrap">
+      <button class="copy-btn">Copy</button>
+      <pre>claude login</pre>
+    </div>
+    <p class="block-content muted" style="margin-top: 10px;">A browser window opens.</p>
+  </div>
+  <div class="block block-see">
+    <div class="block-label"><span class="dot"></span><span class="block-label-text">What you should see</span></div>
+    <p class="block-content muted">Anthropic's sign-in page. Sign in with the email tied to your Claude account. The page tells you to return to Terminal.</p>
+  </div>
+  <div class="block block-break">
+    <div class="block-label"><span class="dot"></span><span class="block-label-text">If it breaks</span></div>
+    <p class="block-content muted">If the browser does not open, copy the URL Terminal prints and paste it into Chrome or Safari manually. If sign-in still fails, your account may not have Claude Code access; talk to whoever set up Claude for your team.</p>
+  </div>
+</section>
+
+<section class="step">
+  <div class="step-header">
+    <div class="step-num">05</div>
+    <h2 class="step-title">Install DZNR (the easy way)</h2>
+  </div>
+  <div class="block block-do">
+    <div class="block-label"><span class="dot"></span><span class="block-label-text">What you do</span></div>
+    <p class="block-content">This is the one-line install. Copy this entire line, paste it into Terminal, hit Enter:</p>
+    <div class="code-wrap">
+      <button class="copy-btn">Copy</button>
+      <pre>curl -fsSL https://raw.githubusercontent.com/MavenSix/DZNR/main/install.sh | bash</pre>
+    </div>
+    <p class="block-content muted" style="margin-top: 14px;">The installer checks that everything is in place, downloads DZNR to a folder called <code>DZNR</code> in your home directory, sets up the <code>/dznr</code> slash command, and asks if you want the workshop sync (say yes if it asks).</p>
+  </div>
+  <div class="block block-see">
+    <div class="block-label"><span class="dot"></span><span class="block-label-text">What you should see</span></div>
+    <p class="block-content muted">Step-by-step output with green <code>ok</code> markers next to each step. At the end, a "DZNR is installed." message and three numbered next steps.</p>
+  </div>
+  <div class="block block-break">
+    <div class="block-label"><span class="dot"></span><span class="block-label-text">If it breaks</span></div>
+    <p class="block-content muted">Re-read the error in Terminal. Most errors say what is missing or wrong. Common ones:</p>
+    <ul class="breakage-list" style="margin-top: 10px;">
+      <li><code>Permission denied</code> on the curl line: your network or proxy is blocking the download. Try later, or ask IT.</li>
+      <li><code>Node.js not found</code>: go back to Step 1.</li>
+      <li><code>Claude Code not found</code>: go back to Step 3.</li>
+      <li><code>Git not found</code>: in Terminal, type <code>git --version</code> and macOS will offer to install it. Accept. Then re-run the installer.</li>
+      <li><code>Clone failed</code>: the DZNR repo might be private and your account does not have access. Ask Kevin (brandlessons@gmail.com) for access, then re-run.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="step">
+  <div class="step-header">
+    <div class="step-num">06</div>
+    <h2 class="step-title">Launch DZNR</h2>
+  </div>
+  <div class="block block-do">
+    <div class="block-label"><span class="dot"></span><span class="block-label-text">What you do</span></div>
+    <p class="block-content">In Terminal, paste this and hit Enter:</p>
+    <div class="code-wrap">
+      <button class="copy-btn">Copy</button>
+      <pre>claude --plugin-dir ~/DZNR</pre>
+    </div>
+  </div>
+  <div class="block block-see">
+    <div class="block-label"><span class="dot"></span><span class="block-label-text">What you should see</span></div>
+    <p class="block-content muted">Claude Code launches in your Terminal window. You see a header that says "Claude Code" and a prompt that says <code>&gt;</code> waiting for you to type.</p>
+  </div>
+  <div class="block block-break">
+    <div class="block-label"><span class="dot"></span><span class="block-label-text">If it breaks</span></div>
+    <p class="block-content muted">If it says <code>command not found: claude</code>, Claude Code did not install correctly in Step 3. If it says "plugin not found," something went wrong with the install in Step 5. Re-run the installer.</p>
+  </div>
+</section>
+
+<section class="step">
+  <div class="step-header">
+    <div class="step-num">07</div>
+    <h2 class="step-title">Try your first prompt</h2>
+  </div>
+  <div class="block block-do">
+    <div class="block-label"><span class="dot"></span><span class="block-label-text">What you do</span></div>
+    <p class="block-content">Inside Claude Code, type:</p>
+    <div class="code-wrap">
+      <button class="copy-btn">Copy</button>
+      <pre>/dznr</pre>
+    </div>
+    <p class="block-content muted" style="margin-top: 10px;">Hit Enter.</p>
+  </div>
+  <div class="block block-see">
+    <div class="block-label"><span class="dot"></span><span class="block-label-text">What you should see</span></div>
+    <p class="block-content muted">Tár, the orchestrator, introduces the DZNR cast in her voice. Eight subagents named, each with their role described in one sentence.</p>
+    <p class="block-content" style="margin-top: 10px;"><strong>If that works, you have DZNR installed and running. Congratulations.</strong></p>
+  </div>
+</section>
+
+<section class="step">
+  <div class="step-header">
+    <div class="step-num">08</div>
+    <h2 class="step-title">Where the real magic lives</h2>
+  </div>
+  <div class="block block-do">
+    <div class="block-label"><span class="dot"></span><span class="block-label-text">What you do</span></div>
+    <p class="block-content">DZNR comes with a Prompt Library. 31 ready-to-paste prompts across nine design disciplines. Copy a prompt, swap the brackets for your project details, paste into Claude Code, watch the work happen.</p>
+    <p class="block-content" style="margin-top: 10px;">Open the library in your browser:</p>
+    <div class="code-wrap">
+      <button class="copy-btn">Copy</button>
+      <pre>open ~/DZNR/docs/prompt-library.html</pre>
+    </div>
+    <p class="block-content muted" style="margin-top: 10px;">Or just double-click <code>prompt-library.html</code> in your Finder. The file lives at <code>~/DZNR/docs/prompt-library.html</code> (the <code>~</code> means your home folder; in Finder it is <code>Macintosh HD/Users/yourname/DZNR/docs/prompt-library.html</code>).</p>
+  </div>
+  <div class="block block-see">
+    <div class="block-label"><span class="dot"></span><span class="block-label-text">What you should see</span></div>
+    <p class="block-content muted">A clean library with copy buttons on every prompt and a search bar. Keep it open in a browser tab while you work.</p>
+  </div>
+</section>
+
+<section class="section">
+  <h2>A few habits worth building</h2>
+
+  <div class="habit">
+    <strong>Talk to DZNR like a colleague.</strong>
+    <p>It works best when you give context: what brand, what audience, what industry, what you want at the end. The prompts in the library are templates for this exact pattern.</p>
+  </div>
+
+  <div class="habit">
+    <strong>Name the industry.</strong>
+    <p>Every prompt should include the industry (luxury, fintech, technology, etc.). Sherlock tags the project, every subagent reads the tag and adjusts.</p>
+  </div>
+
+  <div class="habit">
+    <strong>Watch the orchestration.</strong>
+    <p>When DZNR runs a multi-step request, you will see Tár dispatch each subagent in turn. Sherlock observes. Snape designs. Gibson architects. Morpheus pitches. The handoff lines tell you who is working and why. That is the feature, not just decoration.</p>
+  </div>
+
+  <div class="habit">
+    <strong>Save your prompts.</strong>
+    <p>When you find a prompt or variation that works well, save it somewhere you can grab it again (Notion, Slack canvas, Notes). The library is the starting point; your personal library is the long-term tool.</p>
+  </div>
+</section>
+
+<section class="section">
+  <h2>When something does not feel right</h2>
+
+  <div class="trouble-item">
+    <strong>DZNR gives you a generic answer.</strong>
+    <p>You did not give it enough context. Try the prompt again with the industry, the brand, the audience, and what you want at the end.</p>
+  </div>
+
+  <div class="trouble-item">
+    <strong>A subagent runs forever.</strong>
+    <p>Hit <code>Ctrl + C</code> (hold the Control key, press the C key). That cancels the current request. Try a simpler prompt.</p>
+  </div>
+
+  <div class="trouble-item">
+    <strong>The slash menu does not show /dznr.</strong>
+    <p>The user-level command file did not get installed. Run the installer again: <code>curl -fsSL https://raw.githubusercontent.com/MavenSix/DZNR/main/install.sh | bash</code>. Then quit Claude Code (<code>/exit</code> or <code>Ctrl + C</code> twice) and relaunch it.</p>
+  </div>
+
+  <div class="trouble-item">
+    <strong>You want to update to the latest DZNR.</strong>
+    <p>Run the installer again. It detects an existing install and pulls the latest version automatically. No data loss.</p>
+  </div>
+</section>
+
+<section class="section">
+  <h2>When you are ready to go deeper</h2>
+  <p style="color: var(--text-muted); margin-bottom: 16px;">You do not need any of these to use DZNR. But they are there when you want them.</p>
+  <ul style="list-style: none; padding: 0; margin: 0; color: var(--text-muted); font-size: 14px;">
+    <li style="margin-bottom: 8px;">▸ The full prompt library: <code>~/DZNR/docs/prompt-library.html</code></li>
+    <li style="margin-bottom: 8px;">▸ The text version of the library: <code>~/DZNR/docs/PROMPT_LIBRARY.md</code></li>
+    <li style="margin-bottom: 8px;">▸ The team reference card: <code>~/DZNR/docs/TEAM_REFERENCE_CARD.md</code></li>
+    <li style="margin-bottom: 8px;">▸ The technical installation guide: <code>~/DZNR/docs/INSTALLATION.md</code></li>
+    <li style="margin-bottom: 0;">▸ The README: <code>~/DZNR/README.md</code></li>
+  </ul>
+</section>
+
+<div class="closing">
+  <p>If anything in this guide felt like a foreign language, that is on the language, not on you. The world of CLI tools, package managers, and git repositories grew up assuming everyone using them writes code daily. That assumption is wrong. You should not have to learn an entire toolchain to use a design tool. DZNR aims to hide as much of that as possible while still giving you the depth that the eight-subagent architecture provides.</p>
+  <p style="margin-top: 14px;">If something is confusing in this guide, or a step did not work the way it was written, tell Kevin (brandlessons@gmail.com). Each piece of confusion is a v2 improvement to this document.</p>
+</div>
+
+<footer>
+  <span>DZNR Quickstart</span>
+  <span>·</span>
+  <span>v1.13.6</span>
+  <span>·</span>
+  <span>2026-06-08</span>
+</footer>
+
+</div>
+
+<script>
+(function() {
+  document.querySelectorAll('.copy-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var pre = btn.parentElement.querySelector('pre');
+      var text = pre.innerText;
+      navigator.clipboard.writeText(text).then(function() {
+        btn.textContent = 'Copied';
+        btn.classList.add('copied');
+        setTimeout(function() {
+          btn.textContent = 'Copy';
+          btn.classList.remove('copied');
+        }, 1400);
+      }).catch(function() {
+        var range = document.createRange();
+        range.selectNode(pre);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+        try {
+          document.execCommand('copy');
+          btn.textContent = 'Copied';
+          btn.classList.add('copied');
+        } catch (e) {
+          btn.textContent = 'Error';
+        }
+        window.getSelection().removeAllRanges();
+        setTimeout(function() {
+          btn.textContent = 'Copy';
+          btn.classList.remove('copied');
+        }, 1400);
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>

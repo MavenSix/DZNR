@@ -7,6 +7,155 @@ All notable changes to DZNR are documented here. Versioning follows the EVOLUTIO
 
 ---
 
+## [1.13.6] - 2026-06-08
+
+### Added - Designer-friendly install path (one-line installer plus quickstart manual)
+
+The technical install path in `docs/INSTALLATION.md` assumes a fluent CLI user. v1.13.6 adds a complementary install experience for designers who do not write code daily, who may have never opened Terminal before, and who deserve to use DZNR without learning a toolchain first.
+
+**Three deliverables.**
+
+1. **`install.sh`** at the repo root. One-line installer invoked via `curl -fsSL https://raw.githubusercontent.com/MavenSix/DZNR/main/install.sh | bash`. The script: checks prereqs (Node.js, Claude Code, Git) and tells the user exactly what to install if anything is missing; clones the repo to `~/DZNR` or pulls the latest if it already exists; installs the `/dznr` slash command at the user level (`~/.claude/commands/dznr.md`); offers the workshop sync (skipped in non-interactive curl mode by default); prints next-steps in plain English. Idempotent; safe to re-run; doubles as the update mechanism.
+
+2. **`docs/QUICKSTART.md`** as the written manual. Eight numbered steps starting from "Open Terminal" with the Spotlight Search keyboard shortcut. Each step has three blocks: what you do, what you should see, and what to do if it breaks. Anticipates the common breakages (permission denied, command not found, network issues). Ends at `/dznr` running and the prompt library opened in a browser.
+
+3. **`docs/quickstart.html`** as the visual single-page version. Same content as the markdown but rendered with the same restraint palette as the prompt library. Copy buttons on every command. Color-coded blocks for "what you do" (charcoal), "what you should see" (green), "what to do if it breaks" (amber). Designed to be opened in a browser tab while the designer works through the steps in Terminal.
+
+**README updated.** The "For Your Team" section now leads with the quickstart and the one-line install command, before the prompt library and team reference card.
+
+### Why this matters
+
+The friction of CLI install is the largest barrier to DZNR team adoption. The technical INSTALLATION.md handles the engineering audience. The quickstart handles the design audience. Both audiences are real, and the gap between them is wide. The combination of a one-line installer and a designer-friendly manual closes the gap by removing 95 percent of the friction (the installer) and providing clear fallbacks for the 5 percent that breaks (the manual).
+
+### Notes
+
+- `install.sh` is committed with executable permissions and lints clean on macOS bash 3.2 and modern bash 5
+- The installer handles the case where the user has an existing non-DZNR `~/DZNR` folder and refuses to overwrite it
+- The workshop sync is offered interactively in terminal-attached runs and skipped silently in curl-bash piped runs (which cannot prompt for input)
+- All three new files passed em-dash sweep
+- README, INSTALLATION, and prompt-library docs cross-link to the quickstart
+
+---
+
+## [1.13.5] - 2026-06-08
+
+### Added - Category 9 in the Prompt Library: Specialty Connector Briefs
+
+The v1.13.4 library covered the eight subagent disciplines. v1.13.5 adds the connector layer: specialty tools that live outside DZNR's eight-character cast and either need direct MCP integration (already in place for Figma, Blender, Adobe, Magic Patterns, Pencil) or need DZNR to generate the brief that a human pastes into the external tool.
+
+**Library now contains 31 prompts across 9 categories.**
+
+**New: Category 9 - Specialty Connector Briefs (5 prompts).**
+
+- 27. Generative video brief (Runway, Higgsfield, Pika, Kling)
+- 28. Voice and audio production brief (ElevenLabs)
+- 29. Cursor build session brief (Cursor, Windsurf, AI IDEs)
+- 30. Pattern research brief (Mobbin, Dribbble, Behance)
+- 31. Presentation generation brief (Gamma, Beautiful.ai, Pitch)
+
+**Category intro lists all named tools and distinguishes two patterns:**
+
+- Tools DZNR drives directly via active MCPs (Figma, Blender, Adobe, Magic Patterns, Pencil): used inside other prompts, no brief-generation needed
+- Tools DZNR generates a brief for (Runway, Higgsfield, ElevenLabs, Cursor, Mobbin, Gamma, etc.): you paste the brief into the external tool
+
+As MCPs land for the brief-generation tools, these prompts upgrade from brief-generation to direct invocation without changing how the team writes the prompt.
+
+**Routing pattern note.** Connector brief prompts use direct subagent invocation:
+
+- Morpheus owns video, voice, and presentation briefs (he writes the prompts other tools execute)
+- Neo owns the Cursor build session brief (handoff to AI IDEs is delivery territory)
+- Sherlock owns the pattern research brief (research framing, even when the tool is Mobbin)
+
+This is documented in the category intro so the team understands which subagent picks up the work.
+
+### Notes
+
+- The team gets the expanded library on next `git pull` of `~/DZNR`
+- Affinity Designer, Sketch, and other design app handoffs continue to be covered under prompt 16 (spec from Figma) by naming the tool as the target platform
+- Shopify is covered inline when used during commerce audits (e.g., the Fear of God audit confirmed the Shopify storefront stack); a dedicated commerce brief can land in a future patch if the team requests it
+
+---
+
+## [1.13.4] - 2026-06-08
+
+### Added - Gandalf and Snake Eyes prompts in the Prompt Library
+
+The v1.13.3 prompt library covered the six core workflow categories driven by Tár, Snape, Sherlock, Gibson, Neo, and Morpheus. v1.13.4 expands the library to include the two specialty subagents who get used differently: Gandalf for craft and workshop depth, Snake Eyes for connector-backed specialist clusters.
+
+**Library now contains 26 prompts across 8 categories.**
+
+**New: Category 7 - Craft & Workshop (Gandalf, 4 prompts).**
+
+- 19. Polish pass (accessibility, motion, aesthetic refinement)
+- 20. Apply a named aesthetic direction (Brutalism, Dark Luxe, Wabi-Sabi, twelve total)
+- 21. Innovation Accelerator workshop (the orchestrator-mode IA Gandalf runs)
+- 22. Web 3D scene from a creative brief (Three.js, R3F, shaders, post-processing)
+
+Gandalf prompts use the direct invocation pattern `@dznr:gandalf:gandalf` because Gandalf operates as a peer subagent, not through Tár's routing. This pattern is documented at the top of the category.
+
+**New: Category 8 - Specialist Arsenal (Snake Eyes, 4 prompts).**
+
+- 23. SEO audit and content strategy (searchfit-seo cluster)
+- 24. PDF workflow (pdf-viewer cluster)
+- 25. Adobe batch creative workflow (adobe-for-creativity cluster)
+- 26. Operations runbook or status report (operations cluster)
+
+Snake Eyes prompts use the `@dznr:snake-eyes:snake-eyes deploy the [cluster] cluster` pattern. Each prompt shows the connector dependency so adopters know which MCP must be active for the cluster to surface tools. Categories not covered by individual prompts (Legal, Telemetry, Bio Research) are listed in the category header so the team knows the breadth of Snake Eyes coverage.
+
+**Files updated.**
+
+- `docs/PROMPT_LIBRARY.md` (markdown source, two new category sections appended before "A few patterns worth knowing")
+- `docs/prompt-library.html` (two new pills in the filter, two new category sections, updated counters and footer version)
+
+Both ship from the same source. Em-dash sweep clean across both files.
+
+### Notes
+
+- The team gets the expanded library on next `git pull` of `~/DZNR`
+- Direct subagent invocation pattern (`@dznr:gandalf:gandalf`) is now documented in two places: the patterns section at the bottom of the library, and the new category headers for Gandalf and Snake Eyes
+- The library file size remains comfortable for browser-tab use (HTML at roughly 1400 lines)
+
+---
+
+## [1.13.3] - 2026-06-08
+
+### Added - DZNR Prompt Library for team adoption
+
+Shipped a 18-prompt library across six workflow categories so teammates can copy, swap brackets, send. Targeted at fast team onboarding the week DZNR rolls out to colleagues.
+
+**Categories:**
+
+- Discovery and Audits (site audits, brand decodes, competitive reads)
+- Brand and Design Systems (brand from scratch, system audits, theming)
+- UX and Product Design (journey maps, wireframes, content taxonomy)
+- AI Product and Experience (AI feature specs with four-lens check, immersive concepts, synthetic audience tests)
+- Pitch and Story (decks, scripts, proposal write-ups)
+- Delivery and Polish (specs from Figma, repo scaffolds, QA handoff packages)
+
+**Each prompt has:**
+
+- One-line use case
+- Template with `[BRACKETS]` for swap-in
+- What DZNR produces
+- One variation showing how to flex the prompt
+
+**Files:**
+
+- `docs/PROMPT_LIBRARY.md` (markdown source, repo-friendly, GitHub renders cleanly)
+- `docs/prompt-library.html` (interactive single-page, copy buttons per prompt, search filter, category pills, designed in Snape's restraint palette)
+
+Both ship from the same source. README updated to link the library from the Getting Started section.
+
+The HTML library is self-contained (no external dependencies, no CDNs) so teammates can open it locally in any browser or host it on an internal site without setup.
+
+### Notes
+
+- 18 prompts is the v1 ship size. v2 will grow based on what the team actually requests.
+- The library leads with install instructions so a teammate who has never touched DZNR can get from clone to first prompt in three commands.
+- Direct subagent invocations (`@dznr:gandalf:gandalf ...`) are documented for power users in the "patterns worth knowing" section.
+
+---
+
 ## [1.13.2] - 2026-05-28
 
 ### Fixed - Plain /dznr command via user-level commands directory

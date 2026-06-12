@@ -7,6 +7,44 @@ All notable changes to DZNR are documented here. Versioning follows the EVOLUTIO
 
 ---
 
+## [1.13.7] - 2026-06-09
+
+### Fixed - install.sh silent failures, README frontmatter warnings, deprecated command file removal
+
+Three cleanup items aimed at making DZNR ready to widen the test audience beyond the initial closed beta. None are architectural changes; all are friction-reducers.
+
+**1. install.sh hardening.**
+
+The biggest silent-failure path for new friends was the private-repo case. If a friend ran the curl-bash installer but had not yet been added as a collaborator on `MavenSix/DZNR`, the clone failed with git's authentication or 404 error message swallowed by `2>/dev/null`, leaving the friend staring at a generic "Clone failed" message with no actionable guidance.
+
+Improvements:
+
+- Capture git's stderr verbatim so the friend sees the actual error from Git, not a paraphrase
+- Diagnose the three most common clone failures (network, auth/access, SSH key) and print specific guidance for each
+- For the private-repo case specifically: tell the friend to email Kevin (brandlessons@gmail.com) with their GitHub username and explain the collaborator invite flow
+- Added `--check` flag for prereq-only verification without installing (useful for "is my machine ready for DZNR" diagnostic)
+- Added `--help` flag with usage
+- Added a Step 5 post-install verification that checks the slash command file, the plugin manifest, and the subagents are all present before declaring success
+- More descriptive `hint` lines (dimmed text) under each `fail` and `warn` so the friend always has a next action
+
+**2. README frontmatter cleanup (closes task #92).**
+
+All eight `agents/<name>/README.md` files now ship with YAML frontmatter so `claude plugin validate` runs zero warnings instead of eight. Frontmatter includes name, description, character, archetype, version, and status. The README body was also tightened to use the correct invocation pattern (`@dznr:<name>:<name>`) and the "Stub. Full build pending." text was updated to "Production v1.0.0" since all subagents have been in production since v1.11.0.
+
+**3. Deprecated commands/dznr.md removed.**
+
+This file was the original plugin-level `/dznr` command that registered as `/dznr:dznr` in the slash menu. In v1.13.1 it was renamed to `commands/conduct.md` to fix the namespacing collision, and the original was kept as a no-frontmatter placeholder. With the user-level install path stable, the placeholder serves no purpose and `claude plugin validate` flagged it. Deleted as part of this commit.
+
+### Notes
+
+- `claude plugin validate ./` now passes with zero warnings
+- `scripts/validate-routing.sh` passes
+- Em-dash sweep clean across new and modified files
+- `install.sh --check` works end-to-end (tested in dev environment)
+- No version bumps required for files the friends already pulled in v1.13.6; only `install.sh` content materially changed for friends
+
+---
+
 ## [1.13.6] - 2026-06-08
 
 ### Added - Designer-friendly install path (one-line installer plus quickstart manual)

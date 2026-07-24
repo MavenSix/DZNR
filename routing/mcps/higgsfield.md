@@ -1,10 +1,10 @@
 ---
 mcp-name: higgsfield
-status: PENDING
+status: ACTIVE
 primary-owner: gibson
 secondary-owners: morpheus, snape
 proposal-doc: n/a (added to framework on 2026-05-26)
-activated-date: pending
+activated-date: 2026-07-24
 ---
 
 # Higgsfield
@@ -20,6 +20,7 @@ Generative video is a near-future capability that several DZNR subagents could l
 - **Gibson** for experiential video layers in immersive installations, AI product hero reels, and narrative-driven experience content
 - **Morpheus** for pitch deck B-roll, campaign sizzle reels, and case study video
 - **Snape** for brand video content when brand identity work extends to motion
+- **Gibson (game-studio skill)** for the multiplayer browser game build-and-deploy pipeline (game creation instructions, generated image and audio assets, deploy, publish)
 
 Without Higgsfield (or equivalent), generative video falls outside DZNR's tooling and the user has to handle it manually in external tools.
 
@@ -31,7 +32,7 @@ Direct invocation:
 - "Higgsfield video"
 - "generate AI video"
 
-Capability-based (when ACTIVE):
+Capability-based:
 
 - "create a sizzle reel"
 - "AI video hero"
@@ -63,6 +64,14 @@ Snape invocation (brand video):
 3. Calls Higgsfield; applies taste filter to outputs
 4. Refines selection with brand-system motion principles
 
+game-studio skill (Gibson, browser game pipeline):
+
+1. game-studio runs its intake interview and writes the design brief (the skill enforces its own hard gates)
+2. Calls get_game_creation_instructions and reads the bundle references
+3. Generates real assets with generate_image and generate_audio under one locked style
+4. Zips the build, uploads, and calls deploy_game, then hands back the live play URL
+5. Asks the user before publish_game
+
 ## Fallback (when MCP is disconnected)
 
 Substitute paths depending on subagent:
@@ -88,3 +97,4 @@ Substitute paths depending on subagent:
 ## Status history
 
 - 2026-05-26: PENDING (spec created during Phase 3.6.5 framework build)
+- 2026-07-24: ACTIVE (Higgsfield tools verified available in session; activated in v1.14.0 alongside the game-studio, seedance-director, and seedance-shotlist-director skills)

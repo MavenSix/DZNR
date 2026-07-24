@@ -177,6 +177,9 @@ Example: "Rebuild their immersive experience" → Sherlock asks user → if conf
 - "NPC", "AI character", "in-world dialogue", "ambient narration"
 - "experience output" (text/audio inside an experience)
 - "near-future", "speculative", "what if this existed"
+- "Seedance", "Seedance prompt", "video prompt" (AI video generation)
+- "shotlist", "director's shotlist", "break this script into shots"
+- "game studio", "build a game", "make a game", "browser game", "multiplayer game"
 
 ### Context-dependent
 - "design" — Gibson claims if request mentions: experience, immersive, spatial, AI, narrative, world
@@ -229,6 +232,7 @@ Example: "Rebuild their immersive experience" → Sherlock asks user → if conf
 - "user research", "competitive analysis" (Sherlock)
 - "pitch", "story", "presentation" (Morpheus)
 - "immersive", "3D world" (Gibson)
+- "build a game", "browser game", "multiplayer game" (Gibson, game-studio skill)
 
 ### Handoff signals
 - "Build is shipped. Morpheus can announce."

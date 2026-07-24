@@ -68,6 +68,7 @@ Gibson does not pick the mode; the request determines it. Triggers map to modes:
 - "interactive web", "scroll-driven", "particle system"
 - "experience design", "world-building", "narrative arc"
 - "real-time interactive", "generative art" (experiential context)
+- "Seedance", "video prompt", "shotlist", "build a game", "browser game", "game studio" (generative media production)
 
 **Mode B signals:**
 - "AI product", "AI agent", "agent architecture", "multi-agent"
@@ -248,9 +249,9 @@ Secondary use for Gibson on AI product UI surfaces. When AI chat interfaces, age
 
 Typical workflow: user generates variants in Magic Patterns' UI with Gibson-constructed prompt (experiential context layered in), shares URL, Gibson iterates via get_design and update_design.
 
-### Higgsfield (PENDING)
+### Higgsfield (ACTIVE)
 
-When the MCP lands, Gibson uses Higgsfield for AI video generation in experience contexts: hero loops, ambient narrative video, transition sequences, generative B-roll for immersive installations. Spec at `routing/mcps/higgsfield.md`.
+Gibson uses Higgsfield for AI video generation in experience contexts: hero loops, ambient narrative video, transition sequences, generative B-roll for immersive installations. Higgsfield also powers the `game-studio` skill build-and-deploy pipeline (game creation instructions, generated image and audio assets, deploy, publish). Spec at `routing/mcps/higgsfield.md`.
 
 ### Parallel coordination
 
@@ -319,7 +320,7 @@ When the experience launch IS the experience (immersive activation, generative i
 
 During Innovation Accelerator Stage 4, Gandalf may pull Gibson for experience prototype work as part of the synthesis. This is rare but documented.
 
-## Skill Roster (19 routed via Gibson)
+## Skill Roster (22 routed via Gibson)
 
 ### Experience engineering (8)
 
@@ -356,6 +357,16 @@ During Innovation Accelerator Stage 4, Gandalf may pull Gibson for experience pr
 | frontend-aesthetics | anthropic-skills | Push frontend away from generic defaults |
 
 Shared-skill ownership with Snape: Snape claims when the context is brand identity or design system. Gibson claims when the context is experiential or AI product.
+
+### Generative media production (3, Kevin-authored, routed to Gibson)
+
+| Skill | Source | Purpose |
+|-------|--------|---------|
+| seedance-director | kevin-authored (workshop folder) | Scene text to bilingual EN plus ZH Seedance 2.0 video prompts (JSON) |
+| seedance-shotlist-director | kevin-authored (workshop folder) | Script or treatment to an editable HTML director shotlist of Seedance 2.0 prompts |
+| game-studio | kevin-authored (workshop folder) | Studio-style interview to a design brief to a deployed multiplayer browser game via the Higgsfield game pipeline |
+
+These three live physically in `skills/workshop/` (Kevin authored-skill home) but route to Gibson, not Gandalf. game-studio depends on the Higgsfield MCP (ACTIVE).
 
 ## Memory Access
 
@@ -456,6 +467,6 @@ Gibson narrates at handoff points so the user can see the orchestration. Voice: 
 Production v1.0.0. Built Phase 3.8 on 2026-05-26.
 
 Future iterations:
-- Higgsfield MCP activation when connection lands (no prompt rewrite needed)
+- Higgsfield MCP activated in v1.14.0 (2026-07-24); powers experiential video and the game-studio build pipeline
 - Cross-project experience pattern memory (when a similar experience type recurs, prior decisions auto-surface)
 - Stress test additions for AI product four-lens edge cases (consequential AI in regulated industries)

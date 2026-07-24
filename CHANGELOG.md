@@ -7,6 +7,31 @@ All notable changes to DZNR are documented here. Versioning follows the EVOLUTIO
 
 ---
 
+## [1.14.0] - 2026-07-24
+
+### Added - Generative Media Production skills (Gibson) and Higgsfield MCP activation
+
+Three Kevin-authored creative-media skills join the roster, all routed to Gibson (Experience Engineering), and the Higgsfield MCP moves from PENDING to ACTIVE.
+
+**New skills (physical home `skills/workshop/`, routed to Gibson):**
+
+1. **seedance-director** converts a plain-text scene description into production-ready bilingual EN plus ZH Seedance 2.0 video prompts (JSON output). No MCP dependency.
+2. **seedance-shotlist-director** converts a script or treatment into an editable, self-contained HTML director shotlist of Seedance 2.0 prompts, with per-scene checkboxes and a global style prefix. No MCP dependency.
+3. **game-studio** runs a studio-style intake interview, writes a full game design brief, then builds, deploys, and offers to publish a multiplayer browser game via the Higgsfield game pipeline. Depends on the Higgsfield MCP.
+
+**Routing.** Gibson's roster grows from 19 to 22. New primary triggers wired in `routing/TRIGGERS.md` and `routing/SUBAGENT_ROSTERS.md`: Seedance, video prompt, shotlist, game studio, build a game, browser game. Gandalf's workshop roster is unchanged at 38; the three new skills sit physically in the workshop folder (Kevin's authored-skill home) but are Gibson-routed, documented in `governance/DECISIONS.md`.
+
+**Higgsfield MCP: PENDING to ACTIVE.** `routing/mcps/higgsfield.md` and `routing/MCPS.md` updated. Higgsfield powers experiential video for Gibson and Morpheus, and now also the game-studio build-and-deploy pipeline. Gibson's AGENT.md Higgsfield section updated with no behavioral rewrite needed.
+
+### Notes
+
+- The two Seedance skills retain em-dashes from their original source text (structural in the shotlist CUT format). Imported verbatim to preserve behavior; noted as an intentional exception in DECISIONS.md. All DZNR-authored files remain em-dash-free.
+- `scripts/validate-routing.sh` passes.
+- Em-dash sweep clean across all DZNR-authored new and modified files (agent prompt, routing docs, governance, changelog).
+- No cast or chain-structure changes; minor version bump per EVOLUTION.md semantics (new skills plus MCP activation).
+
+---
+
 ## [1.13.7] - 2026-06-09
 
 ### Fixed - install.sh silent failures, README frontmatter warnings, deprecated command file removal

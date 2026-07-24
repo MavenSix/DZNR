@@ -128,7 +128,7 @@ As of v1.6.0, DZNR has spec files for the following MCPs in `routing/mcps/`:
 
 ### Creative tech and 3D
 - `blender.md`: ACTIVE (when local Blender app is running)
-- `higgsfield.md`: PENDING
+- `higgsfield.md`: ACTIVE
 
 ### Workspace and data
 - `figma.md`: ACTIVE (also under Design)

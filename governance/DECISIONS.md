@@ -171,9 +171,26 @@ These get answered when we start building Subagent 1.
 
 ---
 
+## Generative media skills added (2026-07-24)
+
+**Kevin's call:** Add three creative-media skills and route them to Gibson. Ship as v1.14.0. Flip the Higgsfield MCP to ACTIVE.
+
+| Skill | Physical home | Routed to | Notes |
+|-------|---------------|-----------|-------|
+| seedance-director | skills/workshop/ | Gibson | Scene text to bilingual EN plus ZH Seedance 2.0 video prompts (JSON). No MCP. |
+| seedance-shotlist-director | skills/workshop/ | Gibson | Script or treatment to an editable HTML shotlist of Seedance 2.0 prompts. No MCP. |
+| game-studio | skills/workshop/ | Gibson | Studio-style interview to a deployed multiplayer browser game. Requires the Higgsfield MCP (ACTIVE). |
+
+**Placement rationale:** The three are Kevin-authored skills, so they live in `skills/workshop/` (Kevin's authored-skill home, symlinked to `~/.claude/skills/`, which makes them usable standalone). Routing ownership is Gibson, set in `routing/SUBAGENT_ROSTERS.md` and `routing/TRIGGERS.md`, and it is independent of physical folder. Gandalf's roster stays at its explicit 38 and does not include these.
+
+**Em-dash note:** The two Seedance skills contain em-dashes in their original source text (structural in the shotlist CUT format and in prose). They were imported verbatim to preserve behavior. This is an intentional exception to the no-em-dash rule, which continues to apply to every DZNR-authored file (agent prompts, routing docs, governance, changelog).
+
+---
+
 ## Change log
 
 | Date | Decision | Notes |
 |------|----------|-------|
 | 2026-05-18 | Initial decisions locked | All 4 collisions resolved, structure chosen, workshop deferred |
 | 2026-05-18 | Magic Patterns MCP integration approved (PENDING connection) | Primary owner: Snape. Secondary: Gibson. Gandalf imagegen-frontend-* overlap rule established. First run of Evolution Protocol — used as canonical worked example. Live status conditional on MCP connection. |
+| 2026-07-24 | Generative media skills added (v1.14.0) | seedance-director, seedance-shotlist-director, game-studio routed to Gibson. Higgsfield MCP flipped PENDING to ACTIVE. |

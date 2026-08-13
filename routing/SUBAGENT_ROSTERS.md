@@ -17,6 +17,7 @@
 | **Neo** | Delivery & Code | Specs, components, ship it | 24 |
 | **Morpheus** | Pitch & Story | Present, persuade, narrate | 19 |
 | **Gandalf** | Workshop (peer + tool + orchestrator) | Kevin's personal craft + Innovation Accelerator pack. Called by Tár OR by other subagents. Orchestrates other subagents for IA (documented exception). | 44 |
+| **Cheetara** | QKI Worldbuilding | Aesthetic-first serialized-world asset generation. Engine + three generators + manifest contract. Prime Gate enforced. Coordinates MidJourney, Higgsfield, Weavy, Blender MCP. | 4 |
 | **Snake Eyes** | Parked specialist arsenal | Silent. Deployed by name. Soft-routed for SEO. | ~55 |
 
 **Total skills routed through DZNR (Tár → 6 active subagents):** ~165
@@ -416,6 +417,55 @@ onboard, teach-impeccable, quieter
 - Gibson calls Gandalf for imagegen-* skills, animate, delight
 - Sherlock calls Gandalf for critique, audit, distill, extract
 - Morpheus calls Gandalf for onboard, teach-impeccable, quieter
+
+---
+
+## Cheetara: QKI Worldbuilding
+
+**Archetype:** Fast, precise, sensor-based warrior. Moves through the generation pipeline at speed, feels aesthetic drift before it fully surfaces, and strikes the Prime Gate the moment a render tries to sneak in where a drawn layer belongs. Operator, not artist.
+
+**Role:** Owns the QKI (Quantum Kinetic Ink) cluster. Aesthetic-first serialized-world asset generation across characters, places, and objects. Loads the QKI style engine before any generator runs. Resolves the active world pack from context (via Snape clarifier if ambiguous). Coordinates external tools (MidJourney for hero 2D, Higgsfield for identity lock, Weavy for sheet compositing and mesh generation, Blender MCP or Unreal MCP for Layer 1 spatial framework). Writes to the shared asset manifest as the seam between generation and assembly.
+
+**Skills (4 total, plus 1 shared contract):**
+
+### Engine (1)
+
+| Skill | Source | Purpose |
+|-------|--------|---------|
+| qki-style-authority | anthropic-skills | The canonical QKI style engine. Fixed DNA (four-layer render model, linework law, Prime Gate). Loads the active world pack. Read FIRST on every asset. |
+
+### Generators (3)
+
+| Skill | Source | Purpose |
+|-------|--------|---------|
+| qki-character-generator | anthropic-skills | Character node + sheet (hero, turnaround, expressions, motion states). Registers Higgsfield Soul Character for identity lock. |
+| qki-place-generator | anthropic-skills | Environments, locations, cityscapes, buildings. Layer 1 first (Blender MCP or Unreal MCP), then drawn QKI establishing art on top. |
+| qki-object-generator | anthropic-skills | Vehicles, weapons, props. Material-led. Hero design + orthographic angles. Optional Weavy Tripo / Meshy mesh for 3D-ready objects. |
+
+### Shared contract (not a callable skill)
+
+| File | Purpose |
+|------|---------|
+| qki-asset-pipeline/asset-manifest-schema.md | The seam. Shared record schema every generator writes to and every downstream assembly stage (Gibson, Neo) reads from. |
+
+**Workshop skills Cheetara commonly CALLS Gandalf for:**
+design-taste-frontend, gpt-taste, high-end-visual-design, critique
+
+(These belong to Gandalf's roster. Cheetara pulls Gandalf in mid-work for aesthetic taste passes on sheets before manifest write.)
+
+**Trigger keywords:** create a character, character sheet, worldbuilding, world pack, faction, QKI, Quantum Kinetic Ink, populate the world, build the faction, hero object, hero character, hero prop, establishing shot, cityscape, environment, contested site, Wound Keeper, Synthesis, Friends and Anarchists, F&A, drawn art, graphic novel, sref anchor, Soul Character, Prime Gate, add to the world.
+
+**MCP dependencies:**
+- MidJourney (human-in-the-loop, no MCP)
+- Higgsfield (MCP ACTIVE per v1.14.0)
+- Weavy / Figma Weave (cloud, no MCP)
+- Blender MCP (ACTIVE when Blender is running locally)
+- Unreal MCP (UE 5.8 experimental, alternative to Blender)
+- Local ComfyUI (optional, free mesh iteration)
+
+**Cross-subagent relationships:**
+- **Upstream (feeds Cheetara):** Sherlock's `idea-to-brief` and `discovery` for world concept; Gibson's `immersive-experience-design` for the world architecture that determines which assets to build.
+- **Downstream (reads Cheetara's manifest):** Gibson's `3d-experience-design`, `webgl-threejs`, `live-experience` for experience layer instantiation; Neo's `repo-scaffold` and `qa-handoff` for shipping.
 
 ---
 

@@ -7,6 +7,73 @@ All notable changes to DZNR are documented here. Versioning follows the EVOLUTIO
 
 ---
 
+## [2.0.0] - 2026-07-01
+
+### Added - Ninth subagent, Cheetara, ships with the QKI Worldbuilding cluster
+
+First cast expansion since Snake Eyes shipped in v1.11.0 (2026-05-26). Semver rules from EVOLUTION.md honored strictly:
+
+> Major (1.0 → 2.0): cast changes, chain structure changes, locked architecture changes.
+
+Adding a ninth subagent is a cast change. Deliberate major-version bump.
+
+**Cheetara**
+
+- Archetype: fast, precise, sensor-based warrior. Operator, not artist.
+- Domain: QKI (Quantum Kinetic Ink) worldbuilding, serialized-world asset generation, aesthetic gate enforcement.
+- Owns 4 skills plus the shared asset manifest contract:
+  - `qki-style-authority` (the engine; read first on every asset)
+  - `qki-character-generator`
+  - `qki-place-generator`
+  - `qki-object-generator`
+  - `qki-asset-pipeline/asset-manifest-schema.md` (shared contract; the seam between generation and assembly)
+- Enforces the Prime Gate ruthlessly ("reads as a graphic novel, never as a render")
+- Coordinates across MidJourney (hero 2D with sref anchor, human-in-the-loop), Higgsfield (Soul Character identity lock plus reference elements), Weavy / Figma Weave (variations, sheet compositing, Tripo / Meshy mesh generation), Blender MCP (Layer 1 spatial framework only), and Unreal MCP (alternative Layer 1 for game-engine work)
+- Cross-subagent relationships:
+  - Upstream from Sherlock (idea-to-brief, discovery) and Gibson (immersive-experience-design)
+  - Downstream to Gibson (3d-experience-design, webgl-threejs, live-experience) and Neo (repo-scaffold, qa-handoff) via the shared manifest
+  - Calls Gandalf tool-mode for aesthetic taste passes (design-taste-frontend, gpt-taste, high-end-visual-design, critique)
+  - Escalates to Snape clarifier when world pack cannot be resolved from context
+
+**New routing infrastructure**
+
+- `routing/SUBAGENT_ROSTERS.md`: Cheetara added to the cast table (9 subagents) with full skill roster and cross-subagent relationship section
+- `routing/TRIGGERS.md`: Cheetara section added with primary triggers, context-dependent triggers, anti-triggers, handoff signals, and cross-subagent call patterns
+- `routing/CHAINS.md`: two new pipeline templates added
+  - Chain 8: QKI World Asset (single asset or compound faction populate)
+  - Chain 9: New QKI World Pack (pack authoring or extraction; required prerequisite when no pack exists)
+
+**New agent files**
+
+- `agents/cheetara/AGENT.md` (~350 lines: charter, Prime Gate rules, pack resolution, layer discipline, identity lock protocol, pipeline template summary, cross-subagent relationships, MCP coordination table with fallbacks, memory access, when-asks, failure modes, visibility protocol with voice examples)
+- `agents/cheetara/README.md` (YAML frontmatter matching the other 8 agents' pattern from v1.13.7)
+
+**Documentation cascade**
+
+- `README.md`: cast table updated (9 subagents), intro line updated ("9 specialist subagents" and "Nine subagents"), status line updated (cast expanded from 8 in v2.0.0)
+- `.claude-plugin/plugin.json`: description updated to list Cheetara and mention QKI Prime Gate enforcement, version bumped 1.14.0 to 2.0.0
+- `docs/PROMPT_LIBRARY.md`: Category 10 (QKI Worldbuilding) added with 4 prompts (create character, create place, design hero object, new world pack setup). Header count updated 31 to 35 prompts, 9 to 10 categories.
+- `docs/prompt-library.html`: matching Category 10 added, new pill in filter, counters and footer version updated
+- Total prompts: 31 (v1.13.5) → 35 (v2.0.0)
+
+### Notes
+
+- The first world pack included in the workshop is Friends-and-Anarchists (F&A) at `skills/workshop/qki-style-authority/packs/friends-and-anarchists.md`
+- Higgsfield MCP is ACTIVE (per v1.14.0); this is the identity-lock backbone for serialized-world work
+- Blender MCP is ACTIVE when the local Blender instance is running with the addon enabled
+- Unreal MCP (UE 5.8 experimental) is documented but not yet ACTIVE in the framework
+- MidJourney and Weavy remain human-in-the-loop (no MCPs); the flows drop keepers into `inbox/<asset-type>/<id>/`
+- Kevin's install guide sits in Slack DM history from 2026-07-01; the salient parts are captured in Cheetara's AGENT.md and Chains 8 and 9
+
+### Validation
+
+- `scripts/validate-routing.sh` passes across all 9 agent files
+- `claude plugin validate ./` passes with no warnings (README frontmatter cleanup landed in v1.13.7)
+- Em-dash sweep clean across all new and modified files
+- Cheetara's voice examples reviewed for tone consistency with the other 8 subagents' Visibility Protocol sections
+
+---
+
 ## [1.14.0] - 2026-07-24
 
 ### Added - Generative Media Production skills (Gibson) and Higgsfield MCP activation

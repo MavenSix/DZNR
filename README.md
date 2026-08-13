@@ -2,7 +2,7 @@
 
 **A practitioner-grade Claude Code plugin for complex design, AI product, and experience engineering work.**
 
-DZNR is a master orchestrator that routes work to 8 specialist subagents, each with a documented domain, deterministic routing logic, and failure protocol. Built for real client engagement and team usage, not landing-page demos.
+DZNR is a master orchestrator that routes work to 9 specialist subagents, each with a documented domain, deterministic routing logic, and failure protocol. Built for real client engagement and team usage, not landing-page demos.
 
 **Version:** 1.11.0 (beta)
 **Last updated:** 2026-05-26
@@ -13,7 +13,7 @@ DZNR is a master orchestrator that routes work to 8 specialist subagents, each w
 
 Most AI design agents are a single system prompt that says "be helpful." When they break, no one knows why. DZNR is built differently:
 
-**Eight subagents, each with a clear domain.** No one subagent tries to do everything. When work crosses domains, the subagents hand off to each other through documented protocols.
+**Nine subagents, each with a clear domain.** No one subagent tries to do everything. When work crosses domains, the subagents hand off to each other through documented protocols.
 
 **Industry posture system.** Every project carries an industry tag (luxury, automotive, retail, CPG, fintech, healthcare, technology, media/entertainment, public sector). Subagents adjust their defaults per industry: Snape applies industry-typical aesthetic defaults, Morpheus uses industry-typical pitch vocabulary, Sherlock weights research toward industry-relevant signals.
 
@@ -46,6 +46,7 @@ Most AI design agents are a single system prompt that says "be helpful." When th
 | **Neo** | Delivery and Code | Specs, components, ship. Platform-pure: Sitecore, Salesforce, AEM, React, native mobile, static sites, backend services. | 24 |
 | **Morpheus** | Pitch and Story | Outbound. Per-claim source attribution. Format-organized deliverables. | 19 |
 | **Gandalf** | Workshop tri-mode | Your personal craft. The ONLY subagent who can call others (in orchestrator mode, Innovation Accelerator only). | 44 |
+| **Cheetara** | QKI Worldbuilding | Aesthetic-first serialized-world asset generation. Engine + three generators + manifest contract. Prime Gate enforced ruthlessly. | 4 |
 | **Snake Eyes** | Specialist Arsenal | Silent. Seven specialist clusters. Called by name. Soft-routed for SEO. | ~55 |
 
 ---
@@ -187,5 +188,5 @@ UNLICENSED (private, team-use only). May open-source in the future.
 ## Status
 
 **Version:** 1.11.0 (beta)
-**Cast:** complete (all 8 subagents in production)
+**Cast:** complete (all 9 subagents in production, expanded from 8 in v2.0.0)
 **Last released:** 2026-05-26

@@ -737,6 +737,197 @@ Otherwise: bundle executes end-to-end, all 6 artifacts delivered together.
 
 ---
 
+## Chain 8: QKI World Asset (NEW, Cheetara owns)
+
+**Purpose:** Generate a single QKI asset (character, place, or object) or a compound set (populate a faction, build out the world) using the QKI engine, generators, and manifest contract. Serialized-world consistency is the north star.
+
+### Entry conditions
+
+A request matches Chain 8 when ANY of:
+- Primary Cheetara triggers fire ("create a character", "create a location", "create a weapon", "worldbuilding", "add to the world", "populate the world")
+- Explicit pack reference ("in Friends-and-Anarchists", "F&A", "Wound Keeper", "Synthesis")
+- QKI-explicit language ("QKI character", "graphic novel style", "sref anchor", "Prime Gate", "Soul Character")
+- A world pack is already active in project memory AND the request is a generation verb ("create", "design", "add", "populate")
+
+### Decision tree
+
+```
+NODE 1: Cheetara receives the request
+
+  Cheetara loads qki-style-authority (the engine) FIRST.
+  This is non-negotiable. No generator runs without the engine loaded.
+
+  IF active world pack is unresolved
+    → Snape clarifies: "Which world pack applies? Friends-and-Anarchists, or a new pack we need to author first?"
+    → IF user names existing pack: engine loads that pack, continue to NODE 2
+    → IF user says "new": route to Chain 9 (New QKI World Pack) instead
+
+NODE 2: Determine asset type
+
+  IF request contains "character", "warrior", "hero", "villain", "person", "figure"
+    → Cheetara dispatches qki-character-generator (NODE 3A)
+  ELSE IF request contains "location", "environment", "site", "cityscape", "building", "set", "world"
+    → Cheetara dispatches qki-place-generator (NODE 3B)
+  ELSE IF request contains "weapon", "vehicle", "prop", "gear", "device", "object"
+    → Cheetara dispatches qki-object-generator (NODE 3C)
+  ELSE IF request is compound ("populate the world", "build the faction")
+    → Cheetara orchestrates across all three generators, one shared manifest (NODE 4)
+  ELSE
+    → Snape clarifies asset type
+
+NODE 3A: qki-character-generator
+
+  Generator drafts character node, confirms with user (name, faction, motion states needed).
+  Cheetara hands user the MidJourney hero prompt with QKI sref anchor and pack overrides if any.
+  User runs MJ, drops keeper into inbox/character/<id>/.
+
+  [GANDALF call point]
+  IF the hero render feels close but not right
+    → Cheetara calls Gandalf for `design-taste-frontend` before proceeding
+
+  Cheetara registers Higgsfield Soul Character, captures --cref URL.
+  Generator builds sheet (turnaround, expressions, motion states) via Weavy composite.
+  Prime Gate applied on every render (loop back on fail).
+  Manifest record written.
+
+NODE 3B: qki-place-generator
+
+  Layer 1 FIRST. Cheetara dispatches Blender MCP (or Unreal MCP) to block space and camera.
+  IF Blender MCP unavailable
+    → Cheetara describes Layer 1 scene in text for user to execute locally, proceeds with description as reference
+  Generator drafts location node, confirms with user (faction control, tier, contested state).
+  MidJourney establishing shot over the Layer 1 frame with QKI sref anchor.
+  User drops keeper into inbox/environment/<id>/.
+
+  [GANDALF call point]
+  IF the establishing shot needs a taste pass
+    → Cheetara calls Gandalf for `high-end-visual-design` or `gpt-taste`
+
+  Higgsfield reference element registered for the location.
+  Detail views, alternate lighting, faction-overlay variants generated.
+  Prime Gate applied on every render.
+  Manifest record written.
+
+NODE 3C: qki-object-generator
+
+  Generator drafts object node, confirms with user (faction, hero-tier or background, mesh needed).
+  Material-led (faction language reads through the material treatment).
+  MidJourney hero design with QKI sref anchor and faction material overrides.
+  User drops keeper into inbox/<vehicle|weapon|prop>/<id>/.
+
+  [GANDALF call point]
+  IF the hero design needs critique before locking
+    → Cheetara calls Gandalf for `critique`
+
+  IF hero-tier: Higgsfield reference element registered.
+  Orthographic angles, detail callouts generated.
+  IF mesh needed: Weavy Tripo / Meshy mesh generation from the design sheet.
+  Prime Gate applied on every render.
+  Manifest record written.
+
+NODE 4: Compound orchestration (populate the world)
+
+  Cheetara orchestrates the three generators in sequence: character → place → object.
+  One shared manifest for the compound run.
+  Same Prime Gate discipline on every render.
+  Same identity lock discipline on every hero asset.
+  User confirms per-generator handoff or authorizes auto-proceed.
+
+NODE 5: Chain complete
+
+  All assets have manifest entries.
+  All hero characters/objects have identity locks (Higgsfield Soul Character or reference element, plus MJ --cref).
+  All renders passed Prime Gate.
+  Cheetara returns control to Tár.
+```
+
+### Gandalf call points (recap)
+
+- `design-taste-frontend` on close-but-not-landing character renders
+- `high-end-visual-design` or `gpt-taste` on establishing shots for luxury or premium pack postures
+- `critique` on hero object designs before manifest lock
+
+### Exit conditions
+
+- All requested assets have manifest entries tagged with pack, faction, motion state, layer, source tool, and identity lock reference
+- All renders passed the Prime Gate
+- User confirms the delivery OR chain silence for one message (Tár asks whether to route downstream to Gibson for experience layer or Neo for shipping)
+
+### Interruption rules
+
+- **Prime Gate fail three times on same asset:** Cheetara voices the gap and asks whether pack sref needs a per-pack override
+- **Pack ambiguity mid-chain:** Snape clarifies; chain pauses until resolved
+- **MidJourney unavailable:** Cheetara pauses hero pass; does NOT fall back to another tool for hero renders (the QKI hero anchor lives in MJ)
+- **Higgsfield unavailable:** Cheetara continues with MJ --cref only, flags weaker lock in manifest
+- **User pivots to a new pack mid-chain:** Cheetara re-loads the engine with the new pack, restarts asset generation. Prior partial assets stay in inbox for user to keep or discard.
+
+---
+
+## Chain 9: New QKI World Pack (NEW, Cheetara owns)
+
+**Purpose:** Author or extract a new world pack so future QKI generation can render against it. Required prerequisite when a user starts a new world and no pack exists.
+
+### Entry conditions
+
+A request matches Chain 9 when ANY of:
+- "new world", "set up a palette", "use these colours", "author a pack"
+- User uploads a palette file, a moodboard, or a brand reference and asks for a QKI world
+- Chain 8 attempted to run and Cheetara escalated because no pack was resolvable
+
+### Decision tree
+
+```
+NODE 1: Cheetara determines pack input type
+
+  IF user uploaded a pack file directly
+    → Validate against pack schema (qki-style-authority/references/world-pack-schema.md)
+    → Skip to NODE 3
+  ELSE IF user pasted named colours plus temperament per faction
+    → Cheetara maps to pack schema, drafts pack file
+    → Continue to NODE 2
+  ELSE IF user uploaded a moodboard or brand reference
+    → Cheetara calls Snape for palette extraction (via brand-from-scratch or ds-theming)
+    → Snape extracts palette, returns to Cheetara
+    → Cheetara maps to pack schema, drafts pack file
+    → Continue to NODE 2
+
+NODE 2: Confirm pack with user
+
+  Cheetara presents the drafted pack (palette per faction, material temperament, motion state overrides).
+  User confirms or requests adjustments.
+  Iterate until confirmed.
+
+NODE 3: Validate and register
+
+  Cheetara validates the pack against qki-style-authority's schema.
+  Writes pack to `<world>/packs/<pack-id>.md`.
+  Sets the pack as active in project memory.
+
+NODE 4: Ready for Chain 8
+
+  Cheetara returns control to Tár with the pack active.
+  Tár resumes Chain 8 (asset generation) if that was the origin request.
+```
+
+### Gandalf call points
+
+- `critique` on the drafted pack before user confirmation (optional; useful when the pack is boundary-pushing)
+- `high-end-visual-design` when the pack is intended for luxury or premium worlds and needs a taste pass on the palette
+
+### Exit conditions
+
+- A validated pack exists in `packs/<pack-id>.md`
+- The pack is active in project memory
+- If Chain 9 was reached via Chain 8 escalation: Chain 8 resumes
+
+### Interruption rules
+
+- **Pack input is genuinely absent (user says "just make one up"):** Cheetara does NOT invent a pack. Voices the gap: "A world pack needs at least a palette direction and one faction. Give me a colour direction and a faction temperament, and I will draft from there."
+- **Snape extraction returns ambiguous palette:** Cheetara asks user to pick the two-to-three dominant tones before continuing
+- **Pack fails schema validation:** Cheetara loops back to NODE 2 with the specific field that failed
+
+---
+
 ## Cross-chain rules
 
 These apply across ALL chains, not specific to one.

@@ -436,11 +436,11 @@ footer span { margin: 0 8px; }
 
 <header class="page-header">
   <h1>DZNR Prompt Library</h1>
-  <p class="subtitle">Thirty-one prompts your team can copy, swap brackets, send. Organized by discipline. Each prompt is a real workflow we run.</p>
+  <p class="subtitle">Thirty-five prompts your team can copy, swap brackets, send. Organized by discipline. Each prompt is a real workflow we run.</p>
   <div class="meta">
-    <span>Version 1.13.5</span>
-    <span>31 prompts</span>
-    <span>9 categories</span>
+    <span>Version 2.0.0</span>
+    <span>35 prompts</span>
+    <span>10 categories</span>
   </div>
 </header>
 
@@ -500,6 +500,7 @@ footer span { margin: 0 8px; }
     <button class="pill" data-category="craft">Craft &amp; Workshop</button>
     <button class="pill" data-category="specialist">Specialist Arsenal</button>
     <button class="pill" data-category="connectors">Connector Briefs</button>
+    <button class="pill" data-category="qki">QKI Worldbuilding</button>
   </div>
 </div>
 
@@ -1289,6 +1290,107 @@ footer span { margin: 0 8px; }
   </article>
 </section>
 
+<section class="category-section" data-category="qki">
+  <div class="category-header">
+    <div class="category-number">Category 10</div>
+    <h2>QKI Worldbuilding (Cheetara)</h2>
+    <p style="color: var(--text-muted); font-size: 14px; max-width: 680px; margin-top: 8px;">Cheetara owns aesthetic-first serialized-world asset generation using the QKI (Quantum Kinetic Ink) engine. Every asset (character, place, object) is drawn art with a fixed style DNA and a swappable world pack. She loads the engine first, resolves the active pack, dispatches the right generator, enforces the Prime Gate on every render, and writes the asset manifest.</p>
+    <p style="color: var(--text-faint); font-size: 13px; max-width: 680px; margin-top: 8px;"><strong style="color: var(--text-muted); font-weight: 600;">Before you can generate:</strong> a world pack must exist. If you have no pack yet, run prompt 35 (New QKI World Pack) first. If you already have a pack (F&amp;A is the reference pack), skip to 32, 33, or 34.</p>
+  </div>
+
+  <article class="prompt-card" data-category="qki">
+    <div class="prompt-header">
+      <div class="prompt-num">32</div>
+      <div class="prompt-title"><h3>Create a QKI character</h3></div>
+    </div>
+    <p class="use-case">Generate a character node plus the full character sheet (hero, turnaround, expressions, motion states) in QKI style, with a Higgsfield Soul Character identity lock for serialized-world consistency.</p>
+    <div class="prompt-body">
+      <div class="code-wrap">
+        <button class="copy-btn">Copy</button>
+        <pre>@dznr:cheetara:cheetara create a <span class="bracket">[FACTION]</span> character in QKI. Pack: <span class="bracket">[PACK NAME, e.g., Friends-and-Anarchists / F&amp;A]</span>. Role: <span class="bracket">[DESCRIBE, e.g., warrior, ritualist, elder, defector]</span>. Motion states needed: <span class="bracket">[LIST, e.g., idle, combat, ritual, dialogue]</span>. Identity lock: <span class="bracket">[YES for recurring character / NO for one-off]</span>.</pre>
+      </div>
+      <div class="field">
+        <div class="field-label">What you get</div>
+        <div class="field-content muted">Character node record. MidJourney hero prompt with QKI sref anchor (you drop the keeper in inbox/character/). Higgsfield Soul Character registration + --cref capture if identity lock is YES. Full sheet (turnaround, expression sheet, motion-state key poses) composited in Weavy. Manifest entry with pack, faction, motion states, layer, source tool, and identity lock reference.</div>
+      </div>
+      <div class="divider"></div>
+      <div class="field">
+        <div class="field-label">Variation</div>
+        <div class="field-content muted">Add <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">background-tier only</code> for non-hero characters (skips identity lock, single sheet), or <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">with faction material override</code> if the character carries a specific material treatment beyond the pack default.</div>
+      </div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="qki">
+    <div class="prompt-header">
+      <div class="prompt-num">33</div>
+      <div class="prompt-title"><h3>Create a QKI place</h3></div>
+    </div>
+    <p class="use-case">Generate an environment, location, cityscape, or building in QKI, with Layer 1 (spatial framework and camera) blocked in Blender MCP first and the drawn establishing shot layered on top.</p>
+    <div class="prompt-body">
+      <div class="code-wrap">
+        <button class="copy-btn">Copy</button>
+        <pre>@dznr:cheetara:cheetara create a <span class="bracket">[PLACE TYPE, e.g., contested Tier 2 site, faction stronghold, ritual chamber, urban district]</span> in QKI. Pack: <span class="bracket">[PACK NAME]</span>. Faction control: <span class="bracket">[WHICH FACTION or CONTESTED]</span>. Camera direction: <span class="bracket">[DESCRIBE or "wide establishing"]</span>. Detail views needed: <span class="bracket">[LIST, e.g., interior, alternate lighting, night version]</span>.</pre>
+      </div>
+      <div class="field">
+        <div class="field-label">What you get</div>
+        <div class="field-content muted">Location node record. Blender MCP block-out of Layer 1 (spatial framework + camera). MidJourney establishing shot with QKI sref anchor and the pack overrides. Higgsfield reference element registered for the location. Detail views generated per the list. Manifest entry with pack, faction, tier, layer, and location lock reference.</div>
+      </div>
+      <div class="divider"></div>
+      <div class="field">
+        <div class="field-label">Variation</div>
+        <div class="field-content muted">Add <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">with faction-overlay variants for [OTHER FACTIONS]</code> when the location changes hands across the narrative, or <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">as a level blockout for real-time engine</code> when the place needs to exist in the experience layer, not just as concept art.</div>
+      </div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="qki">
+    <div class="prompt-header">
+      <div class="prompt-num">34</div>
+      <div class="prompt-title"><h3>Design a QKI hero object</h3></div>
+    </div>
+    <p class="use-case">Generate a hero-tier vehicle, weapon, or prop in QKI style with orthographic angles, detail callouts, and an optional 3D-ready mesh via Weavy (Tripo / Meshy).</p>
+    <div class="prompt-body">
+      <div class="code-wrap">
+        <button class="copy-btn">Copy</button>
+        <pre>@dznr:cheetara:cheetara design a <span class="bracket">[FACTION]</span> <span class="bracket">[OBJECT TYPE, e.g., sidearm, transport, ritual implement]</span> in QKI. Pack: <span class="bracket">[PACK NAME]</span>. Material language: <span class="bracket">[DESCRIBE, e.g., worn metal, ceremonial lacquer, exposed mechanism]</span>. Tier: <span class="bracket">[HERO for identity-locked recurring object / BACKGROUND for one-off prop]</span>. Mesh: <span class="bracket">[YES if needs to exist in the experience layer / NO for drawn only]</span>.</pre>
+      </div>
+      <div class="field">
+        <div class="field-label">What you get</div>
+        <div class="field-content muted">Object node record. MidJourney hero design with QKI sref anchor and the faction material overrides. Orthographic angles and detail callouts. Higgsfield reference element registered if HERO tier. Weavy Tripo / Meshy mesh generation if mesh is YES. Manifest entry with pack, faction, material, tier, and mesh reference.</div>
+      </div>
+      <div class="divider"></div>
+      <div class="field">
+        <div class="field-label">Variation</div>
+        <div class="field-content muted">Add <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">with a companion variant for [OTHER FACTION]</code> when the object appears in modified form across factions, or <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">with in-hand pose</code> for weapons and tools that need to be seen wielded by a character.</div>
+      </div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="qki">
+    <div class="prompt-header">
+      <div class="prompt-num">35</div>
+      <div class="prompt-title"><h3>New QKI World Pack setup</h3></div>
+    </div>
+    <p class="use-case">Author a new world pack (palette + factions + temperament) so future QKI generation can render against it. Required prerequisite before Chain 8 (asset generation) can run for a new world.</p>
+    <div class="prompt-body">
+      <div class="code-wrap">
+        <button class="copy-btn">Copy</button>
+        <pre>@dznr:cheetara:cheetara set up a new QKI world pack. World name: <span class="bracket">[NAME]</span>. Faction seeds: <span class="bracket">[LIST, e.g., Wound Keeper (grief-based ritualists), Synthesis (retrofit tech collective), The Order (quiet enforcers)]</span>. Palette direction: <span class="bracket">[DESCRIBE OR UPLOAD moodboard / colour list / brand reference]</span>. Temperament per faction: <span class="bracket">[DESCRIBE OR "let Snape extract"]</span>.</pre>
+      </div>
+      <div class="field">
+        <div class="field-label">What you get</div>
+        <div class="field-content muted">Validated pack file at packs/[pack-id].md following the qki-style-authority pack schema. Palette per faction, material temperament per faction, motion state overrides if any, sref override if the pack calls for one. Pack set active in project memory so Chain 8 can proceed immediately. Snape called for palette extraction if the input is a moodboard or brand reference.</div>
+      </div>
+      <div class="divider"></div>
+      <div class="field">
+        <div class="field-label">Variation</div>
+        <div class="field-content muted">Add <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">with critique before I confirm</code> to route the drafted pack through Gandalf for a taste pass first, or <code style="background: var(--code-bg); padding: 1px 6px; border-radius: 2px; font-family: ui-monospace, monospace; font-size: 13px;">import from [BRAND URL]</code> to extract the palette and temperament from an existing brand as the starting point.</div>
+      </div>
+    </div>
+  </article>
+</section>
+
 </div>
 
 <div id="no-results" class="no-results hidden">
@@ -1327,9 +1429,9 @@ footer span { margin: 0 8px; }
 <footer>
   <span>DZNR Prompt Library</span>
   <span>·</span>
-  <span>v1.13.5</span>
+  <span>v2.0.0</span>
   <span>·</span>
-  <span>2026-06-08</span>
+  <span>2026-07-01</span>
 </footer>
 
 </div>

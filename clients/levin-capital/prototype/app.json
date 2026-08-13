@@ -1,0 +1,24 @@
+{
+  "expo": {
+    "name": "Levin Capital",
+    "slug": "levin-capital",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "backgroundColor": "#0D1B2A",
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.levincapital.prototype"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#0D1B2A"
+      },
+      "package": "com.levincapital.prototype"
+    },
+    "plugins": [
+      "expo-font",
+      "expo-asset"
+    ]
+  }
+}

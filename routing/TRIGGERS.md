@@ -362,6 +362,53 @@ See Chain 6 in `routing/CHAINS.md` for the full orchestration logic.
 
 ---
 
+## Cheetara: QKI Worldbuilding
+
+**Fast, precise, sensor-based warrior. Owns the QKI cluster: engine, three generators, manifest contract. Enforces Prime Gate. Coordinates MidJourney, Higgsfield, Weavy, Blender MCP.**
+
+### Primary triggers (Tár routes directly)
+- "create a character", "character sheet", "character node", "design a hero", "design a villain"
+- "create a location", "environment", "world site", "cityscape", "building", "set", "establishing shot"
+- "create a weapon", "vehicle", "prop", "gear", "device", "design sheet", "hero object", "hero prop"
+- "worldbuilding", "world pack", "populate the world", "add to the world", "build out the world"
+- "QKI", "Quantum Kinetic Ink", "graphic novel style", "drawn art style"
+- "faction", "contested territory", "faction stronghold", "faction weapon"
+- Named packs: "Friends and Anarchists", "F&A", "Wound Keeper", "Synthesis"
+- "sref anchor", "Soul Character", "Prime Gate"
+- "new world pack", "set up a palette", "use these colours" (with a moodboard or palette input)
+
+### Context-dependent
+- "character": Cheetara claims when a world/QKI/faction context is present. Otherwise defers to Snape (brand-character work) or Gibson (AI character/NPC).
+- "environment": Cheetara claims for drawn-art world environments. Gibson claims for interactive 3D environments (webgl-threejs, immersive-experience-design). Snape clarifies if ambiguous.
+- "asset": Cheetara claims for QKI-context assets (character/place/object nodes with manifest). Neo claims for engineering assets. Snape claims for brand assets.
+- "world": Cheetara claims for serialized-narrative worldbuilding. Gibson claims for experience-world architecture. Snape clarifies if ambiguous.
+
+### Anti-triggers
+- "brand identity", "design system", "brand voice" → Snape
+- "interactive 3D", "webgl", "three.js", "shader", "immersive experience" → Gibson
+- "component library", "React component", "code" → Neo
+- "pitch", "deck", "story" → Morpheus
+- "audit", "research", "investigate" → Sherlock
+
+### Handoff signals (Cheetara says these to chain forward)
+- "Asset locked. Manifest entry written. Handing back to Tár."
+- "Faction shipped. All assets in the manifest. Downstream can pick up (Gibson for experience layer, Neo for shipping)."
+- "Prime Gate passed on every render. Manifest is the seam. Ready for assembly."
+
+### Cross-subagent tool calls Cheetara makes
+- **Gandalf (tool mode):** `design-taste-frontend`, `gpt-taste`, `high-end-visual-design`, `critique` for aesthetic taste passes on sheets before manifest write.
+- **Snape (clarifier mode):** when pack ambiguity surfaces and cannot be resolved from context.
+
+### Cross-subagent handoffs Cheetara receives
+- **From Sherlock:** world concept, faction seeds, narrative frame (via `idea-to-brief` or `discovery`)
+- **From Gibson:** world architecture and experience frame that determines which assets need to exist
+
+### Cross-subagent handoffs Cheetara sends downstream
+- **To Gibson:** the manifest, so experience layers can instantiate characters and places
+- **To Neo:** the manifest, so shipping pipelines can consume assets as production files
+
+---
+
 ## Snake Eyes — Specialist Arsenal
 
 **Silent. Called by name. Tár does NOT route here automatically — except for SEO (soft rule).**

@@ -1,9 +1,9 @@
 # DZNR Prompt Library
 
-Thirty-one prompts your team can copy, swap brackets, send. Organized by discipline. Each prompt is a real workflow we run.
+Thirty-five prompts your team can copy, swap brackets, send. Organized by discipline. Each prompt is a real workflow we run.
 
-**Version:** 1.13.5
-**Last updated:** 2026-06-08
+**Version:** 2.0.0
+**Last updated:** 2026-07-01
 
 ---
 
@@ -590,6 +590,79 @@ the visual direction guidance.
 **What you get.** Slide-by-slide outline with speaker notes. The paste-ready Gamma prompt (or Beautiful.ai, Pitch, etc.) calibrated to that tool's structure. Visual direction guidance. Brand color and typography hints Gamma will respect.
 
 **Variation.** Add `as a web pitch instead of slides` for high-context audiences who prefer to read, or `with theme reference to match [BRAND] aesthetic` to lock the visual language up front.
+
+---
+
+## Category 10: QKI Worldbuilding (Cheetara)
+
+Cheetara owns aesthetic-first serialized-world asset generation using the QKI (Quantum Kinetic Ink) engine. Every asset (character, place, object) is drawn art with a fixed style DNA and a swappable world pack. She loads the engine first, resolves the active pack, dispatches the right generator, enforces the Prime Gate on every render, and writes the asset manifest.
+
+**Before you can generate:** a world pack must exist. If you have no pack yet, run prompt 35 (New QKI World Pack) first. If you already have a pack (F&A is the reference pack), skip to 32, 33, or 34.
+
+### 32. Create a QKI character
+
+**Use case.** Generate a character node plus the full character sheet (hero, turnaround, expressions, motion states) in QKI style, with a Higgsfield Soul Character identity lock for serialized-world consistency.
+
+```
+@dznr:cheetara:cheetara create a [FACTION] character in QKI. Pack:
+[PACK NAME, e.g., Friends-and-Anarchists / F&A]. Role: [DESCRIBE, e.g.,
+warrior, ritualist, elder, defector]. Motion states needed: [LIST, e.g.,
+idle, combat, ritual, dialogue]. Identity lock: [YES for recurring
+character / NO for one-off].
+```
+
+**What you get.** Character node record. MidJourney hero prompt with QKI sref anchor (you drop the keeper in `inbox/character/`). Higgsfield Soul Character registration + `--cref` capture if identity lock is YES. Full sheet (turnaround, expression sheet, motion-state key poses) composited in Weavy. Manifest entry with pack, faction, motion states, layer, source tool, and identity lock reference.
+
+**Variation.** Add `background-tier only` for non-hero characters (skips identity lock, single sheet), or `with faction material override` if the character carries a specific material treatment beyond the pack default.
+
+### 33. Create a QKI place
+
+**Use case.** Generate an environment, location, cityscape, or building in QKI, with Layer 1 (spatial framework and camera) blocked in Blender MCP first and the drawn establishing shot layered on top.
+
+```
+@dznr:cheetara:cheetara create a [PLACE TYPE, e.g., contested Tier 2
+site, faction stronghold, ritual chamber, urban district] in QKI. Pack:
+[PACK NAME]. Faction control: [WHICH FACTION or CONTESTED]. Camera
+direction: [DESCRIBE or "wide establishing"]. Detail views needed:
+[LIST, e.g., interior, alternate lighting, night version].
+```
+
+**What you get.** Location node record. Blender MCP block-out of Layer 1 (spatial framework + camera). MidJourney establishing shot with QKI sref anchor and the pack overrides. Higgsfield reference element registered for the location. Detail views generated per the list. Manifest entry with pack, faction, tier, layer, and location lock reference.
+
+**Variation.** Add `with faction-overlay variants for [OTHER FACTIONS]` when the location changes hands across the narrative, or `as a level blockout for real-time engine` when the place needs to exist in the experience layer, not just as concept art.
+
+### 34. Design a QKI hero object
+
+**Use case.** Generate a hero-tier vehicle, weapon, or prop in QKI style with orthographic angles, detail callouts, and an optional 3D-ready mesh via Weavy (Tripo / Meshy).
+
+```
+@dznr:cheetara:cheetara design a [FACTION] [OBJECT TYPE, e.g., sidearm,
+transport, ritual implement] in QKI. Pack: [PACK NAME]. Material
+language: [DESCRIBE, e.g., worn metal, ceremonial lacquer, exposed
+mechanism]. Tier: [HERO for identity-locked recurring object / BACKGROUND
+for one-off prop]. Mesh: [YES if needs to exist in the experience layer
+/ NO for drawn only].
+```
+
+**What you get.** Object node record. MidJourney hero design with QKI sref anchor and the faction material overrides. Orthographic angles and detail callouts. Higgsfield reference element registered if HERO tier. Weavy Tripo / Meshy mesh generation if mesh is YES. Manifest entry with pack, faction, material, tier, and mesh reference.
+
+**Variation.** Add `with a companion variant for [OTHER FACTION]` when the object appears in modified form across factions, or `with in-hand pose` for weapons and tools that need to be seen wielded by a character.
+
+### 35. New QKI World Pack setup
+
+**Use case.** Author a new world pack (palette + factions + temperament) so future QKI generation can render against it. Required prerequisite before Chain 8 (asset generation) can run for a new world.
+
+```
+@dznr:cheetara:cheetara set up a new QKI world pack. World name: [NAME].
+Faction seeds: [LIST, e.g., Wound Keeper (grief-based ritualists),
+Synthesis (retrofit tech collective), The Order (quiet enforcers)].
+Palette direction: [DESCRIBE OR UPLOAD moodboard / colour list / brand
+reference]. Temperament per faction: [DESCRIBE OR "let Snape extract"].
+```
+
+**What you get.** Validated pack file at `packs/<pack-id>.md` following the qki-style-authority pack schema. Palette per faction, material temperament per faction, motion state overrides if any, sref override if the pack calls for one. Pack set active in project memory so Chain 8 can proceed immediately. Snape called for palette extraction if the input is a moodboard or brand reference.
+
+**Variation.** Add `with critique before I confirm` to route the drafted pack through Gandalf for a taste pass first, or `import from [BRAND URL]` to extract the palette and temperament from an existing brand as the starting point.
 
 ---
 

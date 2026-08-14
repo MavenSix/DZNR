@@ -7,6 +7,56 @@ All notable changes to DZNR are documented here. Versioning follows the EVOLUTIO
 
 ---
 
+## [2.1.0] - 2026-07-01
+
+### Added - Prototype Prerequisites Rule (persona + journey required before any prototype build)
+
+Every prototype build now requires two artifacts in project memory (or provided inline in the request) before Neo or Gibson can begin work:
+
+1. A persona or synthetic audience definition (who the prototype is for, with demographic, psychographic, or contextual specificity)
+2. A user journey (how they arrive, what they do, what they leave with, in step-by-step form)
+
+**Rationale:** prototypes that ship without persona and journey context tend to solve the wrong problem beautifully. The prerequisites make the who/what/why/how comprehensive so every prototype earns whatever attention it gets. This codifies a discipline that Kevin has enforced manually on client work for years; the rule bakes it into the routing layer so the team inherits the discipline by default.
+
+**Enforcement (three-layer):**
+
+1. **Tár's dispatch layer:** When a prototype trigger fires ("prototype", "build a prototype", "MVP", "spike", "working demo", "clickable prototype", or implicit Neo/Gibson build request that produces running code/experience), Tár checks project memory and inline request context for both prerequisites. Missing prerequisites route to Sherlock (persona via synthetic-audience or user-research) or to Sherlock/Gibson (journey via journey-mapping, Snape clarifies which if ambiguous) before build dispatch.
+2. **Neo's Chain 4 NODE 0:** Neo re-verifies at build start. If Tár's check somehow missed it, Neo catches it and escalates.
+3. **Gibson's Chain 3 NODE 0:** Gibson re-verifies at build start with the same escalation pattern. Special case: Mode B (AI product) prototypes enforce the check strictly because the four-lens ethics work depends on persona and journey to be actionable (a Guardianship finding on an AI feature with no persona is generic; tied to a specific persona it is actionable).
+
+**Missing-prerequisite handling:**
+
+Neither prerequisite blocks anyone from shipping. The system routes to the appropriate subagent to produce the missing artifact first, writes it to project memory, then resumes the original build. Users get context added, not friction.
+
+**Exempt work (no prerequisite check):**
+
+- Spec-only requests (Chain 4 exit at NODE 2)
+- Story-only requests (Chain 4 exit at NODE 3)
+- Documentation, code review, refactoring, QA-only work
+- Cheetara's QKI worldbuilding (asset generation, not prototype construction)
+- Gandalf's polish, harden, and workshop passes on existing code
+- Morpheus's pitch work on completed prototypes (persona/journey should already exist upstream)
+
+**Files updated:**
+
+- `routing/CHAINS.md`: NODE 0 added to Chain 3 (Gibson) and Chain 4 (Neo). Full "Prototype Prerequisites Rule" section added to Cross-chain rules with rationale, satisfaction criteria, exemptions, escalation pattern, and downstream artifact usage.
+- `agents/tar/AGENT.md`: new "Prototype Prerequisites Enforcement" section detailing routing-layer enforcement, trigger detection, and conductor-voice announcement pattern.
+- `agents/neo/AGENT.md`: new "Prototype Prerequisites Check (NODE 0)" section with escalation voice examples and how the artifacts sharpen the build (persona informs edge cases and acceptance criteria; journey informs the demo path).
+- `agents/gibson/AGENT.md`: new "Prototype Prerequisites Check (NODE 0)" section with special-case handling for Mode B AI product builds where the four-lens ethics work depends on the artifacts.
+- `docs/TEAM_REFERENCE_CARD.md`: new "Prototype prerequisites" section for teammates. New row in the "What it means when DZNR says..." table for the "Prototype prerequisites missing" message.
+- `docs/PROMPT_LIBRARY.md` and `docs/prompt-library.html`: patterns section leads with the new rule and how to satisfy it inline.
+
+**Version bump:** 2.0.0 to 2.1.0. By EVOLUTION.md semver, "new disambiguation rules" is a minor bump. This rule is a new enforcement rule that changes routing behavior for prototype builds but does not change chain structure (Chain 3 and Chain 4 still have the same downstream nodes) and does not change the cast. Minor is the right level.
+
+### Notes
+
+- No escape hatch (no `--spike` flag) in v2.1.0 per Kevin's decision. If throwaway spike friction surfaces from team use, revisit in a later version as a documented exception with logging so the pattern stays visible.
+- The rule sharpens the Gibson four-lens check for Mode B prototypes; Guardianship findings now tied to persona and journey are actionable rather than generic.
+- Cheetara is exempt from the rule (QKI worldbuilding is asset generation, not prototype construction). If a QKI asset is downstream of an experience that has persona and journey, the enforcement happens at the experience level (Gibson), not the asset level (Cheetara).
+- Prompt 16 (Spec from Figma) in the library is the canonical example of a prompt with persona and journey inputs baked in.
+
+---
+
 ## [2.0.0] - 2026-07-01
 
 ### Added - Ninth subagent, Cheetara, ships with the QKI Worldbuilding cluster

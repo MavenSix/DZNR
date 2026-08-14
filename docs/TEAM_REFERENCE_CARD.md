@@ -34,6 +34,34 @@ Or let Sherlock infer during initial discovery. The tag affects how Snape design
 
 Supported industries: luxury, automotive, retail, CPG, fintech, healthcare, technology, media/entertainment, public sector.
 
+## Prototype prerequisites (mandatory, added v2.1.0)
+
+Every prototype build requires two things before Neo or Gibson start work:
+
+1. A **persona** or synthetic audience (who the prototype is for, with specificity)
+2. A **user journey** (how they arrive, what they do, what they leave with)
+
+If either is missing, DZNR routes to Sherlock (persona) or to Sherlock / Gibson (journey) to produce the missing artifact first, then resumes the build. Nobody is blocked; the system adds the missing context.
+
+**What satisfies the requirement inline (in the same prompt as the build request):**
+
+- Persona: `target audience is $200k+ urban professionals aged 30 to 45 who use both iOS and macOS daily`
+- Journey: `user arrives from Google, scans pricing, signs up on mobile, verifies email, first login on desktop`
+
+**What does not satisfy:**
+
+- Persona: `designers`, `users`, `busy people` (too vague, no specificity)
+- Journey: `they use the product`, `the standard flow` (no steps, no entry, no exit)
+
+**What is exempt (no prerequisite check needed):**
+
+- Spec-only requests, story-only requests, documentation, code review, QA-only work
+- Cheetara's QKI worldbuilding (asset generation, not prototype construction)
+- Gandalf's polish and hardening passes on already-built prototypes
+- Morpheus's pitch work on completed prototypes
+
+Why the rule exists: prototypes that ship without persona and journey context tend to solve the wrong problem beautifully. The prerequisites make the who/what/why/how comprehensive so every prototype earns whatever attention it gets.
+
 ## What it means when DZNR says...
 
 | DZNR says... | It means... | You should... |
@@ -51,6 +79,7 @@ Supported industries: luxury, automotive, retail, CPG, fintech, healthcare, tech
 | "Bundle paused at Phase N" | Compound blocker hit | Choose partial / wait / abandon |
 | "Override confirmed. Shipping without [harden/polish/...]" | Mandatory remediation skipped per your request | Verify QA path adjusts |
 | "Memory conflict" | Old vs new context | Tell DZNR which to trust |
+| "Prototype prerequisites missing" | No persona or journey in memory or request | Provide inline or wait for Sherlock/Gibson to produce them |
 
 ## Signals to use
 

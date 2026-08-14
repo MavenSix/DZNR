@@ -2,7 +2,7 @@
 
 Thirty-five prompts your team can copy, swap brackets, send. Organized by discipline. Each prompt is a real workflow we run.
 
-**Version:** 2.0.0
+**Version:** 2.1.0
 **Last updated:** 2026-07-01
 
 ---
@@ -667,6 +667,8 @@ reference]. Temperament per faction: [DESCRIBE OR "let Snape extract"].
 ---
 
 ## A few patterns worth knowing
+
+**Prototype prerequisites are mandatory (added v2.1.0).** Every prototype build (Neo delivery, Gibson experience) requires a persona (or synthetic audience) and a user journey before work begins. If either is missing from project memory or your prompt, DZNR routes to Sherlock or Gibson to produce them first, then resumes the build. To satisfy the requirement inline, include specificity: persona needs demographic/psychographic/contextual detail (not just "designers"); journey needs a step-by-step flow with entry and exit (not just "they use the product"). Spec-only, docs, and QA-only work is exempt. See prompt 16 (Spec from Figma) for an example of persona/journey inputs baked into a prompt.
 
 **Compound requests trigger DZNR's compound dispatch.** If you ask for two or more things in one prompt (`audit and pitch`, `decode and theme`, `spec and scaffold`), Tár builds a phased plan, asks scope questions if needed, then dispatches across multiple subagents and delivers everything together.
 

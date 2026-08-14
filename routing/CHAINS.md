@@ -221,6 +221,39 @@ A request matches the Experience Build chain when ANY of:
 ### Decision tree
 
 ```
+NODE 0: Prototype Prerequisites Check (MANDATORY, applies to all prototype builds)
+
+  Before Gibson begins ANY prototype build, verify two prerequisites are present:
+
+  A. Persona / audience definition
+     IF project memory contains a defined persona OR synthetic audience
+       → Prerequisite A satisfied. Continue.
+     ELSE IF user provided persona context in the request ("target audience is X",
+             "for [demographic]", "primary user is [role]")
+       → Prerequisite A satisfied. Continue.
+     ELSE
+       → Escalate to Sherlock for synthetic-audience OR user-research
+       → Sherlock produces the persona/audience artifact
+       → Persona written to project memory
+       → Continue to Prerequisite B
+
+  B. User journey
+     IF project memory contains a journey map for this feature/experience
+       → Prerequisite B satisfied. Continue to NODE 1.
+     ELSE IF user provided journey context in the request ("the user flow is X",
+             "they enter via Y then Z")
+       → Prerequisite B satisfied. Continue to NODE 1.
+     ELSE
+       → Escalate to Gibson (via journey-mapping skill, since Gibson owns
+         experience journeys) OR Sherlock (via journey-mapping, for user
+         journeys). Snape clarifies which if ambiguous.
+       → Journey artifact produced
+       → Journey written to project memory
+       → Continue to NODE 1
+
+  NEITHER prerequisite is optional. Prototype builds without both are blocked.
+  See the "Prototype Prerequisites Rule" in the Cross-chain rules section.
+
 NODE 1: Gibson receives the request
 
   Gibson determines the experience type:
@@ -311,6 +344,38 @@ A request matches the Delivery chain when ANY of:
 ### Decision tree
 
 ```
+NODE 0: Prototype Prerequisites Check (MANDATORY, applies to all prototype builds)
+
+  Applies when the Delivery chain will produce a working prototype (not spec-only,
+  not stories-only, not documentation). If NODE 5 (component code) will be reached
+  and the output is a working demo, prototype, or shippable artifact:
+
+  A. Persona / audience definition
+     IF project memory contains a defined persona OR synthetic audience
+       → Prerequisite A satisfied. Continue.
+     ELSE IF user provided persona context in the request
+       → Prerequisite A satisfied. Continue.
+     ELSE
+       → Escalate to Sherlock for synthetic-audience OR user-research
+       → Persona written to project memory
+       → Continue to Prerequisite B
+
+  B. User journey
+     IF project memory contains a journey map for this feature
+       → Prerequisite B satisfied. Continue to NODE 1.
+     ELSE IF user provided journey context in the request
+       → Prerequisite B satisfied. Continue to NODE 1.
+     ELSE
+       → Escalate to Sherlock (user journeys) OR Gibson (experience journeys)
+         via journey-mapping. Snape clarifies which if ambiguous.
+       → Journey written to project memory
+       → Continue to NODE 1
+
+  Spec-only work (NODE 2 exit, NODE 3 exit) is exempt from this rule.
+  Documentation, code review, and QA-only work are exempt.
+  Working prototypes and shippable code are NOT exempt.
+  See the "Prototype Prerequisites Rule" in the Cross-chain rules section.
+
 NODE 1: Neo determines target platform
 
   IF Sitecore / XM Cloud / JSS → use xcm-spec-generator (Sitecore variant)
@@ -931,6 +996,50 @@ NODE 4: Ready for Chain 8
 ## Cross-chain rules
 
 These apply across ALL chains, not specific to one.
+
+### Prototype Prerequisites Rule (mandatory, added v2.1.0)
+
+Every prototype build must be preceded by two artifacts existing in project memory (or provided inline in the request):
+
+1. **A persona or synthetic audience definition** (who this prototype is for)
+2. **A user journey** (how they arrive, what they do, what they leave with)
+
+Applies to Chain 3 NODE 0 (Gibson experience builds) and Chain 4 NODE 0 (Neo delivery builds). Both chains enforce the check before any build work begins.
+
+**Rationale:** prototypes that ship without persona and journey context tend to solve the wrong problem beautifully. The prerequisites make the who/what/why/how comprehensive so the prototype earns whatever attention it gets.
+
+**What counts as satisfying the rule:**
+
+- **Persona:** a Sherlock synthetic-audience artifact, a user-research artifact, or an explicit inline description in the request (`target audience is $200k+ urban professionals aged 30 to 45`)
+- **Journey:** a journey-mapping artifact from Sherlock or Gibson, or an explicit inline description in the request (`user arrives from a Google search, scans the pricing page, signs up on mobile, verifies email, first login`)
+
+**What does NOT count:**
+
+- Vague audience references ("designers", "developers", "users") without demographic, psychographic, or contextual specificity
+- Vague journey references ("they use the product") without a step-by-step flow
+
+**What is exempt:**
+
+- Spec-only work (Chain 4 exit at NODE 2)
+- Story-only work (Chain 4 exit at NODE 3)
+- Documentation, code review, and QA-only work
+- Cheetara's QKI asset generation (worldbuilding is not prototype construction)
+- Gandalf's polish, harden, and workshop passes on existing code (not a new prototype)
+- Morpheus's outbound work on completed prototypes (the persona/journey context should already exist upstream)
+
+**Missing prerequisite handling:**
+
+- Neo or Gibson escalates the missing prerequisite to Sherlock (personas via `synthetic-audience` or `user-research`) or to Sherlock/Gibson (journey via `journey-mapping`, ambiguity resolved by Snape clarifier)
+- The persona and journey artifacts are produced first, written to project memory, then the build resumes
+- Nobody is blocked from shipping; they are routed to add the missing context
+
+**How the artifacts feed downstream:**
+
+- Persona informs Neo's spec (edge cases, accessibility considerations, device targeting) and Gibson's experience architecture (participant emotional state, cognitive load, session length)
+- Journey informs Neo's user story structure (jobs-to-be-done framing, acceptance criteria) and Gibson's flow architecture (entry point, navigation model, exit state)
+- Both artifacts feed Morpheus's downstream pitch (per-claim attribution now cites persona and journey by name)
+
+**Cheetara exemption note:** QKI worldbuilding generates assets for serialized worlds, not user-facing prototypes. Personas and journeys do not apply to the same-shape work. If a QKI asset is downstream from an experience that has a persona and journey, Cheetara reads those from the manifest context; the rule is enforced at the experience level (Gibson), not the asset level (Cheetara).
 
 ### Memory check (always first)
 Before entering any chain, Tár checks memory for:

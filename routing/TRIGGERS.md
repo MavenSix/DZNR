@@ -164,6 +164,10 @@ Example: "Rebuild their immersive experience" → Sherlock asks user → if conf
 ### Primary triggers
 - "immersive", "experience design", "experiential"
 - "3D", "WebGL", "Three.js", "shader", "GLSL"
+- "GLTF", "GLB", "3D model loading", "Draco"
+- "raycasting", "orbit controls", "3D object picking"
+- "post-processing", "bloom", "EffectComposer", "depth of field"
+- "BufferGeometry", "instancing", "PBR material", "environment map", "HDRI"
 - "AR", "VR", "spatial", "spatial computing", "XR"
 - "interactive installation", "live experience", "activation"
 - "AI product", "AI agent", "AI experience", "AI-driven"

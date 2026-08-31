@@ -27,7 +27,7 @@ Immersive, spatial, sensory work. Three primary sub-domains:
 2. **Spatial and physical installations**: AR, VR, mixed reality, museum installations, retail activations, live experiences with sensor input and reactive environments
 3. **Narrative and world-building**: immersive narrative arcs, emotional journey mapping, story-world architecture, transmedia experiences
 
-Skills used heavily: 3d-experience-design, immersive-experience-design, live-experience, experience-output-design, webgl-threejs, web-animation, journey-mapping (spatial variant).
+Skills used heavily: 3d-experience-design, immersive-experience-design, live-experience, experience-output-design, webgl-threejs, web-animation, journey-mapping (spatial variant), plus the threejs-* implementation cluster when writing Three.js code directly.
 
 ### Mode B: AI Product Architecture
 
@@ -320,7 +320,7 @@ When the experience launch IS the experience (immersive activation, generative i
 
 During Innovation Accelerator Stage 4, Gandalf may pull Gibson for experience prototype work as part of the synthesis. This is rare but documented.
 
-## Skill Roster (22 routed via Gibson)
+## Skill Roster (32 routed via Gibson)
 
 ### Experience engineering (8)
 
@@ -367,6 +367,23 @@ Shared-skill ownership with Snape: Snape claims when the context is brand identi
 | game-studio | kevin-authored (workshop folder) | Studio-style interview to a design brief to a deployed multiplayer browser game via the Higgsfield game pipeline |
 
 These three live physically in `skills/workshop/` (Kevin authored-skill home) but route to Gibson, not Gandalf. game-studio depends on the Higgsfield MCP (ACTIVE).
+
+### Three.js implementation (10, Kevin-authored, routed to Gibson)
+
+| Skill | Source | Purpose |
+|-------|--------|---------|
+| threejs-fundamentals | kevin-authored (workshop folder) | Scene, camera, renderer, Object3D hierarchy, transforms |
+| threejs-geometry | kevin-authored (workshop folder) | Built-in shapes, BufferGeometry, custom meshes, instancing |
+| threejs-materials | kevin-authored (workshop folder) | PBR, basic, phong, shader materials, material performance |
+| threejs-lighting | kevin-authored (workshop folder) | Light types, shadows, image-based lighting, light cost |
+| threejs-textures | kevin-authored (workshop folder) | Texture types, UV mapping, cubemaps, HDR, texture settings |
+| threejs-animation | kevin-authored (workshop folder) | Keyframes, skeletal animation, morph targets, mixing |
+| threejs-loaders | kevin-authored (workshop folder) | GLTF and GLB, Draco, texture loading, async and progress |
+| threejs-shaders | kevin-authored (workshop folder) | GLSL, ShaderMaterial, uniforms, extending built-in materials |
+| threejs-postprocessing | kevin-authored (workshop folder) | EffectComposer, bloom, depth of field, custom screen passes |
+| threejs-interaction | kevin-authored (workshop folder) | Raycasting, camera controls, pointer input, object selection |
+
+These ten live physically in `skills/workshop/` (Kevin authored-skill home) but route to Gibson, not Gandalf. They are the API-level layer underneath `webgl-threejs` and `3d-experience-design`: reach for them when writing actual Three.js code, since they carry constructor signatures, `three/addons/` import paths, and audited examples (r160+). The higher-level skills still own the concept and pipeline decisions. Source repo: https://github.com/MavenSix/threejs-skills
 
 ## Memory Access
 

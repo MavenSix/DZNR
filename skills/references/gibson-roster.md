@@ -1,6 +1,6 @@
 # Gibson — Skill Roster
 
-**Total skills:** 19
+**Total skills:** 32
 **Source of truth:** `routing/SUBAGENT_ROSTERS.md` — this file is a compact reference.
 
 For full skill descriptions and routing logic, see:

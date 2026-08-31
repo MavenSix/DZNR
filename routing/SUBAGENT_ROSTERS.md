@@ -13,7 +13,7 @@
 | **Tár** | Orchestrator | Routing, memory, tempo | 8 |
 | **Snape** | Brand & Design Systems + Clarifier | Identity + visual scaffolding. Also voices Tár's clarifications. | 32 |
 | **Sherlock** | Discovery & Research | Reading the world, finding patterns | 22 |
-| **Gibson** | Experience Engineering + AI Product | Immersive, 3D, spatial, AI-driven futures | 22 |
+| **Gibson** | Experience Engineering + AI Product | Immersive, 3D, spatial, AI-driven futures | 32 |
 | **Neo** | Delivery & Code | Specs, components, ship it | 24 |
 | **Morpheus** | Pitch & Story | Present, persuade, narrate | 19 |
 | **Gandalf** | Workshop (peer + tool + orchestrator) | Kevin's personal craft + Innovation Accelerator pack. Called by Tár OR by other subagents. Orchestrates other subagents for IA (documented exception). | 44 |
@@ -171,7 +171,7 @@ critique, audit, distill, extract, clarify, normalize
 
 **Role:** Owns immersive experience design, 3D, generative visuals, AI product architecture, and the AI-driven outputs that live inside experiences. Gibson handles everything where the medium is the message — where the experience itself is the product. Bridges the imagination side (immersive narrative) with the engineering side (AI architecture).
 
-**Skills (22 total):**
+**Skills (32 total):**
 
 ### Experience Engineering (8)
 | Skill | Source |
@@ -213,12 +213,28 @@ critique, audit, distill, extract, clarify, normalize
 
 These three are Kevin-authored skills physically in `skills/workshop/` but routed to Gibson, not Gandalf. game-studio uses the Higgsfield MCP (ACTIVE).
 
+### Three.js Implementation (10, Kevin-authored, routed to Gibson)
+| Skill | Source |
+|-------|--------|
+| threejs-fundamentals | kevin-authored (workshop folder) |
+| threejs-geometry | kevin-authored (workshop folder) |
+| threejs-materials | kevin-authored (workshop folder) |
+| threejs-lighting | kevin-authored (workshop folder) |
+| threejs-textures | kevin-authored (workshop folder) |
+| threejs-animation | kevin-authored (workshop folder) |
+| threejs-loaders | kevin-authored (workshop folder) |
+| threejs-shaders | kevin-authored (workshop folder) |
+| threejs-postprocessing | kevin-authored (workshop folder) |
+| threejs-interaction | kevin-authored (workshop folder) |
+
+These ten are Kevin-authored skills physically in `skills/workshop/` but routed to Gibson, not Gandalf. They carry Three.js API-level implementation detail (audited against r160+) behind Gibson's existing `webgl-threejs` and `3d-experience-design` skills: constructor signatures, `three/addons/` import paths, and working examples. Source: https://github.com/MavenSix/threejs-skills
+
 **Workshop skills Gibson commonly CALLS Gandalf for:**
 image-to-code, imagegen-frontend-web, imagegen-frontend-mobile, animate, delight, overdrive, full-output-enforcement
 
 (These belong to Gandalf's roster — Gibson pulls Gandalf in when needed.)
 
-**Trigger keywords:** immersive, 3D, experience, world-building, AI product, agent, system prompt, generative, shader, three.js, WebGL, narrative arc, real-time, interactive installation, near-future, AI character, NPC, Seedance, video prompt, shotlist, game studio, build a game, browser game.
+**Trigger keywords:** immersive, 3D, experience, world-building, AI product, agent, system prompt, generative, shader, three.js, WebGL, narrative arc, real-time, interactive installation, near-future, AI character, NPC, Seedance, video prompt, shotlist, game studio, build a game, browser game, GLTF, GLB, Draco, raycasting, orbit controls, post-processing, bloom, EffectComposer, BufferGeometry, instancing, PBR material, environment map, HDRI.
 
 **Note:** Some skills (theme-factory, svg-generative, algorithmic-art, canvas-design, journey-mapping) are shared between Snape and Gibson. Tár routes based on context — if the work is about brand identity, Snape gets it. If it's about an immersive/AI experience, Gibson gets it.
 

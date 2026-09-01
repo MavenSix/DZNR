@@ -125,6 +125,7 @@ Three things to hand a teammate:
 
 - **[docs/QUICKSTART.md](./docs/QUICKSTART.md)** for designers who do not live in Terminal. Step-by-step from "Open Terminal" to "your first DZNR prompt" with what-you-see and what-if-it-breaks for every step. Visual version at [docs/quickstart.html](./docs/quickstart.html). The fastest path for non-technical adopters.
 - **[docs/PROMPT_LIBRARY.md](./docs/PROMPT_LIBRARY.md)** with 31 copy-paste prompts across nine design disciplines. Interactive HTML version at [docs/prompt-library.html](./docs/prompt-library.html) with search and copy buttons.
+- **[docs/threejs-prompt-library.html](./docs/threejs-prompt-library.html)** with 50 Three.js project prompts across ten categories, 15 named interaction patterns with accessibility and fidelity criteria, and a quality contract every prompt inherits. Routed to Gibson.
 - **[docs/TEAM_REFERENCE_CARD.md](./docs/TEAM_REFERENCE_CARD.md)** as a one-page cheat sheet covering clarification flow, subagent invocation, and routing ambiguity behavior.
 
 **One-line install for non-technical teammates:**

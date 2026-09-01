@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Three.js Prompt Library</title>
+<style>
+:root {
+  --bg: #FAF8F4;
+  --surface: #FFFFFF;
+  --text: #1A1A1A;
+  --text-muted: #6E6E6E;
+  --text-faint: #9B9B9B;
+  --border: #E8E5DF;
+  --border-strong: #D4CFC4;
+  --code-bg: #F1EEE8;
+  --bracket: #8B6914;
+  --accent: #2C2C2C;
+  --success: #2D6A4F;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+.container { max-width: 920px; margin: 0 auto; padding: 64px 32px 96px; }
+header.page-header { border-bottom: 1px solid var(--border); padding-bottom: 32px; margin-bottom: 48px; }
+h1 {
+  font-family: Charter, "Iowan Old Style", "Hoefler Text", Georgia, serif;
+  font-size: 48px; font-weight: 400; letter-spacing: -0.02em;
+  margin: 0 0 12px; line-height: 1.05;
+}
+.subtitle { color: var(--text-muted); font-size: 16px; max-width: 620px; margin: 0; }
+.meta {
+  margin-top: 20px; font-size: 12px; color: var(--text-faint);
+  display: flex; gap: 24px; text-transform: uppercase;
+  letter-spacing: 0.08em; font-weight: 500; flex-wrap: wrap;
+}
+h2 {
+  font-family: Charter, "Iowan Old Style", "Hoefler Text", Georgia, serif;
+  font-size: 28px; font-weight: 400; letter-spacing: -0.01em;
+  margin: 0 0 8px; line-height: 1.2;
+}
+h3 { font-size: 17px; font-weight: 600; margin: 0; line-height: 1.35; letter-spacing: -0.01em; }
+p { margin: 0 0 14px; }
+p:last-child { margin-bottom: 0; }
+.section { margin-bottom: 56px; }
+.section-label {
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em;
+  color: var(--text-faint); font-weight: 600; margin-bottom: 12px;
+}
+.pattern-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 4px;
+  padding: 24px 28px;
+}
+.pattern-card ul { margin: 12px 0 0; padding-left: 20px; color: var(--text-muted); font-size: 14px; }
+.pattern-card li { margin-bottom: 6px; }
+.pattern-card strong { color: var(--text); font-weight: 600; }
+.controls {
+  position: sticky; top: 0; background: var(--bg); z-index: 10;
+  padding: 18px 0; margin: 0 -32px 40px;
+  padding-left: 32px; padding-right: 32px;
+  border-bottom: 1px solid var(--border);
+}
+.search-box {
+  width: 100%; font-family: inherit; font-size: 15px;
+  padding: 12px 16px; border: 1px solid var(--border-strong);
+  border-radius: 3px; background: var(--surface); color: var(--text);
+  outline: none; transition: border-color 0.15s ease;
+}
+.search-box:focus { border-color: var(--accent); }
+.search-box::placeholder { color: var(--text-faint); }
+.pills { display: flex; gap: 6px; margin-top: 12px; flex-wrap: wrap; }
+.pill {
+  background: var(--surface); border: 1px solid var(--border-strong);
+  color: var(--text-muted); font-size: 12px; padding: 6px 14px;
+  border-radius: 100px; cursor: pointer; font-family: inherit;
+  transition: all 0.15s ease; letter-spacing: 0.01em;
+}
+.pill:hover { background: var(--code-bg); color: var(--text); border-color: var(--text-muted); }
+.pill.active { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+.category-header { margin-bottom: 24px; }
+.category-number {
+  font-family: Charter, "Iowan Old Style", "Hoefler Text", Georgia, serif;
+  font-size: 14px; color: var(--text-faint); letter-spacing: 0.08em;
+  text-transform: uppercase; margin-bottom: 6px;
+}
+.prompt-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 4px;
+  padding: 28px 32px; margin-bottom: 16px; transition: border-color 0.15s ease;
+}
+.prompt-card:hover { border-color: var(--border-strong); }
+.prompt-header { display: flex; gap: 16px; align-items: baseline; margin-bottom: 6px; }
+.prompt-num {
+  font-family: Charter, "Iowan Old Style", "Hoefler Text", Georgia, serif;
+  font-size: 15px; color: var(--text-faint); font-weight: 400;
+  min-width: 24px; font-feature-settings: "tnum";
+}
+.prompt-title { flex: 1; }
+.use-case { color: var(--text-muted); font-size: 14px; margin: 0 0 18px; margin-left: 40px; }
+.prompt-body { margin-left: 40px; }
+.field { margin-top: 16px; }
+.field-label {
+  color: var(--text-faint); font-size: 10px; text-transform: uppercase;
+  letter-spacing: 0.12em; margin-bottom: 6px; font-weight: 600;
+}
+.field-content { font-size: 14px; color: var(--text); line-height: 1.55; }
+.field-content.muted { color: var(--text-muted); }
+.divider { border-top: 1px solid var(--border); margin: 18px 0 0; }
+.code-wrap { position: relative; margin: 0; }
+pre {
+  font-family: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  font-size: 13px; background: var(--code-bg); border: 1px solid var(--border);
+  border-radius: 3px; padding: 14px 18px; margin: 0;
+  overflow-x: auto; white-space: pre-wrap; word-break: break-word;
+  line-height: 1.6; color: var(--text);
+}
+.bracket { color: var(--bracket); font-weight: 500; }
+.copy-btn {
+  position: absolute; top: 8px; right: 8px;
+  background: var(--surface); border: 1px solid var(--border-strong);
+  color: var(--text-muted); font-size: 10px; font-family: inherit;
+  padding: 4px 10px; border-radius: 2px; cursor: pointer;
+  transition: all 0.15s ease; letter-spacing: 0.08em;
+  text-transform: uppercase; font-weight: 600;
+}
+.copy-btn:hover { background: var(--code-bg); color: var(--text); border-color: var(--text-muted); }
+.copy-btn.copied { background: var(--success); border-color: var(--success); color: var(--bg); }
+.patterns-card {
+  background: var(--code-bg); border: 1px solid var(--border); border-radius: 4px;
+  padding: 32px 36px; margin-top: 64px;
+}
+.patterns-card h2 { margin-bottom: 8px; }
+.patterns-list { margin-top: 20px; }
+.pattern-item {
+  margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1px solid var(--border);
+}
+.pattern-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+.pattern-item strong { display: block; margin-bottom: 6px; color: var(--text); font-weight: 600; }
+.pattern-item p { color: var(--text-muted); font-size: 14px; margin: 0; }
+.no-results { text-align: center; padding: 48px 24px; color: var(--text-muted); }
+.hidden { display: none !important; }
+footer {
+  margin-top: 80px; padding-top: 32px; border-top: 1px solid var(--border);
+  color: var(--text-faint); font-size: 12px; text-align: center;
+  text-transform: uppercase; letter-spacing: 0.1em;
+}
+footer span { margin: 0 8px; }
+@media (max-width: 720px) {
+  .container { padding: 40px 20px 64px; }
+  h1 { font-size: 36px; }
+  h2 { font-size: 22px; }
+  .prompt-card { padding: 24px 22px; }
+  .prompt-body, .use-case { margin-left: 0; }
+  .patterns-card { padding: 24px 22px; }
+  .controls { margin: 0 -20px 32px; padding: 16px 20px; }
+}
+
+/* --- v2 additions --------------------------------------------------- */
+.contract-card {
+  background: var(--surface); border: 1px solid var(--border-strong);
+  border-radius: 4px; padding: 24px 26px; margin-bottom: 16px;
+}
+.contract-card h4 {
+  font-size: 13px; text-transform: uppercase; letter-spacing: 0.1em;
+  font-weight: 600; margin: 0 0 12px; color: var(--text);
+}
+.contract-card ul { margin: 0; padding-left: 20px; color: var(--text-muted); font-size: 14px; }
+.contract-card li { margin-bottom: 7px; }
+.contract-card li:last-child { margin-bottom: 0; }
+.contract-card strong { color: var(--text); font-weight: 600; }
+.wcag {
+  display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 0.04em;
+  background: var(--code-bg); border: 1px solid var(--border);
+  border-radius: 3px; padding: 1px 6px; margin-right: 6px; color: var(--bracket);
+}
+.pat {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 4px; padding: 22px 26px; margin-bottom: 14px;
+}
+.pat-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; }
+.pat-num {
+  font-size: 11px; font-weight: 600; color: var(--text-faint);
+  letter-spacing: 0.08em; font-variant-numeric: tabular-nums;
+}
+.pat-head h3 { font-size: 17px; }
+.pat-what { color: var(--text-muted); font-size: 14.5px; margin: 0 0 14px; }
+.pat-row { display: grid; grid-template-columns: 108px 1fr; gap: 14px; margin-bottom: 9px; font-size: 14px; }
+.pat-row:last-child { margin-bottom: 0; }
+.pat-key {
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.09em;
+  font-weight: 600; color: var(--text-faint); padding-top: 3px;
+}
+.pat-val { color: var(--text-muted); }
+.pat-val strong { color: var(--text); font-weight: 600; }
+.pat-val a { color: var(--bracket); text-decoration: none; border-bottom: 1px solid var(--border-strong); }
+.pat-val a:hover { border-bottom-color: var(--bracket); }
+.tell { border-left: 2px solid var(--border-strong); padding-left: 12px; }
+.tell em { color: var(--text); font-style: normal; font-weight: 600; }
+.a11y-field { background: #F7F5F0; border-left: 2px solid var(--success); padding: 10px 14px; margin-top: 12px; border-radius: 0 3px 3px 0; }
+.a11y-field .field-label { color: var(--success); }
+@media (max-width: 640px) { .pat-row { grid-template-columns: 1fr; gap: 3px; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header class="page-header">
+  <h1>Three.js Prompt Library</h1>
+  <p class="subtitle">Fifty prompts for anyone building websites, apps, games, or projects in Three.js. Opinionated stack recommendations built in. Copy, swap brackets, paste into your AI, your dev, or your agency brief. Every prompt inherits the <a href="#quality-contract" style="color:var(--bracket)">quality contract</a> &mdash; accessibility, lifecycle, and performance requirements that separate a demo from client work.</p>
+  <div class="meta">
+    <span>Version 2.0.0</span>
+    <span>50 prompts</span>
+    <span>10 categories</span>
+    <span>15 patterns</span>
+    <span>1 quality contract</span>
+  </div>
+</header>
+
+<section class="section">
+  <div class="section-label">The stack these prompts recommend</div>
+  <div class="pattern-card">
+    <p>Every prompt names the specific library for the job rather than listing alternatives. This is opinionated on purpose. Swap the recommendation if your team already standardized elsewhere, but assume this stack unless you have a reason not to.</p>
+    <ul>
+      <li><strong>Runtime:</strong> React Three Fiber (R3F) as primary. Vanilla Three.js when the project has no React.</li>
+      <li><strong>Helpers:</strong> @react-three/drei for essential utilities (Environment, OrbitControls, useGLTF, ScrollControls, Text, Html)</li>
+      <li><strong>Physics:</strong> @react-three/rapier (WASM, fastest for browser)</li>
+      <li><strong>Post-processing:</strong> @react-three/postprocessing (Bloom, DOF, Chromatic Aberration, Noise)</li>
+      <li><strong>Character controllers:</strong> ecctrl for third-person, or PointerLockControls for first-person</li>
+      <li><strong>Scroll:</strong> GSAP ScrollTrigger for cinematic scenes, drei ScrollControls for scene-embedded pages</li>
+      <li><strong>State:</strong> Zustand for global scene state, Valtio for reactive object trees</li>
+      <li><strong>UI animation:</strong> Motion.dev (formerly Framer Motion) for HTML overlays, R3F built-ins for scene tweens</li>
+      <li><strong>Loaders and tooling:</strong> gltfjsx for GLTF-to-component generation, leva for dev-time controls</li>
+      <li><strong>XR:</strong> @react-three/xr for VR and AR (Meta Quest, iOS Quick Look fallback)</li>
+      <li><strong>Build:</strong> Vite, TypeScript strict mode, tree-shaken production bundles</li>
+      <li><strong>3D asset pipeline:</strong> Blender for authoring, KTX2 + Basis for textures, Draco for geometry compression</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section" id="quality-contract">
+  <div class="section-label">The quality contract</div>
+  <h2>What every prompt inherits</h2>
+  <p class="subtitle" style="margin-bottom:22px">The prompts below describe <em>what</em> to build. This describes what &ldquo;done&rdquo; means, and it is the difference between a demo and something you can put a client&rsquo;s name on. Append the block at the end of this section to any prompt in the library.</p>
+
+  <div class="contract-card">
+    <h4>Accessibility</h4>
+    <ul>
+      <li><span class="wcag">1.1.1</span><strong>Canvas content is invisible to assistive tech.</strong> Nothing you draw in WebGL exists in the accessibility tree. Either mark the canvas <code>aria-hidden="true"</code> when it is decorative, or give it <code>role="img"</code> with an <code>aria-label</code>, and mirror any real content into the DOM.</li>
+      <li><span class="wcag">2.1.1</span><strong>Every interaction needs a keyboard path.</strong> Meshes are not focusable. Either overlay real focusable DOM controls positioned over the scene, or use <a href="https://github.com/pmndrs/react-three-a11y">@react-three/a11y</a> with its <code>A11yAnnouncer</code>. Hover-only interactions do not exist for keyboard or touch users.</li>
+      <li><span class="wcag">2.3.3</span><strong>Honour <code>prefers-reduced-motion</code>.</strong> Read it with <code>matchMedia</code> and listen for <code>change</code> &mdash; users toggle it at runtime. For 3D this rarely means &ldquo;show nothing&rdquo;: freeze continuous rotation, camera drift, pointer parallax, and scroll-linked motion, but keep the composed scene. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/prefers-reduced-motion">MDN</a>.</li>
+      <li><span class="wcag">1.4.3</span><strong>Contrast applies to text over a canvas.</strong> Overlay copy sits on a moving background; check the worst frame, not the first. Add a scrim if it fails.</li>
+      <li><strong>Motion sickness is the specific risk of this medium.</strong> Sustained self-motion, forced camera rotation, and large-field parallax are vestibular triggers. Flythroughs and first-person cameras need a reduced-motion alternative that is not just &ldquo;slower&rdquo;.</li>
+    </ul>
+  </div>
+
+  <div class="contract-card">
+    <h4>Production hardening</h4>
+    <ul>
+      <li><strong>Dispose every GPU resource on teardown.</strong> Three.js does not garbage-collect VRAM. Traverse the scene and dispose geometries, materials, textures, and render targets. Verify with <code>renderer.info.memory</code>: mount and unmount ten times, both counters must return to baseline.</li>
+      <li><strong>Gate the render loop.</strong> <code>IntersectionObserver</code> for offscreen plus <code>visibilitychange</code> for background tabs. Render one clean frame when you stop.</li>
+      <li><strong>Cap device pixel ratio</strong> at <code>Math.min(window.devicePixelRatio, 2)</code>. Cost scales with the square of the ratio; a DPR-3 phone renders nine times the pixels on the weakest GPU you ship to. Cap at 1.5 for full-screen post-processing.</li>
+      <li><strong>Handle context loss.</strong> Listen for <code>webglcontextlost</code> and call <code>event.preventDefault()</code> &mdash; without it <code>webglcontextrestored</code> never fires and the canvas is black permanently.</li>
+      <li><strong>Test on a real mid-range Android</strong>, not a throttled desktop tab.</li>
+    </ul>
+  </div>
+
+  <div class="contract-card">
+    <h4>Performance budget</h4>
+    <ul>
+      <li><strong>Frame budget:</strong> 16.6ms at 60fps. State the target device in the prompt, or you will get something tuned for an M-series laptop.</li>
+      <li><strong>Draw calls</strong> are usually the ceiling before polygon count. Instance anything repeated.</li>
+      <li><strong>Textures dominate payload.</strong> KTX2 + Basis, not PNG. Draco or Meshopt for geometry.</li>
+      <li><strong>Time to first meaningful paint:</strong> the page must be readable before the scene loads. Never block content on a GLTF.</li>
+    </ul>
+  </div>
+
+  <div class="contract-card">
+    <h4>Version discipline</h4>
+    <ul>
+      <li><strong>Name the Three.js revision in the prompt.</strong> Colour management changed by default at r152 and lighting units at r155. Code written for r128 renders visibly wrong on r165 &mdash; washed out, wrongly exposed &mdash; and this is the most common source of &ldquo;it looked right in the tutorial&rdquo;.</li>
+      <li>Pin R3F and drei together; drei tracks R3F majors closely.</li>
+      <li>If you copy a component from a catalogue, you inherit its revision. Check before mixing sources in one bundle, or you will ship two copies of Three.js.</li>
+    </ul>
+  </div>
+
+  <div class="contract-card">
+    <h4 style="margin-bottom:8px">Append to any prompt</h4>
+    <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Non-negotiable requirements for this build:
+1. ACCESSIBILITY. Mirror all meaningful content into the DOM; the canvas is not readable by assistive tech. Mark decorative canvases aria-hidden, or give role="img" with aria-label. Provide a keyboard path for every interaction (real focusable DOM controls over the scene, or @react-three/a11y). Read prefers-reduced-motion via matchMedia, listen for change, and freeze continuous rotation, camera drift, pointer parallax, and scroll-linked motion while keeping the composed scene. Check text contrast against the worst frame of the animation, not the first.
+2. LIFECYCLE. Dispose all geometries, materials, textures, and render targets on unmount; renderer.info.memory must return to baseline across ten mount/unmount cycles. Gate the render loop with IntersectionObserver plus visibilitychange. Cap pixel ratio at min(devicePixelRatio, 2). Handle webglcontextlost with preventDefault() and restore on webglcontextrestored.
+3. BUDGET. Target 60fps on [TARGET DEVICE]. Instance repeated geometry. KTX2 textures, Draco or Meshopt geometry. The page must be readable before the 3D scene finishes loading.
+4. VERSION. Build against Three.js [REVISION] and state it in the README. Do not mix code written for pre-r152 colour management with post-r155 lighting.
+5. DELIVERABLES. Include a short README documenting the reduced-motion behaviour, the keyboard map, the target device, and the measured frame time on that device.</pre></div>
+  </div>
+</section>
+
+<section class="section" id="patterns">
+  <div class="section-label">Interaction pattern library</div>
+  <h2>Fifteen patterns, and what separates the good ones</h2>
+  <p class="subtitle" style="margin-bottom:22px">Project types tell you what to build. Patterns tell you what it should <em>do</em>. Each entry names the pattern, where it has been done well, how it is actually constructed, the accessibility trap specific to it, and the detail that separates world-class execution from the tutorial version. Combine one pattern with one project prompt below.</p>
+  <div class="pat">
+    <div class="pat-head"><span class="pat-num">P01</span><h3>Exploded Assembly</h3></div>
+    <p class="pat-what">A product separates into its component parts as you scroll, holds apart long enough to be read, then reassembles. The canonical &ldquo;show the engineering&rdquo; move for hardware, and the one you see most often.</p>
+    <div class="pat-row"><div class="pat-key">Seen in</div><div class="pat-val">Apple&rsquo;s product pages established the grammar; now standard across hardware, automotive, and component brands.</div></div>
+    <div class="pat-row"><div class="pat-key">How it's built</div><div class="pat-val">Author the model with named parts and a rest transform per part. Drive a single normalized 0&ndash;1 progress value from <code>ScrollTrigger</code> with <code>scrub</code>, then <code>lerp</code> each part from rest to its exploded offset along a per-part vector. Stagger part offsets so they do not all separate on the same frame.</div></div>
+    <div class="pat-row"><div class="pat-key">Accessibility</div><div class="pat-val">The parts and their names are the content. Ship a real parts list in the DOM beside the canvas &mdash; that <em>is</em> the text alternative, and it doubles as SEO. Under reduced motion, jump to the exploded state and hold it rather than animating through.</div></div>
+    <div class="pat-row"><div class="pat-key">The tell</div><div class="pat-val tell"><em>World-class:</em> parts have weight &mdash; different masses move at different rates, with slight rotational drift and settle. Labels arrive after the part stops, not during. <em>Mediocre:</em> everything translates outward at uniform speed on the same easing curve, and reads as a PowerPoint build.</div></div>
+  </div>
+  <div class="pat">
+    <div class="pat-head"><span class="pat-num">P02</span><h3>Inertial Hero Object</h3></div>
+    <p class="pat-what">One object, rendered live, that responds to scroll and pointer with real physical lag. The entire page is a stage for a single hero.</p>
+    <div class="pat-row"><div class="pat-key">Seen in</div><div class="pat-val">Oryzo by Lusion &mdash; inertial product render with Z-axis depth scroll, <a href="https://www.utsubo.com/blog/best-threejs-websites-2026">documented here</a>.</div></div>
+    <div class="pat-row"><div class="pat-key">How it's built</div><div class="pat-val">Never bind rotation to input directly. Keep a velocity value, add input as acceleration, apply damping per frame, integrate. Scroll drives Z depth rather than rotation so the object approaches the camera instead of spinning.</div></div>
+    <div class="pat-row"><div class="pat-key">Accessibility</div><div class="pat-val">Pointer-driven parallax is a vestibular trigger. Damp to zero under reduced motion and keep the object statically composed. Focus order must skip the canvas if it carries no interactive semantics.</div></div>
+    <div class="pat-row"><div class="pat-key">The tell</div><div class="pat-val tell"><em>World-class:</em> the object overshoots and settles; you feel mass. Lighting responds to the movement. <em>Mediocre:</em> rotation equals cursor position with a lerp factor, giving that weightless rubber-band feel every tutorial produces.</div></div>
+  </div>
+  <div class="pat">
+    <div class="pat-head"><span class="pat-num">P03</span><h3>Particle Dispersion Reveal</h3></div>
+    <p class="pat-what">A form assembles from scattered particles on entry and disperses on exit, with each page section staged as a distinct beat.</p>
+    <div class="pat-row"><div class="pat-key">Seen in</div><div class="pat-val">Shopify Editions &mdash; scroll-sequenced product reveal with particle dispersion, staged as entrance / hold / exit per section, <a href="https://www.utsubo.com/blog/best-threejs-websites-2026">documented here</a>.</div></div>
+    <div class="pat-row"><div class="pat-key">How it's built</div><div class="pat-val">Sample target positions from a mesh surface or texture. Store start, target, and a per-particle random seed in instanced attributes. Interpolate in the vertex shader against a uniform progress value &mdash; never on the CPU. One draw call for the whole system.</div></div>
+    <div class="pat-row"><div class="pat-key">Accessibility</div><div class="pat-val">Pure decoration: mark the canvas <code>aria-hidden=&quot;true&quot;</code> and let the real headline live in the DOM behind it. If the particles <em>form</em> words, that text must also exist as selectable markup.</div></div>
+    <div class="pat-row"><div class="pat-key">The tell</div><div class="pat-val tell"><em>World-class:</em> the three beats are distinct and the hold is long enough to read. Particles have varied arrival times and a settle. <em>Mediocre:</em> continuous churn with no hold, so nothing is legible and the effect reads as noise.</div></div>
+  </div>
+  <div class="pat">
+    <div class="pat-head"><span class="pat-num">P04</span><h3>Cursor Spotlight Reveal</h3></div>
+    <p class="pat-what">Detail in geometry, lighting, or material exists only where the pointer is. The user uncovers the scene rather than being shown it.</p>
+    <div class="pat-row"><div class="pat-key">Seen in</div><div class="pat-val">Hubtown by Unseen Studio &mdash; 3D monolith whose detail is revealed by cursor, Awwwards Site of the Day and Developer Award, <a href="https://www.utsubo.com/blog/best-threejs-websites-2026">documented here</a>.</div></div>
+    <div class="pat-row"><div class="pat-key">How it's built</div><div class="pat-val">Feed pointer position as a uniform, smoothed over several frames. Use it as the centre of a radial mask driving a second material layer, a light position, or a displacement amplitude. Falloff curve matters more than radius.</div></div>
+    <div class="pat-row"><div class="pat-key">Accessibility</div><div class="pat-val">Hover-only means non-existent on touch and keyboard. Provide an auto-tour that moves the reveal point on a path when no pointer is present, and expose the underlying content in the DOM.</div></div>
+    <div class="pat-row"><div class="pat-key">The tell</div><div class="pat-val tell"><em>World-class:</em> the reveal has inertia and a soft, non-circular falloff; something is genuinely hidden and worth finding. <em>Mediocre:</em> a hard circular mask snapped to raw cursor coordinates, revealing a slightly brighter version of what you already saw.</div></div>
+  </div>
+  <div class="pat">
+    <div class="pat-head"><span class="pat-num">P05</span><h3>Alcove Sequence</h3></div>
+    <p class="pat-what">One self-contained 3D room per catalogue item, navigated as discrete stops rather than a continuous space. Scales to a product line without building a world.</p>
+    <div class="pat-row"><div class="pat-key">Seen in</div><div class="pat-val">Cartier Watches &amp; Wonders by Immersive Garden &mdash; six self-contained alcoves, one per timepiece, with an audio score layer, <a href="https://www.utsubo.com/blog/best-threejs-websites-2026">documented here</a>.</div></div>
+    <div class="pat-row"><div class="pat-key">How it's built</div><div class="pat-val">Each alcove is an isolated scene graph with its own lighting rig, loaded on demand and disposed on exit. Transitions are camera dollies through a neutral corridor, which hides the load. Never hold all alcoves in memory.</div></div>
+    <div class="pat-row"><div class="pat-key">Accessibility</div><div class="pat-val">Discrete stops are a gift &mdash; they map cleanly to routes. Give each alcove a real URL, an <code>&lt;h2&gt;</code>, and prev/next controls that work on keyboard. That alone makes the experience navigable without the 3D.</div></div>
+    <div class="pat-row"><div class="pat-key">The tell</div><div class="pat-val tell"><em>World-class:</em> each alcove is lit for its specific object, and the transition conceals loading entirely. <em>Mediocre:</em> one generic room with the model swapped and a fade, so every product looks identically lit and cheap.</div></div>
+  </div>
+  <div class="pat">
+    <div class="pat-head"><span class="pat-num">P06</span><h3>Terrain Flythrough</h3></div>
+    <p class="pat-what">A continuous camera glide over landscape, with atmosphere and fog carrying the depth. Turns a place into something navigable.</p>
+    <div class="pat-row"><div class="pat-key">Seen in</div><div class="pat-val">Explore Primland &mdash; cinematic scroll-driven flythrough over real terrain with atmospheric fog, <a href="https://www.utsubo.com/blog/best-threejs-websites-2026">documented here</a>.</div></div>
+    <div class="pat-row"><div class="pat-key">How it's built</div><div class="pat-val">Camera follows a <code>CatmullRomCurve3</code> spline with <code>getPointAt</code> on scroll progress; <code>lookAt</code> targets a point further along the same curve so turns anticipate. Exponential fog does the depth work. Terrain from a heightmap with chunked LOD.</div></div>
+    <div class="pat-row"><div class="pat-key">Accessibility</div><div class="pat-val">Sustained self-motion through a 3D space is the strongest vestibular trigger in this list. Under reduced motion, replace the flythrough with discrete viewpoint cards. This is not optional.</div></div>
+    <div class="pat-row"><div class="pat-key">The tell</div><div class="pat-val tell"><em>World-class:</em> the camera banks into turns and the fog is colour-graded to the time of day. <em>Mediocre:</em> a linear dolly at constant altitude with grey linear fog, which reads as a screensaver.</div></div>
+  </div>
+  <div class="pat">
+    <div class="pat-head"><span class="pat-num">P07</span><h3>Point-Cloud Morph</h3></div>
+    <p class="pat-what">One shape becomes another through a cloud of points that never breaks apart &mdash; used to connect two concepts visually.</p>
+    <div class="pat-row"><div class="pat-key">Seen in</div><div class="pat-val">A staple of AI, data, and biotech brand sites; the visual argument that X becomes Y.</div></div>
+    <div class="pat-row"><div class="pat-key">How it's built</div><div class="pat-val">Sample both meshes to identical point counts. Store position A and position B as separate attributes; morph in the vertex shader on a single uniform. Nearest-neighbour matching between the sets removes the chaotic crossover that makes naive morphs look wrong.</div></div>
+    <div class="pat-row"><div class="pat-key">Accessibility</div><div class="pat-val">Decorative &mdash; hide from assistive tech and put the actual claim in text. The two states usually correspond to two words that belong in the DOM anyway.</div></div>
+    <div class="pat-row"><div class="pat-key">The tell</div><div class="pat-val tell"><em>World-class:</em> points take curved paths with varied timing and arrive in waves; both end states are legible silhouettes. <em>Mediocre:</em> linear interpolation on identical timing, producing a uniform grey blur through the middle of the transition.</div></div>
+  </div>
+  <div class="pat">
+    <div class="pat-head"><span class="pat-num">P08</span><h3>Shared-Element WebGL Transition</h3></div>
+    <p class="pat-what">A thumbnail becomes the hero image of the next page without the WebGL context ever tearing down. The site stops feeling like a series of documents.</p>
+    <div class="pat-row"><div class="pat-key">Seen in</div><div class="pat-val">Codrops has a full build of this with GSAP, Astro and Barba.js &mdash; <a href="https://tympanus.net/codrops/2026/02/02/building-a-scroll-revealed-webgl-gallery-with-gsap-three-js-astro-and-barba-js/">scroll-revealed WebGL gallery</a>.</div></div>
+    <div class="pat-row"><div class="pat-key">How it's built</div><div class="pat-val">A single persistent canvas outlives the router. On navigation, read the source and destination DOM rects, animate a textured plane between them, then hand off to the real element. The DOM swaps underneath while the plane covers the seam.</div></div>
+    <div class="pat-row"><div class="pat-key">Accessibility</div><div class="pat-val">Route changes must still move focus to the new page heading and announce via a live region &mdash; a persistent canvas makes it easy to forget the page changed at all for a screen reader user. Under reduced motion, cross-fade instead of flying.</div></div>
+    <div class="pat-row"><div class="pat-key">The tell</div><div class="pat-val tell"><em>World-class:</em> the handoff is invisible; you cannot identify the frame where the plane becomes the DOM image. <em>Mediocre:</em> a visible pop at the end as the real image swaps in at a slightly different size or colour space.</div></div>
+  </div>
+  <div class="pat">
+    <div class="pat-head"><span class="pat-num">P09</span><h3>Curved Infinite Gallery</h3></div>
+    <p class="pat-what">A scrolling wall of images bent onto a curved surface, wrapping endlessly, with velocity-driven distortion.</p>
+    <div class="pat-row"><div class="pat-key">Seen in</div><div class="pat-val">Ubiquitous in photography, fashion, and studio portfolios; the default &ldquo;our work&rdquo; treatment for WebGL-capable studios.</div></div>
+    <div class="pat-row"><div class="pat-key">How it's built</div><div class="pat-val">Instanced planes on a cylinder or bezier surface. Modulo the scroll offset for infinite wrap. Feed scroll <em>velocity</em> &mdash; not position &mdash; into a vertex displacement so the grid stretches under acceleration and relaxes at rest.</div></div>
+    <div class="pat-row"><div class="pat-key">Accessibility</div><div class="pat-val">This is a list of links. It must exist as a real <code>&lt;ul&gt;</code> of anchors, keyboard-tabbable, with the canvas as presentation. Arrow-key navigation should move the gallery, not just the focus ring.</div></div>
+    <div class="pat-row"><div class="pat-key">The tell</div><div class="pat-val tell"><em>World-class:</em> distortion is tied to velocity with an asymmetric settle, and images stay sharp with correct mipmaps and anisotropy. <em>Mediocre:</em> constant curvature with no velocity response, and blurry textures at oblique angles.</div></div>
+  </div>
+  <div class="pat">
+    <div class="pat-head"><span class="pat-num">P10</span><h3>Fluid Cursor Displacement</h3></div>
+    <p class="pat-what">The pointer disturbs a surface &mdash; ripples, smearing, heat, or ink &mdash; that decays back to rest.</p>
+    <div class="pat-row"><div class="pat-key">Seen in</div><div class="pat-val">Common on agency landing pages and album or film promo sites where the whole viewport is the interaction.</div></div>
+    <div class="pat-row"><div class="pat-key">How it's built</div><div class="pat-val">A ping-pong pair of render targets holding a velocity or flow field. Each frame: advect the previous state, inject force at the pointer, apply dissipation, then use the field to offset UVs of the display texture. Runs at half resolution and upsamples.</div></div>
+    <div class="pat-row"><div class="pat-key">Accessibility</div><div class="pat-val">Entirely decorative and entirely pointer-dependent. <code>aria-hidden</code>, plus a static composition that stands on its own when the field is at rest &mdash; that rest state is what touch and keyboard users see.</div></div>
+    <div class="pat-row"><div class="pat-key">The tell</div><div class="pat-val tell"><em>World-class:</em> dissipation is tuned so trails last about a second and the field has visible internal structure. <em>Mediocre:</em> a symmetric radial blob following the cursor with no advection, which reads as a smudge.</div></div>
+  </div>
+  <div class="pat">
+    <div class="pat-head"><span class="pat-num">P11</span><h3>Kinetic 3D Typography</h3></div>
+    <p class="pat-what">Type as geometry &mdash; extruded, shattered, inflated, or flowed along a path &mdash; reacting to scroll or pointer.</p>
+    <div class="pat-row"><div class="pat-key">Seen in</div><div class="pat-val">Editorial, music, and event sites where the headline is the entire visual identity.</div></div>
+    <div class="pat-row"><div class="pat-key">How it's built</div><div class="pat-val">Prefer MSDF text (<code>troika-three-text</code>) over extruded <code>TextGeometry</code>: it stays sharp at any scale and costs a fraction of the geometry. Per-glyph transforms come from instanced attributes so a headline is still one draw call.</div></div>
+    <div class="pat-row"><div class="pat-key">Accessibility</div><div class="pat-val"><span class="wcag">1.1.1</span> The words must exist as real text. Render the headline in the DOM, visually hidden if necessary, and mark the canvas presentational. A headline that only exists as geometry is invisible to search and to screen readers.</div></div>
+    <div class="pat-row"><div class="pat-key">The tell</div><div class="pat-val tell"><em>World-class:</em> the typeface is a deliberate choice and the effect respects its letterforms; kerning survives the transformation. <em>Mediocre:</em> a default sans extruded 40 units with a bevel, which is the 2014 look.</div></div>
+  </div>
+  <div class="pat">
+    <div class="pat-head"><span class="pat-num">P12</span><h3>Raymarched SDF Hero</h3></div>
+    <p class="pat-what">A full-viewport fragment shader with no geometry at all &mdash; volumetric shapes, infinite repetition, soft shadows, computed per pixel.</p>
+    <div class="pat-row"><div class="pat-key">Seen in</div><div class="pat-val">Developer-tool, crypto, and music sites; anywhere the aesthetic should feel computed rather than modelled.</div></div>
+    <div class="pat-row"><div class="pat-key">How it's built</div><div class="pat-val">One full-screen triangle. The scene is a distance function; march rays until they hit. Cost scales with pixel count and step count, which is why <strong>DPR capping is mandatory</strong> here &mdash; more than in any other pattern on this list.</div></div>
+    <div class="pat-row"><div class="pat-key">Accessibility</div><div class="pat-val">Decorative, so hide it. The real risk is <span class="wcag">2.3.3</span>: raymarched scenes tend toward continuous drift. Freeze the time uniform under reduced motion &mdash; the still frame is usually the most beautiful part anyway.</div></div>
+    <div class="pat-row"><div class="pat-key">The tell</div><div class="pat-val tell"><em>World-class:</em> considered lighting with soft shadows and ambient occlusion, and a palette that is not the default IQ rainbow. <em>Mediocre:</em> an unmodified Shadertoy port running at native DPR, melting phone batteries.</div></div>
+  </div>
+  <div class="pat">
+    <div class="pat-head"><span class="pat-num">P13</span><h3>Branded Arcade Loop</h3></div>
+    <p class="pat-what">A tightly-scoped playable game with a leaderboard, built to carry a campaign rather than to be a game product.</p>
+    <div class="pat-row"><div class="pat-key">Seen in</div><div class="pat-val">Lacoste Ace Breaker for Roland-Garros &mdash; branded arcade mechanic with leaderboard and real-world rewards, <a href="https://www.utsubo.com/blog/best-threejs-websites-2026">documented here</a>. Messenger, a multiplayer delivery game, took an Awwwards Site of the Day.</div></div>
+    <div class="pat-row"><div class="pat-key">How it's built</div><div class="pat-val">One mechanic, thirty to ninety seconds per run, difficulty ramp, score, share card. Physics via <code>@react-three/rapier</code>. The leaderboard needs a server and abuse protection &mdash; budget for that, it is where these projects actually overrun.</div></div>
+    <div class="pat-row"><div class="pat-key">Accessibility</div><div class="pat-val"><span class="wcag">2.1.1</span> Full keyboard control is not optional for a game. Provide remappable keys, a pause, and no reliance on colour alone for game state. Consider a difficulty or assist option.</div></div>
+    <div class="pat-row"><div class="pat-key">The tell</div><div class="pat-val tell"><em>World-class:</em> the mechanic connects to the brand idea and the first run is instantly legible without a tutorial. <em>Mediocre:</em> a generic runner with a logo applied, forgotten in a day.</div></div>
+  </div>
+  <div class="pat">
+    <div class="pat-head"><span class="pat-num">P14</span><h3>Live Configurator</h3></div>
+    <p class="pat-what">Real-time material, colour, and component swapping on a product, with the state reflected in the URL.</p>
+    <div class="pat-row"><div class="pat-key">Seen in</div><div class="pat-val">Automotive, furniture, footwear, and eyewear &mdash; the highest commercial-intent pattern in this library.</div></div>
+    <div class="pat-row"><div class="pat-key">How it's built</div><div class="pat-val">Author one GLTF with named material slots. Swap material properties, never the mesh. Pre-load every texture variant as KTX2 and keep them resident. Serialize the full configuration to query params so a build can be shared and restored.</div></div>
+    <div class="pat-row"><div class="pat-key">Accessibility</div><div class="pat-val"><span class="wcag">1.4.1</span> Swatches must carry text names, not colour alone. Every option needs a real form control &mdash; radio group or select &mdash; that works without the 3D. Announce changes via a live region, and give the canvas a description that updates with the configuration.</div></div>
+    <div class="pat-row"><div class="pat-key">The tell</div><div class="pat-val tell"><em>World-class:</em> correct environment lighting so materials read as physically real; changes settle with a micro-transition instead of popping. <em>Mediocre:</em> flat lighting where leather, matte plastic, and brushed metal all look like the same tinted surface.</div></div>
+  </div>
+  <div class="pat">
+    <div class="pat-head"><span class="pat-num">P15</span><h3>Baked Sequence Fallback</h3></div>
+    <p class="pat-what">Not live 3D at all &mdash; a pre-rendered image sequence scrubbed by scroll. The professional escape hatch.</p>
+    <div class="pat-row"><div class="pat-key">Seen in</div><div class="pat-val">Apple has shipped this for years on pages people assume are real-time. It is a deliberate senior choice, not a compromise.</div></div>
+    <div class="pat-row"><div class="pat-key">How it's built</div><div class="pat-val">Render the sequence offline at the quality you actually want, encode to a scrub-friendly format, then draw frames to a canvas on scroll progress. Preload a window around the current frame and decode ahead.</div></div>
+    <div class="pat-row"><div class="pat-key">Accessibility</div><div class="pat-val">Far easier to make accessible than live 3D: it is images, so it takes a text alternative naturally and has zero context-loss risk. Under reduced motion, show a single key frame.</div></div>
+    <div class="pat-row"><div class="pat-key">The tell</div><div class="pat-val tell"><em>World-class:</em> chosen knowingly because the render quality exceeds anything real-time could reach on the device budget, with frame pacing that never stutters. <em>Mediocre:</em> a 400-frame PNG sequence at 4K that costs 80MB and janks on decode.</div></div>
+  </div>
+
+  <div class="contract-card" style="margin-top:20px">
+    <h4>Further reference</h4>
+    <ul>
+      <li><a href="https://www.utsubo.com/blog/best-threejs-websites-2026">Best Three.js websites 2026</a> &mdash; eight current sites with their techniques named</li>
+      <li><a href="https://tympanus.net/codrops/2025/11/19/how-to-build-cinematic-3d-scroll-experiences-with-gsap/">Codrops: cinematic 3D scroll experiences with GSAP</a> &mdash; camera paths, lighting, and shader effects driven by scroll</li>
+      <li><a href="https://demos.gsap.com/demo/threejs-scroll-waypoints/">GSAP Three.js scroll waypoints demo</a> &mdash; the minimal waypoint rig</li>
+      <li><a href="https://www.psychoactive.co.nz/content-hub/best-webgl-interactive-3d-agencies">The studios setting the bar</a> &mdash; Active Theory, Resn, Immersive Garden, Unseen Studio, Lusion, Locomotive</li>
+      <li><a href="https://github.com/pmndrs/react-three-a11y">@react-three/a11y</a> &mdash; focusable meshes and screen-reader announcements for R3F. Note: the npm release is from 2022 and depends on zustand v3, so audit it against your R3F 9 / React 19 setup before committing.</li>
+    </ul>
+  </div>
+</section>
+
+<div class="controls">
+  <input type="text" id="search" class="search-box" placeholder="Search prompts by title, use case, keyword, or library...">
+  <div class="pills">
+    <button class="pill active" data-category="all">All</button>
+    <button class="pill" data-category="foundation">Foundation</button>
+    <button class="pill" data-category="commerce">Product &amp; Commerce</button>
+    <button class="pill" data-category="scroll">Scroll Narrative</button>
+    <button class="pill" data-category="hero">Landing Hero</button>
+    <button class="pill" data-category="dataviz">Data Viz</button>
+    <button class="pill" data-category="games">Games</button>
+    <button class="pill" data-category="generative">Generative Art</button>
+    <button class="pill" data-category="xr">Immersive &amp; XR</button>
+    <button class="pill" data-category="motion">Character &amp; Motion</button>
+    <button class="pill" data-category="perf">Performance &amp; Deploy</button>
+  </div>
+</div>
+
+<div id="prompts">
+
+<section class="category-section" data-category="foundation">
+  <div class="category-header">
+    <div class="category-number">Category 01</div>
+    <h2>Foundation &amp; Setup</h2>
+  </div>
+
+  <article class="prompt-card" data-category="foundation">
+    <div class="prompt-header"><div class="prompt-num">01</div><div class="prompt-title"><h3>Modern R3F + TypeScript Vite starter</h3></div></div>
+    <p class="use-case">Bootstrap a production-ready React Three Fiber project with the modern toolchain, strict TypeScript, and dev conveniences pre-wired.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Scaffold a React Three Fiber project for <span class="bracket">[PROJECT NAME]</span> using Vite + TypeScript strict mode. Install: three, @react-three/fiber, @react-three/drei, @react-three/postprocessing, leva, zustand. Set up a Canvas with adaptive dpr [1, 2], a Suspense boundary with a Loader fallback, an Environment preset, OrbitControls (or none for scroll-driven), and a Stats panel behind a dev flag. Include tsconfig strict, ESLint with React and Three plugins, prettier, and a scripts/optimize-gltf.sh for Draco + KTX2 compression. Deliverables: full repo tree, package.json, working src/App.tsx with a placeholder scene, and a README with dev/build/deploy steps.</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">Complete Vite + R3F + TS repo. Working Canvas with performance-aware defaults. Draco and KTX2 optimization script. Ready to add scenes.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with Tailwind CSS and a UI overlay layer</code> for landing pages, or <code>with Next.js instead of Vite</code> for SSR-friendly setups (use dynamic import with ssr:false on the Canvas).</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="foundation">
+    <div class="prompt-header"><div class="prompt-num">02</div><div class="prompt-title"><h3>Vanilla Three.js production starter</h3></div></div>
+    <p class="use-case">When the project has no React. Modern ES modules, vanilla Three.js, production-grade with proper cleanup, resize handling, and a clean render loop.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Scaffold a vanilla Three.js project for <span class="bracket">[PROJECT NAME]</span> using Vite + TypeScript. No React. Modern ES module imports. Include: Scene, PerspectiveCamera, WebGLRenderer with antialias + physicallyCorrectLights, resize handler with throttle, animation loop with delta-time, GLTFLoader with Draco decoder, KTX2Loader for textures, EffectComposer for post-processing, and a proper dispose() cleanup path. Wrap in a class ThreeApp with mount(canvas), start(), stop(), destroy() methods. Aesthetic: <span class="bracket">[DESCRIBE]</span>. Deliverables: full repo tree, main.ts, style.css, and inline comments explaining each render-loop decision.</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">Framework-free Three.js project with proper lifecycle. Ready for embedding in any host page or WebComponent.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>as a Web Component (custom element)</code> for framework-agnostic embed, or <code>with pnpm workspace for a monorepo</code> if the project spans multiple scenes.</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="foundation">
+    <div class="prompt-header"><div class="prompt-num">03</div><div class="prompt-title"><h3>Multi-mode camera rig system</h3></div></div>
+    <p class="use-case">A single camera rig that supports cinematic dolly, orbit, first-person, and keyframed tour modes, switchable at runtime with smooth transitions.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Build a CameraRig component for React Three Fiber that supports four modes: cinematic (dolly along a spline), orbit (drei OrbitControls with damping), first-person (PointerLockControls + WASD), and tour (keyframed shot list). Each mode has an entry transition tweened over <span class="bracket">[DURATION]</span> ms. State managed via zustand store {mode, targetPosition, targetLookAt, isTransitioning}. Include useHelper for dev-time visualization of the spline and keyframes. Aesthetic: <span class="bracket">[e.g., architectural walkthrough, product turntable, cinematic reveal]</span>. Deliverables: CameraRig.tsx, cameraStore.ts, useCameraKeyframes.ts hook, and an example switching between modes on button click.</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">Reusable rig that scales from product pages to virtual tours. Clean state machine. Smooth transitions between paradigms.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with cinematic mode driven by GSAP ScrollTrigger</code> for scroll-story pages, or <code>with a mini-map showing camera position</code> for exploration UIs.</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="foundation">
+    <div class="prompt-header"><div class="prompt-num">04</div><div class="prompt-title"><h3>Lighting philosophy pass</h3></div></div>
+    <p class="use-case">Establish the lighting language for a scene: studio three-point, cinematic HDRI, dramatic single-source, or brand-specific mood. Includes shadow strategy and dynamic range control.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Design the lighting for a Three.js scene in <span class="bracket">[LIGHTING STYLE: studio three-point / cinematic HDRI / dramatic single-source / soft ambient / brand-tinted]</span>. Aesthetic reference: <span class="bracket">[BRAND OR REFERENCE IMAGE]</span>. Include: HDRI environment (drei Environment preset OR custom .hdr), directional key light with shadow map (2048 for hero product, 1024 for general, 512 for background), fill light (opposite side, half intensity), rim light (behind, brand-tinted), toneMapping ACESFilmicToneMapping, and toneMappingExposure calibration. Provide values for exposure, shadow bias, normalBias, and each light's intensity/color. Deliverables: Lighting.tsx component, HDRI recommendation with source, and a leva panel for dev-time tuning.</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">Complete lighting rig with justified values for each light. Shadow quality tuned. HDRI ambient sensible. leva panel for taste passes.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with time-of-day cycle</code> for exploration scenes (dawn to dusk with sun position and color shifts), or <code>optimized for mobile (baked lightmaps, no dynamic shadows)</code> if the target is phones.</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="foundation">
+    <div class="prompt-header"><div class="prompt-num">05</div><div class="prompt-title"><h3>Performance budget baseline</h3></div></div>
+    <p class="use-case">Set a performance budget for the project on day one. Target FPS, draw calls, poly count, texture memory. Instrumentation to enforce it.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Define and instrument a performance budget for a Three.js project on <span class="bracket">[TARGET DEVICE: desktop / mobile / low-end mobile / VR headset]</span>. Constraints: <span class="bracket">[TARGET FPS, e.g., 60 on M1 MacBook, 30 on iPhone 12]</span>. Set budget for draw calls (target under <span class="bracket">[N]</span>), triangles (under <span class="bracket">[N]</span>), texture memory (under <span class="bracket">[MB]</span>), and JS heap (under <span class="bracket">[MB]</span>). Wire up react-three-perf OR stats.js in a hidden dev overlay. Add a budget-watchdog hook that logs a console warning when any budget is exceeded. Include a performance-checklist.md with mitigation strategies for each budget breach (instancing, LOD, texture compression, culling). Deliverables: budget.config.ts, PerfOverlay.tsx, useBudgetWatchdog hook, and the checklist.</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">Enforceable budget from day one. Dev overlay for continuous visibility. Mitigation checklist tied to specific breaches.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with CI budget-check that fails PRs exceeding the budget</code> for team enforcement, or <code>with adaptive quality tiers</code> that auto-degrade based on measured device performance.</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+</section>
+
+<section class="category-section" data-category="commerce">
+  <div class="category-header">
+    <div class="category-number">Category 02</div>
+    <h2>Product &amp; Commerce</h2>
+  </div>
+
+  <article class="prompt-card" data-category="commerce">
+    <div class="prompt-header"><div class="prompt-num">06</div><div class="prompt-title"><h3>Interactive product configurator</h3></div></div>
+    <p class="use-case">A 3D product that customers can customize live: swap colors, materials, parts. Camera focuses on the changed area. Ready to bolt onto a Shopify or headless commerce backend.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Build a 3D product configurator for <span class="bracket">[PRODUCT: e.g., sneaker, watch, kettle, chair]</span> in React Three Fiber. Product model at <span class="bracket">[GLTF PATH or "will generate placeholder"]</span> already broken into named parts (upper, sole, laces for a sneaker). Customization axes: <span class="bracket">[LIST: color, material, size, add-ons]</span>. When user changes an axis: (a) update material via useMemo, (b) camera dollies to focus on the changed part using a targetLookAt tween, (c) update selection UI. State via zustand. UI overlay in HTML (styled via <span class="bracket">[TAILWIND / CSS-in-JS]</span>). Include an "add to cart" action that emits an event with the current config JSON. Deliverables: Configurator.tsx, useConfigStore.ts, CustomizationUI.tsx, and an example config-to-SKU mapper.</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">Live configurator with camera focus on changes. Config emits as JSON for cart integration. Works on desktop and mobile.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with a share-your-design URL (config in query params)</code> for social sharing, or <code>with an AR view button</code> that hands off to iOS Quick Look for at-home preview.</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="commerce">
+    <div class="prompt-header"><div class="prompt-num">07</div><div class="prompt-title"><h3>Cinematic product hero reveal</h3></div></div>
+    <p class="use-case">A luxury product hero that reveals itself from darkness, lit for cinematic impact, with a scroll-triggered orbit that lands on the money shot.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Build a cinematic product hero for <span class="bracket">[PRODUCT]</span> in React Three Fiber. Aesthetic: <span class="bracket">[e.g., Fear of God luxury restraint, Apple product page, Aesop editorial]</span>. Scene starts black. On load: (1) key light fades in from 0 to full over 1.2s, (2) rim light joins at 0.6s, (3) camera dollies in from wide to hero framing. Once loaded, GSAP ScrollTrigger drives a 180-degree orbit + subtle dolly as user scrolls the section. Environment: dim HDRI, one bright key light with soft shadow, one brand-tinted rim light. Post: subtle bloom, film grain, chromatic aberration on edges. Target 60fps desktop, 30fps mobile with reduced particle count. Deliverables: ProductHero.tsx, lighting rig, and a MobileGuard that swaps to a static rendered image below <span class="bracket">[DEVICE THRESHOLD]</span>.</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">Money-shot hero. Cinematic reveal on load, scroll-driven orbit while in view. Mobile fallback. Ready for a luxury brand.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with typography that animates in over the product</code> for a product launch page, or <code>with a color-swap that syncs to a variant selector below the hero</code> for e-commerce.</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="commerce">
+    <div class="prompt-header"><div class="prompt-num">08</div><div class="prompt-title"><h3>Automotive configurator</h3></div></div>
+    <p class="use-case">Full car customizer: paint layers, wheels, interior swap. Baked lighting for realism at mobile-friendly cost. Snapshot to share.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Build an automotive configurator in React Three Fiber for <span class="bracket">[VEHICLE MODEL]</span>. Model with named parts (body, wheels, interior, glass, mirrors). Paint system: base color + clearcoat + metallic, using MeshPhysicalMaterial with clearcoat, clearcoatRoughness, metalness, sheen. Wheel swaps: three options as separate GLTF nodes, toggle visibility. Interior: two options as separate scene groups. Environment: HDRI showroom OR outdoor sunset. Baked ambient occlusion on the base model. Orbit controls with damped inertia. Save snapshot as PNG button (canvas.toDataURL). Config as query-string for share URLs. Performance: LOD swap at 15m distance (halve poly count), instanced wheel details. Target 45fps on iPhone 13, 60fps desktop. Deliverables: CarConfigurator.tsx, paint shader tuning notes, snapshot module.</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">Production automotive configurator. Paint feels real. Wheels and interior swap cleanly. Snapshot for social. Mobile-tuned.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with a day/night toggle</code> that swaps HDRI + interior cabin lights on, or <code>with a build-a-quote handoff</code> that opens the configured build in a dealer contact form.</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="commerce">
+    <div class="prompt-header"><div class="prompt-num">09</div><div class="prompt-title"><h3>Apparel 3D try-on</h3></div></div>
+    <p class="use-case">Body model + garment overlay. Size selector adjusts fit. Snapshot for social. Aimed at DTC apparel brands.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Build a 3D apparel try-on for <span class="bracket">[GARMENT TYPE: t-shirt, hoodie, jeans, jacket]</span> in React Three Fiber. Body model: parametric mannequin at <span class="bracket">[SIZES: XS-XXL with morph targets between]</span>. Garment: GLTF with skin-weighted rigging matching the body skeleton. On size change: morph body proportions AND garment stretch, with a 400ms tween. Fabric material: MeshPhysicalMaterial with sheen for cotton, subsurface for jersey. Colorway swaps: material color + normal map for texture (waffle knit, ribbed, etc). Camera: three preset shots (front, three-quarter, back) with cinematic tween between. Include a "share your look" snapshot with brand watermark. Deliverables: TryOn.tsx, useBodyStore.ts (size, colorway, view), and instructions for authoring garment rigs in Blender to match.</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">Working try-on with size morphing. Fabric feels believable. Preset camera shots. Snapshot for sharing. DTC-ready.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with a body-photo upload that estimates size</code> using MediaPipe pose, or <code>with a "wear it in AR" button</code> that opens the garment in iOS Quick Look on the user.</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="commerce">
+    <div class="prompt-header"><div class="prompt-num">10</div><div class="prompt-title"><h3>Furniture placement in AR</h3></div></div>
+    <p class="use-case">WebXR AR module for placing furniture in the user's actual room via phone camera. Hit-test placement, scale adjustment, add to cart.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Build a WebXR AR furniture placement for <span class="bracket">[FURNITURE ITEM]</span> using @react-three/xr. Model at <span class="bracket">[GLTF PATH]</span> with realistic scale metadata. Flow: (1) user taps "View in your room", (2) request AR session via ARButton with hit-test feature, (3) show reticle on detected floor, (4) tap to place, (5) two-finger drag to rotate, pinch to scale (within +/-15% of true scale). Add shadow-only ground plane so the furniture casts a soft real-world-looking shadow. Add a proximity glow when the user's device gets close enough to see textures. Add a "add to cart" button in the AR overlay UI. For iOS Safari fallback (no WebXR), emit .usdz via /usdz-<span class="bracket">[SKU]</span> to trigger iOS Quick Look. Deliverables: ARPlacer.tsx, ARControls.tsx overlay, and usdz-generator script (from GLTF).</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">Cross-platform AR furniture try. WebXR on Android and desktop-with-camera, USDZ Quick Look on iOS Safari. Scale-locked realism.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with room-scale multiple items and a save-your-room feature</code>, or <code>with a proportion warning when placed too close to detected walls</code>.</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+</section>
+
+<section class="category-section" data-category="scroll">
+  <div class="category-header">
+    <div class="category-number">Category 03</div>
+    <h2>Scroll-Driven Narrative</h2>
+  </div>
+
+  <article class="prompt-card" data-category="scroll">
+    <div class="prompt-header"><div class="prompt-num">11</div><div class="prompt-title"><h3>Full-page cinematic scroll story</h3></div></div>
+    <p class="use-case">A brand or product story that unfolds over 4-6 chapters of scroll, with the 3D scene morphing between chapters and text overlays timed to camera beats.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Build a cinematic scroll-driven story for <span class="bracket">[BRAND OR PRODUCT]</span> using React Three Fiber + GSAP ScrollTrigger. <span class="bracket">[NUMBER]</span> chapters. Each chapter has: a camera keyframe (position, lookAt, fov), a scene state (which objects visible, material states), an HTML overlay (headline + supporting copy) that fades in as scroll enters the chapter. Between chapters, camera dollies smoothly along a spline, objects morph or swap in/out, materials transition. Use drei ScrollControls with pages=<span class="bracket">[N]</span> OR GSAP ScrollTrigger with pinning depending on <span class="bracket">[SMOOTH SCROLL / PINNED]</span> preference. Aesthetic: <span class="bracket">[DESCRIBE]</span>. Mobile fallback: reduce chapters to hero shots as image cards. Deliverables: ScrollStory.tsx, chapters.config.ts (data-driven chapter definitions), and a StoryOverlay HTML component.</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">Full narrative page. Camera choreography timed to scroll. HTML overlays for chapter copy. Mobile fallback that keeps the story.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with audio narration synced to chapters</code> for a documentary feel, or <code>with a chapter skip menu</code> for users who want to jump around.</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="scroll">
+    <div class="prompt-header"><div class="prompt-num">12</div><div class="prompt-title"><h3>Product story scroll hero</h3></div></div>
+    <p class="use-case">Single product, hero of the page, reveals its capabilities as the user scrolls. Ends by handing off to the ecommerce buy flow.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Build a scroll hero for <span class="bracket">[PRODUCT]</span> in React Three Fiber + GSAP ScrollTrigger. Section pinned for <span class="bracket">[N]</span> viewport heights. Beats: (1) hero shot, camera close, product still, (2) exploded view revealing components with labels, (3) material close-ups (camera on specific parts), (4) product back to whole, rotating slowly, (5) size comparison against a reference (hand, room). Each beat is a ScrollTrigger with camera keyframe + material state + label overlay. At end of pinned section, ScrollTrigger releases into the normal document flow which is the ecommerce buy panel. Deliverables: ProductScrollHero.tsx, beats.config.ts, and a Handoff component that transitions from the 3D scene to a normal HTML buy panel with the product's chosen variant preselected.</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">Cinematic product intro that earns attention, followed by a clean handoff to buy. Every beat a specific camera + material state.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with per-beat voiceover audio</code> tied to ScrollTrigger enter/leave, or <code>with a beat progress indicator</code> in the corner so users see where they are in the story.</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="scroll">
+    <div class="prompt-header"><div class="prompt-num">13</div><div class="prompt-title"><h3>Data narrative scroll</h3></div></div>
+    <p class="use-case">Data story where the 3D chart morphs into different visualizations as the reader scrolls through the narrative. Editorial data journalism feel.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Build a scroll-driven data narrative on <span class="bracket">[TOPIC]</span> using React Three Fiber. Data at <span class="bracket">[SOURCE OR JSON]</span>. Chart morphs across scroll beats: (1) scatter plot in 3D space, (2) transforms into stacked bars grouped by <span class="bracket">[DIMENSION]</span>, (3) collapses into a flowing line over time, (4) explodes into individual data points arranged geographically. Each transformation uses GSAP tweens on point positions with staggered delay. Editorial copy overlays each beat with the story of the data. Highlight callouts (specific data points glow, with a Html annotation pointing to them). Deliverables: DataStory.tsx, ChartMorph.tsx (handles the tween between chart types), useDataStore.ts, and editorial-beats.config.ts.</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">Scrollytelling data piece. Chart transformations feel meaningful, not decorative. Editorial voice through the copy layer.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with reader-controlled filters</code> (e.g., select a region and the whole scroll story recontextualizes), or <code>with an ending share-your-finding card</code> that snapshots the current state for social.</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="scroll">
+    <div class="prompt-header"><div class="prompt-num">14</div><div class="prompt-title"><h3>Character journey scroll</h3></div></div>
+    <p class="use-case">A character moves through a world, the viewer follows via a chase camera. Meant for onboarding narratives, brand stories, or gamified experiences.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Build a character-follows scroll narrative for <span class="bracket">[BRAND OR CONCEPT]</span> in React Three Fiber. Character: rigged GLTF at <span class="bracket">[PATH]</span> with idle + walk + <span class="bracket">[SITUATIONAL]</span> animations blendable via drei useAnimations. Path: spline through a scene with <span class="bracket">[NUMBER]</span> waypoints. As user scrolls, character progresses along the spline; camera follows in a chase rig (drei CameraShake for subtle life). At each waypoint, a beat plays: character performs a specific animation, environment reacts (a door opens, a bridge extends, lights change), an HTML overlay narrates. Fog and depth atmosphere. Ambient audio layered. Deliverables: CharacterJourney.tsx, waypoints.config.ts, useChaseCam hook, and the Blender animation authoring guide (idle, walk, and one waypoint-specific animation).</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">Character-led scroll story. Chase camera. Waypoint beats. Meant to feel like a game cutscene the reader is walking through.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with branching path based on a user choice at a waypoint</code> for interactive storytelling, or <code>with a companion character that reacts to the main one</code> for social presence.</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="scroll">
+    <div class="prompt-header"><div class="prompt-num">15</div><div class="prompt-title"><h3>Micro-scroll depth layering</h3></div></div>
+    <p class="use-case">Not full 3D but a scene with 5-7 depth layers that parallax as the user scrolls. Feels 3D on mobile with 60fps and zero WebGL warmup cost.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Build a scroll-parallax hero with depth-layered planes in React Three Fiber. Not a full 3D world, just 5-7 flat planes at different Z depths, each with a transparent PNG texture. As user scrolls, each layer moves at different speed (closer = faster). Aesthetic: <span class="bracket">[e.g., editorial illustration, isometric city, cyberpunk depth]</span>. Camera stays fixed; layers translate. Subtle particles between layers for atmospheric depth. Mouse parallax on hover. Very low WebGL cost (no models, no lights beyond one directional). Target 60fps on iPhone SE. Deliverables: DepthHero.tsx, layers.config.ts (image path, Z depth, parallax multiplier), and a Photoshop layer export guide.</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">A hero that feels 3D at almost no cost. Runs anywhere. Great for editorial or non-tech-first brands.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with day-to-night lighting shift on scroll</code> using color grading, or <code>with animated elements per layer</code> (birds flying, smoke, blowing leaves).</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+</section>
+
+<section class="category-section" data-category="hero">
+  <div class="category-header">
+    <div class="category-number">Category 04</div>
+    <h2>Landing Page Hero</h2>
+  </div>
+
+  <article class="prompt-card" data-category="hero">
+    <div class="prompt-header"><div class="prompt-num">16</div><div class="prompt-title"><h3>Interactive hero with mouse-parallax</h3></div></div>
+    <p class="use-case">Landing hero with a 3D scene that responds to the user's mouse. Brand-consistent geometry. Mobile fallback that keeps the feeling.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Build a landing page hero in React Three Fiber for <span class="bracket">[BRAND]</span>. Geometry: <span class="bracket">[DESCRIBE: e.g., abstract crystals, brand logo extruded, generative shapes]</span>. Aesthetic: <span class="bracket">[DESCRIBE OR NAME REFERENCE]</span>. On mouse move: geometry tilts, camera parallax shifts, lights react. On hover over specific parts: hover state (glow, scale, tooltip). H1 and CTA overlaid in HTML with drei's Html or absolute-positioned React nodes. Mobile: mouse-parallax replaced by device orientation (permission-gated) OR subtle idle rotation. Ambient particles behind for atmosphere. Post: subtle bloom. Deliverables: LandingHero.tsx, IdleMotion.ts hook (mouse OR gyro OR idle), and the copy/CTA overlay.</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">Interactive hero that responds to intent, not just presence. Mobile gets equivalent motion via gyro or idle. On-brand geometry.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with the geometry morphing to signal state changes</code> (form-focus, error, success), or <code>with a hover-to-explode reveal</code> where hovering fires an exploded view of the geometry.</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="hero">
+    <div class="prompt-header"><div class="prompt-num">17</div><div class="prompt-title"><h3>Generative particle field hero</h3></div></div>
+    <p class="use-case">Half a million or more particles arranged in a brand-tinted field. Slow flow, mouse-influenced. Ambient meditative feel.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Build a particle field hero for <span class="bracket">[BRAND]</span> in React Three Fiber. <span class="bracket">[COUNT: 100k-500k]</span> particles as a Points mesh. Positions computed on GPU via a shader material using noise functions (curl noise for organic flow, perlin for cloud-like). Base color from <span class="bracket">[BRAND PALETTE]</span> with per-particle hue variation. On mouse move, particles within a radius are gently pushed away (compute in shader with uMouse uniform). Camera slow orbit. Post: bloom (Kawase blur for softness), slight chromatic aberration. Mobile: reduce particle count to 50k, cap DPR at 1. Deliverables: ParticleField.tsx with custom vertex + fragment shaders, useMouse hook that writes uMouse uniform, and mobile detection swap.</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">Meditative, brand-tinted particle field. GPU-driven, so scales to hundreds of thousands of points. Mouse-reactive.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with particles that form the brand logo at rest and disperse on scroll</code>, or <code>with music reactivity via Web Audio API frequency analysis</code>.</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="hero">
+    <div class="prompt-header"><div class="prompt-num">18</div><div class="prompt-title"><h3>3D animated logo mark</h3></div></div>
+    <p class="use-case">The brand logo built in 3D, animated on load, hover-reactive. Meant to become the identity's motion signature across the site.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Build a 3D animated version of the <span class="bracket">[BRAND]</span> logomark in React Three Fiber. Source: <span class="bracket">[SVG OR EXTRUDE FROM PATHS]</span>. Extrusion depth <span class="bracket">[VALUE]</span>. Material: <span class="bracket">[MATTE / METALLIC / GLASS / BRAND-SPECIFIC]</span>. On mount: assemble animation (letters fly in from off-screen and settle, or morph from scattered particles). On hover: subtle rotation and color shift. On scroll (if used as a persistent header logo): scale down and lock. Lighting: three-point tuned for the logo's silhouette. Reusable as a component that accepts size, isInteractive, animateOnMount props. Deliverables: BrandLogo3D.tsx, extrude-from-svg utility if needed, and motion-signature.md documenting the timing curves for the brand.</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">A 3D identity component. Reusable across the site as header, hero, footer. Documented motion timing to keep the identity consistent.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with liquid-metal shader for a luxury brand</code>, or <code>with a build-per-letter reveal that maps to page section navigation</code>.</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="hero">
+    <div class="prompt-header"><div class="prompt-num">19</div><div class="prompt-title"><h3>Fluid abstract shader hero</h3></div></div>
+    <p class="use-case">Full-screen shader-driven abstract art. Fluid dynamics or noise-based flow. Brand-tinted. Painterly or minimalist depending on brief.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Build a fullscreen shader hero for <span class="bracket">[BRAND]</span> in React Three Fiber. Single plane covering the viewport with a custom fragment shader. Style: <span class="bracket">[fluid dynamics simulation / curl noise field / voronoi cells / ray-marched clouds / painterly wash]</span>. Palette: <span class="bracket">[BRAND COLORS with weights]</span>. Time-driven animation. Mouse-influenced flow (uMouse uniform pushes the field). Optional: subtle grain overlay for texture. Provide GLSL fragment shader code with clear commented sections (setup, noise function, palette mapping, mouse influence, final output). Include a leva panel exposing all tuning parameters (speed, palette shift, mouse radius, grain strength) for creative-director iteration. Mobile-tuned: half-resolution render target upscaled. Deliverables: ShaderHero.tsx, shader.frag with comments, leva controls schema.</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">Fullscreen art piece as hero. Every parameter tunable at design time. Low geometry cost (one quad). Brand palette lives in the shader.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with two hero variants that fade between based on time of day</code>, or <code>with cursor-drawn strokes that persist and dissolve</code> for painterly interactivity.</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="hero">
+    <div class="prompt-header"><div class="prompt-num">20</div><div class="prompt-title"><h3>3D kinetic type hero</h3></div></div>
+    <p class="use-case">The headline itself is the 3D scene. Extruded type that animates, breaks, reforms. Editorial and confident.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Build a kinetic 3D type hero in React Three Fiber. Text: <span class="bracket">[HEADLINE]</span>. Typography: <span class="bracket">[TYPEFACE, must be TTF or converted to typeface.json]</span>. Extrusion: <span class="bracket">[DEPTH]</span>. Animation on load: letters drop in from above with staggered timing and physics bounce, or morph from scattered fragments into readable form. Idle: subtle sway or rotation per letter. On scroll: letters shatter into fragments as the section scrolls past, reforming in the next section as a new headline. Material: <span class="bracket">[MATTE / GLASS / METAL / TWO-TONE with clearcoat]</span>. Lighting: dramatic single key light with rim. Camera: locked front three-quarter. Deliverables: KineticType.tsx, useLetterAnimation hook, and a headlines.config.ts array that drives the reformation sequence.</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">Type-as-hero. Editorial confidence. Scroll-linked reformation to bridge sections. Reusable across multiple headline moments.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with letters made of the brand product (e.g., cans, bottles, garments)</code> for CPG, or <code>with each letter as a portal into a different section</code> for editorial navigation.</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+</section>
+
+<section class="category-section" data-category="dataviz">
+  <div class="category-header">
+    <div class="category-number">Category 05</div>
+    <h2>Data Visualization</h2>
+  </div>
+
+  <article class="prompt-card" data-category="dataviz">
+    <div class="prompt-header"><div class="prompt-num">21</div><div class="prompt-title"><h3>3D scatter or bar chart</h3></div></div>
+    <p class="use-case">A data-driven 3D chart with hover-inspect, filter controls, and a mobile fallback to 2D. Meant for internal dashboards or public-facing storytelling.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Build a 3D <span class="bracket">[SCATTER / BAR / STACKED BAR]</span> chart in React Three Fiber. Data at <span class="bracket">[SOURCE OR JSON]</span> with dimensions <span class="bracket">[X, Y, Z, COLOR, SIZE]</span>. Each data point as an InstancedMesh instance (for performance with 10k+ points). Axes labeled with drei Text, tick marks on each axis. Hover over a point shows an Html tooltip with the point's data. Filter controls (dropdowns, sliders) update the visible instance set with a smooth tween. Camera: OrbitControls with damping. Mobile fallback: render a 2D SVG chart with the same data if device is under <span class="bracket">[THRESHOLD]</span>. Deliverables: Chart3D.tsx, ChartControls.tsx, useDataFilters.ts, and a MobileChart2D fallback.</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">Interactive 3D chart, scales to 10k+ points via instancing. Hover-inspect. Filter-driven. Mobile has a legitimate 2D fallback.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with a time slider that animates the data through history</code>, or <code>with cluster-detection that groups nearby points and shows summary stats on hover</code>.</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="dataviz">
+    <div class="prompt-header"><div class="prompt-num">22</div><div class="prompt-title"><h3>Force-directed 3D network graph</h3></div></div>
+    <p class="use-case">Nodes and edges arranged by force simulation. Community detection colors clusters. Camera orbit and hover-inspect. Great for org charts, relationship maps, dependency graphs.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Build a force-directed 3D network graph in React Three Fiber. Data at <span class="bracket">[SOURCE]</span> as {nodes: [id, label, group], edges: [source, target, weight]}. Force simulation via d3-force-3d (charge repulsion, link spring, center gravity). Nodes as small spheres, sized by degree or a data attribute, colored by group (community detection). Edges as thin cylinders with opacity by weight. Hover on a node highlights its neighborhood (fade non-neighbors). Click on a node re-centers the camera on it. Search bar filters visible nodes by label. Camera: OrbitControls with auto-rotate slow default. Deliverables: NetworkGraph.tsx, useForceSim hook, NodeInspector.tsx (shows node details on click), and a data-loader.</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">Living network graph. Communities are visible. Interaction rewards curiosity. Search + click-to-focus for navigation.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with edge weights driving simulation link distance for a tension-based layout</code>, or <code>with time-animated graph evolution</code> if the graph changes over time.</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="dataviz">
+    <div class="prompt-header"><div class="prompt-num">23</div><div class="prompt-title"><h3>Geospatial globe with data layers</h3></div></div>
+    <p class="use-case">3D earth with data points, arcs between locations, or heatmaps. Real-time or historical. Editorial and analytics use cases.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Build a 3D globe visualization in React Three Fiber. Earth mesh: <span class="bracket">[REALISTIC textured / ABSTRACT wireframe / MATTE minimalist]</span>. Data layer: <span class="bracket">[POINTS at lat/lng / ARCS between origin-destination pairs / HEATMAP as a shader overlay]</span>. Data source: <span class="bracket">[JSON or REAL-TIME endpoint]</span>. Points animate in (staggered scale from 0) on data load. Arcs animate as flowing dashes along a great-circle path. Auto-rotate slow. Click on a point or arc opens an info card. Optional day/night: procedural night-side with city lights baked in. Post: subtle atmospheric glow (fresnel-based). Deliverables: Globe.tsx, DataLayer.tsx (interchangeable points / arcs / heatmap), useLatLngToVector3 utility, and a data-adapter for connecting to <span class="bracket">[YOUR DATA SOURCE]</span>.</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">Publication-quality globe. Real-time capable. Multiple visualization layers you can swap. Atmospheric feel via fresnel glow.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with time-scrubber to replay history</code> (great for pandemic maps, migration, trade), or <code>with country boundaries as extruded polygons</code> for political data.</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="dataviz">
+    <div class="prompt-header"><div class="prompt-num">24</div><div class="prompt-title"><h3>GPU flow field visualization</h3></div></div>
+    <p class="use-case">Wind, ocean current, magnetic field, or any vector field. GPU-computed particles flow along the field. Brand-tinted, aesthetic-first.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Build a GPU flow field visualization in React Three Fiber. Vector field source: <span class="bracket">[REAL DATA: wind, current, magnetic / PROCEDURAL: curl noise / IMAGE-DRIVEN]</span>. <span class="bracket">[COUNT: 200k-1M]</span> particles as a Points mesh. Positions computed via GPU compute using a data texture that stores current position; each frame, sample the vector field, integrate position, wrap or reset on boundary. Rendering: additive blending with per-particle life fade. Palette: <span class="bracket">[BRAND COLORS OR DATA-DRIVEN color-by-speed]</span>. Camera orbit with slow auto. Post: bloom for particle glow. Include a color legend if data-driven. Deliverables: FlowField.tsx, gpgpu-sim.ts (data-texture ping-pong), the vertex + fragment shaders, and instructions for loading real vector data (e.g., ERA5 wind).</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">Meditative and functional. Real data as input, aesthetic output. Scales to millions of particles via GPU compute.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with an audio-driven vector field</code> for music visualization, or <code>with two flow fields blending over time</code> for climate scenarios.</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="dataviz">
+    <div class="prompt-header"><div class="prompt-num">25</div><div class="prompt-title"><h3>3D timeline with events</h3></div></div>
+    <p class="use-case">Events arranged on a 3D time axis. Camera scrubs through history. Great for brand histories, product roadmaps, historical narratives.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Build a 3D timeline in React Three Fiber for <span class="bracket">[SUBJECT: brand history, product roadmap, historical era]</span>. Time as a spatial axis (e.g., Z depth or a curved path). Events as objects along the axis, each with a mesh (<span class="bracket">[image plane / iconic object / typography]</span>) and metadata. Camera scrubs through time via <span class="bracket">[SCROLL / SLIDER / AUTO-PLAY]</span> control. Events "wake up" as the camera approaches (scale in, glow, label appears). Click an event opens a full-screen detail overlay. Include a mini-map showing camera position on the timeline. Aesthetic: <span class="bracket">[DESCRIBE]</span>. Deliverables: Timeline3D.tsx, events.config.ts, TimelineControls.tsx, and EventDetail.tsx overlay.</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">Time as space. Events feel present, not filed. Scrubs to any moment. Detail on demand.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with parallel timelines for related subjects</code> (e.g., competitor moves, industry milestones), or <code>with era-based lighting and palette shifts</code> to reinforce chronology.</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+</section>
+
+<section class="category-section" data-category="games">
+  <div class="category-header">
+    <div class="category-number">Category 06</div>
+    <h2>Games</h2>
+  </div>
+
+  <article class="prompt-card" data-category="games">
+    <div class="prompt-header"><div class="prompt-num">26</div><div class="prompt-title"><h3>Third-person character controller</h3></div></div>
+    <p class="use-case">The foundation for any character-driven game or interactive experience. WASD, camera follow, jump physics, animation state machine.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Build a third-person character controller in React Three Fiber using ecctrl + rapier. Character: rigged GLTF at <span class="bracket">[PATH]</span> with animations idle, walk, run, jump, fall. Controls: WASD move, shift run, space jump. Camera: chase rig with damped follow, mouse-look for orbit-around-character. Animation state machine: transitions blended over 200ms. Ground contact detection for jump state. Include coyote time (150ms) and jump buffering (100ms) for game-feel polish. Mobile controls: virtual joystick + jump button overlay. Deliverables: CharacterController.tsx, useCharacterAnimations hook, useMobileControls hook, and a demo scene with a simple platform to run around on.</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">Production-feel character controller. Coyote time and buffering built in. Mobile touch controls. Ready to drop into any world.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with double-jump, dash, and wall-run</code> for platformer feel, or <code>with vehicle mount/dismount system</code> for open-world games.</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="games">
+    <div class="prompt-header"><div class="prompt-num">27</div><div class="prompt-title"><h3>Physics playground (Rapier)</h3></div></div>
+    <p class="use-case">A sandbox room where users can throw, stack, and knock over objects. Great for brand activations, toy playgrounds, tactile marketing.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Build a physics playground in React Three Fiber using @react-three/rapier. Environment: <span class="bracket">[DESCRIBE: e.g., minimalist white room, brand showroom, cozy den]</span>. Objects: <span class="bracket">[COUNT and TYPES: e.g., 30 wooden blocks, 10 rubber balls, 5 branded plush toys]</span>. Interaction: click and drag to grab, release to throw. Rapier handles collisions, gravity, restitution. Mouse-driven raycast + spring joint for satisfying grab feel. Reset button snaps all objects to starting positions with a smooth tween. Optional: physics-driven audio (rapier collision events trigger sound files with intensity mapped to impact force). Mobile: touch-drag with force based on flick velocity. Deliverables: Playground.tsx, useGrab hook, resetPositions.ts, and audio-mapping.config.ts.</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">Tactile sandbox. Satisfying grab-throw mechanics. Audio-linked collisions. Ready as a brand activation or delight moment.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with a scoring goal to make it a mini-game</code> (basketball hoop, target rings), or <code>with multiplayer via WebSocket presence</code> so friends can throw things at each other.</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="games">
+    <div class="prompt-header"><div class="prompt-num">28</div><div class="prompt-title"><h3>Endless runner</h3></div></div>
+    <p class="use-case">Casual browser game with procedural terrain, character auto-run, obstacles, and score. Meant to be shipped fast for a campaign or a lightweight product.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Build a browser endless runner in React Three Fiber. Character: <span class="bracket">[DESCRIBE OR BRAND-SPECIFIC]</span>, auto-runs forward. Controls: A/D or arrows to switch lanes (3 lanes), space to jump, S to slide. Terrain: procedurally generated tiles that spawn ahead and despawn behind. Obstacles: mixed types with spawn logic based on distance-difficulty curve. Pickups: <span class="bracket">[BRAND-SPECIFIC OR GENERIC COINS]</span> with magnet radius. Camera: chase rig with slight lookahead. Score: distance + pickups. HUD in HTML overlay. Sound: BGM + SFX for jump, pickup, hit. Game over on hit, restart button. Mobile: swipe controls (left/right for lanes, up for jump, down for slide). Deliverables: EndlessRunner.tsx, useGameLoop hook, terrainGen.ts, obstacleSpawner.ts, scoreStore.ts.</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">Full runner game. Procedural, so replayable. Scales difficulty. Mobile-swipe controls. Ready as a campaign game or portfolio piece.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with a leaderboard backed by Supabase</code> for competition, or <code>with theme variants that unlock at score thresholds</code> for progression.</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="games">
+    <div class="prompt-header"><div class="prompt-num">29</div><div class="prompt-title"><h3>Multiplayer real-time 3D</h3></div></div>
+    <p class="use-case">Multiple users share a 3D space, see each other's avatars move, can chat and gesture. Foundation for virtual events, coworking, social presence.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Build a multiplayer 3D presence layer in React Three Fiber. Backend: <span class="bracket">[Supabase Realtime / Firebase / custom WebSocket]</span>. Each user has an avatar (<span class="bracket">[simple sphere with name label / rigged character with animations]</span>). Sync: user position + rotation broadcast at 20Hz with interpolation on receivers (lag compensation). Chat: HTML overlay with per-user color, tied to a spatial audio zone (voices attenuate with distance). Presence: on join, other users see a spawn animation; on leave, a graceful fade. Rate-limiting and anti-abuse: max message rate, position sanity check server-side. Environment: <span class="bracket">[DESCRIBE the shared space]</span>. Deliverables: MultiplayerRoom.tsx, useRealtimePresence hook, ChatOverlay.tsx, useSpatialAudio hook, and a server-side moderation module.</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">Working multiplayer 3D. Presence feels alive. Chat is spatial. Anti-abuse baked in. Ready as a virtual event or coworking prototype.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with voice-chat via WebRTC and spatial audio panning</code> for full presence, or <code>with a host mode</code> where one user drives the camera and everyone else spectates.</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="games">
+    <div class="prompt-header"><div class="prompt-num">30</div><div class="prompt-title"><h3>First-person puzzle-exploration game</h3></div></div>
+    <p class="use-case">The Myst pattern. First-person, interactable objects, room-scale puzzles, atmospheric. Save state so users can return.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Build a first-person puzzle-exploration game in React Three Fiber. Setting: <span class="bracket">[DESCRIBE: e.g., abandoned observatory, quiet library, dreamlike garden]</span>. Controls: PointerLockControls for look, WASD for move, E to interact. Interactable objects: highlight on look, tooltip on hover, action on click. Puzzles: <span class="bracket">[COUNT and TYPES: e.g., 3 lock-and-key, 2 environmental, 1 audio-based]</span> with a state machine tracking progress. Environment audio: ambient loops per zone, one-shots for interactions. Save state: localStorage persists puzzle state, camera position, inventory. Aesthetic: <span class="bracket">[DESCRIBE, e.g., muted color, film grain, cinematic depth of field]</span>. Deliverables: PuzzleGame.tsx, puzzleStateMachine.ts, useInteractable hook, useSaveState hook, AudioZones.tsx.</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">Atmospheric first-person game. Puzzles have state. Save/resume works. Ready as an indie experience or brand narrative.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with LLM-driven NPC dialogue</code> that reacts to inventory and puzzle progress, or <code>with a photo mode</code> that lets users capture and share moments.</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+</section>
+
+<section class="category-section" data-category="generative">
+  <div class="category-header">
+    <div class="category-number">Category 07</div>
+    <h2>Generative Art &amp; Creative</h2>
+  </div>
+
+  <article class="prompt-card" data-category="generative">
+    <div class="prompt-header"><div class="prompt-num">31</div><div class="prompt-title"><h3>GPU particle system (millions)</h3></div></div>
+    <p class="use-case">Millions of particles, each with position, velocity, and life state, all computed on GPU. Aesthetic tool for hero moments, backgrounds, immersive installations.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Build a GPU-driven particle system in React Three Fiber. Target count: <span class="bracket">[1M-5M]</span> particles. Simulation: ping-pong render-target GPGPU pattern. Each particle stores position (x, y, z) and life (0-1) in floating-point textures. Behavior: <span class="bracket">[curl noise flow / attract-repel toward mouse / gravity wells at specific points / brand-shape morph]</span>. Rendering: Points mesh with a shader that reads position from the compute texture and displays with additive blending. Palette: <span class="bracket">[BRAND OR DATA-DRIVEN]</span>. Fallback for low-end devices: switch to a 100k CPU-simulated version. Deliverables: GPUParticles.tsx, ComputeShader.frag, simulate.frag with fully commented forces, and a device-tier detector.</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">Millions-particle system running at 60fps on modern GPUs. Behavior is data-driven and shader-controlled. Aesthetic tool for any hero.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with particles that form the brand logo at rest and disperse to noise on click</code>, or <code>with music-reactive forces</code> for VJ visuals.</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="generative">
+    <div class="prompt-header"><div class="prompt-num">32</div><div class="prompt-title"><h3>Custom shader art piece</h3></div></div>
+    <p class="use-case">Pure GLSL fragment shader as art. Ray marching, distance fields, or fractal-based. Runs on a fullscreen quad. Print-ready or web-native.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Create a custom shader art piece in React Three Fiber. Technique: <span class="bracket">[RAY MARCHING with signed distance fields / DOMAIN WARPING with noise / FRACTAL escape-time / VORONOI cells with jitter]</span>. Concept: <span class="bracket">[DESCRIBE: e.g., organic bioluminescent structures, geometric brutalist forms, atmospheric weather]</span>. Palette: <span class="bracket">[COLORS with weights]</span>. Time-driven animation. Optional mouse influence. Provide a fully commented fragment shader (setup, SDF or noise functions, ray march loop or domain calculation, palette mapping, lighting model, final tonemap). Include a leva panel for tuning every parameter (camera position, ray step count, palette shift, mouse strength, animation speed). Render on a single fullscreen plane. Target 60fps at 1080p on M1. Deliverables: ShaderArt.tsx, shader.frag, leva schema, and print-export module that renders at 8K resolution to canvas for social/print output.</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">Portfolio-quality shader art. Fully tunable. Exports at print resolution. One-quad performance.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with generative variants seeded from a URL parameter</code> for NFT-style unique pieces, or <code>with a time-of-day parameter that shifts palette and geometry</code>.</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="generative">
+    <div class="prompt-header"><div class="prompt-num">33</div><div class="prompt-title"><h3>Procedural noise world</h3></div></div>
+    <p class="use-case">A world generated entirely from noise: terrain, biomes, sky, weather, all procedural. Explorable in first-person or by fly-through camera.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Build a procedural noise world in React Three Fiber. Terrain: heightmap generated from layered noise (3-4 octaves of Perlin/Simplex). Biomes: assigned by combining elevation, moisture (second noise field), and temperature (latitude-based). Trees, rocks, grass: scattered by density textures, instanced for performance. Sky: procedural gradient + noise clouds. Time-of-day cycle: sun position, light color, and sky palette shift over <span class="bracket">[DURATION]</span> seconds. Weather: procedural rain or snow toggled by moisture. Explorable via <span class="bracket">[FIRST-PERSON WALK / FLY-THROUGH CAMERA / ORBIT AROUND]</span>. Seed-based generation so URLs can bookmark specific worlds. Deliverables: NoiseWorld.tsx, terrainGen.ts, biomeAssigner.ts, scatter.ts, skyShader.frag, and worldSeed.ts.</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">A full generative world. Every seed is a different place. Time-of-day. Biomes. Weather. Ready as an art piece, game world, or brand landscape.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with a photo-mode camera and export function</code> for shareable postcards, or <code>with points-of-interest that spawn based on the seed</code> for gamification.</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="generative">
+    <div class="prompt-header"><div class="prompt-num">34</div><div class="prompt-title"><h3>Algorithmic parametric sculpture</h3></div></div>
+    <p class="use-case">Code-driven 3D forms, tunable by parameters, exportable to STL/OBJ for 3D printing. Meant for generative-art releases, custom-object commissions, editorial pieces.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Build a parametric sculpture generator in React Three Fiber. Base form: <span class="bracket">[TORUS KNOT / MOEBIUS STRIP / L-SYSTEM TREE / VORONOI FOAM / CUSTOM MATH]</span>. Parameters exposed via leva: <span class="bracket">[LIST: e.g., knot p/q, twist, radius, tube count, subdivision]</span>. Real-time regeneration as parameters change. Material: <span class="bracket">[MATTE / METALLIC / GLASS / MULTI-MATERIAL SECTIONS]</span>. Studio lighting for form clarity. Camera slow auto-orbit. Export: STL and OBJ download buttons that trigger geometry-to-file conversion via three-stdlib exporters. Include a "seed URL" that encodes the current parameters so specific sculptures can be shared or reprinted. Deliverables: SculptureGen.tsx, geometryFactory.ts (parametric mesh construction), export utility, and a gallery of preset seeds.</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">Live parametric sculpture. Export to 3D print. Shareable seed URLs. Ready as a generative-art release or design commission tool.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with a marketplace layer where users mint their seed and sell prints</code>, or <code>with two forms that morph between each other over time</code> for animated pieces.</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="generative">
+    <div class="prompt-header"><div class="prompt-num">35</div><div class="prompt-title"><h3>Music-reactive visualization</h3></div></div>
+    <p class="use-case">Real-time visuals driven by audio input (microphone, uploaded file, or streaming). Shader-based. VJ tool or portfolio hero.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Build a music-reactive visualization in React Three Fiber. Audio source: <span class="bracket">[MICROPHONE / uploaded file / streaming URL / MIDI input]</span>. Analysis: Web Audio API AnalyserNode with FFT size <span class="bracket">[512 / 1024 / 2048]</span>. Mapping: low frequencies drive <span class="bracket">[SCALE / BLOOM INTENSITY / CAMERA SHAKE]</span>; mid frequencies drive <span class="bracket">[COLOR SHIFT / NOISE STRENGTH]</span>; high frequencies drive <span class="bracket">[PARTICLE COUNT / SHATTER]</span>. Visual style: <span class="bracket">[PARTICLE FIELD / SHADER ART / GEOMETRIC / MORPHING SCULPTURE]</span>. Beat detection (onset detection) triggers punchy events (screen flash, geometry flip, palette shift). Palette: <span class="bracket">[BRAND OR MOOD]</span>. Fullscreen mode for VJ use. Optional MIDI controller integration for real-time knob tweaking. Deliverables: MusicViz.tsx, useAudioAnalyser hook, beatDetect.ts, and controller-map.config.ts for MIDI.</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">Live music visualizer. Frequency-mapped. Beat-reactive. Fullscreen VJ mode. MIDI-optional. Portfolio-ready.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with multiple visual scenes that crossfade based on song section detection</code>, or <code>with a record-and-share function</code> that captures the visuals as a video file.</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+</section>
+
+<section class="category-section" data-category="xr">
+  <div class="category-header">
+    <div class="category-number">Category 08</div>
+    <h2>Immersive &amp; XR (VR/AR/WebXR)</h2>
+  </div>
+
+  <article class="prompt-card" data-category="xr">
+    <div class="prompt-header"><div class="prompt-num">36</div><div class="prompt-title"><h3>WebXR VR environment (Quest)</h3></div></div>
+    <p class="use-case">Full VR environment for Meta Quest and other WebXR headsets. Hand tracking or controllers, teleport locomotion, comfortable frame rate.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Build a WebXR VR environment in React Three Fiber using @react-three/xr. Target: Meta Quest 2/3, Vision Pro, any WebXR headset. Environment: <span class="bracket">[DESCRIBE: e.g., minimalist gallery, sci-fi lounge, forest clearing]</span>. Locomotion: teleport with controller trigger (default drei TeleportLocomotion) OR smooth locomotion with comfort options (snap turn, vignette). Interactions: hand tracking or controllers with grab, poke, ray. Interactable objects: <span class="bracket">[LIST]</span>, each with pinch-grab support. Performance: strict 90fps target (72fps floor), foveated rendering enabled, fixed foveation level 3. UI: 3D panels attached to wrist for menus. Deliverables: VRScene.tsx, useTeleport hook, grabbableObject wrapper, ComfortSettings.tsx panel.</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">Comfortable WebXR VR scene. Frame rate protected. Hand tracking works. Comfort options. Ready to publish to Meta Horizon Web or share as a URL.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with multiplayer via Colyseus for shared VR spaces</code>, or <code>with a desktop fallback that lets non-VR users spectate</code>.</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="xr">
+    <div class="prompt-header"><div class="prompt-num">37</div><div class="prompt-title"><h3>AR product placement (WebXR)</h3></div></div>
+    <p class="use-case">Cross-platform AR for placing any 3D object in the user's real space via phone camera. WebXR on Android, USDZ Quick Look fallback on iOS.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Build a cross-platform AR object placer for <span class="bracket">[OBJECT TYPE]</span> in React Three Fiber + @react-three/xr. Detection: WebXR hit-test for Android/Vision Pro. Placement flow: (1) tap "View in AR", (2) session starts, camera feed live, (3) reticle on detected surface, (4) tap to place at reticle, (5) two-finger drag to rotate, pinch to scale (with realistic scale as default). Shadow-only ground plane so the object casts a soft real shadow. iOS Safari fallback: server-side pipeline that converts the GLB to USDZ on-demand, response triggers Quick Look. Analytics: fire an event on placement + on save-to-cart. Deliverables: ARPlacer.tsx, ARControls.tsx overlay, usdz-server.ts (Node service that runs usdzconvert on GLBs), and analytics-events.md.</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">One prompt handles Android and iOS AR. Cart integration. Analytics. Ready for e-commerce or gallery use.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with room-scale multi-object placement and layout save</code>, or <code>with real-world lighting estimation</code> so the object matches ambient lighting.</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="xr">
+    <div class="prompt-header"><div class="prompt-num">38</div><div class="prompt-title"><h3>First-person virtual gallery</h3></div></div>
+    <p class="use-case">Walk-through space with artwork or products on walls, info panels, ambient audio. Meant for exhibitions, brand showrooms, art releases.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Build a first-person virtual gallery in React Three Fiber. Space: <span class="bracket">[DESCRIBE: e.g., white cube gallery, brand showroom, museum wing]</span> with <span class="bracket">[N]</span> rooms connected by openings. Controls: PointerLockControls + WASD, mobile-friendly virtual joystick fallback. Artwork: array of image planes on walls, each with a caption and detail overlay on click. Lighting: track lights above each artwork, subtle ambient. Ambient audio: room-based loops (each room has its own soundscape that fades in/out based on proximity). Optional guided tour mode: camera flies to each artwork in sequence with a narrated audio track. Analytics: track which artworks users linger at longest. Deliverables: Gallery.tsx, artworks.config.ts, useProximityAudio hook, GuidedTour.tsx, and analytics module.</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">Explorable gallery. Ambient audio zones. Guided-tour mode. Analytics tell you what people cared about. Ready as an exhibition or brand piece.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with multiplayer presence</code> so visitors see each other, or <code>with a docent AI</code> (LLM chat overlay tied to whatever artwork you're near).</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="xr">
+    <div class="prompt-header"><div class="prompt-num">39</div><div class="prompt-title"><h3>Virtual event space</h3></div></div>
+    <p class="use-case">3D space for hosted events: stage, audience, screens for slides or video. Multiplayer presence. Meant for product launches, community events, virtual conferences.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Build a virtual event space in React Three Fiber. Space: <span class="bracket">[DESCRIBE: e.g., open amphitheater, industrial warehouse, cozy roundtable]</span>. Stage with a screen for <span class="bracket">[HLS video stream / slide deck / live demo iframe]</span>. Audience seating with placeholders that fill with user avatars via multiplayer presence. Host controls (only for admins): mute all, spotlight a user, kick, next slide. Attendee actions: raise hand, reaction emotes (float up from the avatar), chat overlay. Backend: <span class="bracket">[Supabase Realtime / Colyseus / custom WebSocket]</span>. Spatial audio panning based on avatar position. Recording: hostable session records screen + audio (via MediaRecorder in the host's browser). Deliverables: EventSpace.tsx, useHostControls hook, useReactions hook, and a moderation guide.</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">Working virtual event space. Host + attendee tiers. Spatial audio. Reactions. Recording. Ready as a product launch venue.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with breakout rooms after the main event</code>, or <code>with sponsor booths</code> that hold promo content and lead capture forms.</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="xr">
+    <div class="prompt-header"><div class="prompt-num">40</div><div class="prompt-title"><h3>AI character in 3D world</h3></div></div>
+    <p class="use-case">An NPC in a 3D scene, powered by an LLM, spatial audio, gesture-reactive. Onboarding companion, guide, brand character, game NPC.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Build an AI-driven NPC in a Three.js scene. Character: rigged GLTF at <span class="bracket">[PATH]</span> with idle + speaking + gesture animations. LLM backend: <span class="bracket">[Claude / GPT / open-source]</span> via <span class="bracket">[direct API / Vercel AI SDK / local]</span> with a system prompt defining role, personality, and knowledge boundaries. Voice: <span class="bracket">[ElevenLabs streaming / OpenAI TTS / browser SpeechSynthesis]</span> with viseme sync driving mouth blendshapes. Input: text field OR mic (Web Speech API). Character has spatial audio; volume attenuates with camera distance. Gestures: LLM emits gesture tags in-line ([nod], [point-at-camera]) that trigger animation blends. Guardrails: system prompt refuses off-topic, moderation filter on user input. Deliverables: AICharacter.tsx, useLLMConversation hook, useLipSync hook, gestureMap.config.ts, guardrails.md.</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">Real-time AI NPC. Spatial audio. Lip-sync. Gestures. Guardrails. Ready as an onboarding guide, gallery docent, or game NPC.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with vision (character sees what the camera sees) via GPT-4o or Claude Sonnet</code>, or <code>with memory of past conversations</code> persisted per user via a small database.</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+</section>
+
+<section class="category-section" data-category="motion">
+  <div class="category-header">
+    <div class="category-number">Category 09</div>
+    <h2>Character, Motion &amp; Effects</h2>
+  </div>
+
+  <article class="prompt-card" data-category="motion">
+    <div class="prompt-header"><div class="prompt-num">41</div><div class="prompt-title"><h3>Rigged character with skeletal animation</h3></div></div>
+    <p class="use-case">Load a rigged character (Mixamo, custom Blender, or Ready Player Me), blend animations, respond to game state. The foundation piece for any character work.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Load and animate a rigged character in React Three Fiber. Model: GLB from <span class="bracket">[Mixamo / Ready Player Me / custom Blender export]</span>. Animations to include: <span class="bracket">[LIST: idle, walk, run, jump, wave, custom gesture]</span>. Use drei useAnimations for playback with cross-fade between clips (200-400ms). State machine: React state or zustand tracks current animation, transitions triggered by external events (game state, user click, LLM tag). Optional IK: adjust look-at target so head/eyes track the camera or a specified point via three-mesh-bvh IK. Optional morph targets: expose facial expression morphs via a small dev panel. Skin material: MeshStandardMaterial with subsurface OR MeshPhysicalMaterial with sheen depending on <span class="bracket">[STYLIZED / REALISTIC]</span>. Deliverables: Character.tsx, animationStateMachine.ts, useHeadTracking hook, and a Blender-to-GLB export checklist.</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">Character loads, blends animations, tracks look-at. Reusable across game, story, NPC, and avatar use cases.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with procedural secondary animation (hair, cloth) via Rapier soft-body</code>, or <code>with per-bone IK for arm-reach interactions</code>.</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="motion">
+    <div class="prompt-header"><div class="prompt-num">42</div><div class="prompt-title"><h3>Avatar customization system</h3></div></div>
+    <p class="use-case">Swap head, body, outfit, colors. Save the profile. Export a snapshot or a GLB for other apps. Meant for social platforms, games, virtual events.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Build an avatar customization system in React Three Fiber. Modular character: base rig with swappable parts (head, hair, top, bottom, shoes, accessories). Each swap is a separate GLB skinned to the same skeleton. Customization axes: <span class="bracket">[LIST: skin tone slider, hair style + color, outfit set, accessories]</span>. UI: category tabs on the left, options grid, live preview. Zustand store persists profile (localStorage default, backend optional via <span class="bracket">[Supabase]</span>). Export: (a) snapshot as PNG with brand watermark, (b) GLB with all selected parts merged and skinned via three-stdlib SkeletonUtils. Camera: preset front / three-quarter / back views. Aesthetic: <span class="bracket">[DESCRIBE STYLIZATION]</span>. Deliverables: AvatarBuilder.tsx, useAvatarStore.ts, mergeAvatar.ts (skeleton merge utility), snapshotExport.ts, glbExport.ts, and a part-authoring guide for Blender.</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">Full avatar builder. Persistent profiles. Export as image or GLB. Reusable across your platform.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with a Ready Player Me integration</code> for instant realistic avatars, or <code>with an unlock system tied to user achievements</code> for gamification.</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="motion">
+    <div class="prompt-header"><div class="prompt-num">43</div><div class="prompt-title"><h3>Cinematic camera choreography</h3></div></div>
+    <p class="use-case">Keyframed camera shots timed to events. Feels like a film cut, not a game camera. Meant for scripted moments, product reveals, in-game cutscenes.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Build a cinematic camera director in React Three Fiber. Shot list: array of <span class="bracket">[SHOT: {position, lookAt, fov, duration, easing, dof?}]</span>. Sequence plays on trigger (page load, scroll event, button, game state). Transitions: (a) smooth tween for dolly/pan feel, (b) hard cut for editorial impact, (c) crossfade with post-processing veil for style. Optional depth-of-field per shot (using @react-three/postprocessing DepthOfField with focus distance driven by lookAt distance). Camera shake on impact events. Optional letterbox bars during cinematic. Deliverables: CameraDirector.tsx, useShotSequence hook, shotList.config.ts schema, Letterbox.tsx overlay, and a shot-planning template.</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">Film-language camera. Shot list is data-driven. Smooth or cut transitions. DOF, shake, letterbox. Ready for cutscenes or product cinematics.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with scroll-driven shot progression</code> so the shot list plays as the user scrolls, or <code>with a shot preview tool</code> for creative directors to iterate on the shot list in-scene.</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="motion">
+    <div class="prompt-header"><div class="prompt-num">44</div><div class="prompt-title"><h3>Post-processing stack (bloom, DOF, CA, noise)</h3></div></div>
+    <p class="use-case">A tuned post-processing pipeline that makes the scene look cinematic without overdoing it. Brand-tuned bloom, focused DOF, subtle chromatic aberration, film grain.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Design and implement a post-processing stack for a Three.js scene in React Three Fiber using @react-three/postprocessing. Effects and order: (1) Selective Bloom (only emissive materials bloom, threshold <span class="bracket">[VALUE]</span>, intensity <span class="bracket">[VALUE]</span>), (2) Depth of Field (focus distance tied to camera lookAt, blur radius <span class="bracket">[VALUE]</span>, bokeh scale <span class="bracket">[VALUE]</span>), (3) Chromatic Aberration (offset <span class="bracket">[SMALL VALUE like 0.002]</span>), (4) Vignette (subtle edges darkening), (5) Noise/Film grain (opacity <span class="bracket">[0.05-0.1]</span>). Brand-specific tuning: bloom color tinted toward <span class="bracket">[BRAND ACCENT]</span> for emphasis on hero elements. Include a leva panel exposing all values for creative-director iteration. Mobile: disable DOF and reduce bloom sampling. Deliverables: PostFX.tsx, postFxTuning.leva.ts, and a mobile toggle.</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">Cinematic look. Selective bloom preserves scene contrast. DOF focuses attention. Brand-tinted. Mobile downgrade sensible.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with a photo-mode toggle</code> that ramps up DOF and disables noise for high-quality captures, or <code>with a color grading LUT</code> for a signature palette across all scenes.</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="motion">
+    <div class="prompt-header"><div class="prompt-num">45</div><div class="prompt-title"><h3>Weather and atmosphere</h3></div></div>
+    <p class="use-case">Fog, rain, snow, procedural clouds, time-of-day cycle. Layered atmospherics that make a scene feel alive.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Add weather and atmospheric effects to a Three.js scene in React Three Fiber. Effects: (1) Volumetric fog with distance falloff (drei fog OR custom shader for anisotropic scattering), (2) Precipitation as GPU particles (rain: streaks with velocity, snow: floating flakes with drift), (3) Procedural clouds (either drei Cloud OR ray-marched shader in the sky dome), (4) Time-of-day cycle: sun position over <span class="bracket">[REAL-TIME OR ACCELERATED]</span> with matching color/intensity + sky palette shift. Wind: global uniform that particles and cloth reference. State machine: weather transitions blended over 3-5s (fog rolls in, rain intensifies then eases). Deliverables: Weather.tsx, useWeatherState hook, particles-rain.frag, particles-snow.frag, sky-time.frag, and a weatherPresets.config.ts (clear, overcast, storm, snow).</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">Layered atmospherics. Weather transitions feel natural. Time-of-day supported. Presets for common conditions.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with lightning strikes on stormy weather</code> triggering camera shake + audio, or <code>with real-world weather API driving in-scene weather</code> for location-aware experiences.</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+</section>
+
+<section class="category-section" data-category="perf">
+  <div class="category-header">
+    <div class="category-number">Category 10</div>
+    <h2>Performance &amp; Deployment</h2>
+  </div>
+
+  <article class="prompt-card" data-category="perf">
+    <div class="prompt-header"><div class="prompt-num">46</div><div class="prompt-title"><h3>Mobile optimization pass</h3></div></div>
+    <p class="use-case">Take a working desktop scene and pass it through a mobile discipline: LOD swaps, texture size scaling, shader simplification, feature detection.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Run a mobile optimization pass on a Three.js scene in React Three Fiber. Current desktop performance: <span class="bracket">[FPS AT WHAT COMPLEXITY]</span>. Target: <span class="bracket">[FPS on TARGET DEVICE like iPhone 13, Pixel 7]</span>. Passes to apply: (1) LOD swap: models get low-poly versions at distance thresholds, drei Detailed component, (2) Texture atlas: merge small textures, KTX2 compress everything above 512x512, (3) Shader simplification: swap MeshPhysicalMaterial for MeshStandardMaterial where clearcoat/sheen not visible on mobile, remove sub-pixel details, (4) Post-processing simplification: disable DOF, reduce bloom samples, (5) Instancing pass: any repeated geometry (grass, particles, trees) becomes InstancedMesh, (6) DPR clamp: max devicePixelRatio 1.5 on mobile, (7) Feature detection: use useDetectGPU (@react-three/uikit or your own) to auto-tier. Deliverables: MobileOptim.md report with before/after fps, DeviceTier.tsx that provides adaptive quality props to the scene, and per-fix implementation snippets.</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">Documented mobile pass. Adaptive quality tiers. Meets target FPS on target device.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with a Lighthouse performance report</code> for the full page (not just the WebGL), or <code>with a low-power mode</code> that ships when device.battery is low.</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="perf">
+    <div class="prompt-header"><div class="prompt-num">47</div><div class="prompt-title"><h3>Instanced meshes at scale (10k-1M objects)</h3></div></div>
+    <p class="use-case">Draw ten thousand or a million similar objects (trees, buildings, particles, characters) at 60fps using InstancedMesh with per-instance color, matrix, and animation.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Build an InstancedMesh system for <span class="bracket">[OBJECT: e.g., trees, buildings, crowd, particles]</span> at count <span class="bracket">[N: 10k-1M]</span> in React Three Fiber. Base geometry: <span class="bracket">[MESH SOURCE]</span>. Per-instance data: position, rotation, scale, color (via instanceColor buffer), custom uniform (via instanceMatrix). Data source: <span class="bracket">[JSON / procedural generation / user placement]</span>. Frustum culling per-instance if count > 100k (compute visibility on CPU or GPU). Optional per-instance animation via a compute-in-shader pattern (vertex shader reads instance-attribute-driven time offset). Alternative: BatchedMesh (three r160+) if instances have different geometries. Include a leva panel to tune count for performance testing. Deliverables: InstancedField.tsx, instanceGenerator.ts, culling.ts, and a benchmark showing FPS at different counts.</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">Massive instance count at 60fps. Culling for scale. Per-instance color and animation. Benchmark-backed.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with LOD per instance</code> (near instances high-poly, far instances impostor billboards), or <code>with GPU-driven culling</code> for the ceiling of instance counts.</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="perf">
+    <div class="prompt-header"><div class="prompt-num">48</div><div class="prompt-title"><h3>Progressive loading with priority</h3></div></div>
+    <p class="use-case">Load the hero at 60fps immediately, everything else progressively. Skeleton state during load, priority-based asset fetch, no jank.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Build a progressive loading strategy for a Three.js scene in React Three Fiber. Assets: <span class="bracket">[LIST hero model, secondary models, textures, environment maps, audio]</span>. Priority tiers: (1) critical (loaded before first paint, blocks Suspense), (2) hero (loaded during initial Suspense fallback, ~2s target), (3) secondary (loaded async after hero renders, low-priority fetch), (4) on-demand (loaded when user approaches or interacts). Skeleton state: while critical loads, show a branded loading state (drei Loader OR custom). Hero fallback: low-poly OR compressed preview textures until high-quality versions arrive. Priority-based fetch: use fetch priority hints, dynamic imports, and useLoader with cache. Deliverables: LoadingOrchestrator.tsx, assets.priority.ts config, useProgressiveAsset hook, BrandLoader.tsx (skeleton state), and a loading-strategy.md doc.</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">Scene renders fast, upgrades progressively. No jank. Branded loading state. Priority-driven.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with service-worker asset caching</code> for repeat visits, or <code>with connection-aware quality tiers</code> that ship lighter assets on slow networks.</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="perf">
+    <div class="prompt-header"><div class="prompt-num">49</div><div class="prompt-title"><h3>KTX2 texture optimization</h3></div></div>
+    <p class="use-case">Compress all textures to KTX2 Basis so they load fast and use GPU-native compressed formats. Halve download size, halve VRAM, no quality loss.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Set up KTX2/Basis texture optimization for a Three.js project. Source textures: <span class="bracket">[LIST OR "all textures in public/textures"]</span>. Tool: gltf-transform CLI for GLB texture compression, or basisu CLI for standalone textures. Compression per texture type: color/albedo -> UASTC (higher quality), normal maps -> UASTC with normal-map flag, roughness/metalness -> ETC1S (smaller). Alpha handling: RGBA UASTC where transparency matters. Batch script that walks the assets directory and compresses everything, preserving folder structure. Runtime: KTX2Loader with transcoder wasm; loader auto-selects best GPU format at runtime. Report: before/after size, load time, VRAM. Deliverables: scripts/compress-textures.sh, ktx2-loader-setup.ts, before-after.md report, and a texture-authoring guide (source resolution, format choice, mip levels).</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">All textures compressed. Load time down. VRAM down. No visual difference. Reproducible batch script.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with resolution tiers per device</code> (2K desktop, 1K mobile) generated from the same source, or <code>with automated PR check</code> that compresses any new texture on merge.</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+
+  <article class="prompt-card" data-category="perf">
+    <div class="prompt-header"><div class="prompt-num">50</div><div class="prompt-title"><h3>Deployment pipeline (Vite + CDN + mobile-first)</h3></div></div>
+    <p class="use-case">Ship the site with a proper build pipeline: tree-shaking, CDN assets, cache strategy, mobile network profile, monitoring.</p>
+    <div class="prompt-body">
+      <div class="code-wrap"><button class="copy-btn">Copy</button><pre>Set up a production deployment pipeline for a Vite + R3F Three.js site. Steps: (1) Vite config: manualChunks to split three, @react-three vendor bundle from app code; asset inline threshold at 4KB; enable brotli+gzip pre-compression, (2) 3D assets on CDN: separate bucket (S3/R2/Cloudflare) for GLBs, KTX2 textures, HDRs; cache-control immutable + versioned filenames, (3) Preload critical assets: link rel=preload for hero model and HDR in index.html, (4) Runtime CDN URL rewriting: env-driven asset base URL so dev vs prod point at right buckets, (5) Deploy target: <span class="bracket">[Vercel / Netlify / Cloudflare Pages]</span> with edge middleware for device-tier detection, (6) Monitoring: Sentry for JS errors + WebGL context loss; a small perf beacon that reports first-frame timing to <span class="bracket">[ANALYTICS]</span>. Deliverables: vite.config.ts, deploy.yml, .env schema, asset-upload-to-cdn.sh, and a deployment-runbook.md.</pre></div>
+      <div class="field"><div class="field-label">What you get</div><div class="field-content muted">Production-grade deployment. Assets on CDN with proper caching. Monitoring in place. Repeatable for future projects.</div></div>
+      <div class="divider"></div>
+      <div class="field"><div class="field-label">Variation</div><div class="field-content muted">Add <code>with automatic KTX2 + Draco compression as a build step</code> so source assets stay authorable, or <code>with A/B quality-tier deploy</code> to compare high vs low quality perf/conversion in production.</div></div>
+      <div class="a11y-field"><div class="field-label">Accessibility &amp; hardening</div><div class="field-content muted">Append the <a href="#quality-contract">quality contract</a> block to this prompt. It is not covered by the text above and is what makes the result shippable.</div></div>
+    </div>
+  </article>
+</section>
+
+</div>
+
+<div id="no-results" class="no-results hidden">
+  No prompts match that search. Try a broader keyword or reset the filter.
+</div>
+
+<section class="patterns-card">
+  <div class="section-label">A few patterns worth knowing</div>
+  <h2>How to use this library well</h2>
+  <div class="patterns-list">
+    <div class="pattern-item">
+      <strong>Every prompt is opinionated. That is the point.</strong>
+      <p>Each prompt names a specific library for the job (rapier over cannon, R3F over vanilla for React projects, GSAP ScrollTrigger over lenis for cinematic scenes) instead of listing every option. If your team already standardized on something else, swap it. But defaulting to the recommendation gets you shipping faster because these libraries have shown up in real production Three.js work.</p>
+    </div>
+    <div class="pattern-item">
+      <strong>Fill in the brackets before you send.</strong>
+      <p>Brackets are placeholders for the specifics that make the prompt yours. A prompt with unfilled brackets produces generic output. A prompt where every bracket has a real answer (brand name, aesthetic reference, performance target, tool preference) produces work you can actually ship.</p>
+    </div>
+    <div class="pattern-item">
+      <strong>Set the performance target up front.</strong>
+      <p>Three.js quality drops off a cliff on the wrong device. Every prompt in this library has a bracket for the performance target (target device, target FPS, mobile fallback). Fill it in. The prompt output changes materially between "60fps on M1" and "30fps on mid-range Android." A prototype that runs beautifully on your MacBook and dies on a client's phone is worse than useful.</p>
+    </div>
+    <div class="pattern-item">
+      <strong>Combine prompts for compound work.</strong>
+      <p>Real Three.js projects are combinations. A brand landing page might use prompt 04 (lighting), 17 (particle field hero), 44 (post-processing stack), and 46 (mobile optimization) in one build. Chain them by naming the composition: "Apply prompt 04 for lighting, then prompt 17 for the hero, then prompt 44 for the post pass, all mobile-optimized per prompt 46."</p>
+    </div>
+    <div class="pattern-item">
+      <strong>Use the prompt as a brief, not a spec.</strong>
+      <p>These prompts work when you feed them to an AI coding assistant (Claude, Cursor, Windsurf), a developer, or an agency. The AI or human turns the brief into implementation. Do not expect the prompt to be the code. Expect it to be the clarity that makes the code good.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>Three.js Prompt Library</span>
+  <span>·</span>
+  <span>v1.0.0</span>
+  <span>·</span>
+  <span>50 prompts across 10 categories</span>
+</footer>
+
+</div>
+
+<script>
+(function() {
+  document.querySelectorAll('.copy-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var pre = btn.parentElement.querySelector('pre');
+      var text = pre.innerText;
+      navigator.clipboard.writeText(text).then(function() {
+        btn.textContent = 'Copied';
+        btn.classList.add('copied');
+        setTimeout(function() {
+          btn.textContent = 'Copy';
+          btn.classList.remove('copied');
+        }, 1400);
+      }).catch(function() {
+        var range = document.createRange();
+        range.selectNode(pre);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+        try { document.execCommand('copy'); btn.textContent = 'Copied'; btn.classList.add('copied'); }
+        catch (e) { btn.textContent = 'Error'; }
+        window.getSelection().removeAllRanges();
+        setTimeout(function() { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1400);
+      });
+    });
+  });
+
+  var searchBox = document.getElementById('search');
+  var noResults = document.getElementById('no-results');
+  var cards = document.querySelectorAll('.prompt-card');
+  var sections = document.querySelectorAll('.category-section');
+  var activeCategory = 'all';
+
+  function filter() {
+    var q = searchBox.value.toLowerCase().trim();
+    var visibleCount = 0;
+    cards.forEach(function(card) {
+      var text = card.innerText.toLowerCase();
+      var cardCategory = card.dataset.category;
+      var matchesSearch = !q || text.indexOf(q) !== -1;
+      var matchesCategory = activeCategory === 'all' || cardCategory === activeCategory;
+      var visible = matchesSearch && matchesCategory;
+      card.classList.toggle('hidden', !visible);
+      if (visible) visibleCount++;
+    });
+    sections.forEach(function(section) {
+      var sectionCategory = section.dataset.category;
+      var matchesCategory = activeCategory === 'all' || sectionCategory === activeCategory;
+      var visibleCardsInSection = section.querySelectorAll('.prompt-card:not(.hidden)').length;
+      section.classList.toggle('hidden', !matchesCategory || visibleCardsInSection === 0);
+    });
+    noResults.classList.toggle('hidden', visibleCount > 0);
+  }
+
+  searchBox.addEventListener('input', filter);
+  document.querySelectorAll('.pill').forEach(function(pill) {
+    pill.addEventListener('click', function() {
+      document.querySelectorAll('.pill').forEach(function(p) { p.classList.remove('active'); });
+      pill.classList.add('active');
+      activeCategory = pill.dataset.category;
+      filter();
+    });
+  });
+})();
+</script>
+</body>
+</html>

@@ -320,7 +320,7 @@ When the experience launch IS the experience (immersive activation, generative i
 
 During Innovation Accelerator Stage 4, Gandalf may pull Gibson for experience prototype work as part of the synthesis. This is rare but documented.
 
-## Skill Roster (32 routed via Gibson)
+## Skill Roster (34 routed via Gibson)
 
 ### Experience engineering (8)
 
@@ -368,7 +368,7 @@ Shared-skill ownership with Snape: Snape claims when the context is brand identi
 
 These three live physically in `skills/workshop/` (Kevin authored-skill home) but route to Gibson, not Gandalf. game-studio depends on the Higgsfield MCP (ACTIVE).
 
-### Three.js implementation (10, Kevin-authored, routed to Gibson)
+### Three.js implementation and hardening (12, Kevin-authored, routed to Gibson)
 
 | Skill | Source | Purpose |
 |-------|--------|---------|
@@ -382,8 +382,10 @@ These three live physically in `skills/workshop/` (Kevin authored-skill home) bu
 | threejs-shaders | kevin-authored (workshop folder) | GLSL, ShaderMaterial, uniforms, extending built-in materials |
 | threejs-postprocessing | kevin-authored (workshop folder) | EffectComposer, bloom, depth of field, custom screen passes |
 | threejs-interaction | kevin-authored (workshop folder) | Raycasting, camera controls, pointer input, object selection |
+| threejs-production-hardening | kevin-authored (workshop folder) | GPU teardown, context loss, visibility gating, DPR caps, reduced motion, React host lifecycle |
+| threeui-catalog | kevin-authored (workshop folder) | 43 MIT ThreeUI Community components, licence terms, and the three-version Three.js trap |
 
-These ten live physically in `skills/workshop/` (Kevin authored-skill home) but route to Gibson, not Gandalf. They are the API-level layer underneath `webgl-threejs` and `3d-experience-design`: reach for them when writing actual Three.js code, since they carry constructor signatures, `three/addons/` import paths, and audited examples (r160+). The higher-level skills still own the concept and pipeline decisions. Source repo: https://github.com/MavenSix/threejs-skills
+These twelve live physically in `skills/workshop/` (Kevin authored-skill home) but route to Gibson, not Gandalf. They are the API-level layer underneath `webgl-threejs` and `3d-experience-design`: reach for them when writing actual Three.js code, since they carry constructor signatures, `three/addons/` import paths, and audited examples (r160+). The higher-level skills still own the concept and pipeline decisions. Source repo: https://github.com/MavenSix/threejs-skills
 
 ## Memory Access
 

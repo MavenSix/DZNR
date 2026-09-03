@@ -7,6 +7,104 @@ All notable changes to DZNR are documented here. Versioning follows the EVOLUTIO
 
 ---
 
+## [2.3.0] - 2026-09-03
+
+### Added: Full plugin skill audit closes a 75-skill Snake Eyes gap
+
+Kevin called out that DZNR was missing large swaths of his installed plugin skills. He was right. The v2.2.0 audit only closed 8 gaps; a proper enumeration of the Cowork ambient session reminders showed four entire plugin families installed but unmapped. This release adds them all to Snake Eyes.
+
+**Newly added Snake Eyes clusters:**
+
+- **Small Business (31 skills):** business-pulse, call-list, canva-creator, cash-flow-snapshot, close-month, content-strategy, contract-review, crm-cleanup, crm-maintenance, customer-pulse, customer-pulse-check, friday-brief, handle-complaint, invoice-chase, job-post-builder, lead-triage, margin-analyzer, monday-brief, month-end-prep, month-heads-up, plan-payroll, price-check, quarterly-review, review-contract, run-campaign, sales-brief, smb-onboard, smb-router, tax-prep, tax-season-organizer, ticket-deflector. For running a small business end to end. Uses QuickBooks, PayPal, Stripe, HubSpot connectors when authorized.
+
+- **Canva (6 skills):** brand-check, bulk-create, edit-design, get-design-feedback, implement-feedback, resize-for-social-media. Read-only feedback plus safe editing on Canva designs via the Canva MCP.
+
+- **Finance (8 skills):** audit-support, close-management, financial-statements, journal-entry, journal-entry-prep, reconciliation, sox-testing, variance-analysis. Journal entries, reconciliations, financial statements, SOX 404. Parked until an engagement requires it.
+
+- **Unity (30 skills):** 2d-pixel-perfect, audio-setup-mixers, build-live-game, implement-in-app-purchases, initialize-ai-navigation, levelplay-unity-integration, localization, manage-sprite-atlas, new-unity-project, optimize-audio, optimize-text-mesh-pro, optimize-web, physics-3d-collision, setup-multiplayer-services, setup-vivox-voice-chat, shader-graph-create-custom-node, sprite-editor, sprite-segment-3x3grid, tilemap-palette-create, tilemap-ruletile-createempty, tilemap-ruletile-createfromsegment, ui, ui-imgui, ui-ugui, ui-uitk, unity-cli, unity-package-management, urp-postprocessing, validate-urp-render-graph-renderer-feature. Full Unity game engine specialist toolkit. Off-vertical for design practice, on-domain when the game-studio workshop skill leads into Unity work.
+
+- **PDF Tools (6 skills):** annotate, fill-form, open, sign, view-pdf, plus the pdf-viewer MCP tools. Was already in routing/mcps/ as an MCP spec but skills themselves were undocumented in the roster.
+
+**Snake Eyes arsenal count:** ~55 (v2.2.0) to ~141 (v2.3.0). Doubled and then some. Eleven clusters plus Other/Misc.
+
+**Grand total DZNR skill coverage:** ~300+ skills across active routing (167) and parked arsenal (141).
+
+**Em-dash cleanup:** removed em-dashes from all existing Snake Eyes cluster headers as part of the update. All new content adheres to the no-em-dash rule.
+
+### Rationale
+
+Kevin's DZNR OS build plan requires DZNR to reach every skill in his Claude installation. If a skill is installed but not routed to Snake Eyes (which is the correct parking spot for specialist arsenals like Unity, Small Business, Finance), DZNR cannot dispatch it. This audit closes the actual gap by systematically enumerating every plugin family visible in Cowork's session context and adding them to the appropriate cluster.
+
+**Maintenance pattern to codify:** whenever a new plugin is installed OR a plugin family adds skills, re-run the audit. In DZNR OS, this should be automated via the skill-maintenance loop planned in Phase 6.
+
+### What is still parked and not yet audited
+
+- **Plugin MCP connectors:** many MCP servers (auth-required and self-hosted) are documented in `routing/mcps/*.md` but the mapping between MCP tools and Snake Eyes clusters is thin. v2.4.0 will do a connector audit.
+- **User-authored skills:** any skills Kevin has authored in `~/.claude/skills/` that are NOT in the workshop symlink to DZNR. Kevin should confirm these exist; if so, v2.4.0 will incorporate.
+
+### Validation
+
+- `scripts/validate-routing.sh` passes
+- `claude plugin validate` passes with zero warnings
+- Em-dash sweep clean across new content AND retroactively across Snake Eyes cluster headers
+- Every added skill confirmed present in the session's ambient system reminders
+
+### Notes
+
+- Kevin correctly pushed back on the v2.2.0 "8 skills closed" being called comprehensive when it was cursory. This release is the actual comprehensive audit.
+- Partnership > placation. Log this as a pattern lesson.
+
+---
+
+## [2.2.0] - 2026-09-03
+
+### Added: Full skill roster audit closes eight plugin-skill gaps
+
+Comprehensive audit of Kevin's plugin skill inventory revealed eight skills that were installed on his machine and available in Cowork but not mapped into DZNR's routing. Adding them so every skill in Kevin's Claude installation is reachable through the DZNR agent layer.
+
+**Newly routed plugin skills:**
+
+- **Tár (10 skills, up from 8):**
+  - `import-memory` (anthropic-skills): import a memory export from another AI assistant (Cursor, ChatGPT, etc.) into Claude's memory
+  - `explain-usage` (anthropic-skills): explain where the session's tokens went with a plain-language chart
+
+- **Sherlock (24 skills, up from 22):**
+  - `learn` (anthropic-skills): teaching, explaining, walking through concepts (fits Sherlock's research and synthesis territory)
+  - `morning` (anthropic-skills): daily briefing render as styled HTML artifact (fits Sherlock's daily-briefing-as-synthesis pattern)
+
+- **Snape (33 skills, up from 32):**
+  - `figma-use-motion` (figma plugin): authoring motion in Figma directly via the plugin API (design-side)
+
+- **Neo (26 skills, up from 24):**
+  - `figma-implement-motion` (figma plugin): implementing motion from a Figma design as production code (code-side companion to Snape's figma-use-motion)
+  - `figma-swiftui` (figma plugin): Figma to SwiftUI translation (both directions), specific to iOS delivery work
+
+- **Snake Eyes Adobe cluster (7 skills, up from 6):**
+  - `adobe-create-pdfs-from-data` (adobe-for-creativity plugin): InDesign data merge from CSV or TSV plus an .indd template. Perfect for visiting cards, certificates, badges, catalogs, mailers, invoices.
+
+**Workshop skill roster verification:** all 60 workshop skills on disk are accounted for. 44 route to Gandalf (unchanged); 15 route to Gibson (12 Three.js implementation family, 2 Seedance media, 1 game-studio). Gibson's roster shows 34 total (verified during v2.0.0 already, cast table already accurate).
+
+**Cast table skill counts updated:** Tár 8 to 10, Sherlock 22 to 24, Snape 32 to 33, Neo 24 to 26. Gibson 34 confirmed. Snake Eyes count remains ~55 (Adobe cluster grew by 1).
+
+### Rationale
+
+Kevin's DZNR OS build plan (in preparation at `~/Documents/DZNR EXPERIMENTS/DZNR_OS_BUILD_PLAN.md`) depends on DZNR being able to reach every skill in Kevin's Claude installation. If a skill is installed but not routed, it cannot be dispatched through Tár's normal flow. This audit closes the gap and establishes a maintenance pattern: whenever plugins update or new plugins install, re-run the routing audit.
+
+### Validation
+
+- `scripts/validate-routing.sh` passes
+- `claude plugin validate` passes with zero warnings (README frontmatter cleanup landed in v1.13.7)
+- Em-dash sweep clean across all new content
+- Every added skill verified to exist in Kevin's installation
+
+### Notes
+
+- No architectural change. This is a routing-coverage patch.
+- Adopters who fork DZNR should run a similar audit against their own plugin set.
+- The audit pattern should become part of DZNR OS's maintenance loop when the OS ships.
+
+---
+
 ## [2.1.0] - 2026-07-01
 
 ### Added - Prototype Prerequisites Rule (persona + journey required before any prototype build)

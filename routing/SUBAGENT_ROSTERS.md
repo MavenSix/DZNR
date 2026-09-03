@@ -10,19 +10,20 @@
 
 | Character | Subagent | Domain | Skill count |
 |-----------|----------|--------|-------------|
-| **Tár** | Orchestrator | Routing, memory, tempo | 8 |
-| **Snape** | Brand & Design Systems + Clarifier | Identity + visual scaffolding. Also voices Tár's clarifications. | 32 |
-| **Sherlock** | Discovery & Research | Reading the world, finding patterns | 22 |
+| **Tár** | Orchestrator | Routing, memory, tempo | 10 |
+| **Snape** | Brand & Design Systems + Clarifier | Identity + visual scaffolding. Also voices Tár's clarifications. | 33 |
+| **Sherlock** | Discovery & Research | Reading the world, finding patterns | 24 |
 | **Gibson** | Experience Engineering + AI Product | Immersive, 3D, spatial, AI-driven futures | 34 |
-| **Neo** | Delivery & Code | Specs, components, ship it | 24 |
+| **Neo** | Delivery & Code | Specs, components, ship it | 26 |
 | **Morpheus** | Pitch & Story | Present, persuade, narrate | 19 |
 | **Gandalf** | Workshop (peer + tool + orchestrator) | Kevin's personal craft + Innovation Accelerator pack. Called by Tár OR by other subagents. Orchestrates other subagents for IA (documented exception). | 44 |
 | **Cheetara** | QKI Worldbuilding | Aesthetic-first serialized-world asset generation. Engine + three generators + manifest contract. Prime Gate enforced. Coordinates MidJourney, Higgsfield, Weavy, Blender MCP. | 4 |
-| **Snake Eyes** | Parked specialist arsenal | Silent. Deployed by name. Soft-routed for SEO. | ~55 |
+| **Snake Eyes** | Parked specialist arsenal | Silent. Deployed by name. Soft-routed for SEO. Twelve clusters plus Other/Misc. | ~141 |
 
-**Total skills routed through DZNR (Tár → 6 active subagents):** ~165
-**Total skills in Snake Eyes' arsenal (parked, callable by name):** ~55
-**Total skills in Gandalf's workshop:** 38 (already counted in 162 above)
+**Total skills routed through DZNR (Tár to 8 active subagents including Cheetara):** ~167
+**Total skills in Snake Eyes' arsenal (parked, callable by name):** ~141
+**Total skills in Gandalf's workshop:** 44 (already counted in the active total above)
+**Grand total available across DZNR (active + parked, minus duplicates):** ~300+
 
 ---
 
@@ -36,14 +37,16 @@
 
 | Skill | Source | Purpose |
 |-------|--------|---------|
-| orchestrator | anthropic-skills | The routing brain — checks memory, proposes skill chains |
+| orchestrator | anthropic-skills | The routing brain: checks memory, proposes skill chains |
 | memory-management | productivity | Two-tier memory system for context across conversations |
 | consolidate-memory | anthropic-skills | Reflective pass over memory files, merge duplicates |
+| import-memory | anthropic-skills | Import a memory export from another AI assistant (Cursor, ChatGPT, etc.) into Claude's memory |
 | task-management | productivity | TASKS.md tracking commitments |
 | update | productivity | Sync tasks and refresh memory |
 | productivity-start | productivity (renamed) | Initialize the productivity dashboard |
 | schedule | anthropic-skills | Create scheduled tasks |
 | setup-cowork | anthropic-skills | Guided Cowork setup |
+| explain-usage | anthropic-skills | Explain where the session's tokens went with a plain-language chart |
 
 **Trigger keywords:** every user request goes through Tár first. She decides whether to handle it herself or delegate.
 
@@ -89,7 +92,7 @@
 | svg-generative | anthropic-skills |
 | algorithmic-art | anthropic-skills |
 
-### Figma Integration (8)
+### Figma Integration (9)
 | Skill | Source |
 |-------|--------|
 | figma-use | figma plugin |
@@ -99,6 +102,7 @@
 | figma-generate-diagram | figma plugin |
 | figma-generate-library | figma plugin |
 | figma-code-connect | figma plugin |
+| figma-use-motion | figma plugin |
 | generate-project-plan | figma plugin (workflow) |
 
 **Workshop skills Snape commonly CALLS Gandalf for:**
@@ -118,7 +122,7 @@ frontend-design, design-taste-frontend, ui-ux-pro-max, high-end-visual-design, s
 
 **Skills (22 total):**
 
-### Discovery & Brief (6)
+### Discovery & Brief (8)
 | Skill | Source |
 |-------|--------|
 | idea-to-brief | anthropic-skills |
@@ -127,6 +131,8 @@ frontend-design, design-taste-frontend, ui-ux-pro-max, high-end-visual-design, s
 | ux-taxonomy | anthropic-skills |
 | hcd-heuristics | anthropic-skills |
 | hcd-ai-design | anthropic-skills |
+| learn | anthropic-skills |
+| morning | anthropic-skills |
 
 ### Research & Synthesis (8)
 | Skill | Source |
@@ -274,10 +280,12 @@ image-to-code, imagegen-frontend-web, imagegen-frontend-mobile, animate, delight
 | standup | engineering plugin |
 | incident-response | engineering plugin |
 
-### Code Connection (1)
+### Code Connection & Figma-to-Code (3)
 | Skill | Source |
 |-------|--------|
 | figma-code-connect | figma plugin (shared with Snape) |
+| figma-implement-motion | figma plugin |
+| figma-swiftui | figma plugin |
 
 ### Workshop remediation skills Neo CALLS Gandalf for
 | Skill | Owner |
@@ -487,34 +495,61 @@ design-taste-frontend, gpt-taste, high-end-visual-design, critique
 
 ---
 
-## Snake Eyes — Specialist Arsenal (parked, not auto-routed by Tár)
+## Snake Eyes: Specialist Arsenal (parked, not auto-routed by Tár)
 
-**Archetype:** Silent operator. Master of every weapon in the case. Doesn't speak — gets deployed when the situation calls for the exact, precise tool. Never the default, always the specialist.
+**Archetype:** Silent operator. Master of every weapon in the case. Does not speak. Gets deployed when the situation calls for the exact, precise tool. Never the default, always the specialist.
 
-**Role:** These skills stay installed and explicitly callable, but Tár doesn't route to them automatically. They live in a separate roster because they're either off-domain (bio-research), require deliberate invocation (legal, telemetry), or are coherent specialist toolkits that the user calls directly by name. Snake Eyes is summoned by name, never assumed.
+**Role:** These skills stay installed and explicitly callable, but Tár does not route to them automatically. They live in a separate roster because they are either off-domain (bio-research), require deliberate invocation (legal, telemetry, finance), off-vertical for Kevin's design practice (unity, small-business), or coherent specialist toolkits that the user calls directly by name. Snake Eyes is summoned by name, never assumed.
 
-### Bio Research (6) — off-domain for Kevin
+**Total Snake Eyes arsenal:** ~141 skills across 12 clusters (Bio Research, Legal, Product Tracking, Operations, Adobe for Creativity, SearchFit SEO, Data, Small Business, Canva, Finance, Unity, PDF Tools) plus Other/Misc.
+
+### Bio Research (6): off-domain for Kevin
 instrument-data-to-allotrope, nextflow-development, scientific-problem-selection, scvi-tools, single-cell-rna-qc, bio-research-start
 
-### Legal (9) — separate concern
+### Legal (9): separate concern
 brief, compliance-check, legal-response, legal-risk-assessment, meeting-briefing, review-contract, signature-request, triage-nda, vendor-check
 
-### Product Tracking (7) — telemetry/analytics, call explicitly
+### Product Tracking (7): telemetry and analytics, call explicitly
 product-tracking-audit-current-tracking, product-tracking-business-case, product-tracking-design-tracking-plan, product-tracking-generate-implementation-guide, product-tracking-implement-tracking, product-tracking-instrument-new-feature, product-tracking-model-product
 
-### Operations (9) — process/compliance ops
+### Operations (9): process and compliance ops
 capacity-plan, change-request, compliance-tracking, process-doc, process-optimization, risk-assessment, runbook, vendor-review, status-report (shared with Morpheus)
 
-### Adobe for Creativity (6) — Adobe-specific tooling
-adobe-batch-edit-photos, adobe-create-social-variations, adobe-design-from-template, adobe-edit-quick-cut, adobe-resize-photos-and-videos, adobe-retouch-portraits
+### Adobe for Creativity (7): Adobe-specific tooling
+adobe-batch-edit-photos, adobe-create-pdfs-from-data, adobe-create-social-variations, adobe-design-from-template, adobe-edit-quick-cut, adobe-resize-photos-and-videos, adobe-retouch-portraits
 
-### SearchFit SEO (11) — coherent SEO toolkit
+### SearchFit SEO (11): coherent SEO toolkit
 ai-visibility, broken-links, content-brief, content-strategy, content-translation, internal-linking, keyword-clustering, on-page-seo, schema-markup, seo-audit (searchfit version), technical-seo
 
-### Data (10) — analytics-specific
+### Data (10): analytics-specific
 analyze, build-dashboard, create-viz, data-context-extractor, data-visualization, explore-data, sql-queries, statistical-analysis, validate-data, write-query
 
-### Other / Misc
+### Small Business (31): SMB operations toolkit (added v2.3.0)
+For running a small business end to end: cash flow, invoicing, payroll, CRM, customer support, marketing, taxes. Uses connectors like QuickBooks, PayPal, Stripe, HubSpot when they are authorized.
+
+business-pulse, call-list, canva-creator, cash-flow-snapshot, close-month, content-strategy (SMB version), contract-review (SMB version), crm-cleanup, crm-maintenance, customer-pulse, customer-pulse-check, friday-brief, handle-complaint, invoice-chase, job-post-builder, lead-triage, margin-analyzer, monday-brief, month-end-prep, month-heads-up, plan-payroll, price-check, quarterly-review, review-contract (SMB version), run-campaign, sales-brief, smb-onboard, smb-router, tax-prep, tax-season-organizer, ticket-deflector
+
+### Canva (6): design workflow inside Canva (added v2.3.0)
+Read-only feedback plus safe editing on Canva designs. Uses the Canva MCP.
+
+brand-check, bulk-create, edit-design, get-design-feedback, implement-feedback, resize-for-social-media
+
+### Finance (8): accounting and SOX close (added v2.3.0)
+For journal entries, reconciliations, financial statements, SOX 404 testing. Not needed for Kevin's core design practice; parked until an engagement requires it.
+
+audit-support, close-management, financial-statements, journal-entry, journal-entry-prep, reconciliation, sox-testing, variance-analysis
+
+### Unity (30): Unity game engine specialist toolkit (added v2.3.0)
+Unity-specific development. Covers 2D pixel-perfect, audio mixers, IAP, ads mediation, localization, sprite atlases, physics, multiplayer services, Vivox voice chat, shader graph, TMP text, WebGL builds, tilemaps, UI systems (uGUI, IMGUI, UI Toolkit), Unity CLI, URP postprocessing. Off-vertical for design practice; on-domain if a client engagement targets Unity or if the game-studio workshop skill leads into a Unity project.
+
+2d-pixel-perfect, audio-setup-mixers, build-live-game, implement-in-app-purchases, initialize-ai-navigation, levelplay-unity-integration, localization, manage-sprite-atlas, new-unity-project, optimize-audio, optimize-text-mesh-pro, optimize-web, physics-3d-collision, setup-multiplayer-services, setup-vivox-voice-chat, shader-graph-create-custom-node, sprite-editor, sprite-segment-3x3grid, tilemap-palette-create, tilemap-ruletile-createempty, tilemap-ruletile-createfromsegment, ui, ui-imgui, ui-ugui, ui-uitk, unity-cli, unity-package-management, urp-postprocessing, validate-urp-render-graph-renderer-feature
+
+### PDF Tools (6): PDF fill, sign, merge, split, extract (added v2.3.0)
+Handled by the pdf-viewer plugin's MCP. Full document workflow.
+
+annotate, fill-form, open, sign, view-pdf, plus the pdf-viewer MCP tools (display_pdf, interact, list_pdfs)
+
+### Other and Misc
 schedule (handled by Tár), setup-cowork (handled by Tár), cowork-plugin-customizer, create-cowork-plugin
 
 ---

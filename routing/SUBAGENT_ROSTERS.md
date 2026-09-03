@@ -27,7 +27,7 @@
 
 ---
 
-## Tár — Orchestrator
+## Tár: Orchestrator
 
 **Archetype:** Lydia Tár, the conductor. Commands tempo. Decides who plays when. The brain that holds the score in her head and signals the entrance.
 
@@ -52,11 +52,11 @@
 
 ---
 
-## Snape — Brand & Design Systems
+## Snape: Brand & Design Systems
 
 **Archetype:** Master of dark arts. Precision under pressure. The alchemist who mixes exact proportions of voice, identity, and visual scaffolding into something that feels both classical and modern.
 
-**Role:** Owns everything related to how a brand looks, sounds, and behaves — from raw identity creation to component-level design system architecture. Handles brand voice, design tokens, themes, and the visual language scaffolding that the rest of the team builds on top of.
+**Role:** Owns everything related to how a brand looks, sounds, and behaves: from raw identity creation to component-level design system architecture. Handles brand voice, design tokens, themes, and the visual language scaffolding that the rest of the team builds on top of.
 
 **Skills (32 total):**
 
@@ -108,17 +108,17 @@
 **Workshop skills Snape commonly CALLS Gandalf for:**
 frontend-design, design-taste-frontend, ui-ux-pro-max, high-end-visual-design, stitch-design-taste, gpt-taste, baseline-ui, industrial-brutalist-ui, minimalist-ui, typeset, colorize, bolder, brandkit, polish, redesign-existing-projects
 
-(These belong to Gandalf's roster — Snape pulls Gandalf in when needed.)
+(These belong to Gandalf's roster: Snape pulls Gandalf in when needed.)
 
 **Trigger keywords:** brand, identity, voice, tone, design system, components, tokens, theme, visual language, Figma, audit a design, design language, brand voice, brand-from-scratch.
 
 ---
 
-## Sherlock — Discovery & Research
+## Sherlock: Discovery & Research
 
 **Archetype:** Observation. Deduction. Sees the patterns others miss. Reads the room before speaking. Gathers evidence before opining.
 
-**Role:** Owns the input side of any project: research, audits, competitive analysis, user understanding, opportunity mapping. Sherlock arrives first, scopes the problem, surfaces the truths, and hands findings to the right subagent. Never builds — only investigates and synthesizes.
+**Role:** Owns the input side of any project: research, audits, competitive analysis, user understanding, opportunity mapping. Sherlock arrives first, scopes the problem, surfaces the truths, and hands findings to the right subagent. Never builds: only investigates and synthesizes.
 
 **Skills (22 total):**
 
@@ -165,17 +165,17 @@ frontend-design, design-taste-frontend, ui-ux-pro-max, high-end-visual-design, s
 **Workshop skills Sherlock commonly CALLS Gandalf for:**
 critique, audit, distill, extract, clarify, normalize
 
-(These belong to Gandalf's roster — Sherlock pulls Gandalf in when needed.)
+(These belong to Gandalf's roster: Sherlock pulls Gandalf in when needed.)
 
 **Trigger keywords:** research, audit, discover, find, investigate, understand, who is, what do users want, competitive, opportunity, brief, idea-to-brief, journey map, persona, synthesize, search.
 
 ---
 
-## Gibson — Experience Engineering & AI Product
+## Gibson: Experience Engineering & AI Product
 
-**Archetype:** William Gibson. Sees the near-future already arriving. Builds the speculative thing that pulls reality forward. Cyberpunk pragmatist — equally at home with shaders and system prompts.
+**Archetype:** William Gibson. Sees the near-future already arriving. Builds the speculative thing that pulls reality forward. Cyberpunk pragmatist: equally at home with shaders and system prompts.
 
-**Role:** Owns immersive experience design, 3D, generative visuals, AI product architecture, and the AI-driven outputs that live inside experiences. Gibson handles everything where the medium is the message — where the experience itself is the product. Bridges the imagination side (immersive narrative) with the engineering side (AI architecture).
+**Role:** Owns immersive experience design, 3D, generative visuals, AI product architecture, and the AI-driven outputs that live inside experiences. Gibson handles everything where the medium is the message: where the experience itself is the product. Bridges the imagination side (immersive narrative) with the engineering side (AI architecture).
 
 **Skills (34 total):**
 
@@ -240,15 +240,15 @@ These twelve are Kevin-authored skills physically in `skills/workshop/` but rout
 **Workshop skills Gibson commonly CALLS Gandalf for:**
 image-to-code, imagegen-frontend-web, imagegen-frontend-mobile, animate, delight, overdrive, full-output-enforcement
 
-(These belong to Gandalf's roster — Gibson pulls Gandalf in when needed.)
+(These belong to Gandalf's roster: Gibson pulls Gandalf in when needed.)
 
 **Trigger keywords:** immersive, 3D, experience, world-building, AI product, agent, system prompt, generative, shader, three.js, WebGL, narrative arc, real-time, interactive installation, near-future, AI character, NPC, Seedance, video prompt, shotlist, game studio, build a game, browser game, GLTF, GLB, Draco, raycasting, orbit controls, post-processing, bloom, EffectComposer, BufferGeometry, instancing, PBR material, environment map, HDRI.
 
-**Note:** Some skills (theme-factory, svg-generative, algorithmic-art, canvas-design, journey-mapping) are shared between Snape and Gibson. Tár routes based on context — if the work is about brand identity, Snape gets it. If it's about an immersive/AI experience, Gibson gets it.
+**Note:** Some skills (theme-factory, svg-generative, algorithmic-art, canvas-design, journey-mapping) are shared between Snape and Gibson. Tár routes based on context: if the work is about brand identity, Snape gets it. If it's about an immersive/AI experience, Gibson gets it.
 
 ---
 
-## Neo — Delivery & Code
+## Neo: Delivery & Code
 
 **Archetype:** The one who sees the code. Bends reality through implementation. The "make it real" subagent that turns specs into shipping software.
 
@@ -298,15 +298,15 @@ image-to-code, imagegen-frontend-web, imagegen-frontend-mobile, animate, delight
 | fixing-motion-performance | Gandalf |
 | adapt | Gandalf |
 
-(These belong to Gandalf's roster — Neo pulls Gandalf in mid-work.)
+(These belong to Gandalf's roster: Neo pulls Gandalf in mid-work.)
 
 **Trigger keywords:** code, build, scaffold, spec, generate component, XM Cloud, Sitecore, LWC, Salesforce, code review, PR review, test plan, tech debt, ship, deploy, harden, optimize, fix accessibility.
 
 ---
 
-## Morpheus — Pitch & Story
+## Morpheus: Pitch & Story
 
-**Archetype:** The teacher. The guide. Shows the door. Translates the work into a story that gets a yes. Whether it's a pitch, a presentation, a stakeholder update, or a campaign — Morpheus packages and presents.
+**Archetype:** The teacher. The guide. Shows the door. Translates the work into a story that gets a yes. Whether it's a pitch, a presentation, a stakeholder update, or a campaign: Morpheus packages and presents.
 
 **Role:** Owns everything outbound: pitches, decks, presentations, marketing campaigns, stakeholder communications, status reports, and the documents that carry the work into the world. Morpheus is the bridge between what the team built and the audience that needs to receive it.
 
@@ -350,13 +350,13 @@ image-to-code, imagegen-frontend-web, imagegen-frontend-mobile, animate, delight
 **Workshop skills Morpheus commonly CALLS Gandalf for:**
 onboard, teach-impeccable, quieter
 
-(These belong to Gandalf's roster — Morpheus pulls Gandalf in when needed.)
+(These belong to Gandalf's roster: Morpheus pulls Gandalf in when needed.)
 
 **Trigger keywords:** pitch, deck, presentation, slides, story, narrative, campaign, stakeholder, status, update, report, write a doc, email sequence, marketing, persuade.
 
 ---
 
-## Gandalf — Workshop (peer + tool)
+## Gandalf: Workshop (peer + tool)
 
 **Archetype:** The wizard who has been around forever. Knows things others don't. Arrives precisely when he means to. Mentor energy. Cross-cutting craftsman.
 
@@ -367,7 +367,7 @@ onboard, teach-impeccable, quieter
 
 **Override authority:** When a workshop skill overlaps with a plugin or anthropic-core skill, Gandalf's version wins. Kevin's `frontend-design` beats any plugin version.
 
-### Skills (38 total) — Gandalf's full roster
+### Skills (38 total): Gandalf's full roster
 
 #### Design taste (6)
 | Skill |
@@ -558,20 +558,20 @@ schedule (handled by Tár), setup-cowork (handled by Tár), cowork-plugin-custom
 
 See TRIGGERS.md for the full algorithm. Summary:
 
-1. **Check memory first** — has this project/domain been touched before?
-2. **Scan for explicit Snake Eyes invocation** — user names a specialist skill → deploy directly.
+1. **Check memory first**: has this project/domain been touched before?
+2. **Scan for explicit Snake Eyes invocation**: user names a specialist skill → deploy directly.
 3. **Match primary trigger keywords** across all 7 active subagents.
 4. **Apply disambiguation defaults:** "design" → Snape, "audit" → Sherlock, "SEO" → Snake Eyes (soft route)
 5. **If ambiguous after defaults** → Snape voices a clarifying question (terse, precise, slightly impatient)
-6. **Mid-chain Gandalf calls** — any subagent can pull Gandalf in for workshop skills they need
-7. **Handoff inference** — Tár listens for "I'm good" / "ready for next phase" OR infers and asks
+6. **Mid-chain Gandalf calls**: any subagent can pull Gandalf in for workshop skills they need
+7. **Handoff inference**: Tár listens for "I'm good" / "ready for next phase" OR infers and asks
 
 ### Standard chain flows
 - **Discovery flow:** Sherlock → Snape OR Gibson (Snape clarifies if ambiguous) → Neo (with Gandalf for polish/harden) → Morpheus
 - **Brand build flow:** Sherlock → Snape (calls Gandalf for taste/polish) → Neo → Morpheus
 - **Experience build flow:** Sherlock → Gibson (calls Gandalf for imagegen) → Neo → Morpheus
 - **Delivery flow:** Sherlock → Snape → Neo (calls Gandalf for harden) → Morpheus
-- **SEO flow:** Snake Eyes (audit/keyword work) OR Morpheus (content) — Snape clarifies if ambiguous
+- **SEO flow:** Snake Eyes (audit/keyword work) OR Morpheus (content): Snape clarifies if ambiguous
 
 ---
 
@@ -595,9 +595,9 @@ Some skills serve multiple domains. Tár disambiguates by context:
 
 ## What's next
 
-1. ✅ DECISIONS.md — locked collision resolutions
-2. ✅ SUBAGENT_ROSTERS.md — this doc, locked subagent assignments
-3. 🔄 FigJam board annotation — add skill counts and legend
-4. ⏭ Migration script (dry-run) — physically organize skills into DZNR repo structure
-5. ⏭ Repo scaffold — folder layout matching this roster
+1. ✅ DECISIONS.md: locked collision resolutions
+2. ✅ SUBAGENT_ROSTERS.md: this doc, locked subagent assignments
+3. 🔄 FigJam board annotation: add skill counts and legend
+4. ⏭ Migration script (dry-run): physically organize skills into DZNR repo structure
+5. ⏭ Repo scaffold: folder layout matching this roster
 6. ⏭ Start Subagent 1 build (recommend Tár first as the orchestrator, then Neo for delivery work)

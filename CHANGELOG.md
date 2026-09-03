@@ -7,6 +7,62 @@ All notable changes to DZNR are documented here. Versioning follows the EVOLUTIO
 
 ---
 
+## [2.4.0] - 2026-09-03
+
+### Added: Plugin MCP connector audit (~40 connectors documented)
+
+Kevin flagged that v2.3.0 handled plugin skills but the MCP connector coverage in `routing/mcps/*.md` was thin. Roughly 40 plugin-family MCP servers were installed in his Claude environment but not systematically documented for DZNR routing. This release closes that gap.
+
+**New spec file:** `routing/mcps/plugin-connectors.md` catalogs plugin-family MCPs across 8 categories:
+
+1. **Data Warehouses and Analytics** (9 connectors): amplitude, amplitude-eu, bigquery, definite, hex, similarweb, supermetrics, ahrefs, pendo. Routes to Snake Eyes Data cluster.
+2. **Enterprise Search, Knowledge, Docs** (6 connectors): notion, atlassian, guru, box, granola, gong. Routes to Sherlock (research) and Tár (memory).
+3. **Communication and Collaboration** (3 connectors): slack, small-business slack, intercom. Routes to Sherlock, Morpheus, or Snake Eyes SB.
+4. **Project Management** (5 connectors): linear, clickup, monday, asana, fireflies. Routes to Neo (delivery) and Sherlock (research).
+5. **Development Ops** (3 connectors): github, datadog, pagerduty. Routes to Neo primarily.
+6. **Marketing and Customer** (3 connectors): klaviyo, hubspot, canva. Routes to Morpheus or Snake Eyes clusters.
+7. **Legal and Compliance** (3 connectors): docusign, egnyte, box (legal folder). Routes to Snake Eyes Legal cluster.
+8. **Bio Research** (4 connectors): biorender, owkin, synapse, wiley. Routes to Snake Eyes Bio Research (parked).
+
+**Per-MCP documentation:** each row includes plugin source, purpose, subagent owner, and fallback path when auth is pending.
+
+**Auth-status handling:** documented pattern for how DZNR handles MCPs that are configured but not yet authorized (announce the gap, offer the fallback, continue with fallback if user says "proceed" or wait if user authorizes first).
+
+**MCPS.md updated** to reference the new plugin-connectors.md spec.
+
+### Also in v2.4.0: em-dash cleanup (v2.3.1 rolled into this release)
+
+Cleaned all em-dashes from `routing/CHAINS.md`, `routing/TRIGGERS.md`, and `routing/SUBAGENT_ROSTERS.md`. Total removed: 157 em-dashes across three files. Every em-dash replaced with a contextually appropriate colon or comma per Kevin's no-em-dash style rule. Older pre-v1.13.0 CHANGELOG entries retain their em-dashes as historical record.
+
+### Rationale
+
+Kevin's DZNR OS build plan needs DZNR to reach every installed connector, not just every installed skill. The MCP audit closes the connector side of what the v2.3.0 skill audit closed on the skill side. Grand total DZNR coverage:
+
+- 300+ skills across active routing and parked arsenal
+- ~40 plugin MCP connectors documented as a family
+- 10 individual MCP specs (adobe, blender, figma, higgsfield, magic-patterns, mobbin, pencil, workspace-and-data, deployment-and-infra, plus new plugin-connectors)
+- Total: ~50 MCP entities documented
+
+### Still open for v2.5.0
+
+- MCP tool-level coverage for the plugin connectors (right now documented at the plugin level; per-tool routing may need per-tool disambiguation in TRIGGERS.md if Kevin surfaces gaps).
+- Any user-authored skills in `~/.claude/skills/` that are not in the workshop symlink. Sandbox cannot enumerate Kevin's Mac home; he should confirm.
+- Actual auth verification. Currently ~40 MCPs are documented but need auth. Kevin authorizes per-connector via claude.ai settings when he first uses them.
+
+### Validation
+
+- `scripts/validate-routing.sh` passes
+- `claude plugin validate` passes with zero warnings
+- Em-dash sweep clean across all v2.4.0 additions AND the retroactive cleanup pass
+- `routing/mcps/plugin-connectors.md` created; MCPS.md references it
+
+### Notes
+
+- v2.3.1 patch (em-dash cleanup) rolled into v2.4.0 rather than shipped separately.
+- Partnership continues over placation. Kevin explicitly requested "do 1 and 2 and update the plan accordingly" and this release closes both.
+
+---
+
 ## [2.3.0] - 2026-09-03
 
 ### Added: Full plugin skill audit closes a 75-skill Snake Eyes gap

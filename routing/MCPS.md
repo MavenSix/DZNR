@@ -34,6 +34,7 @@ MCPs are owned by the subagent whose domain they extend. Examples:
 - **Slack MCP**: cross-cutting (Tár for memory and references, Morpheus for outbound, Sherlock for search)
 - **Google Drive MCP**: cross-cutting (Sherlock for discovery, Morpheus for document delivery)
 - **Granola MCP**: cross-cutting (Sherlock for meeting transcripts as research input)
+- **Plugin family MCPs (v2.4.0):** ~40 additional MCPs installed via plugins (data warehouses, project management, dev ops, marketing, legal, bio research). Documented as a family in `routing/mcps/plugin-connectors.md` rather than one file per MCP. Each row in that spec maps the MCP to its Snake Eyes cluster (or core subagent) with triggers and fallbacks.
 
 When an MCP serves multiple subagents, the spec lists primary owner first and secondary owners after.
 

@@ -1,13 +1,13 @@
 # DZNR Chain Decision Trees
 
 **Phase 2.2 of the DZNR routing system**
-**Status:** Draft v1 — rigorous deterministic chains, Snape voices all user-facing questions
+**Status:** Draft v1: rigorous deterministic chains, Snape voices all user-facing questions
 **Last updated:** 2026-05-18
 
 This document defines the explicit decision trees Tár walks for multi-subagent requests. Each chain has entry conditions, step-by-step branches, Gandalf call points, exit conditions, and interruption rules.
 
 **Core principles (locked):**
-- Rigorous and deterministic — same request type produces same routing every time
+- Rigorous and deterministic: same request type produces same routing every time
 - Snape voices all user-facing clarifying questions (not Tár, not the current subagent)
 - Gandalf is called as a tool by other subagents OR routed to directly by Tár
 - Tár pauses and asks (via Snape) when a chain hits an unmodeled condition
@@ -18,11 +18,11 @@ This document defines the explicit decision trees Tár walks for multi-subagent 
 
 Each chain has the same five sections:
 
-1. **Entry conditions** — what trigger combinations put a request on THIS chain
-2. **Decision tree** — node-by-node walkthrough with branch conditions
-3. **Gandalf call points** — explicit moments where a subagent should pull Gandalf in
-4. **Exit conditions** — how Tár knows the chain is complete
-5. **Interruption rules** — what happens if the user skips ahead, restarts, or pivots
+1. **Entry conditions**: what trigger combinations put a request on THIS chain
+2. **Decision tree**: node-by-node walkthrough with branch conditions
+3. **Gandalf call points**: explicit moments where a subagent should pull Gandalf in
+4. **Exit conditions**: how Tár knows the chain is complete
+5. **Interruption rules**: what happens if the user skips ahead, restarts, or pivots
 
 **Notation:**
 - `→` means "next step in the chain"
@@ -32,7 +32,7 @@ Each chain has the same five sections:
 
 ---
 
-## Chain 1 — Discovery Flow
+## Chain 1: Discovery Flow
 
 **Purpose:** User has an idea, problem, or opportunity but no clear direction. Outcome: a brief, audit, or recommendation that informs what to build next.
 
@@ -81,11 +81,11 @@ NODE 2: Determine downstream chain
   ELSE IF findings are ambiguous (multiple downstream options viable)
     → <Snape clarifies>: "Sherlock's discovery is complete. The next step could be [X] or [Y]. Which path?"
 
-NODE 3A: Snape (brand build path) — branches to Chain 2
+NODE 3A: Snape (brand build path): branches to Chain 2
 
-NODE 3B: Gibson (experience build path) — branches to Chain 3
+NODE 3B: Gibson (experience build path): branches to Chain 3
 
-NODE 3C: Neo (delivery path) — branches to Chain 4
+NODE 3C: Neo (delivery path): branches to Chain 4
 
 NODE 3D: Morpheus (outbound path)
   IF discovery output IS the deliverable (i.e. user wanted the audit/brief as the final artifact)
@@ -111,7 +111,7 @@ NODE 3D: Morpheus (outbound path)
 
 ---
 
-## Chain 2 — Brand Build Flow
+## Chain 2: Brand Build Flow
 
 **Purpose:** Build or evolve a brand/design system from research input through to shipped components and a launch story.
 
@@ -138,11 +138,11 @@ NODE 2: Snape produces the brand foundation
 
   Outputs: brand voice + design language + tokens + initial components
 
-  [GANDALF call point — almost always triggered here]
+  [GANDALF call point: almost always triggered here]
   Snape calls Gandalf for:
-    - `design-taste-frontend` — evaluate visual direction
-    - `gpt-taste` OR `stitch-design-taste` — second-pass taste check
-    - `polish` — refine output
+    - `design-taste-frontend`: evaluate visual direction
+    - `gpt-taste` OR `stitch-design-taste`: second-pass taste check
+    - `polish`: refine output
     - IF brand needs unique aesthetic → `brandkit`, `industrial-brutalist-ui`, `minimalist-ui`, etc.
 
 NODE 3: Determine build vs handoff
@@ -166,10 +166,10 @@ NODE 4: Neo receives the brand spec
 
   [GANDALF call point]
   Neo calls Gandalf for:
-    - `harden` — security/edge case hardening
-    - `polish` — code polish
-    - `fixing-accessibility` — a11y remediation
-    - `fixing-motion-performance` — perf tuning
+    - `harden`: security/edge case hardening
+    - `polish`: code polish
+    - `fixing-accessibility`: a11y remediation
+    - `fixing-motion-performance`: perf tuning
 
 NODE 5: Determine launch step
 
@@ -208,7 +208,7 @@ NODE 6: Morpheus packages the launch
 
 ---
 
-## Chain 3 — Experience Build Flow
+## Chain 3: Experience Build Flow
 
 **Purpose:** Build an immersive, 3D, AI-driven, or spatial experience from concept through to launch.
 
@@ -271,10 +271,10 @@ NODE 2: Gibson produces the concept + architecture
 
   [GANDALF call point]
   Gibson calls Gandalf for:
-    - `imagegen-frontend-web` OR `imagegen-frontend-mobile` — hero visuals for the experience
-    - `image-to-code` — turn concept boards into prototype code
-    - `animate` / `delight` / `overdrive` — motion treatments
-    - `full-output-enforcement` — ensure concept covers all needed outputs
+    - `imagegen-frontend-web` OR `imagegen-frontend-mobile`: hero visuals for the experience
+    - `image-to-code`: turn concept boards into prototype code
+    - `animate` / `delight` / `overdrive`: motion treatments
+    - `full-output-enforcement`: ensure concept covers all needed outputs
 
 NODE 3: Determine prototype vs handoff
 
@@ -329,11 +329,11 @@ NODE 6: Morpheus packages the launch
 
 ---
 
-## Chain 4 — Delivery Flow
+## Chain 4: Delivery Flow
 
 **Purpose:** Receive design input (typically Figma + brief), produce specs → user stories → code → QA → ship.
 
-**Rigorous deterministic** — this is your day job, predictability is paramount.
+**Rigorous deterministic**: this is your day job, predictability is paramount.
 
 ### Entry conditions
 A request matches the Delivery chain when ANY of:
@@ -387,7 +387,7 @@ NODE 2: Generate spec from input
 
   IF input is Figma URL/file
     → Neo uses xcm-spec-generator with Figma input
-    → [GANDALF call point: Snape (not Gandalf here) — Snape reviews design fidelity if needed]
+    → [GANDALF call point: Snape (not Gandalf here): Snape reviews design fidelity if needed]
   ELSE IF input is a brief/PRD
     → Neo uses xcm-spec-generator with brief input
     → IF Figma is referenced in brief → fetch Figma → process as above
@@ -408,7 +408,7 @@ NODE 4: Validate spec accuracy (Layer 1 validation)
   IF validation passes
     → continue to NODE 5
   ELSE IF validation flags spec/Figma mismatch
-    → Snape reviews design intent (NOT Gandalf — Snape owns design-system semantics)
+    → Snape reviews design intent (NOT Gandalf: Snape owns design-system semantics)
     → Resolve → re-run NODE 4
 
 NODE 5: Generate component code
@@ -419,12 +419,12 @@ NODE 5: Generate component code
   ELSE IF Salesforce → produce LWC + Apex
   ELSE IF AEM → produce HTL + Sling Model
 
-  [GANDALF call point — REQUIRED]
+  [GANDALF call point: REQUIRED]
   Neo calls Gandalf for:
-    - `harden` — security/edge case hardening (mandatory)
-    - `polish` — code polish (mandatory)
-    - `fixing-accessibility` — a11y (mandatory)
-    - `fixing-motion-performance` — perf (if motion exists)
+    - `harden`: security/edge case hardening (mandatory)
+    - `polish`: code polish (mandatory)
+    - `fixing-accessibility`: a11y (mandatory)
+    - `fixing-motion-performance`: perf (if motion exists)
 
 NODE 6: Validate visual fidelity (Layer 2 validation)
 
@@ -471,12 +471,12 @@ NODE 9: Sprint communications
 ### Interruption rules
 - User says "spec only" → end after NODE 4
 - User says "skip QA" → end after NODE 6 (visual fidelity validated, but no QA package)
-- Validation failures (NODE 4 or 6) loop back — never proceed with failures
+- Validation failures (NODE 4 or 6) loop back: never proceed with failures
 - User says "this is broken, fix it" mid-chain → Snape clarifies what's broken, then route fix to right node
 
 ---
 
-## Chain 5 — SEO Flow (specialist)
+## Chain 5: SEO Flow (specialist)
 
 **Purpose:** SEO-flavored work that may belong to Snake Eyes (audit/keyword), Morpheus (content), or both.
 
@@ -538,7 +538,7 @@ NODE 3: Determine if cross-handoff needed
 
 ---
 
-## Chain 6 — Innovation Accelerator (NEW — Gandalf orchestrates)
+## Chain 6: Innovation Accelerator (NEW: Gandalf orchestrates)
 
 **Purpose:** Kevin's signature client engagement methodology. From fuzzy idea to development-ready specification in 2 days plus pre-work. 5 stages, 15 named AI agents, 10+ deliverables.
 
@@ -554,9 +554,9 @@ A request matches Chain 6 (Innovation Accelerator) when ANY of:
 - User explicitly names the methodology by name
 
 **Does NOT match Chain 6:**
-- Generic "workshop" — routes to Sherlock's hcd-ai-design instead
-- Design sprint (Google Ventures style) — different methodology, routes to Sherlock
-- Innovation strategy consulting — too generic, routes to Sherlock for discovery first
+- Generic "workshop": routes to Sherlock's hcd-ai-design instead
+- Design sprint (Google Ventures style): different methodology, routes to Sherlock
+- Innovation strategy consulting: too generic, routes to Sherlock for discovery first
 
 ### Decision tree
 
@@ -595,10 +595,10 @@ NODE 2 (Stage 1): Gandalf invokes ia-prepare
 NODE 3 (Stage 2): Gandalf invokes ia-discover-day1
 
   Day 1 facilitation runs the 4 activities sequentially:
-    ├─ Activity 1: Lightning Talks (25 min) — Agent 03
-    ├─ Activity 2: Product Vision Workshop (50 min) — Agent 04
-    ├─ Activity 3: Persona Co-Creation (60 min) — Agent 05
-    └─ Activity 4: HMW + Voting (60 min) — Agents 06+07
+    ├─ Activity 1: Lightning Talks (25 min): Agent 03
+    ├─ Activity 2: Product Vision Workshop (50 min): Agent 04
+    ├─ Activity 3: Persona Co-Creation (60 min): Agent 05
+    └─ Activity 4: HMW + Voting (60 min): Agents 06+07
 
   Gandalf calls Morpheus for:
     ├─ Day 1 synthesis report packaging
@@ -609,10 +609,10 @@ NODE 3 (Stage 2): Gandalf invokes ia-discover-day1
 NODE 4 (Stage 3): Gandalf invokes ia-define-day2
 
   Day 2 facilitation runs the 4 activities sequentially:
-    ├─ Activity 5: MoSCoW + Live Spec Matrix (75 min) — Agent 09 ⭐
-    ├─ Activity 6: User Journey + Gap Analysis (50 min) — Agent 10
-    ├─ Activity 7: Tech Solutioning + Architecture Brief (50 min) — Agent 11
-    └─ Activity 8: Stakeholder Alignment & Sign-Off (35 min) — Agent 12 ⭐ CRITICAL
+    ├─ Activity 5: MoSCoW + Live Spec Matrix (75 min): Agent 09 ⭐
+    ├─ Activity 6: User Journey + Gap Analysis (50 min): Agent 10
+    ├─ Activity 7: Tech Solutioning + Architecture Brief (50 min): Agent 11
+    └─ Activity 8: Stakeholder Alignment & Sign-Off (35 min): Agent 12 ⭐ CRITICAL
 
   Gandalf calls Snape mid-Activity 7 if design fidelity questions arise
   Gandalf calls Sherlock mid-Activity 6 for journey-mapping support
@@ -662,7 +662,7 @@ NODE 6 (Stage 5): Gandalf hands off to Neo (Chain 4 takes over)
 Unlike other chains where Gandalf is CALLED by others, in Chain 6 Gandalf CALLS:
 - Sherlock (Stages 1, 2-support, 3-support)
 - Snape (Stage 1, Day 1/2 design fidelity)
-- Morpheus (every stage — deliverables and comms)
+- Morpheus (every stage: deliverables and comms)
 - Neo (Stage 4 Linear/estimation, Stage 5 full handoff)
 
 ### Exit conditions
@@ -675,20 +675,20 @@ Unlike other chains where Gandalf is CALLED by others, in Chain 6 Gandalf CALLS:
 ### Interruption rules
 
 - **"Skip Stage 1, we have the inputs":** start at NODE 3 (Stage 2). User provides Intelligence Brief equivalent inputs.
-- **"Pause between Day 1 and Day 2":** normal — NODE 3 → NODE 4 has a natural overnight gap. Gandalf produces Day 1 synthesis report during the pause.
+- **"Pause between Day 1 and Day 2":** normal: NODE 3 → NODE 4 has a natural overnight gap. Gandalf produces Day 1 synthesis report during the pause.
 - **"Sign-off failed":** invoke failure mode protocol. Multiple recovery paths (reschedule, async follow-up, escalate).
-- **"Add stakeholder mid-workshop":** Gandalf invokes Snape clarifier: "New stakeholder added — do they need pre-work, or can they sign off based on existing inputs?"
+- **"Add stakeholder mid-workshop":** Gandalf invokes Snape clarifier: "New stakeholder added: do they need pre-work, or can they sign off based on existing inputs?"
 - **"Client requests scope change post-sign-off":** Documented amendment via Agent 12 protocol. Morpheus drafts amendment doc + new sign-off request.
 
 ### Composition with other chains
 
-Chain 6 does NOT compose with Chains 1-5 — it incorporates them via Gandalf's orchestration. A request that triggers Chain 6 takes precedence over individual chain entry conditions.
+Chain 6 does NOT compose with Chains 1-5: it incorporates them via Gandalf's orchestration. A request that triggers Chain 6 takes precedence over individual chain entry conditions.
 
 Example: "Audit this site and run an IA for them" → Chain 6 wins (IA contains the audit as part of Stage 1).
 
 ---
 
-## Compound request handling (NEW — Kevin's call)
+## Compound request handling (NEW: Kevin's call)
 
 Compound requests bundle multiple deliverables that cross subagents or chains into a single ask. Tár handles them as first-class citizens.
 
@@ -725,7 +725,7 @@ STEP 3: Tár presents the plan ONCE before executing
    Gandalf called for: [list of workshop skills]
    Final artifacts: [list]
    
-   Executing — Snape will surface if anything needs clarifying mid-flight."
+   Executing: Snape will surface if anything needs clarifying mid-flight."
 
 STEP 4: Tár executes the full sequence
   - Run parallel deliverables concurrently
@@ -748,7 +748,7 @@ This OVERRIDES the per-chain "Snape clarifies between chains" rule in CHAINS.md 
 - No new information is needed to proceed between chains
 - The user's request implies they want the bundle
 
-If a chain transition NEEDS new info (e.g. "what platform should Neo target?"), Snape still clarifies that specific question — but not the chain handoff itself.
+If a chain transition NEEDS new info (e.g. "what platform should Neo target?"), Snape still clarifies that specific question: but not the chain handoff itself.
 
 ### Example compound request walkthrough
 
@@ -1124,8 +1124,8 @@ This becomes the canonical test suite for any future routing changes.
 
 ## Status
 
-- ✅ Phase 2.1 — Trigger keyword maps (TRIGGERS.md)
-- ✅ Phase 2.2 — Chain decision trees (this doc)
-- ⏭ Phase 2.3 — Shared-skill disambiguation matrix
-- ⏭ Phase 2.4 — Stress test with Kevin's 15-20 real requests
-- ⏭ Phase 2.5 — Failure-mode playbook (Snape's clarification phrases)
+- ✅ Phase 2.1: Trigger keyword maps (TRIGGERS.md)
+- ✅ Phase 2.2: Chain decision trees (this doc)
+- ⏭ Phase 2.3: Shared-skill disambiguation matrix
+- ⏭ Phase 2.4: Stress test with Kevin's 15-20 real requests
+- ⏭ Phase 2.5: Failure-mode playbook (Snape's clarification phrases)

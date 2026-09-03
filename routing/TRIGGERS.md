@@ -1,15 +1,15 @@
 # DZNR Trigger Keyword Maps
 
 **Phase 2.1 of the DZNR routing system**
-**Status:** v2 — Kevin's answers applied, Gandalf added
+**Status:** v2: Kevin's answers applied, Gandalf added
 **Last updated:** 2026-05-18
 
 This document defines how Tár (the orchestrator) decides which subagent owns a user request. Each character has four trigger lists:
 
-- **Primary triggers** — high-confidence words. If the request contains these, route here immediately.
-- **Context-dependent triggers** — words that COULD mean this character, but need disambiguation.
-- **Anti-triggers** — words that mean "this is NOT for me." If a request has my triggers AND anti-triggers, I defer.
-- **Handoff signals** — phrases inside the work itself that mean "I'm done, pass to the next character in the chain."
+- **Primary triggers**: high-confidence words. If the request contains these, route here immediately.
+- **Context-dependent triggers**: words that COULD mean this character, but need disambiguation.
+- **Anti-triggers**: words that mean "this is NOT for me." If a request has my triggers AND anti-triggers, I defer.
+- **Handoff signals**: phrases inside the work itself that mean "I'm done, pass to the next character in the chain."
 
 When Tár can't decide between two characters, **Snape voices the clarifying question** to the user (terse, precise, slightly impatient).
 
@@ -30,9 +30,9 @@ When Tár can't decide between two characters, **Snape voices the clarifying que
 
 ---
 
-## Tár — Orchestrator
+## Tár: Orchestrator
 
-**Tár is the front door. Every request starts here. She doesn't claim work — she routes it.**
+**Tár is the front door. Every request starts here. She doesn't claim work: she routes it.**
 
 ### Primary triggers (Tár handles directly)
 - "what subagents are available", "who can help with", "what can DZNR do"
@@ -43,9 +43,9 @@ When Tár can't decide between two characters, **Snape voices the clarifying que
 - "let's plan this", "scope this out" (initial routing decision before delegation)
 
 ### Context-dependent
-- "help me with X" — Tár parses X, finds the right subagent, delegates
-- "I need to" — same pattern
-- "we should" — same pattern
+- "help me with X": Tár parses X, finds the right subagent, delegates
+- "I need to": same pattern
+- "we should": same pattern
 
 ### Anti-triggers
 - None. Tár is the front door.
@@ -57,7 +57,7 @@ When Tár can't decide between two characters, **Snape voices the clarifying que
 
 ---
 
-## Snape — Brand & Design Systems
+## Snape: Brand & Design Systems
 
 **The alchemist. Identity, voice, design tokens, visual scaffolding. ALSO the clarifying voice when Tár is uncertain.**
 
@@ -76,9 +76,9 @@ When Tár can't decide between two characters, **Snape voices the clarifying que
 - **Magic Patterns triggers (PENDING MCP connection):** "Magic Patterns", "magicpatterns", "generate UI options", "show me design variants", "explore UI directions", "iterate on this design", "variants of this component", "text to UI", "generate UI from prompt"
 
 ### Context-dependent
-- "design" — see "design" disambiguation rules below. Default trigger if no other context.
-- "UI" — Snape claims if request mentions: pattern, system, library, component
-- "polish" — could be Snape (visual polish) or Gandalf (workshop `polish` skill — see Gandalf section)
+- "design": see "design" disambiguation rules below. Default trigger if no other context.
+- "UI": Snape claims if request mentions: pattern, system, library, component
+- "polish": could be Snape (visual polish) or Gandalf (workshop `polish` skill: see Gandalf section)
 
 ### Anti-triggers
 - "deploy", "ship", "production", "commit", "merge" → Neo's territory
@@ -101,25 +101,25 @@ Example: "Tár's uncertain whether this is Snape's work or Gibson's. Are you ask
 
 ---
 
-## Sherlock — Discovery & Research
+## Sherlock: Discovery & Research
 
 **The investigator. Reads patterns. Audits. Synthesizes. Never builds.**
 
 ### Primary triggers
-- "research", "discovery", "audit" (when about research — see audit rules below)
+- "research", "discovery", "audit" (when about research: see audit rules below)
 - "user research", "user interviews", "user testing", "usability test"
 - "competitive analysis", "competitor", "what are competitors doing"
 - "site audit", "review this website", "what's wrong with this site"
 - "heuristic evaluation", "UX audit"
 - "synthesize", "themes from these notes", "what came out of this"
 - "persona", "user persona", "synthetic audience"
-- "journey map" (when about users, not experiences — see shared-skills doc)
+- "journey map" (when about users, not experiences: see shared-skills doc)
 - "opportunity", "where's the gap", "what should we work on"
 - "search for", "find that doc", "where did we talk about"
 - "digest", "summarize this week"
 - "idea-to-brief", "I have an idea", "help me think through"
 - "what do users want", "what's the problem"
-- "informs design" — Sherlock work that feeds design decisions
+- "informs design": Sherlock work that feeds design decisions
 
 ### Confirm-before-discovery on rebuild framing (UPDATED in Phase 3.7)
 The following words **prompt Sherlock to ASK before running a current-state discovery pass** (changed from silent auto-invoke in Phase 3.7):
@@ -139,9 +139,9 @@ Why confirm rather than silent auto-run:
 Example: "Rebuild their immersive experience" → Sherlock asks user → if confirmed, Sherlock auto-runs discover-brand + site-audit → Gibson uses Sherlock's output as input for the rebuild concept. If declined, Gibson proceeds without baseline and flags the assumption.
 
 ### Context-dependent
-- "design" — Sherlock claims if request is about RESEARCH that will inform design. (e.g. "do design research on this category")
-- "review" — Sherlock claims if reviewing for INSIGHT. Snape claims if reviewing for DESIGN QUALITY. Neo claims if reviewing CODE.
-- "analyze" — Sherlock claims for research/competitive analysis. Snake Eyes claims for data analysis.
+- "design": Sherlock claims if request is about RESEARCH that will inform design. (e.g. "do design research on this category")
+- "review": Sherlock claims if reviewing for INSIGHT. Snape claims if reviewing for DESIGN QUALITY. Neo claims if reviewing CODE.
+- "analyze": Sherlock claims for research/competitive analysis. Snake Eyes claims for data analysis.
 
 ### Anti-triggers
 - "build", "make", "create" (when producing the thing, not understanding it)
@@ -157,7 +157,7 @@ Example: "Rebuild their immersive experience" → Sherlock asks user → if conf
 
 ---
 
-## Gibson — Experience Engineering + AI Product
+## Gibson: Experience Engineering + AI Product
 
 **Speculative futures. Immersive, 3D, spatial, AI-driven. The world-builder.**
 
@@ -186,9 +186,9 @@ Example: "Rebuild their immersive experience" → Sherlock asks user → if conf
 - "game studio", "build a game", "make a game", "browser game", "multiplayer game"
 
 ### Context-dependent
-- "design" — Gibson claims if request mentions: experience, immersive, spatial, AI, narrative, world
-- "interaction" — Gibson claims if about spatial/immersive. Snape claims for UI interactions.
-- "AI" — Gibson claims for product/architecture work. Gandalf claims if Kevin's `imagegen-*` workshop skill applies.
+- "design": Gibson claims if request mentions: experience, immersive, spatial, AI, narrative, world
+- "interaction": Gibson claims if about spatial/immersive. Snape claims for UI interactions.
+- "AI": Gibson claims for product/architecture work. Gandalf claims if Kevin's `imagegen-*` workshop skill applies.
 
 ### Anti-triggers
 - "brand voice" (Snape)
@@ -204,7 +204,7 @@ Example: "Rebuild their immersive experience" → Sherlock asks user → if conf
 
 ---
 
-## Neo — Delivery & Code
+## Neo: Delivery & Code
 
 **Specs to shipping code. Multi-platform delivery pipeline. Build, QA, ship.**
 
@@ -225,11 +225,11 @@ Example: "Rebuild their immersive experience" → Sherlock asks user → if conf
 - "user stories", "JTBD", "acceptance criteria"
 
 ### Context-dependent
-- "design" — Neo claims if request mentions: code, implement, build, component prop, API
-- "review" — see Sherlock and Snape notes above
-- "architecture" — Neo for code/system. Gibson for AI agent.
-- "build" — Neo for code. Gibson for experience. Snape for design system construction.
-- "harden", "optimize", "polish", "fix accessibility" — these MAY be Neo, BUT see Gandalf section (these are Gandalf's workshop skills)
+- "design": Neo claims if request mentions: code, implement, build, component prop, API
+- "review": see Sherlock and Snape notes above
+- "architecture": Neo for code/system. Gibson for AI agent.
+- "build": Neo for code. Gibson for experience. Snape for design system construction.
+- "harden", "optimize", "polish", "fix accessibility": these MAY be Neo, BUT see Gandalf section (these are Gandalf's workshop skills)
 
 ### Anti-triggers
 - "brand voice" (Snape)
@@ -245,7 +245,7 @@ Example: "Rebuild their immersive experience" → Sherlock asks user → if conf
 
 ---
 
-## Morpheus — Pitch & Story
+## Morpheus: Pitch & Story
 
 **Outbound. Translates work into stories that get a yes. The presenter.**
 
@@ -264,11 +264,11 @@ Example: "Rebuild their immersive experience" → Sherlock asks user → if conf
 - "talking points", "executive summary"
 
 ### Context-dependent
-- "design" — Morpheus claims if request is about presenting/communicating design work to stakeholders (e.g. "help me explain this design decision in the deck")
-- "write" — Morpheus for outbound content. Snake Eyes (legal) for legal docs. Snape for brand voice work.
-- "content" — Morpheus for marketing/outbound. Snape for brand voice content. Snake Eyes (SEO) for SEO content (soft rule, see below).
-- "review" — Morpheus if reviewing copy for outbound impact
-- "roadmap" — Morpheus if presenting externally. Neo/PM if planning internally.
+- "design": Morpheus claims if request is about presenting/communicating design work to stakeholders (e.g. "help me explain this design decision in the deck")
+- "write": Morpheus for outbound content. Snake Eyes (legal) for legal docs. Snape for brand voice work.
+- "content": Morpheus for marketing/outbound. Snape for brand voice content. Snake Eyes (SEO) for SEO content (soft rule, see below).
+- "review": Morpheus if reviewing copy for outbound impact
+- "roadmap": Morpheus if presenting externally. Neo/PM if planning internally.
 
 ### Anti-triggers
 - "code", "build the system", "implement" (Neo)
@@ -282,7 +282,7 @@ Example: "Rebuild their immersive experience" → Sherlock asks user → if conf
 
 ---
 
-## Gandalf — Workshop (peer + tool)
+## Gandalf: Workshop (peer + tool)
 
 **Kevin's accumulated personal craft. 38 skills authored locally in `~/.claude/skills/`. Operates two ways: Tár routes to him as a peer subagent AND other subagents call him as a tool mid-work.**
 
@@ -304,23 +304,23 @@ Example: "Rebuild their immersive experience" → Sherlock asks user → if conf
 | **Meta / process** | onboard, teach-impeccable, quieter, arrange, full-output-enforcement |
 
 ### Primary triggers
-- **By skill name**: "use [workshop-skill-name]" — e.g. "use design-taste-frontend", "run polish on this"
+- **By skill name**: "use [workshop-skill-name]": e.g. "use design-taste-frontend", "run polish on this"
 - **By verb**: "harden", "polish", "optimize", "tighten", "clarify", "distill", "extract", "normalize", "arrange"
 - **By outcome**: "give this taste", "make this feel high-end", "redesign this", "level this up"
 - **Workshop signals**: "Kevin's version of", "my custom skill for", "the workshop skill"
 
 ### Context-dependent
-- "polish" — Gandalf if request implies workshop-level refinement. Snape if "polish the visual design." Neo if "polish the code."
-- "audit" — Gandalf claims if requesting his `audit` workshop skill specifically. Otherwise see audit default below.
-- "design taste" — Gandalf claims (this is his core territory)
-- "fix" — Gandalf claims if it matches a `fixing-*` skill (accessibility, metadata, motion performance)
-- "make this better" — Gandalf claims if no other subagent has a clearer trigger
+- "polish": Gandalf if request implies workshop-level refinement. Snape if "polish the visual design." Neo if "polish the code."
+- "audit": Gandalf claims if requesting his `audit` workshop skill specifically. Otherwise see audit default below.
+- "design taste": Gandalf claims (this is his core territory)
+- "fix": Gandalf claims if it matches a `fixing-*` skill (accessibility, metadata, motion performance)
+- "make this better": Gandalf claims if no other subagent has a clearer trigger
 
 ### Anti-triggers
-- "brand from scratch" (Snape — Gandalf doesn't define brand identity)
+- "brand from scratch" (Snape: Gandalf doesn't define brand identity)
 - "user research", "competitive analysis" (Sherlock)
 - "pitch deck", "presentation" (Morpheus)
-- "deploy", "ship to production" (Neo — Gandalf refines, doesn't ship)
+- "deploy", "ship to production" (Neo: Gandalf refines, doesn't ship)
 - "3D world", "immersive" (Gibson)
 
 ### Handoff signals
@@ -336,9 +336,9 @@ Examples:
 - **Neo → Gandalf**: "Component is scaffolded. Gandalf, run `harden` and `fixing-accessibility` before QA."
 - **Gibson → Gandalf**: "Experience concept ready. Gandalf, run `imagegen-frontend-web` for the hero treatment."
 
-### Gandalf orchestrator mode (NEW — Innovation Accelerator)
+### Gandalf orchestrator mode (NEW: Innovation Accelerator)
 
-For the Innovation Accelerator methodology, Gandalf operates as **orchestrator** — calling other subagents in an inverse-of-usual pattern. This is the **only** skill pack that currently uses orchestrator mode. Documented exception, not a precedent for casual use.
+For the Innovation Accelerator methodology, Gandalf operates as **orchestrator**: calling other subagents in an inverse-of-usual pattern. This is the **only** skill pack that currently uses orchestrator mode. Documented exception, not a precedent for casual use.
 
 **Triggers that activate orchestrator mode:**
 - "innovation accelerator", "IA workshop", "IA for [client]"
@@ -360,7 +360,7 @@ For the Innovation Accelerator methodology, Gandalf operates as **orchestrator**
 - **Sherlock** in Stage 1 (discovery + brand inputs) and Stage 2/3 support
 - **Snape** in Stage 1 (brand & style breakdown) and Day 1/2 design fidelity
 - **Morpheus** in every stage (deliverables, scripts, reports, sign-off comms)
-- **Neo** in Stage 4 (Linear + estimation) and Stage 5 (build handoff — full ownership)
+- **Neo** in Stage 4 (Linear + estimation) and Stage 5 (build handoff: full ownership)
 
 See Chain 6 in `routing/CHAINS.md` for the full orchestration logic.
 
@@ -413,28 +413,57 @@ See Chain 6 in `routing/CHAINS.md` for the full orchestration logic.
 
 ---
 
-## Snake Eyes — Specialist Arsenal
+## Snake Eyes: Specialist Arsenal
 
-**Silent. Called by name. Tár does NOT route here automatically — except for SEO (soft rule).**
+**Silent. Called by name. Tár does NOT route here automatically: except for SEO (soft rule).**
 
 ### How Snake Eyes is invoked
 1. **Explicit**: user explicitly names a parked specialist skill. "Run a legal-risk-assessment on this contract." Snake Eyes deploys.
 2. **Soft rule for SEO**: SEO work soft-routes to Snake Eyes' searchfit-seo toolkit. If the request mentions SEO and doesn't have a strong Morpheus or Sherlock trigger, Snake Eyes takes it. **Snape clarifies** if ambiguous: "Is this SEO content work (Morpheus) or an SEO audit (Snake Eyes)?"
 
-### Snake Eyes domains
-- **Bio research** (off-domain for Kevin) — call explicitly
-- **Legal** — NDA triage, contract review, etc. Call explicitly.
-- **Product tracking / telemetry** — call explicitly
-- **Operations** — process docs, capacity, vendor reviews. Call explicitly.
-- **Adobe creativity** — photo/video editing. Call explicitly.
-- **SearchFit SEO** — **soft-routed when SEO is the primary topic**
-- **Data analytics** — SQL, viz, statistical analysis. Call explicitly OR called by Sherlock during research.
+### Snake Eyes domains (twelve clusters as of v2.3.0)
+- **Bio Research** (off-domain for Kevin): call explicitly
+- **Legal**: NDA triage, contract review. Call explicitly.
+- **Product Tracking / Telemetry**: call explicitly
+- **Operations**: process docs, capacity, vendor reviews. Call explicitly.
+- **Adobe Creativity**: photo/video editing, InDesign data merge. Call explicitly.
+- **SearchFit SEO**: **soft-routed when SEO is the primary topic**
+- **Data Analytics**: SQL, viz, statistical analysis. Call explicitly OR called by Sherlock during research.
+- **Small Business (added v2.3.0)**: SMB operations (cash flow, invoicing, CRM, tax prep). Call explicitly. Slash command `/smb-router` opens the SMB front door.
+- **Canva (added v2.3.0)**: Canva design workflow. Call explicitly. Soft-routes to Snake Eyes when "Canva" is named in a design-review or bulk-generation request.
+- **Finance (added v2.3.0)**: accounting close, journal entries, SOX 404. Call explicitly. Parked until an engagement requires it.
+- **Unity (added v2.3.0)**: Unity game engine specialist toolkit. Call explicitly. On-domain when Gandalf's `game-studio` workshop skill leads into a Unity engagement.
+- **PDF Tools (added v2.3.0)**: PDF fill, sign, merge, split, extract. Call explicitly.
 
 ### Primary triggers (mostly explicit invocation)
 - "use the [skill-name] skill"
 - "run [skill-name]"
 - "I want to use [plugin] for this"
-- "this is a [legal/SEO/data] question"
+- "this is a [legal/SEO/data/finance/unity/pdf/canva] question"
+
+### Cluster-specific triggers (added v2.3.0)
+
+**Small Business:**
+- "cash flow forecast", "invoice chase", "who owes me money", "close the month", "customer complaint response"
+- "prepare taxes", "quarterly taxes", "1099", "hiring packet", "CRM cleanup"
+- `/smb-router`, `/monday-brief`, `/friday-brief`, `/business-pulse`
+
+**Canva:**
+- "Canva design", "review my Canva", "bulk create Canva from CSV", "Canva brand check"
+- "resize this Canva for Instagram", "implement Canva feedback"
+
+**Finance:**
+- "journal entry", "reconcile bank statement", "SOX testing", "financial statements", "variance analysis"
+- "month-end accruals", "prepaid amortization", "revenue recognition"
+
+**Unity:**
+- "Unity project", "Unity component", "Unity game", "GameObject", "MonoBehaviour"
+- "Unity IAP", "Unity ads", "Unity multiplayer", "sprite atlas", "shader graph", "TextMeshPro"
+- "UI Toolkit", "uGUI", "URP post-processing", "WebGL Unity build"
+
+**PDF Tools:**
+- "open this PDF", "fill this form", "sign this contract", "merge PDFs", "extract PDF data"
+- "annotate PDF", "PDF form", "digital signature"
 
 ### Soft-route triggers (SEO only)
 - "SEO audit", "technical SEO", "schema markup", "keyword research", "broken links" → soft route to Snake Eyes
@@ -453,11 +482,11 @@ See Chain 6 in `routing/CHAINS.md` for the full orchestration logic.
 ### "design" disambiguation
 Default routing by likelihood (Kevin's call):
 
-1. **Snape** (most likely) — brand, system, visual, tokens, component design
-2. **Sherlock** — when "design" means "design research" or "informs design decisions"
-3. **Gibson** — when "design" means "immersive/spatial/AI experience design"
-4. **Morpheus** — when "design" is about presenting/communicating design work
-5. **Snake Eyes** — when Kevin explicitly invokes a specialist skill
+1. **Snape** (most likely): brand, system, visual, tokens, component design
+2. **Sherlock**: when "design" means "design research" or "informs design decisions"
+3. **Gibson**: when "design" means "immersive/spatial/AI experience design"
+4. **Morpheus**: when "design" is about presenting/communicating design work
+5. **Snake Eyes**: when Kevin explicitly invokes a specialist skill
 
 **Rule**: if "design" appears with no other character's strong trigger, **default to Snape**.
 
@@ -505,9 +534,9 @@ Kevin typically says "I'm good" or "ready to move to the next phase" when he's d
 
 **Inference action**: Tár asks the user, "Ready to move to the next phase, or do you want to keep working with [current subagent]?"
 
-Never assume — always confirm.
+Never assume: always confirm.
 
-### Advise-first consultation pattern (NEW — cross-cutting rule)
+### Advise-first consultation pattern (NEW: cross-cutting rule)
 
 When a request contains consultation framing words, the responsible subagent does NOT execute immediately. Instead, the subagent presents options + trade-offs first, awaits user decision, then executes.
 
@@ -541,16 +570,16 @@ When a request contains consultation framing words, the responsible subagent doe
 
 For each incoming request, Tár does this in order:
 
-1. **Check memory** — has this project/domain been touched before? Use prior context to bias routing.
-2. **Detect compound request** — does the request bundle multiple deliverables across subagents/chains?
+1. **Check memory**: has this project/domain been touched before? Use prior context to bias routing.
+2. **Detect compound request**: does the request bundle multiple deliverables across subagents/chains?
    - IF YES → switch to Compound Request Protocol (see CHAINS.md "Compound request handling")
    - IF NO → continue with single-request routing
-3. **Scan for explicit Snake Eyes invocation** — if user names a specialist skill, deploy Snake Eyes directly.
+3. **Scan for explicit Snake Eyes invocation**: if user names a specialist skill, deploy Snake Eyes directly.
 4. **Scan for primary triggers across all 7 active subagents** (Tár, Snape, Sherlock, Gibson, Neo, Morpheus, Gandalf).
-5. **If exactly one character has a primary trigger** — route immediately.
-6. **If multiple characters have primary triggers AND it's NOT a compound request** — apply anti-triggers to eliminate, then disambiguation rules ("design", "audit", "SEO") to resolve. If still ambiguous → Snape voices the clarifier.
-7. **If no primary triggers, only context-dependent** — most specific match wins. If tied → Snape clarifies.
-8. **If a chained subagent identifies a Gandalf skill mid-work** — that subagent calls Gandalf as a tool, gets the refined output, continues.
+5. **If exactly one character has a primary trigger**: route immediately.
+6. **If multiple characters have primary triggers AND it's NOT a compound request**: apply anti-triggers to eliminate, then disambiguation rules ("design", "audit", "SEO") to resolve. If still ambiguous → Snape voices the clarifier.
+7. **If no primary triggers, only context-dependent**: most specific match wins. If tied → Snape clarifies.
+8. **If a chained subagent identifies a Gandalf skill mid-work**: that subagent calls Gandalf as a tool, gets the refined output, continues.
 9. **Listen for handoff signals** (explicit or inferred) to chain forward.
 
 ### Compound request detection
@@ -560,7 +589,7 @@ A request is COMPOUND when ANY of:
 - Request lists multiple deliverables explicitly (commas, "and", "plus", "with")
 - Request spans entry conditions for more than one chain
 - Request uses bundle phrases like "I need X and Y and Z" or "give me A, B, and C"
-- **Request contains "full product approach", "full build", "end-to-end", "the whole stack", "soup to nuts", "from scratch to launch", "complete solution" — these ALWAYS trigger compound regardless of trigger count**
+- **Request contains "full product approach", "full build", "end-to-end", "the whole stack", "soup to nuts", "from scratch to launch", "complete solution": these ALWAYS trigger compound regardless of trigger count**
 
 When compound is detected, Tár:
 1. Parses the request into a deliverable map

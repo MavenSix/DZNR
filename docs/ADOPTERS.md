@@ -37,7 +37,7 @@ Before forking DZNR, decide:
 
 3. **What's your workshop?** Gandalf carries Kevin's personal craft (44 skills). You will substitute your own. The architecture of Gandalf (peer + tool + orchestrator modes) transfers; the specific skill list does not.
 
-4. **What industries do you serve?** DZNR ships with eight industries. You may need to add some (real estate, energy, telecom, etc.) or prune some you do not serve.
+4. **What industries do you serve?** DZNR ships with nine industries. You may need to add some (real estate, energy, telecom, etc.) or prune some you do not serve.
 
 5. **What MCPs do you use?** DZNR documents nine MCP integrations. You may have proprietary internal tools, niche integrations, or different design tools to wire in.
 

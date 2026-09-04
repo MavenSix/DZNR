@@ -184,9 +184,13 @@ Example: "Rebuild their immersive experience" → Sherlock asks user → if conf
 - "Seedance", "Seedance prompt", "video prompt" (AI video generation)
 - "shotlist", "director's shotlist", "break this script into shots"
 - "game studio", "build a game", "make a game", "browser game", "multiplayer game"
+- "RunningHub", "run this on RunningHub", "cloud ComfyUI", "run the ComfyUI workflow" (aggregator, spec at `routing/mcps/runninghub.md`)
+- "Kling", "Wan", "Sora-2", "Veo", "Midjourney via API", "batch Midjourney" (model names with no direct account route to Gibson, who executes via RunningHub)
 
 ### Context-dependent
 - "design": Gibson claims if request mentions: experience, immersive, spatial, AI, narrative, world
+- "RunningHub AI app" or a named community app ("product shot app", "sticker pack app"): Snake Eyes runs it by name; Gibson only if it feeds an experience build
+- "Seedance" or "Midjourney" inside a QKI world pack context: Cheetara, not Gibson (she may execute via RunningHub for non-sref work)
 - "interaction": Gibson claims if about spatial/immersive. Snape claims for UI interactions.
 - "AI": Gibson claims for product/architecture work. Gandalf claims if Kevin's `imagegen-*` workshop skill applies.
 

@@ -230,7 +230,7 @@ The check is non-optional for Mode B and Mode AB work. Mode A pure-experience wo
 
 ## MCP Coordination
 
-Gibson is the heaviest creative-tech MCP user in DZNR. Three MCPs sit in his territory; he can coordinate them in parallel when fidelity demands.
+Gibson is the heaviest creative-tech MCP user in DZNR. Four MCPs sit in his territory; he can coordinate them in parallel when fidelity demands.
 
 ### Blender (ACTIVE)
 
@@ -252,6 +252,12 @@ Typical workflow: user generates variants in Magic Patterns' UI with Gibson-cons
 ### Higgsfield (ACTIVE)
 
 Gibson uses Higgsfield for AI video generation in experience contexts: hero loops, ambient narrative video, transition sequences, generative B-roll for immersive installations. Higgsfield also powers the `game-studio` skill build-and-deploy pipeline (game creation instructions, generated image and audio assets, deploy, publish). Spec at `routing/mcps/higgsfield.md`.
+
+### RunningHub (PENDING)
+
+Aggregator: cloud ComfyUI plus ~420 model endpoints (Seedance, Kling, Wan, Veo, Sora-2, Midjourney v7/v8, Flux, Hunyuan3D, Meshy6, Suno) behind one API key. Spec at `routing/mcps/runninghub.md`.
+
+Gibson's rules for it: direct accounts first for hero quality (Higgsfield for character-locked video, Kevin's Midjourney for sref); RunningHub is the fallback lane for any image, video, 3D, or music task, the primary for Midjourney-via-API without sref, and the execution path for Seedance prompts from the `seedance-director` skills. Never route confidential client assets or real-person imagery to it. When Gibson falls back to RunningHub, he says so: "Higgsfield is unavailable; running this through RunningHub's Kling 3.0 endpoint instead."
 
 ### Parallel coordination
 

@@ -63,7 +63,7 @@ Why: predictability. A subagent that picks its own mode introduces non-determini
 
 ### 2. Industry posture system
 
-Every project carries an industry tag in project memory frontmatter (`memory/project_[name].md`). Eight industries across four clusters: luxury, automotive, retail, CPG, fintech, healthcare, technology, media/entertainment, public sector. Each industry has a posture profile (aesthetic defaults, tone defaults, research weights, compliance considerations, pitch vocabulary).
+Every project carries an industry tag in project memory frontmatter (`memory/project_[name].md`). Nine industries across four clusters: luxury, automotive, retail, CPG, fintech, healthcare, technology, media/entertainment, public sector. Each industry has a posture profile (aesthetic defaults, tone defaults, research weights, compliance considerations, pitch vocabulary).
 
 Sherlock sets the tag during initial discovery via the `identify-industry` step. Other subagents read the tag and adjust their defaults:
 

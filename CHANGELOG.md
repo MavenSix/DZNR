@@ -7,6 +7,40 @@ All notable changes to DZNR are documented here. Versioning follows the EVOLUTIO
 
 ---
 
+## [2.5.0] - 2026-09-04
+
+### Added: RunningHub MCP spec (aggregator: cloud ComfyUI plus ~420 model endpoints)
+
+Kevin asked whether RunningHub (https://www.runninghub.ai) belonged in DZNR OS. The review established it does, and the DZNR side needed a spec so subagents know when to reach for it and when not to.
+
+**New spec:** `routing/mcps/runninghub.md`, status PENDING. Primary owner Gibson; secondary Cheetara, Morpheus, Snake Eyes.
+
+**Role (decided with Kevin):** aggregator fallback plus cloud ComfyUI. Direct accounts stay primary for hero quality. RunningHub is the fallback lane for every image, video, 3D, and music task, the primary for Midjourney-via-API without an sref lock, the execution path for Seedance prompts from the seedance-director skills (Seedance has no direct public API), and the cloud ComfyUI runner when the PC is offline.
+
+**Anti-triggers written into the spec:** confidential client assets (Chinese company, Tencent COS storage), photorealistic real people (vendor error 1505), sref-locked QKI hero renders (stay on Kevin's own Midjourney account).
+
+**Verified facts (2026-09-04, from the API docs and the HM-RunningHub GitHub org):** no official MCP or SDK; Bearer auth; Standard Model API requires an Enterprise-Shared pay-as-you-go key (consumer keys only unlock workflows and AI apps); 5-second polling; legacy endpoints signal state through response codes 813/804/0/805; webhooks exist for workflow and app tasks only, unsigned; 30MB upload cap; billing in RH coins plus CNY.
+
+**Routing updates:**
+- `routing/MCPS.md`: RunningHub added to the subagent map and the documented-MCP list under Creative tech and 3D
+- `routing/TRIGGERS.md`: Gibson gains RunningHub and no-direct-account model-name triggers (Kling, Wan, Sora-2, Veo, Midjourney via API); context-dependent rules send named AI apps to Snake Eyes and QKI-context Seedance or Midjourney to Cheetara
+- `agents/gibson/AGENT.md`: fourth MCP in his coordination section with fallback-announcement rule
+- `agents/cheetara/AGENT.md`: fifth row in her MCP Coordination table; `source: runninghub` manifest tag; sref exclusion restated
+
+**Activation:** two paths. Before DZNR OS ships, a third-party MCP wrapper. After DZNR OS Phase 1, the native `runninghub.ts` driver. Status flips to ACTIVE on first verified call either way.
+
+**Companion change:** DZNR OS Build Plan bumped to v1.5 with an Aggregators section, a `confidential` flag on ModelInput, and a full driver spec in Prompt 3.
+
+---
+
+## [2.4.1] - 2026-09-04
+
+### Fixed: industry count docs said eight, nine are defined
+
+`routing/INDUSTRIES.md` declared "8 industries across 4 clusters" while defining nine (`public-sector` is the ninth). Same stale count in `docs/ADOPTERS.md` and `docs/ARCHITECTURE.md`. All four references now say nine. No routing behavior changed. Surfaced during the DZNR OS Build Plan v1.4 review pass, where the plan's count of nine was checked against the repo and the repo's own prose turned out to be the wrong side.
+
+---
+
 ## [2.4.0] - 2026-09-03
 
 ### Added: Plugin MCP connector audit (~40 connectors documented)

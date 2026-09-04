@@ -26,7 +26,7 @@ Company name is the wrong organizing branch. XCentium, ISHIR, in-house teams, in
 
 ## Supported industries (v1)
 
-DZNR v1 supports 8 industries across 4 clusters. Each industry has a posture profile that subagents read.
+DZNR supports 9 industries across 4 clusters (public-sector was added to the technology and public cluster after the original eight). Each industry has a posture profile that subagents read.
 
 ### Cluster 1: Luxury and automotive
 
@@ -257,7 +257,7 @@ When user direction conflicts with industry posture, the responsible subagent fl
 
 ## Adding new industries (post-v1)
 
-The 8 industries above are v1. To add a new industry:
+The 9 industries above are the current set. To add a new industry:
 
 1. Propose via Evolution Protocol (`governance/EVOLUTION.md`)
 2. Add posture profile to this file with all five sections (aesthetic, tone, research weights, compliance, pitch vocabulary)

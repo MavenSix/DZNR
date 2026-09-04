@@ -30,6 +30,7 @@ MCPs are owned by the subagent whose domain they extend. Examples:
 - **Magic Patterns MCP**: Snape (brand and UI exploration)
 - **Mobbin MCP**: Sherlock (design pattern research) and Snape (pattern reference)
 - **Higgsfield MCP**: Gibson (AI video generation as experience output) or Morpheus (video for pitch and campaign content)
+- **RunningHub (v2.5.0)**: Gibson primary; Cheetara (non-sref QKI renders, cloud mesh iteration), Morpheus (Seedance shotlist execution), Snake Eyes (community AI Apps by name). Aggregator fallback for image, video, 3D, and music; primary for Midjourney-via-API without sref; cloud ComfyUI when the PC is offline. No official MCP; reached via third-party wrapper or the DZNR OS native driver.
 - **Pencil MCP**: Snape (design file editing) and partially Neo (component code from design files)
 - **Slack MCP**: cross-cutting (Tár for memory and references, Morpheus for outbound, Sherlock for search)
 - **Google Drive MCP**: cross-cutting (Sherlock for discovery, Morpheus for document delivery)
@@ -130,6 +131,7 @@ As of v1.6.0, DZNR has spec files for the following MCPs in `routing/mcps/`:
 ### Creative tech and 3D
 - `blender.md`: ACTIVE (when local Blender app is running)
 - `higgsfield.md`: ACTIVE
+- `runninghub.md`: PENDING (aggregator: cloud ComfyUI plus ~420 model endpoints; needs Enterprise-Shared key; no official MCP)
 
 ### Workspace and data
 - `figma.md`: ACTIVE (also under Design)

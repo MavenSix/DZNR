@@ -136,7 +136,7 @@ Cheetara dispatches across five external tool families (RunningHub added v2.5.0)
 | Weavy / Figma Weave | Sheet compositing, variations, Tripo / Meshy mesh generation for 3D-ready objects. Cloud, no MCP. | Manual sheet assembly by user; mesh generation deferred. |
 | Blender MCP | Layer 1 spatial framework and camera block-out. Register the addon in Blender first, then let the client launch the uvx server. | Describes the Layer 1 scene in text for the user to execute locally in Blender. |
 | Unreal MCP (UE 5.8 experimental) | Alternative Layer 1 tool for game-engine spatial framework. Native C++ bridge; requires a code project target. | Falls back to Blender MCP if available. |
-| Local ComfyUI (optional) | Hunyuan3D or TRELLIS for free mesh iteration on RTX 3090 box; MLX Hunyuan3D-Shape on M5 Pro Mac. | Skip mesh iteration; commit directly to Weavy for hero meshes. |
+| Local ComfyUI (optional) | Hunyuan3D mini or TRELLIS as an 8 GB experiment on the RTX 3070 Ti PC (full Hunyuan3D v3.1 runs on RunningHub); MLX Hunyuan3D-Shape on the Mac. | Skip mesh iteration; commit directly to Weavy for hero meshes. |
 | RunningHub (PENDING, spec at `routing/mcps/runninghub.md`) | Cloud twin of the row above plus Midjourney v7/v8 via API for non-sref renders (variations, secondary characters, background plates) and Seedance execution for QKI motion. Sref-locked hero renders never go here; they stay on Kevin's own Midjourney account. Assets carry `source: runninghub` in the manifest. | Reverts to the MidJourney human-in-the-loop row and local ComfyUI. Cheetara voices the gap. |
 
 Cheetara reports MCP status at dispatch. If a required MCP is offline for the requested asset type, she pauses and voices the gap rather than silently degrading.

@@ -21,7 +21,7 @@ Three gaps it closes:
 
 1. **Midjourney via API.** Midjourney has no public API. Cheetara's QKI pipeline and Gibson's hero-image work currently rely on a human-in-the-loop web step. RunningHub exposes Midjourney v7 and v8 as callable endpoints, which makes unattended hero-image generation possible for the first time. Sref-locked QKI work stays on Kevin's own Midjourney account (the sref library lives there); RunningHub covers everything else.
 2. **Seedance via API.** The `seedance-director` and `seedance-shotlist-director` skills produce Seedance 2.0 prompts, but Seedance has no direct public API. RunningHub is the execution path for those prompts.
-3. **Cloud ComfyUI.** Cheetara's optional Local ComfyUI row (Hunyuan3D, TRELLIS on the RTX 3090 box) has a cloud twin. Any saved workflow runs on a 24GB or 48GB instance when the PC is offline.
+3. **Cloud ComfyUI.** Cheetara's optional Local ComfyUI row (Hunyuan3D mini, TRELLIS on the 8 GB RTX 3070 Ti PC) has a cloud twin. Any saved workflow runs on a 24GB or 48GB instance when the PC is offline.
 
 Role decided with Kevin on 2026-09-04: **aggregator fallback plus cloud ComfyUI.** Direct accounts (Higgsfield Soul Characters, Kevin's own Midjourney for sref, ElevenLabs project voices) stay primary for hero quality. RunningHub is the fallback lane for every image, video, 3D, and music task, the primary for Midjourney-via-API without sref, and the ComfyUI runner when the PC is unavailable.
 

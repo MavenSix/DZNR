@@ -7,6 +7,14 @@ All notable changes to DZNR are documented here. Versioning follows the EVOLUTIO
 
 ---
 
+## [2.6.1] - 2026-09-04
+
+### Fixed: PC hardware references
+
+Kevin confirmed the PC is an RTX 3070 Ti with 8 GB VRAM and 64 GB system RAM (Windows 10 Pro), not the RTX 3090 with 24 GB that had been assumed. `agents/cheetara/AGENT.md` (Local ComfyUI row) and `routing/mcps/runninghub.md` (cloud ComfyUI rationale) both referenced "the RTX 3090 box"; corrected. Full Hunyuan3D v3.1 is now stated as a RunningHub lane, with local Hunyuan3D mini or TRELLIS as an 8 GB experiment. No routing change. DZNR OS Build Plan v1.7 carries the full hardware revision.
+
+---
+
 ## [2.6.0] - 2026-09-04
 
 ### Added: Workflows layer (nine complete, seven stubs)

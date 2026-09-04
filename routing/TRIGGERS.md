@@ -30,6 +30,12 @@ When Tár can't decide between two characters, **Snape voices the clarifying que
 
 ---
 
+## Workflow match comes first (added v2.6.0)
+
+Before any per-subagent trigger below is evaluated, Tár scans the `triggers` block of every file in `workflows/` (Step 1.5 of the routing algorithm). A workflow match supersedes single-subagent routing because the workflow carries its own chain nodes, checkpoints, and deliverables. Spoken triggers ("Hey DZNR, ...") live in the workflow files, not here. See `workflows/README.md`.
+
+---
+
 ## Tár: Orchestrator
 
 **Tár is the front door. Every request starts here. She doesn't claim work: she routes it.**

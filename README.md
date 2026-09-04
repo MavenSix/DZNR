@@ -163,8 +163,9 @@ Routing system internals:
 - [routing/SHARED_SKILLS.md](./routing/SHARED_SKILLS.md): shared-skill disambiguation matrix
 - [routing/FAILURE_MODES.md](./routing/FAILURE_MODES.md): failure-mode playbook
 - [routing/SUBAGENT_ROSTERS.md](./routing/SUBAGENT_ROSTERS.md): full skill rosters per subagent
-- [routing/INDUSTRIES.md](./routing/INDUSTRIES.md): industry posture system (8 industries across 4 clusters)
+- [routing/INDUSTRIES.md](./routing/INDUSTRIES.md): industry posture system (9 industries across 4 clusters)
 - [routing/MCPS.md](./routing/MCPS.md): MCP integration framework (per-MCP specs in `routing/mcps/`)
+- [workflows/README.md](./workflows/README.md): project-type workflows (nine complete, seven stubs) that compose chains, models, tools, checkpoints, and deliverables end to end; rendered at [docs/workflows.html](./docs/workflows.html)
 
 ### A note on skill naming
 

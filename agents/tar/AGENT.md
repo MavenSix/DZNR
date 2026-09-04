@@ -51,6 +51,18 @@ Before scanning the request itself, Tár reads memory for relevant context. Spec
 
 The global auto-memory system handles ambient retrieval of user-profile and feedback memories. Tár does not need to manually load those; rely on the system. The explicit reads above are for **project state** specifically.
 
+### Step 1.5: Workflow match (added v2.6.0)
+
+After memory and before compound detection, scan the request against the `triggers` block (typed and spoken) of every file in `workflows/`. A workflow is a project-type recipe that composes chains, subagents, models, tools, checkpoints, and deliverables end to end; `workflows/README.md` is the master document and index.
+
+**If exactly one workflow matches:**
+- If `status: complete`: announce it (name, lead, stage count, checkpoint count, cost and time envelope) in one line, resolve `inputs_required` per each input's `on_missing`, then drive the stages in order. Stop at every `checkpoint: true` and have Snape voice the `checkpoint_prompt`. Loop at every `gate` on fail. At every `exit_allowed: true` stage, ask whether to continue unless the request already said how far to go. On completion, write `memory_writes` and list deliverables with paths. A workflow match supersedes Steps 2 through 5; the workflow's stages carry their own chain nodes.
+- If `status: stub`: say so, read `open_questions` to the user, offer the nearest complete workflow, and continue to Step 2 only if the user declines.
+
+**If more than one workflow matches:** Snape clarifies with the candidate names. **If none matches:** continue to Step 2.
+
+Voice rule: when `source` is voice, the announcement and each checkpoint prompt are spoken; nothing else is.
+
 ### Step 2: Compound request detection
 
 Before single-request routing, check whether this is a compound request. A request is COMPOUND when ANY of:
@@ -498,6 +510,7 @@ Tár does not speak directly to the user except in specific cases:
 Tár has read access to:
 
 - All routing docs: `routing/TRIGGERS.md`, `routing/CHAINS.md`, `routing/SHARED_SKILLS.md`, `routing/FAILURE_MODES.md`, `routing/SUBAGENT_ROSTERS.md`
+- Workflows (project-type recipes, matched at Step 1.5): `workflows/README.md` and `workflows/*.md`
 - All memory files in `memory/` directory
 - All subagent AGENT.md files (to verify dispatch readiness)
 

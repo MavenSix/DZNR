@@ -7,6 +7,35 @@ All notable changes to DZNR are documented here. Versioning follows the EVOLUTIO
 
 ---
 
+## [2.6.0] - 2026-09-04
+
+### Added: Workflows layer (nine complete, seven stubs)
+
+Kevin asked for a master AI workflow document with sub-workflows per project type, in markdown for DZNR OS to read and in HTML for him. This release adds that layer and defines where it sits: a **workflow** is a project-type recipe that composes chains, subagents, models, tools, human checkpoints, and deliverables end to end, including work outside DZNR. A chain is a component of a workflow. The Build Plan is not a workflow. The Prompt Library consumes each workflow's triggers.
+
+**New directory `workflows/`:**
+- `README.md`: master document (definition, principles, index, frontmatter schema, how Tár and DZNR OS use workflows, how to add one)
+- `_template.md`
+- Nine complete workflows, each written from a real artifact: experience-audit-discovery (Aesop audit), ai-product-concept-prototype (Aesop Formulary concept and prototype), pitch-client-proposal (Aesop pitch deck and manifest), brand-activation-immersive (Jordan 3 / AJ1 configurator, git log and Blender pipeline), qki-serialized-world (both test packs, Chains 8 and 9, style authority), brand-design-system (Chain 2 plus Aesop voice and pitch CSS), landing-page-marketing-site (Chains 2, 4, 5 plus the Aura pattern), innovation-accelerator-workshop (Chain 6 plus the IA skill), pulse-os-artifacts (the Pulse OS product description Kevin wrote 2026-09-04)
+- Seven stubs with full frontmatter, stage skeletons, and five pointed open questions each: native-app, saas-application, audio, short-medium-form-video, long-form-narrative, style-sheets, motion-system. Stubs are never executed; Tár reads the questions aloud and offers the nearest complete workflow.
+
+**Renderer:** `scripts/build-workflows-html.py` (stdlib only) generates `docs/workflows.html` from the markdown. The markdown is the single source; the HTML is never edited by hand.
+
+**Routing changes:**
+- `agents/tar/AGENT.md`: new Step 1.5 Workflow match, between memory check and compound detection. A single complete match supersedes Steps 2 through 5 and drives stages, checkpoints (voiced by Snape), gates, and exits. Workflows listed in Tár's tools.
+- `routing/TRIGGERS.md`: workflow-first note at the top; spoken triggers live in workflow files.
+- `README.md`: workflows pointer in the routing docs list; industry count corrected to nine (missed in v2.4.1).
+
+**Ten shared principles** now written down in the master, each with its source artifact: header discipline is the handoff; per-claim attribution to the deck; asset manifests are deliverables; dual artifact at the engagement level; posture as constraints not styling; the asset is the risk; prerequisites enforced by the workflow; gates loop never proceed; voice checkpoints named; confidential as a per-workflow default.
+
+### Found while grounding (not fixed in this release; queued)
+
+- `qki-style-authority` SKILL.md lives at `~/.claude/skills/`, not in this repo, and its `references/world-pack-schema.md` and the asset-manifest schema are not on disk anywhere. Chain 9 NODE 1 and NODE 3 validate against a schema that does not exist. The QKI world workflow's exit criteria reconstruct the field lists from the two real packs and Cheetara's AGENT.md; those should become the schema file. Queued for v2.6.1.
+- Chain 4 branches only on Sitecore, Salesforce, AEM, other. The AJ1 configurator shipped on Vite, React Three Fiber, and Vercel, and the v1.12.3 live test shipped React Native. Chain 4 needs a generic web (Vite or Next, Vercel or Netlify) branch and a mobile branch. Queued for v2.7.0 (chain structure change).
+- The Aesop engagement ran Chain 3 NODE 6 as pitch only (not the documented default of pitch plus case study plus campaign plan) and did not run NODE 0 as a discrete step. The workflows follow the real run and name the divergences.
+
+---
+
 ## [2.5.0] - 2026-09-04
 
 ### Added: RunningHub MCP spec (aggregator: cloud ComfyUI plus ~420 model endpoints)

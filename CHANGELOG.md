@@ -7,6 +7,20 @@ All notable changes to DZNR are documented here. Versioning follows the EVOLUTIO
 
 ---
 
+## [2.7.0] - 2026-09-04
+
+### Added: Windows installer (`install.ps1`) and Windows install docs
+
+Kevin's DZNR OS compute partner is a Windows 10 Pro machine and every install path in DZNR was bash-only. `install.ps1` is a line-for-line twin of `install.sh` for PowerShell 5.1 and 7: prerequisite check (Node, Claude Code, Git for Windows), clone or pull to `$HOME\DZNR`, copy the `/dznr` slash command to `$HOME\.claude\commands\dznr.md`, optional workshop sync as a **directory junction** (works without Developer Mode or admin, unlike a symlink), verify. `-Check` flag mirrors `--check`. Idempotent.
+
+`docs/INSTALLATION.md` gains a Windows 10/11 quick-install block and drops the "Windows native is not fully tested" caveat in favour of a stated path. `README.md` install line shows both scripts.
+
+**Not machine-verified:** the sandbox this was written in has no PowerShell, so `install.ps1` has not been executed. Kevin runs it on the PC first; any error is a v2.7.1.
+
+**Renumbered:** the Chain 4 web and mobile branch work queued as v2.7.0 in the v2.6.0 notes is now queued as v2.8.0.
+
+---
+
 ## [2.6.1] - 2026-09-04
 
 ### Fixed: PC hardware references

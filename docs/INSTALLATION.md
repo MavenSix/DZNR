@@ -3,11 +3,30 @@
 ## Prerequisites
 
 - **Claude Code CLI** installed and authenticated. See https://docs.claude.com for current install instructions.
-- **macOS, Linux, or WSL.** Windows native is not fully tested. WSL works the same as Linux.
+- **macOS, Linux, or Windows 10/11.** macOS and Linux use `install.sh`. Windows uses `install.ps1` (PowerShell 5.1 or 7, no admin required; the workshop sync is a directory junction). Claude Code on Windows requires Git for Windows. WSL also works and behaves like Linux.
 - **Git** for cloning the repo.
 - **Existing Claude plugins** that DZNR composes skills from (see plugin list below).
 
-> Install commands in this document follow Claude Code plugin conventions as of 2026-05-26. If your Claude CLI version differs, verify with `claude --help` or check the official Claude Code docs.
+> Install commands in this document follow Claude Code plugin conventions as of 2026-05-26.
+
+### Windows 10/11 quick install (added v2.7.0)
+
+```powershell
+# Prerequisites (skip any you already have)
+winget install OpenJS.NodeJS.LTS
+winget install Git.Git
+npm install -g @anthropic-ai/claude-code
+claude login
+
+# Install DZNR
+git clone https://github.com/MavenSix/DZNR.git $HOME\DZNR
+powershell -ExecutionPolicy Bypass -File $HOME\DZNR\install.ps1
+
+# Use it
+claude --plugin-dir "$HOME\DZNR"
+```
+
+Then type `/dznr` inside Claude Code. `install.ps1 -Check` verifies prerequisites without changing anything. Paths on Windows: the repo is `%USERPROFILE%\DZNR`, the slash command lands in `%USERPROFILE%\.claude\commands\dznr.md`, and the optional workshop sync creates a junction at `%USERPROFILE%\.claude\skills`. If your Claude CLI version differs, verify with `claude --help` or check the official Claude Code docs.
 
 ### Required Claude plugins
 

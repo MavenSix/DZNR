@@ -131,10 +131,16 @@ Three things to hand a teammate:
 **One-line install for non-technical teammates:**
 
 ```bash
+# macOS, Linux, WSL
 curl -fsSL https://raw.githubusercontent.com/MavenSix/DZNR/main/install.sh | bash
 ```
 
-That single line handles prereq checks, the clone, the slash command setup, and the optional workshop sync.
+```powershell
+# Windows 10/11 (PowerShell; Git for Windows required, no admin needed)
+irm https://raw.githubusercontent.com/MavenSix/DZNR/main/install.ps1 | iex
+```
+
+Either line handles prereq checks, the clone, the slash command setup, and the optional workshop sync. On Windows the workshop sync is a directory junction, and the plugin loads with `claude --plugin-dir "$HOME\DZNR"`.
 
 ---
 

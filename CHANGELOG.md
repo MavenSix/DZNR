@@ -1,3 +1,33 @@
+## 2.12.0 — 2026-09-21
+
+### motion-system is complete (1.0)
+
+The stub said "no past project exists to write it from." That was true when it was written on
+2026-09-04 and stopped being true on 2026-09-17, when DZNR OS's own TUI shipped one:
+`packages/tui/src/motion.ts`, seven states, tested, with its rules written at the top of the file.
+
+Written from that rather than from theory, which is why it took four months. Four things it
+proves, observed rather than argued:
+
+- **A motion system is a grammar, not a list of easings.** Every state names something the
+  product actually does — "a task is running", "the Mac and the PC disagree". A state inherited
+  from a vocabulary that you cannot point at in the product gets cut.
+- **Every frame is a pure function of elapsed time.** No timers, no drift. That is what makes
+  motion reviewable rather than watchable, and it is the only reason it can have tests.
+- **Every state needs a resting frame, designed.** Reduced motion is a constraint on the grammar
+  at the beginning, not a checkbox at the end. A state whose only expression is a movement is not
+  a state, it is an effect.
+- **The information rule in its true form.** "Motion never carries information alone" is false as
+  usually stated — the shipped file says so itself. What holds is weaker: every state has a
+  settled frame, none is distinguishable only while moving, and the name travels as text.
+
+Kevin's three answers, 2026-09-21: code first and Figma optional, so the stub's Figma-motion-spec
+deliverable is removed and Figma becomes an INPUT to s5; motion.dev then GSAP then CSS; and both
+a stage in `brand-design-system` and a workflow here — with the drift that implies named in the
+file and given a rule rather than left to be discovered.
+
+Three stubs remain: `saas-application`, `native-app`, `content-site`.
+
 # DZNR Changelog
 
 All notable changes to DZNR are documented here. Versioning follows the EVOLUTION.md semantic rules:

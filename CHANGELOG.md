@@ -1,3 +1,39 @@
+## 2.13.0 — 2026-09-21
+
+### saas-application is complete (1.0)
+
+Written from **Pulse Studio** — Kevin's AI creative-intelligence agent for speculative-fiction
+authors, live at `pulse.mavensix.com`. The stub said its codebase "is not in DZNR EXPERIMENTS,
+so its actual build stages cannot be read." Both repos are on disk (`~/maven-ui`, `~/maven`),
+and a 27KB session-4 handoff carries the phase history, the defects and the risks.
+
+**Three of the stub's five open questions had premises the record does not support**, checked
+with a control rather than skimmed — `supabase` appears thirteen times in the handoff, so the
+search works:
+
+- "observability from the first commit" — zero hits. No Sentry, no OpenTelemetry, nothing in
+  `package.json`
+- "which tracking skills before deploy" — zero hits. No analytics of any kind shipped
+- "the Phase 1 retention finding" — zero hits for retention, activation, churn or cohort. Pulse
+  was at a five-user beta
+
+The stub was written from a *description* of Pulse rather than from Pulse, which is the failure
+its own grounding note warned about. Kevin cut the retention stage on that basis.
+
+What Pulse has instead is better material, and the stages are taken from it: validation written
+beside each slice **including its correct failure mode**; one data layer with one access rule
+(RLS for reads, `requireUserId` for writes); tokens before screens with the gaps recorded; phases
+shipped out of numeric order because each was a vertical slice; a state-machine defect that only
+walking it would catch (a gate flipped in the wrong place and orphaned an entire screen); risks
+said plainly with each acceptance **scoped and dated**; and polish deferred to a log with file
+locations rather than to memory.
+
+Stack is a fixed default on Kevin's call — Next.js App Router, Supabase, Vercel, Anthropic SDK
+server-side, Resend — with commercial builds starting on Vercel Pro, since Hobby's function
+timeout is what a multi-second model call eventually hits.
+
+Two stubs remain: `native-app`, `content-site`.
+
 ## 2.12.0 — 2026-09-21
 
 ### motion-system is complete (1.0)

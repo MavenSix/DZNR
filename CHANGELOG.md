@@ -7,6 +7,46 @@ All notable changes to DZNR are documented here. Versioning follows the EVOLUTIO
 
 ---
 
+## [2.8.0] - 2026-09-21
+
+### Added: Graphify (new MCP-class tool), and two stub workflows completed
+
+**Graphify** — `routing/mcps/graphify.md`. Installed as a **skill plus CLI** rather than a
+registered MCP: the CLI is reachable from any session through the shell, so a resident server
+would add tool weight to every session's context without adding a capability. The spec says so and
+says when to revisit. Evaluated and installed 2026-09-16.
+
+**`style-sheets` reaches 1.0**, written from QKI run 01 — 13 plates, $2.00,
+`fal-ai/flux-lora-fast-training`, weights on the `qki` style. Four of the stub's five open
+questions were answered by shipped DZNR OS work rather than by argument: the `styles` table and
+world packs ARE the generalisation it asked about, and the control at s5 is the proof it wanted.
+Two of its stages exist only because something went wrong — prove-it-with-a-control, because one
+picture through a LoRA proves nothing, and separate-what-transferred, because QKI's weights
+carried the drawing and not the palette.
+
+**`short-medium-form-video` reaches 1.0**, written from QKI teaser shot 01 — a QKI still animated
+through `runway:kling3.0_standard`, $0.25, 5.04s at 1108×828, style intact on a frame pulled from
+the middle of the clip. Built around one fact: a trained style is image-only, because
+`fal-ai/ltx-video-trainer` is deprecated, so text-to-video carries no style at all. The pipeline is
+**still → choose → animate**, which is not a workaround but the only route, and it puts the
+expensive step last, after a human has looked.
+
+It also says plainly what is NOT available: score. `suno` has no public API and the RunningHub
+music lane needs an Enterprise-Shared key Kevin has declined on cost. Bring music from outside, or
+cut without it.
+
+**Workflows layer is now eleven complete, five stubs**, revising the v2.6.0 headline of nine and
+seven.
+
+**The five remaining stubs stay stubs on purpose.** Each carries `open_questions` only Kevin can
+answer, and `status: complete` is a permission rather than documentation — `runnable()` returns
+true and Tár executes it. Filling them from theory would run a fabricated process on client work.
+
+**Renumbered:** the Chain 4 web and mobile branch work queued as v2.8.0 in the v2.7.0 notes is now
+queued as v2.9.0. Same reason as last time — something finished before the queued item did.
+
+---
+
 ## [2.7.0] - 2026-09-04
 
 ### Added: Windows installer (`install.ps1`) and Windows install docs

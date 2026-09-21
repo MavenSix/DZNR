@@ -242,7 +242,7 @@ Live site (dual with the Figma direction it was built from) and the image manife
 ## What this is not
 
 - Not a full brand system (previous workflow; this one consumes its tokens).
-- Not a multi-page marketing site with a CMS (Chain 4 delivery with Neo leading, and a content workflow).
+- Not a multi-page marketing site with a CMS — that is `content-site`, which is a STUB as of 2026-09-21 and carries the open questions that have to be answered before it can run. This line used to point at "a content workflow" that did not exist anywhere.
 - Not an SEO engagement (Chain 5 standalone).
 - Not a pitch (the pitch workflow; a web pitch is a deck, not a landing page).
 

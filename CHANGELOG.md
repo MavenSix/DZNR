@@ -7,6 +7,39 @@ All notable changes to DZNR are documented here. Versioning follows the EVOLUTIO
 
 ---
 
+## [2.10.0] - 2026-09-21
+
+### Added: browser specs, and the `content-site` stub
+
+**Two browser MCPs, deliberately separate.** Kevin asked whether a DZNR browser instance was
+planned; the question turned up that **no browser tooling was registered at all** — while
+`midjourney-sref` and `krea` had been refused since Phase 1 with a reason pointing at a "Chrome MCP
+host" that had no spec anywhere in this registry. The blocker was not waiting on work. It was
+waiting on a decision nobody had written down.
+
+`playwright` (ACTIVE) is **amnesiac on purpose**: no profile, no cookies, no saved logins. That is
+what makes a result reproducible and what makes it safe to run unattended. It is the QA half of
+`saas-application`, `native-app` and `landing-page-marketing-site` — Neo could build a site and
+could not look at it, and "it deployed" has been the last verified fact in every web engagement.
+
+`browser-profile` (PENDING) is the opposite and stays a separate spec because **every property
+that makes Playwright safe is one this gives up**. It holds live sessions rather than a revocable
+API key, so it carries rules no other spec needs: never enters credentials, never completes a
+CAPTCHA or a 2FA code, never buys anything, never leaves the vendor's domain, and reads page
+content as data rather than instruction. **Kevin performs the login himself, once** — an agent
+that could log in could be made to log in somewhere else. It also cannot run from the daemon and
+never will, so `--sref` stays refused for queued work; the spec says so rather than implying a fix.
+
+**`content-site` (stub).** `landing-page-marketing-site` said in its own "What this is not" that it
+does not cover a multi-page site with a CMS, and routed that to *"a content workflow"* — **which
+did not exist.** Sixteen workflows and a client website fell between all of them, behind a sentence
+pointing at nothing. The stub carries five open questions, four of which are Kevin's alone, and the
+pointer in `landing-page-marketing-site` now names a real file.
+
+**Workflows: twelve complete, five stubs.**
+
+---
+
 ## [2.9.0] - 2026-09-21
 
 ### Added: `## Voice` in the character contract, and the `audio` workflow

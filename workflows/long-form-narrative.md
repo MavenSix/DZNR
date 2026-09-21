@@ -13,7 +13,7 @@ grounded_in:
     date: 2026-09-21
   - path: ~/dznr-os/lore/the-yard.md and lore/the-seven.md
     date: 2026-09-21
-  - path: ~/dznr-os/docs/decisions.md (179 — a style trained on faces will not give you a character who has none)
+  - path: ~/dznr-os/docs/decisions.md (180 — correcting 179; the limit is prompting, not the style)
     date: 2026-09-21
   - path: ~/dznr-os/docs/decisions.md (161 — references and trained weights do not compose)
     date: 2026-09-17
@@ -54,7 +54,7 @@ stages:
     tools: [dznr-os]
     produces: [one test render per character whose defining trait is unusual, and a verdict]
     checkpoint: true
-    checkpoint_prompt: "This is what the style does with each character. Where it fights the description, do we change the character, retrain the style, or accept it?"
+    checkpoint_prompt: "This is what each character actually renders as. Where the description is not reachable, do we change the trait, fix it in one frame and carry it, or accept what renders?"
     gate: null
     exit_allowed: false
   - id: s3
@@ -133,7 +133,7 @@ exit_criteria:
   - "Every character with an unusual defining trait was TEST RENDERED at s2, before the episode was written around them"
   - "Every beat began as a still that was looked at and chosen"
   - "s6 ran and named where a character drifted, rather than reporting a clean pass over frames nobody compared"
-  - "What the style could not carry is written down, not discovered on delivery"
+  - "What could not be rendered is written down at s2, not discovered on delivery"
 memory_writes:
   - "narrative.<world>.episode_<n>.beats"
   - "narrative.<world>.episode_<n>.frames (chosen artifact ids)"
@@ -149,38 +149,45 @@ Author an episode in one of Kevin's serialized worlds and produce it — beats, 
 motion — as a thing that can be watched rather than a document about a thing.
 
 **Written from the QKI episode Kevin described on 2026-09-21:** Jericho dreams himself into a
-prison yard and fights seven personifications of the deadly sins, while Death — a face of solid
-black, obsidian eyes, black hair, in an orange prison jumpsuit — sits on a short concrete
-staircase taking notes and does not intervene.
+prison yard and fights seven personifications of the deadly sins, while Death — a Black man with
+an all-black face, eyes black edge to edge, black hair, in an orange prison jumpsuit — sits on a
+short concrete staircase taking notes and does not intervene.
 
 **The form is an immersive episode**, which was the stub's first open question. Kevin answered it
 with a scene rather than a category, which is the better answer: what he described is not prose
 and not a script, it is a sequence you are inside.
 
-## s2 exists because of one render, and it is the most important stage here
+## s2 exists because a defining trait may not be reachable at all
 
-Death's defining trait is **a face of solid black without features — not dark skin, an absence.**
-Rendered in QKI with the character pack driving the prompt, the style gave him **an ordinary
-face.**
+Death's defining trait, in Kevin's words: **all black face, obsidian eyes.** Not dark skin — the
+face black as a colour, and the eyes black edge to edge with no white and no iris.
 
-The same prompt with the QKI weights removed produced a face almost entirely black with dark
-reflective eyes — close to what the pack describes.
+**Neither model will draw it.** Tested both ways with honest phrasing:
 
-**The style overrode the character.** QKI's weights were trained on thirteen plates of characters
-who all have rendered faces, so they insist on one. And the obvious escape is closed: a reference
-image would lock the face, but references route to nano-banana, which **cannot load a LoRA** — the
-two levers do not compose (decision 161).
+    with QKI      the style intact — but the face is a complexion, not a colour
+    without QKI   ORDINARY eyes, with whites and irises
 
-So a character whose defining trait contradicts what the style was trained on **cannot be rendered
-by prompt alone**, and finding that out after the episode is written around him is expensive in a
-way nothing else here is. s2 is one cheap render per unusual character, before anything is
-committed to, and it has three honest outcomes:
+The trait fails in both arms, so this is a limit of prompting rather than a fight between the
+style and the character. A text-to-image model renders a face; asking for one that is a colour
+rather than a complexion, with eyes that have no structure, is outside what a prompt reliably
+reaches.
 
-    change the character     his absence becomes something the style CAN draw
-    retrain the style        add plates that contain the trait; $2 and a run
-    accept it                Death has a face in QKI, and that is now canon
+**Two earlier versions of this section gave a cause, and both were wrong.** First that the style
+overrode the character; then that the pack's phrasing fought a training set of dark-skinned
+characters. QKI does not constrain skin tone — tested — so there was nothing to fight. What is
+measured is that the trait does not render. **Why is not known**, and this section no longer
+offers a reason. See decisions 180 and 181.
 
-None of those is wrong. Discovering you had to pick one at s7 is.
+So: one cheap render per character whose defining trait is unusual, **before** the episode is
+written around them, with three honest outcomes —
+
+    change the trait        into something a model will draw
+    reference or paint-over the trait is fixed in one frame and carried, not prompted
+    accept it               Death has ordinary eyes in this world, and that is canon
+
+— and note that **retraining the style does not help here.** It fixes what a style will not carry;
+it does not make a prompt reach a thing prompts do not reach. Which remedy applies depends on
+which kind of failure it is, and that is exactly what s2 is for finding out.
 
 ## Stages
 

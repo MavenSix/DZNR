@@ -1,3 +1,41 @@
+## 2.14.0 - 2026-09-21
+
+### native-app is complete (1.0)
+
+Written from the DZNR OS menu-bar app: Tauri 2, built and installed on macOS and Windows.
+
+**The stub asked a mobile question.** Its first open question offered SwiftUI, React Native or
+Expo, and its precedent was a React Native chat prototype from May. All three options are mobile,
+and the app Kevin has actually shipped is cross-platform desktop. So this file is the desktop
+case, and the mobile half is left explicitly unwritten rather than guessed. Same correction
+`saas-application` needed, same cause: a stub written from a category rather than from a project
+asks questions inside the wrong shape.
+
+Four things the app proves, all from its own scripts and README:
+
+- **An app that holds nothing cannot disagree with anything.** The README states the boundary
+  before it states a feature: no database, no read model, no opinion about what a task means. A
+  native app is a second place data can live, and the second place is where drift starts. s1
+  produces that boundary as a sentence, and it is a checkpoint.
+- **`tauri build` exits 0 on failure.** The PC session watched it print `failed to build app`
+  twice and return success. So the check reads the output rather than the status, and matches a
+  failure signature as well as a success line, because a build that hangs after failing looks
+  identical to one still running and silence must never read as progress.
+- **A guard placed after the thing it guards is decoration.** The stale-asset check originally ran
+  after the build, which rebuilt the binary and made the comparison always pass. The fix was not a
+  better check, it was removing the class: bundle the frontend first, every time. A guard that
+  cannot fire is worse than no guard, because it reads as coverage.
+- **The second platform is where the real defects are.** Three things about the Windows build were
+  unanswerable from the Mac, one deadlock was harmless on macOS and fatal on Windows, and a running
+  app there holds its own .exe (which also exits 0). So s4 is owned by Sherlock and its deliverable
+  is the list of what has never been observed. "Should be fine" is not a verdict.
+
+Signing gets its own stage because the menubar app declares none, which is fine for two machines
+Kevin owns and not fine for anything handed to a client. Shipping unsigned is allowed. Shipping
+unsigned without anyone saying so is what s6 prevents.
+
+One stub remains: `content-site`, which needs one real site named with its CMS and page count.
+
 ## 2.13.0 — 2026-09-21
 
 ### saas-application is complete (1.0)

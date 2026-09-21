@@ -7,6 +7,39 @@ All notable changes to DZNR are documented here. Versioning follows the EVOLUTIO
 
 ---
 
+## [2.9.0] - 2026-09-21
+
+### Added: `## Voice` in the character contract, and the `audio` workflow
+
+**Character packs gain `## Voice`.** Written because the first real voice design run sent a
+description of a man's CLOTHES to a voice designer. Every fixed trait in a character pack is
+visual — locked hair, a scar, brass rings — because traits exist to keep a face consistent between
+two pictures. The designer returned three perfectly good voices chosen for reasons unconnected to
+the character, and nothing about the result looked wrong.
+
+`dznr-os character voice` refuses without the section rather than falling back to appearance.
+Voice notes stay out of image prompts, the same rule lore follows.
+
+**`audio` reaches 1.0**, written from Jericho Emory's voice design — three previews from his
+`## Voice` section, speaking a line a Wound Keeper would say rather than the vendor's
+auto-generated *"Mornin' folks... hope y'all have a blessed one."* A voice judged on the wrong
+words is judged on the wrong thing.
+
+Five stages, and nothing in it picks a voice: previews are alternatives and choosing one is done
+by listening, which no part of this system can do.
+
+**Says plainly what it does NOT cover**, rather than leaving it to be discovered: score and music
+have no working path at all; mixing is ffmpeg in the video workflow and not a DAW; and **cloning a
+real person's voice is out of scope until Kevin answers what consent record the workflow must
+hold.** That is the one open question left in it, and it is a decision rather than an omission.
+
+**Workflows: twelve complete, four stubs.**
+
+**Renumbered:** the Chain 4 web and mobile branch work queued as v2.9.0 in the v2.8.0 notes is now
+queued as v2.10.0. Third time; it keeps being overtaken by work that finished.
+
+---
+
 ## [2.8.0] - 2026-09-21
 
 ### Added: Graphify (new MCP-class tool), and two stub workflows completed

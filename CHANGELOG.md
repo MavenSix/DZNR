@@ -7,6 +7,40 @@ All notable changes to DZNR are documented here. Versioning follows the EVOLUTIO
 
 ---
 
+## [2.11.0] - 2026-09-21
+
+### Added: `long-form-narrative` at 1.0, and the stage that exists because of one render
+
+Kevin answered the stub's first open question with a scene rather than a category: Jericho dreams
+himself into a prison yard and fights seven personifications of the deadly sins, while Death — a
+face of solid black, obsidian eyes, in an orange prison jumpsuit — watches from a short concrete
+staircase and takes notes. **An immersive episode**, and the form was clearer from the scene than
+any category would have made it.
+
+**s2, "can this world be drawn as written", exists because of one $0.025 render.** Death's
+defining trait is a face without features. Rendered in QKI the style gave him an ordinary face;
+everything else landed. The control — same prompt, weights removed — produced a face almost
+entirely black with dark reflective eyes. **The style overrode the character**, because QKI was
+trained on thirteen plates of characters who all have faces, and weights carry what the training
+set agreed on whether or not the prompt asks otherwise.
+
+The obvious escape is already closed: a reference image would lock the face, but references route
+to a driver that cannot load a LoRA. So a character whose defining trait contradicts the training
+set **cannot be rendered by prompt alone** — and the three honest outcomes (change the character,
+retrain the style, accept it) are all cheap at s2 and ruinous at s7.
+
+**s6 is stated as a comparison surface, not a lock**, which is the honest limit. A trained style
+keeps a LOOK consistent; it does not keep a PERSON consistent, and no identity lock is reachable.
+Seven antagonists who must read as the same seven is why `the-seven` deliberately leaves their
+designs open rather than settling them by accident.
+
+Seven stages, five checkpoints, and the world lives as `lore/` and `characters/` rather than as a
+document about a world — because those brief a model and a document does not.
+
+**Workflows: thirteen complete, four stubs.**
+
+---
+
 ## [2.10.0] - 2026-09-21
 
 ### Added: browser specs, and the `content-site` stub

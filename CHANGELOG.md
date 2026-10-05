@@ -12,9 +12,10 @@ row to a running server by the row's own name. `workspace-and-data.md` had "Goog
 "not checked" forever. The rows now carry the server names: `google-drive`, `gmail`,
 `google-calendar` and `pdf`. Gmail and Calendar are two servers, so they are two rows. Run through
 DZNR OS's own registry and matcher with the real server names, the four went from 0 matched to 4.
-The PDF row was owned by "Cross-cutting", meaning every agent may use it. That is not a subagent,
-and DZNR OS reported it as one it did not know, so the row now names all nine agents: same meaning,
-in the form DZNR OS's registry reads.
+The PDF row stays owned by "Cross-cutting", meaning every agent may use it. DZNR OS reads it that
+way: its catalog and connector report treat `cross-cutting` as no single agent, and its run
+preflight then warns no agent about a pdf outage. Listing all nine agents would warn on every run.
+DZNR OS's registry still lists `cross-cutting` as an unknown owner; that is DZNR OS's to fix.
 
 One form is still unmatched: the design, enterprise-search and operations plugins name their
 calendar server `google calendar`, with a space. The row follows the claude.ai connector and the
@@ -51,7 +52,7 @@ read it as "no estimate", and the window once showed it as "DZNR estimates $0 to
 **`scripts/validate-routing.sh` checks all of this now.** It fails an MCP table row whose name cannot
 be a server name (three known exceptions warn instead: `slack (small-business)`, "Notion (via
 enterprise-search)" and "Apple Notes"), a spec whose status disagrees with its line in
-`routing/MCPS.md`, an MCP owner that is not a directory under `agents/`, an ACTIVE connector still called pending in
+`routing/MCPS.md`, an MCP owner that is neither `cross-cutting` nor a directory under `agents/`, an ACTIVE connector still called pending in
 an agent prompt, the evolution protocol, the install guide or the routing docs, and a workflow whose envelope is `[0, 0]`, reversed, or missing from a complete
 workflow. Run against 2.14.0's files, it fails on exactly the defects above.
 CI runs it on a pull request that touches any file it reads: `routing-validation.yml` now also

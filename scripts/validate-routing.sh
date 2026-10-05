@@ -180,8 +180,10 @@ echo ""
 
 # --- MCP owners are subagents (added v2.14.1) ---
 # DZNR OS reads an owner as a subagent name, the way its registry does: parentheses dropped, split
-# on commas and " or ", lowercased, Tár as tar, spaces as hyphens. "Cross-cutting" named no agent,
-# so DZNR OS reported it as unknown; a connector every agent may use names all nine instead.
+# on commas and " or ", lowercased, Tár as tar, spaces as hyphens. "cross-cutting" is the one owner
+# that is not an agent: DZNR OS's catalog, connector report and run preflight read it as a connector
+# every agent may use, so a pdf outage warns no one. Listing all nine agents instead would warn on
+# every run, and would miss a tenth agent.
 echo "Checking MCP owners are subagents..."
 known_agents=$(find "$DZNR_ROOT/agents" -mindepth 1 -maxdepth 1 -type d -exec basename {} \; | tr '[:upper:]' '[:lower:]')
 owners_checked=0
@@ -191,8 +193,9 @@ while IFS=$'\t' read -r file name raw; do
     owner=$(printf '%s' "$owner" | sed -E 's/^[[:space:]]+|[[:space:]]+$//g' | tr '[:upper:]' '[:lower:]' | sed -E 's/^tár$/tar/; s/[[:space:]]+/-/g')
     case "$owner" in ''|n/a|none) continue ;; esac
     owners_checked=$((owners_checked + 1))
+    [ "$owner" = "cross-cutting" ] && continue
     if ! printf '%s\n' "$known_agents" | grep -Fxq "$owner"; then
-      echo "  FAIL: $file \"$name\" has owner \"$owner\", which is not a directory under agents/"
+      echo "  FAIL: $file \"$name\" has owner \"$owner\", which is neither cross-cutting nor a directory under agents/"
       FAILED=1
     fi
   done < <(printf '%s\n' "$raw" | sed -E 's/\([^)]*\)//g; s/[[:space:]]+[Oo][Rr][[:space:]]+/,/g' | tr ',' '\n')

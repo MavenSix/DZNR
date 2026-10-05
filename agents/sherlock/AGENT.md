@@ -428,4 +428,4 @@ Production v1.0.0. Built Phase 3.7 on 2026-05-26.
 Future iterations:
 - Cross-project research memory (when the same industry or client returns, prior findings auto-surface)
 - Automated source-priority caching (which sources tend to have signal for which kinds of research)
-- Mobbin MCP activation when the connection lands (no prompt rewrite needed; framework reference already in place)
+- Mobbin: done. Activated 2026-09-30 through its claude.ai connector (see `routing/mcps/mobbin.md`); no prompt rewrite was needed

@@ -115,6 +115,8 @@ If any test now fails, the change needs refinement before going live.
 
 Mobbin is a UI pattern reference library (mobbin.com — searchable database of mobile app screenshots and design patterns by app, by flow, by component). If Mobbin shipped an MCP and you wanted to add it to DZNR, here's what would happen.
 
+This example was written before Mobbin had a connector. It was activated on 2026-09-30; see "Mobbin integration" below.
+
 ### Step 1: Propose
 
 ```
@@ -350,12 +352,8 @@ With the Evolution Protocol in place:
 
 ---
 
-## Mobbin integration: deferred to availability
+## Mobbin integration: active since 2026-09-30
 
-Per registry check on 2026-05-18, Mobbin is not currently in the MCP registry. When it becomes available:
+Per registry check on 2026-05-18, Mobbin was not in the MCP registry, so this integration was deferred until it was.
 
-1. Pull this doc up
-2. Follow the "Worked example: Adding Mobbin" section above
-3. Total integration time estimated at 30-45 minutes including stress test re-run
-
-If you want to mock-integrate Mobbin now (i.e. pre-define the routing as if Mobbin existed), we can. But it's better to wait until the real MCP shape is known — the actual tool names and capabilities will inform sharper triggers.
+- 2026-09-30: activated through its claude.ai connector, "Mobbin", with the tools `search_screens`, `search_flows` and `search_sections`. Sherlock owns it and Snape calls it, as the worked example above proposed. The spec is `routing/mcps/mobbin.md` (status ACTIVE); its activation steps say how it is connected.

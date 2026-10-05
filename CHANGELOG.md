@@ -24,7 +24,13 @@ small-business plugin, which use the hyphen.
 tables, in the prompt library and in the install guide. It is signed in through claude.ai; Sherlock
 searched it five times unattended on 2026-09-30, and DZNR OS has read `claude.ai Mobbin` as
 connected on both machines since. Its activation steps now describe the claude.ai connector, and
-warn against the user-level `mobbin` entry that shadowed it until 2026-09-30.
+warn against the user-level `mobbin` entry that shadowed it until 2026-09-30. Sherlock's "Future
+iterations" no longer lists its activation, and `governance/EVOLUTION.md`'s "deferred to
+availability" note is now dated as done.
+
+**Higgsfield was still PENDING in the install guide**, though its spec has said ACTIVE since
+2026-07-24. `docs/INSTALLATION.md` now lists it as ACTIVE, and its PENDING line names the two specs
+that are: RunningHub and Browser Profile.
 
 **Three workflows carried `cost_envelope_usd: [0, 0]`, the template's placeholder.** DZNR OS has to
 read it as "no estimate", and the window once showed it as "DZNR estimates $0 to $0".
@@ -45,7 +51,8 @@ read it as "no estimate", and the window once showed it as "DZNR estimates $0 to
 **`scripts/validate-routing.sh` checks all of this now.** It fails an MCP table row whose name cannot
 be a server name (three known exceptions warn instead: `slack (small-business)`, "Notion (via
 enterprise-search)" and "Apple Notes"), a spec whose status disagrees with its line in
-`routing/MCPS.md`, an MCP owner that is not a directory under `agents/`, and a workflow whose envelope is `[0, 0]`, reversed, or missing from a complete
+`routing/MCPS.md`, an MCP owner that is not a directory under `agents/`, an ACTIVE connector still called pending in
+an agent prompt, the evolution protocol, the install guide or the routing docs, and a workflow whose envelope is `[0, 0]`, reversed, or missing from a complete
 workflow. Run against 2.14.0's files, it fails on exactly the defects above.
 
 **Outside this repo:** the pitch QA module that passed the Fear of God readout is not shipped by

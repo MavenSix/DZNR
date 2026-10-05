@@ -254,6 +254,30 @@ for f in "$MCPS_DIR"/*.md; do
 done
 echo ""
 
+# --- An ACTIVE connector is not called pending elsewhere (added v2.14.1) ---
+# After Mobbin went ACTIVE, Sherlock's prompt still listed its activation as future work, the
+# evolution protocol still called it deferred, and the install guide still listed Higgsfield as
+# PENDING months after its spec said ACTIVE. A line naming an ACTIVE connector beside one of
+# these phrases is one of those leftovers.
+echo "Checking ACTIVE connectors are not called pending..."
+PENDING_PHRASES='PENDING|deferred to availability|when the connection lands|awaiting MCP availability|not currently in the MCP registry'
+for f in "$MCPS_DIR"/*.md; do
+  [ "$(basename "$f")" = "_template.md" ] && continue
+  spec_status=$(awk '/^---$/{n++; next} n==1 && /^status:/{print $2; exit}' "$f")
+  [ "$spec_status" = "ACTIVE" ] || continue
+  mcp=$(awk '/^---$/{n++; next} n==1 && /^mcp-name:/{print $2; exit}' "$f")
+  case "$mcp" in ''|*-cluster) continue ;; esac
+  stale=$(cd "$DZNR_ROOT" && grep -n -i -w -- "$mcp" agents/*/AGENT.md governance/EVOLUTION.md docs/INSTALLATION.md docs/PROMPT_LIBRARY.md routing/*.md README.md 2>/dev/null | grep -E -- "$PENDING_PHRASES" || true)
+  if [ -n "$stale" ]; then
+    printf '%s\n' "$stale" | while IFS= read -r hit; do
+      echo "  FAIL: $mcp is ACTIVE in routing/mcps but still called pending: $hit"
+    done
+    FAILED=1
+  fi
+done
+echo "  OK: ACTIVE connectors checked"
+echo ""
+
 # --- Workflow cost envelopes (added v2.14.1) ---
 # [0, 0] was the template's placeholder. DZNR OS reads it as "no estimate", and a person reads it
 # as "free". A complete workflow carries a real [low, high]; a stub carries TBD or a real pair.

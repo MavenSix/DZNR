@@ -223,7 +223,8 @@ def render_article(path: Path) -> tuple[str, str, str, str]:
         meta.append(f"<span>with: {html.escape(', '.join(supporting))}</span>")
     if chains:
         meta.append(f"<span>chains: {html.escape(', '.join(chains))}</span>")
-    if cost and cost != "[0, 0]":
+    # TBD is a stub's honest "not priced yet"; [0, 0] is the old template placeholder.
+    if cost and cost not in ("[0, 0]", "TBD"):
         meta.append(f"<span>cost: ${html.escape(cost.strip('[]').replace(', ', ' to '))}</span>")
     if time_env and time_env != "TBD":
         meta.append(f"<span>time: {html.escape(time_env)}</span>")

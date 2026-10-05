@@ -2,7 +2,7 @@
 workflow: motion-system
 name: Motion System
 status: complete
-version: 1.0
+version: 1.1
 lead: snape
 supporting: [gandalf, neo, tar]
 chains: [2]
@@ -123,7 +123,7 @@ deliverables:
     dual_with: markdown
   - type: markdown
     dual_with: code
-cost_envelope_usd: [0, 0]
+cost_envelope_usd: [10, 80]
 time_envelope: "s1 and s2 are the work and are a morning with the brand owner in the room. Tokens an hour. Resting frames half a day and it is the half day people skip. Code one to three days per target. A Jitter prototype is hours and only when a client needs one."
 exit_criteria:
   - "Every state names something the product ACTUALLY DOES, in the words a person would use, and s2 was checkpointed against that"
@@ -344,8 +344,29 @@ checkpoints and the four proofs above come from a real build; the time envelope 
 engagement and the Jitter sign-off path at s6 are estimates. Revise this file from the first
 client engagement rather than trusting those two numbers.
 
+**The cost envelope, and what it is made of.** Every stage runs as an agent in DZNR OS, and an
+agent spends model money even where `models` is null (it then runs on the agent's default, Sonnet).
+So the envelope prices agent stages, from the only two workflow runs DZNR OS has recorded
+(2026-10-01, its ledger): a Sonnet stage that writes or researches cost $0.68 to $2.05, a Sonnet
+stage driving Playwright $4.87, an Opus stage writing an outline $5.36, an Opus stage critiquing,
+fixing and re-rendering $12.49, and an Opus stage building and rendering a deck $21.63.
+
+- Low, about $10: the draft tier (s1 and s2 on Sonnet, about $1.20 each), s3 and s4 at about $0.70
+  each, one code target at s5 like the Playwright stage ($4.87), no s6, and a short s7 (about $2).
+- High, about $80: s1 and s2 on Opus ($5.36 each), s3 and s4 at $2.05 each, three code targets at
+  s5 at up to $20 each (a code build is heavier than a capture, and no heavier than the Opus build
+  stage), s6 at $2, and s7 driving Playwright ($4.87).
+
+A single web target at the standard tier lands near $25 to $40. Jitter time and any client
+licence are outside the envelope. Revise it from the first real run: the pitch workflow's own
+envelope was $5 to $40, and its first run spent its whole $50 ceiling before the last stage
+finished.
+
 ## Changelog
 
+- 1.1 (2026-10-05): `cost_envelope_usd` is `[10, 80]`, priced from DZNR OS's ledger (see Grounding
+  notes). It was `[0, 0]`, the template's placeholder, which DZNR OS read as "no estimate" and a
+  person could read as "free".
 - 1.0 (2026-09-21): written from `packages/tui/src/motion.ts`, the dznr pack's motion bias fields,
   and Kevin's three answers on dual artifact, library order and standalone-versus-stage. The stub's
   Figma-motion-spec assumption was removed: Figma is an input.

@@ -199,6 +199,37 @@ for f in "$MCPS_DIR"/*.md; do
 done
 echo ""
 
+# --- Workflow cost envelopes (added v2.14.1) ---
+# [0, 0] was the template's placeholder. DZNR OS reads it as "no estimate", and a person reads it
+# as "free". A complete workflow carries a real [low, high]; a stub carries TBD or a real pair.
+echo "Checking workflow cost envelopes..."
+for f in "$DZNR_ROOT"/workflows/*.md; do
+  base=$(basename "$f")
+  [ "$base" = "README.md" ] && continue
+  status=$(awk '/^---$/{n++; next} n==1 && /^status:/{print $2; exit}' "$f")
+  envelope=$(awk '/^---$/{n++; next} n==1 && /^cost_envelope_usd:/{sub(/^cost_envelope_usd:[[:space:]]*/, ""); print; exit}' "$f")
+  verdict=$(printf '%s' "$envelope" | awk '
+    /^TBD$/ { print "tbd"; exit }
+    match($0, /^\[[[:space:]]*[0-9]+(\.[0-9]+)?[[:space:]]*,[[:space:]]*[0-9]+(\.[0-9]+)?[[:space:]]*\]$/) {
+      gsub(/[][[:space:]]/, ""); split($0, v, ",")
+      if (v[2] + 0 == 0) { print "zero"; exit }
+      if (v[1] + 0 > v[2] + 0) { print "reversed"; exit }
+      print "range"; exit
+    }
+    { print "bad" }')
+  case "$status:$verdict" in
+    complete:range|stub:range|stub:tbd)
+      echo "  OK: workflows/$base ($status, $envelope)" ;;
+    *:zero)
+      echo "  FAIL: workflows/$base has cost_envelope_usd $envelope, the template placeholder; price it or write TBD (stubs only)"
+      FAILED=1 ;;
+    *)
+      echo "  FAIL: workflows/$base ($status) has cost_envelope_usd \"$envelope\"; a complete workflow needs [low, high] with 0 <= low <= high and high > 0"
+      FAILED=1 ;;
+  esac
+done
+echo ""
+
 # --- Summary ---
 if [ "$FAILED" -eq 0 ]; then
   echo "==============================="

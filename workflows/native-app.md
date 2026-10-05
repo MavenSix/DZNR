@@ -2,7 +2,7 @@
 workflow: native-app
 name: Native App
 status: complete
-version: 1.0
+version: 1.1
 lead: neo
 supporting: [snape, gandalf, sherlock, tar]
 chains: [4]
@@ -108,7 +108,7 @@ deliverables:
     dual_with: markdown
   - type: markdown
     dual_with: code
-cost_envelope_usd: [0, 0]
+cost_envelope_usd: [10, 50]
 time_envelope: "The window is a day. The build scripts are an afternoon and they repay it the first time a build fails quietly. Getting the same binary running on the second platform took longer than the first one took to write, and that is the shape to expect rather than the exception."
 exit_criteria:
   - "The app holds no read model and no second opinion about its own data: the boundary from s1 is still true of what shipped"
@@ -264,12 +264,31 @@ app and the two shell scripts that ship it. The Windows defects are real and two
 unresolved.
 
 **What is not:** no client has received a native app through DZNR, nothing here has been signed or
-notarised, and no app has been through a store. The cost envelope is zero because a desktop build
-spends no vendor money; a mobile one spends developer-programme fees and that number belongs in the
-mobile half when it is written.
+notarised, and no app has been through a store.
+
+**The cost envelope prices the agent stages, not vendor fees.** It was zero, on the reasoning that
+a desktop build spends no vendor money. That is true and beside the point: in DZNR OS every stage
+runs as an agent, and an agent spends model money against the run's ceiling even where `models` is
+null (it then runs on the agent's default, Sonnet). The two workflow runs DZNR OS has recorded
+(2026-10-01, its ledger) give the prices: a Sonnet stage that writes or researches $0.68 to $2.05,
+a Sonnet stage making a brand pack $3.64, a Sonnet stage driving Playwright $4.87, an Opus stage
+writing an outline $5.36, and an Opus stage building and rendering a deck $21.63.
+
+- Low, about $10: s1 on Sonnet ($1.16), s2 about $2, s3 like the Playwright stage ($4.87), s4 at
+  about $0.70 per platform for two, s5 and s6 at about $0.70 each.
+- High, about $50: s1 on Opus ($5.36), s2 like the brand pack ($3.64), s3 at up to $20 (a real
+  build is heavier than a capture, and no heavier than the Opus build stage), s4 at $4.87 per
+  platform for two, s5 at $4.87, and s6 at $2.05.
+
+Signing certificates, notarisation and a mobile developer programme are vendor fees outside the
+envelope; that number belongs in s6 when certificates are bought, and in the mobile half when it is
+written. Revise the envelope from the first real run.
 
 ## Changelog
 
+- 1.1 (2026-10-05): `cost_envelope_usd` is `[10, 50]`, priced from DZNR OS's ledger (see Grounding
+  notes). It was `[0, 0]`, which DZNR OS reads as "no estimate" and a person reads as "free",
+  while every stage runs an agent that spends.
 - 1.0 (2026-09-21): written from the DZNR OS menu-bar app. The stub's mobile framing was corrected
   rather than answered: the app that shipped is cross-platform desktop, and the mobile path is left
   open rather than guessed.

@@ -2,7 +2,7 @@
 workflow: content-site
 name: Multi-Page Content Site
 status: stub
-version: 0.1
+version: 0.2
 lead: neo
 supporting: [snape, sherlock, morpheus, gandalf]
 chains: [4]
@@ -87,7 +87,7 @@ stages:
     gate: null
     exit_allowed: false
 deliverables: []
-cost_envelope_usd: [0, 0]
+cost_envelope_usd: TBD
 time_envelope: TBD
 exit_criteria: []
 memory_writes: []
@@ -174,6 +174,9 @@ from that), set `status: complete`, fill `grounded_in`, and bump to 1.0.
 
 ## Changelog
 
+- 0.2 (2026-10-05): `cost_envelope_usd` is `TBD`, not `[0, 0]`. The zeros were the template's
+  placeholder, and a reader of the frontmatter took them as an estimate that a run costs nothing.
+  A stub has no observed run to price, and the schema lets it say so.
 - 0.1 (2026-09-21): created as a stub. The gap was found when Kevin asked whether websites belong
   in `native-app` or `saas-application`; they belong in neither, and the multi-page case belonged
   nowhere.

@@ -27,7 +27,7 @@ stages:
     gate: null
     exit_allowed: false
 deliverables: []
-cost_envelope_usd: [0, 0]
+cost_envelope_usd: TBD
 time_envelope: TBD
 exit_criteria: []
 memory_writes: []

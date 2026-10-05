@@ -318,12 +318,14 @@ echo "Checking CI runs on every file this script reads..."
 # The workflow file is an input too: a PR that only edits its paths must be checked on the PR.
 VALIDATOR_INPUTS="routing/** agents/** tests/** memory-templates/** workflows/** scripts/** .claude-plugin/plugin.json governance/EVOLUTION.md docs/INSTALLATION.md docs/PROMPT_LIBRARY.md README.md .github/workflows/routing-validation.yml"
 CI_WORKFLOW="$DZNR_ROOT/.github/workflows/routing-validation.yml"
+# CI runs this under mawk (ubuntu-latest's awk), so the awk stays plain: [ \t] rather than
+# character classes, and tr strips the quotes rather than an octal escape inside the program.
 ci_paths=$(awk '
-  /^[[:space:]]*pull_request:/ { in_pr = 1; next }
-  in_pr && /^[[:space:]]*paths:/ { in_paths = 1; next }
-  in_paths && /^[[:space:]]*-[[:space:]]/ { p = $0; sub(/^[[:space:]]*-[[:space:]]*/, "", p); gsub(/[\047"]/, "", p); print p; next }
+  /^[ \t]*pull_request:/ { in_pr = 1; next }
+  in_pr && /^[ \t]*paths:/ { in_paths = 1; next }
+  in_paths && /^[ \t]*-[ \t]/ { p = $0; sub(/^[ \t]*-[ \t]*/, "", p); sub(/[ \t\r]*$/, "", p); print p; next }
   in_paths { exit }
-' "$CI_WORKFLOW" 2>/dev/null || true)
+' "$CI_WORKFLOW" 2>/dev/null | tr -d "'\"" || true)
 # Read as lines, not word-split: an unquoted routing/** would expand to the files it matches.
 while IFS= read -r input; do
   if printf '%s\n' "$ci_paths" | grep -Fxq -- "$input"; then

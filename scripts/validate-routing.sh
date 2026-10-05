@@ -315,7 +315,8 @@ echo ""
 # set a workflow's envelope back to [0, 0] passed CI that way. Keep this list to what the checks
 # above read, and the workflow's paths to this list.
 echo "Checking CI runs on every file this script reads..."
-VALIDATOR_INPUTS="routing/** agents/** tests/** memory-templates/** workflows/** scripts/** .claude-plugin/plugin.json governance/EVOLUTION.md docs/INSTALLATION.md docs/PROMPT_LIBRARY.md README.md"
+# The workflow file is an input too: a PR that only edits its paths must be checked on the PR.
+VALIDATOR_INPUTS="routing/** agents/** tests/** memory-templates/** workflows/** scripts/** .claude-plugin/plugin.json governance/EVOLUTION.md docs/INSTALLATION.md docs/PROMPT_LIBRARY.md README.md .github/workflows/routing-validation.yml"
 CI_WORKFLOW="$DZNR_ROOT/.github/workflows/routing-validation.yml"
 ci_paths=$(awk '
   /^[[:space:]]*pull_request:/ { in_pr = 1; next }

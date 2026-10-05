@@ -14,6 +14,7 @@ on:
       - 'docs/INSTALLATION.md'
       - 'docs/PROMPT_LIBRARY.md'
       - 'README.md'
+      - '.github/workflows/routing-validation.yml'
   push:
     branches:
       - main

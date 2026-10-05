@@ -16,15 +16,20 @@ This single spec covers the cluster of cross-cutting workspace and data MCPs DZN
 | MCP | Status | Primary use | Owners |
 |-----|--------|-------------|--------|
 | Slack | ACTIVE | Team chat search, read, send (with confirmation), canvases | Tár (memory + references), Morpheus (outbound), Sherlock (search) |
-| Google Drive (Cowork) | ACTIVE | File search, read, metadata, recent files | Sherlock (discovery), Morpheus (document delivery) |
+| google-drive | ACTIVE | Google Drive: file search, read, metadata, recent files | Sherlock (discovery), Morpheus (document delivery) |
 | Granola | ACTIVE | Meeting transcripts and notes | Sherlock (meeting transcripts as research input) |
 | Notion (via enterprise-search) | ACTIVE when authenticated | Knowledge base search | Sherlock (knowledge sourcing), Snape (brand docs) |
-| Gmail and Calendar | ACTIVE | Email read/search, calendar events | Tár (memory + schedule), Morpheus (outbound email) |
-| PDF Tools | ACTIVE | PDF fill, sign, merge, split, extract | Cross-cutting (Morpheus delivery, Snape brand PDFs, Snake Eyes legal docs) |
+| gmail | ACTIVE | Gmail: email read and search, drafts | Tár (memory), Morpheus (outbound email) |
+| google-calendar | ACTIVE | Google Calendar: events, availability | Tár (schedule) |
+| pdf | ACTIVE | PDF tools (the pdf-viewer plugin): fill, sign, merge, split, extract | Morpheus (delivery), Snape (brand PDFs), Snake Eyes (legal docs) |
 | Gong | ACTIVE | Sales call transcripts | Sherlock (call analysis), Snape (brand-voice via conversation analysis) |
 | Shopify | ACTIVE when needed | E-commerce data, products, collections, orders | Snake Eyes (retail and CPG industry data), Sherlock (commerce research) |
 | Apple Notes | ACTIVE (Mac-specific) | Personal note read/write | Tár (memory crossover), Sherlock (notes as research input) |
 | Apify | ACTIVE | Web scraping actors marketplace | Sherlock (research at scale) |
+
+**The MCP column is the server's own name, not a label.** DZNR OS matches each row to a running server by this cell, lowercased: a plugin server by the last part of its name (`plugin:small-business:gmail` is `gmail`, `plugin:pdf-viewer:pdf` is `pdf`), and a connector added through claude.ai by its display name with the prefix dropped and spaces turned to hyphens (`claude.ai Google Calendar` is `google-calendar`). A label such as "Gmail and Calendar" or "PDF Tools" matches no server, so its connector's status never shows. `scripts/validate-routing.sh` fails a row whose name cannot be a server name.
+
+One caveat on `google-calendar`: the design, enterprise-search and operations plugins declare their calendar server as `google calendar`, with a space. That form matches no row here, because one row can carry one name. The claude.ai connector and the small-business plugin both use the hyphen, so the row follows them.
 
 ## Common pattern
 
@@ -65,3 +70,4 @@ If any one of these MCPs gets significant DZNR-specific customization (custom tr
 ## Status history
 
 - 2026-05-26: ACTIVE cluster (spec created during Phase 3.6.5 framework build)
+- 2026-10-05: four rows renamed to their server names (`google-drive`, `gmail`, `google-calendar`, `pdf`), since DZNR OS saw all four servers on both machines and matched none of them. Gmail and Calendar are two servers, so they are two rows. The PDF row names real owners instead of "Cross-cutting", which is not a subagent.

@@ -140,6 +140,44 @@ else
 fi
 echo ""
 
+# --- MCP table names are server names (added v2.14.1) ---
+# DZNR OS matches a table row to a running server by the row's first cell, lowercased. A label
+# such as "Gmail and Calendar" or "PDF Tools" matches no server, so the connector's status never
+# shows. Rows named here are known not to be server names; each says why, and each is a warning.
+echo "Checking MCP table rows name a server..."
+KNOWN_NOT_SERVER_NAMES='notion (via enterprise-search)|apple notes|slack (small-business)'
+names_checked=0
+while IFS=$'\t' read -r file name; do
+  [ -z "$name" ] && continue
+  names_checked=$((names_checked + 1))
+  lower=$(printf '%s' "$name" | tr '[:upper:]' '[:lower:]')
+  if printf '%s' "$lower" | grep -Eq '^[a-z0-9][a-z0-9._-]*$'; then
+    continue
+  fi
+  if printf '%s\n' "$KNOWN_NOT_SERVER_NAMES" | tr '|' '\n' | grep -Fxq "$lower"; then
+    echo "  WARN: $file row \"$name\" is not a server name (known: a second listing, or no server seen)"
+    continue
+  fi
+  echo "  FAIL: $file row \"$name\" is not a server name; use the server's own name (plugin:x:gmail is gmail, claude.ai Google Calendar is google-calendar)"
+  FAILED=1
+done < <(
+  for f in "$MCPS_DIR"/*.md; do
+    awk -v file="$(basename "$f")" '
+      /^\|[[:space:]]*MCP[[:space:]]*\|/ { in_table = 1; next }
+      in_table && /^\|/ {
+        if ($0 ~ /^\|[[:space:]:|-]+\|[[:space:]]*$/) next
+        split($0, cells, "|"); cell = cells[2]
+        gsub(/^[[:space:]]+|[[:space:]]+$/, "", cell)
+        print file "\t" cell
+        next
+      }
+      { in_table = 0 }
+    ' "$f"
+  done
+)
+echo "  OK: $names_checked MCP table rows read"
+echo ""
+
 # --- Summary ---
 if [ "$FAILED" -eq 0 ]; then
   echo "==============================="

@@ -57,7 +57,9 @@ an agent prompt, the evolution protocol, the install guide or the routing docs, 
 workflow. Run against 2.14.0's files, it fails on exactly the defects above.
 CI runs it on a pull request that touches any file it reads: `routing-validation.yml` now also
 watches `workflows/**`, `memory-templates/**`, `docs/INSTALLATION.md`, `docs/PROMPT_LIBRARY.md` and
-`README.md`, and the script fails if that list falls behind what it checks.
+`README.md`, and itself, and the script fails if that list falls behind what it checks. That
+check reads the yml with plain awk and strips quotes with `tr`, so it behaves the same under mawk
+(what CI runs), gawk and macOS awk.
 
 **Outside this repo:** the pitch QA module that passed the Fear of God readout is not shipped by
 DZNR. It lives in `~/Desktop/claude-skills-upgrade/pitch/modules/pitch-qa.md` and was corrected

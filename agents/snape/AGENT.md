@@ -235,7 +235,7 @@ Snape owns several MCP integrations documented per the DZNR MCP framework. Full 
 | Figma | `routing/mcps/figma.md` | ACTIVE |
 | Pencil | `routing/mcps/pencil.md` | ACTIVE |
 | Magic Patterns | `routing/mcps/magic-patterns.md` | CONFIGURED-NOT-ACTIVE (registry connected, session tools not yet surfaced) |
-| Mobbin | `routing/mcps/mobbin.md` | PENDING |
+| Mobbin | `routing/mcps/mobbin.md` | ACTIVE |
 | Adobe (via Snake Eyes) | `routing/mcps/adobe.md` | ACTIVE |
 
 Snape reads the status flag on the relevant spec before invoking. ACTIVE means call the MCP directly. PENDING or CONFIGURED-NOT-ACTIVE means use the fallback workflow described in the spec.

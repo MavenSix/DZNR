@@ -124,7 +124,7 @@ As of v1.6.0, DZNR has spec files for the following MCPs in `routing/mcps/`:
 ### Design and UI
 - `figma.md`: ACTIVE
 - `magic-patterns.md`: CONFIGURED-NOT-ACTIVE (registry connected, session tools not yet surfaced)
-- `mobbin.md`: PENDING
+- `mobbin.md`: ACTIVE (through claude.ai, since 2026-09-30)
 - `pencil.md`: ACTIVE
 - `adobe.md`: ACTIVE (Snake Eyes)
 

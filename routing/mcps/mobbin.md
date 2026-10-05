@@ -1,10 +1,10 @@
 ---
 mcp-name: mobbin
-status: PENDING
+status: ACTIVE
 primary-owner: sherlock
 secondary-owners: snape
 proposal-doc: n/a (added to framework on 2026-05-26)
-activated-date: pending
+activated-date: 2026-09-30
 ---
 
 # Mobbin
@@ -73,12 +73,13 @@ When Mobbin is referenced on a project:
 
 ## Activation steps
 
-1. Check Mobbin's website or Claude marketplace for their MCP integration. Mobbin may offer a developer API; the MCP wrapper may be community-built or first-party.
-2. Install MCP server in Claude session.
-3. Authenticate (likely requires a Mobbin subscription account).
-4. Test with a category query.
-5. Flip frontmatter status to ACTIVE.
+Mobbin is connected through claude.ai, as the connector "Mobbin" (Settings, Connectors), on Kevin's Mobbin account. Agent sessions on the claude.ai login reach it as `claude.ai Mobbin`, with three tools: `search_screens`, `search_flows` and `search_sections`.
+
+1. In claude.ai, Settings, Connectors, add Mobbin and sign in with a Mobbin account.
+2. Do not also add a user-level `mobbin` server at the same address. One was found on 2026-09-30, never signed in, shadowing the claude.ai connector; it was removed.
+3. Test with a category query (`search_screens` for an onboarding pattern).
 
 ## Status history
 
 - 2026-05-26: PENDING (spec created during Phase 3.6.5 framework build)
+- 2026-09-30: ACTIVE. Signed in through claude.ai. Sherlock searched Mobbin five times unattended in a DZNR OS agent run that day, and DZNR OS's connector check has read `claude.ai Mobbin` as connected on both machines since (last seen 2026-10-05). Status corrected in the spec on 2026-10-05.

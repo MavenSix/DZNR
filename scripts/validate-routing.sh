@@ -178,6 +178,27 @@ done < <(
 echo "  OK: $names_checked MCP table rows read"
 echo ""
 
+# --- Spec status agrees with the MCPS.md index (added v2.14.1) ---
+# Mobbin was PENDING in both places for weeks after it was signed in. A spec and its index line
+# that disagree mean one of them was edited and the other forgotten.
+echo "Checking spec statuses match routing/MCPS.md..."
+for f in "$MCPS_DIR"/*.md; do
+  base=$(basename "$f")
+  [ "$base" = "_template.md" ] && continue
+  spec_status=$(awk '/^---$/{n++; next} n==1 && /^status:/{sub(/^status:[[:space:]]*/, ""); print $1; exit}' "$f")
+  [ -z "$spec_status" ] && continue
+  index_line=$(grep -E "^- \`$base\`:" "$DZNR_ROOT/routing/MCPS.md" | head -1 || true)
+  [ -z "$index_line" ] && continue
+  index_status=$(printf '%s' "$index_line" | sed -E 's/^- `[^`]+`:[[:space:]]*([A-Z-]+).*/\1/')
+  if [ "$spec_status" != "$index_status" ]; then
+    echo "  FAIL: $base says $spec_status, routing/MCPS.md says $index_status"
+    FAILED=1
+  else
+    echo "  OK: $base ($spec_status)"
+  fi
+done
+echo ""
+
 # --- Summary ---
 if [ "$FAILED" -eq 0 ]; then
   echo "==============================="

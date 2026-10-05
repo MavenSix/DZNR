@@ -496,7 +496,7 @@ This category covers the tools that live outside DZNR's eight-character cast: vi
 - Generative video: Runway, Higgsfield, Pika, Kling (no MCPs available)
 - Voice and audio: ElevenLabs (MCP available, pending DZNR integration)
 - AI IDE pairing: Cursor, Windsurf, Codeium (no MCPs by design)
-- Pattern research: Mobbin (pending DZNR MCP integration)
+- Pattern research: Mobbin (connected through claude.ai)
 - Presentation generation: Gamma (MCP available, pending DZNR integration)
 - Commerce: Shopify (MCP active, used inline during commerce audits)
 - Design app handoff: Affinity Designer, Sketch (covered under prompt 16 by naming the tool in target platform)

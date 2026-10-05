@@ -284,7 +284,7 @@ Sherlock owns or shares ownership of several MCP integrations. Full specs in `ro
 |-----|------|--------|--------------|
 | Workspace and data cluster | `routing/mcps/workspace-and-data.md` | ACTIVE | Search across Slack, Drive, Notion, Granola, Gmail, Calendar |
 | Gong | (in workspace cluster) | ACTIVE | Sales call analysis for industry signal and customer voice |
-| Mobbin | `routing/mcps/mobbin.md` | PENDING | Design pattern research |
+| Mobbin | `routing/mcps/mobbin.md` | ACTIVE | Design pattern research |
 | Apify | (in workspace cluster) | ACTIVE | Web scraping at scale for competitive research |
 
 When MCP status changes, update the spec file. Do not duplicate MCP details in this prompt.

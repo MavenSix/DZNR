@@ -166,9 +166,9 @@ Supported industries: luxury, automotive, retail, CPG, fintech, healthcare, tech
 
 DZNR documents MCP integrations in `routing/mcps/` with status tracking. Currently documented:
 
-- **ACTIVE:** Figma, Pencil, Adobe, Blender (when local Blender is running), plus workspace cluster (Slack, Drive, Granola, Notion, Gmail/Calendar, PDF Tools, Gong, Shopify, Apple Notes, Apify) and deployment cluster (Vercel, Netlify, Supabase)
+- **ACTIVE:** Figma, Pencil, Adobe, Mobbin (through its claude.ai connector), Blender (when local Blender is running), plus workspace cluster (Slack, Drive, Granola, Notion, Gmail/Calendar, PDF Tools, Gong, Shopify, Apple Notes, Apify) and deployment cluster (Vercel, Netlify, Supabase)
 - **CONFIGURED-NOT-ACTIVE:** Magic Patterns (registry connected, session tools surface on demand)
-- **PENDING:** Mobbin, Higgsfield (awaiting MCP availability)
+- **PENDING:** Higgsfield (awaiting MCP availability)
 
 DZNR routes to MCPs only when they are ACTIVE. PENDING MCPs trigger fallback workflows documented in their spec files. See [routing/MCPS.md](../routing/MCPS.md) for the full framework.
 

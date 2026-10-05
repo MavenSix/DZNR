@@ -1,3 +1,57 @@
+## 2.14.1 - 2026-10-05
+
+### Corrections DZNR OS found in the specs
+
+Approved by Kevin on 2026-10-05. Each one is a place where a DZNR file said something that stopped
+being true, and DZNR OS, which reads these files, showed it wrong as a result.
+
+**Four connectors were named for display, so no server could match them.** DZNR OS matches a spec
+row to a running server by the row's own name. `workspace-and-data.md` had "Google Drive
+(Cowork)", "Gmail and Calendar" and "PDF Tools", and both machines' daemons listed `google-drive`,
+`gmail`, `google-calendar` and `pdf` as servers DZNR does not specify, while the three rows read
+"not checked" forever. The rows now carry the server names: `google-drive`, `gmail`,
+`google-calendar` and `pdf`. Gmail and Calendar are two servers, so they are two rows. Run through
+DZNR OS's own registry and matcher with the real server names, the four went from 0 matched to 4.
+The PDF row also names its real owners (Morpheus, Snape, Snake Eyes); "Cross-cutting" is not a
+subagent and DZNR OS reported it as one it did not know.
+
+One form is still unmatched: the design, enterprise-search and operations plugins name their
+calendar server `google calendar`, with a space. The row follows the claude.ai connector and the
+small-business plugin, which use the hyphen.
+
+**Mobbin is ACTIVE.** It was PENDING in its spec, in `routing/MCPS.md`, in Sherlock's and Snape's
+tables, in the prompt library and in the install guide. It is signed in through claude.ai; Sherlock
+searched it five times unattended on 2026-09-30, and DZNR OS has read `claude.ai Mobbin` as
+connected on both machines since. Its activation steps now describe the claude.ai connector, and
+warn against the user-level `mobbin` entry that shadowed it until 2026-09-30.
+
+**Three workflows carried `cost_envelope_usd: [0, 0]`, the template's placeholder.** DZNR OS has to
+read it as "no estimate", and the window once showed it as "DZNR estimates $0 to $0".
+
+- `motion-system` (complete) is `[10, 80]` and `native-app` (complete) is `[10, 50]`. The schema
+  requires an envelope for a complete workflow, so each is priced rather than removed. In DZNR OS
+  every stage runs as an agent and spends model money, even where `models` is null. The prices come
+  from the only two workflow runs on record (DZNR OS's ledger, 2026-10-01): Sonnet stages $0.68 to
+  $4.87, Opus stages $5.36 to $21.63. Each file's grounding notes show the arithmetic.
+  `native-app` said zero because a desktop build spends no vendor money; that stays true, and
+  certificates and store fees stay outside the envelope.
+- `content-site` (a stub) is `TBD`, which the schema allows a stub. It has no run to price.
+- `_template.md` now starts at `TBD`, so a new stub does not inherit the zeros.
+
+`scripts/build-workflows-html.py` treats `TBD` like the old placeholder and prints no cost line.
+`docs/workflows.html` is regenerated (it still said 9 complete and 7 stubs).
+
+**`scripts/validate-routing.sh` checks all three now.** It fails an MCP table row whose name cannot
+be a server name (three known exceptions warn instead: `slack (small-business)`, "Notion (via
+enterprise-search)" and "Apple Notes"), a spec whose status disagrees with its line in
+`routing/MCPS.md`, and a workflow whose envelope is `[0, 0]`, reversed, or missing from a complete
+workflow. Run against 2.14.0's files, it fails on exactly the defects above.
+
+**Outside this repo:** the pitch QA module that passed the Fear of God readout is not shipped by
+DZNR. It lives in `~/Desktop/claude-skills-upgrade/pitch/modules/pitch-qa.md` and was corrected
+there: a new step 3B2 renders every PDF page with PDFKit and thumbnails the PPTX with Quick Look,
+and lists the three defects those renderers showed on 2026-10-01 with their fixes.
+
 ## 2.14.0 - 2026-09-21
 
 ### native-app is complete (1.0)

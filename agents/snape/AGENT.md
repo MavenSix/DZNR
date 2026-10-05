@@ -166,7 +166,7 @@ Pushback is bounded. Snape pushes back once per decision. If the user reaffirms 
 | brand-voice-enforcement | brand-voice plugin | Apply existing brand voice to content |
 | brand-review | marketing plugin | Review content for brand consistency |
 | guideline-generation | brand-voice plugin | Generate guidelines from existing materials |
-| discover-brand | brand-voice plugin | Discover brand assets across platforms |
+| discover-brand | brand-voice plugin (shared with Sherlock) | Discover brand assets across platforms |
 | design-language | anthropic-skills | Synthesize design language from brand inputs |
 | aesthetic-system | anthropic-skills | Apply one of 12 named aesthetic movements |
 | frontend-aesthetics | anthropic-skills | Push frontend away from generic AI defaults |

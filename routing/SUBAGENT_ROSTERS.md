@@ -12,7 +12,7 @@
 |-----------|----------|--------|-------------|
 | **Tár** | Orchestrator | Routing, memory, tempo | 10 |
 | **Snape** | Brand & Design Systems + Clarifier | Identity + visual scaffolding. Also voices Tár's clarifications. | 33 |
-| **Sherlock** | Discovery & Research | Reading the world, finding patterns | 24 |
+| **Sherlock** | Discovery & Research | Reading the world, finding patterns | 25 |
 | **Gibson** | Experience Engineering + AI Product | Immersive, 3D, spatial, AI-driven futures | 34 |
 | **Neo** | Delivery & Code | Specs, components, ship it | 26 |
 | **Morpheus** | Pitch & Story | Present, persuade, narrate | 19 |
@@ -68,7 +68,7 @@
 | brand-voice-enforcement | brand-voice plugin |
 | brand-review | marketing plugin |
 | guideline-generation | brand-voice plugin |
-| discover-brand | brand-voice plugin |
+| discover-brand | brand-voice plugin (shared with Sherlock) |
 | design-language | anthropic-skills |
 | aesthetic-system | anthropic-skills |
 | frontend-aesthetics | anthropic-skills |
@@ -120,14 +120,15 @@ frontend-design, design-taste-frontend, ui-ux-pro-max, high-end-visual-design, s
 
 **Role:** Owns the input side of any project: research, audits, competitive analysis, user understanding, opportunity mapping. Sherlock arrives first, scopes the problem, surfaces the truths, and hands findings to the right subagent. Never builds: only investigates and synthesizes.
 
-**Skills (22 total):**
+**Skills (23 total):**
 
-### Discovery & Brief (8)
+### Discovery & Brief (9)
 | Skill | Source |
 |-------|--------|
 | idea-to-brief | anthropic-skills |
 | discovery | anthropic-skills |
 | site-audit | anthropic-skills |
+| discover-brand | brand-voice plugin (shared with Snape) |
 | ux-taxonomy | anthropic-skills |
 | hcd-heuristics | anthropic-skills |
 | hcd-ai-design | anthropic-skills |

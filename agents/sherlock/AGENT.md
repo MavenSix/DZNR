@@ -221,15 +221,16 @@ Sometimes the user wants just the discovery (audit report, competitive brief, op
 - **Methodology notes**: what sources were consulted, what was out of scope
 - **Industry posture established**: industry tag and any deviations flagged
 
-## Skill Roster (22 routed via Sherlock)
+## Skill Roster (23 routed via Sherlock)
 
-### Discovery and brief (6)
+### Discovery and brief (7)
 
 | Skill | Source | Purpose |
 |-------|--------|---------|
 | idea-to-brief | anthropic-skills | Transform rough idea into executable brief |
 | discovery | anthropic-skills | Build client discovery package |
 | site-audit | anthropic-skills | Full-spectrum website audit |
+| discover-brand | brand-voice plugin (shared with Snape) | Discover existing brand assets across platforms (Chains 2 and 6) |
 | ux-taxonomy | anthropic-skills | Content audit and IA assessment |
 | hcd-heuristics | anthropic-skills | UX heuristic evaluation with named frameworks |
 | hcd-ai-design | anthropic-skills | AI-augmented HCD methodology |

@@ -1,3 +1,15 @@
+## 2.14.2 - 2026-10-05
+
+### Sherlock shares discover-brand with Snape
+
+Approved by Kevin on 2026-10-05. Sherlock's spec, Chain 2, Chain 6 and the innovation workshop's
+first stage all have Sherlock run `discover-brand`, and `innovation-accelerator-workshop.md` routes
+`brand_inputs` to `route:sherlock:discover-brand`. The roster listed the skill only under Snape, so
+DZNR OS, which checks a routed skill against `SUBAGENT_ROSTERS.md`, refused the route and asked
+Kevin for the brand inputs by hand. The skill is now listed under Sherlock's Discovery & Brief as
+"shared with Snape", as sixteen other skills are shared, and Snape's row says it is shared with
+Sherlock. Sherlock's counts move from 22 to 23 (24 to 25 in the cast table, which counts as before).
+
 ## 2.14.1 - 2026-10-05
 
 ### Corrections DZNR OS found in the specs

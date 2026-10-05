@@ -178,6 +178,61 @@ done < <(
 echo "  OK: $names_checked MCP table rows read"
 echo ""
 
+# --- MCP owners are subagents (added v2.14.1) ---
+# DZNR OS reads an owner as a subagent name, the way its registry does: parentheses dropped, split
+# on commas and " or ", lowercased, Tár as tar, spaces as hyphens. "Cross-cutting" named no agent,
+# so DZNR OS reported it as unknown; a connector every agent may use names all nine instead.
+echo "Checking MCP owners are subagents..."
+known_agents=$(find "$DZNR_ROOT/agents" -mindepth 1 -maxdepth 1 -type d -exec basename {} \; | tr '[:upper:]' '[:lower:]')
+owners_checked=0
+while IFS=$'\t' read -r file name raw; do
+  [ -z "$raw" ] && continue
+  while IFS= read -r owner; do
+    owner=$(printf '%s' "$owner" | sed -E 's/^[[:space:]]+|[[:space:]]+$//g' | tr '[:upper:]' '[:lower:]' | sed -E 's/^tár$/tar/; s/[[:space:]]+/-/g')
+    case "$owner" in ''|n/a|none) continue ;; esac
+    owners_checked=$((owners_checked + 1))
+    if ! printf '%s\n' "$known_agents" | grep -Fxq "$owner"; then
+      echo "  FAIL: $file \"$name\" has owner \"$owner\", which is not a directory under agents/"
+      FAILED=1
+    fi
+  done < <(printf '%s\n' "$raw" | sed -E 's/\([^)]*\)//g; s/[[:space:]]+[Oo][Rr][[:space:]]+/,/g' | tr ',' '\n')
+done < <(
+  for f in "$MCPS_DIR"/*.md; do
+    base=$(basename "$f")
+    [ "$base" = "_template.md" ] && continue
+    if [ "$base" = "plugin-connectors.md" ] || grep -q '^## MCPs in this cluster' "$f"; then
+      # Owners are in the column headed "Owners" or "Subagent Owner".
+      awk -v file="$base" '
+        /^\|[[:space:]]*MCP[[:space:]]*\|/ {
+          in_table = 1; col = 0
+          n = split($0, head, "|")
+          for (i = 2; i < n; i++) {
+            h = tolower(head[i]); gsub(/^[[:space:]]+|[[:space:]]+$/, "", h)
+            if (h == "owners" || h == "subagent owner") col = i
+          }
+          next
+        }
+        in_table && /^\|/ {
+          if ($0 ~ /^\|[[:space:]:|-]+\|[[:space:]]*$/) next
+          split($0, cells, "|"); name = cells[2]
+          gsub(/^[[:space:]]+|[[:space:]]+$/, "", name)
+          if (col > 0) print file "\t" name "\t" cells[col]
+          next
+        }
+        { in_table = 0 }
+      ' "$f"
+    else
+      awk -v file="$base" '
+        /^---$/ { n++; next }
+        n == 1 && /^(primary-owner|secondary-owners):/ { sub(/^[a-z-]+:[[:space:]]*/, ""); owners = owners "," $0 }
+        END { print file "\t" file "\t" owners }
+      ' "$f"
+    fi
+  done
+)
+echo "  OK: $owners_checked owners read"
+echo ""
+
 # --- Spec status agrees with the MCPS.md index (added v2.14.1) ---
 # Mobbin was PENDING in both places for weeks after it was signed in. A spec and its index line
 # that disagree mean one of them was edited and the other forgotten.

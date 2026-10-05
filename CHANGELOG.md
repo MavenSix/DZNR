@@ -54,6 +54,9 @@ enterprise-search)" and "Apple Notes"), a spec whose status disagrees with its l
 `routing/MCPS.md`, an MCP owner that is not a directory under `agents/`, an ACTIVE connector still called pending in
 an agent prompt, the evolution protocol, the install guide or the routing docs, and a workflow whose envelope is `[0, 0]`, reversed, or missing from a complete
 workflow. Run against 2.14.0's files, it fails on exactly the defects above.
+CI runs it on a pull request that touches any file it reads: `routing-validation.yml` now also
+watches `workflows/**`, `memory-templates/**`, `docs/INSTALLATION.md`, `docs/PROMPT_LIBRARY.md` and
+`README.md`, and the script fails if that list falls behind what it checks.
 
 **Outside this repo:** the pitch QA module that passed the Fear of God readout is not shipped by
 DZNR. It lives in `~/Desktop/claude-skills-upgrade/pitch/modules/pitch-qa.md` and was corrected

@@ -309,6 +309,31 @@ for f in "$DZNR_ROOT"/workflows/*.md; do
 done
 echo ""
 
+# --- CI runs this script on every file it reads (added v2.14.1) ---
+# routing-validation.yml runs this script on a pull request only when a listed path changed. A
+# check on a file outside that list does not run until the change is already on main: a PR that
+# set a workflow's envelope back to [0, 0] passed CI that way. Keep this list to what the checks
+# above read, and the workflow's paths to this list.
+echo "Checking CI runs on every file this script reads..."
+VALIDATOR_INPUTS="routing/** agents/** tests/** memory-templates/** workflows/** scripts/** .claude-plugin/plugin.json governance/EVOLUTION.md docs/INSTALLATION.md docs/PROMPT_LIBRARY.md README.md"
+CI_WORKFLOW="$DZNR_ROOT/.github/workflows/routing-validation.yml"
+ci_paths=$(awk '
+  /^[[:space:]]*pull_request:/ { in_pr = 1; next }
+  in_pr && /^[[:space:]]*paths:/ { in_paths = 1; next }
+  in_paths && /^[[:space:]]*-[[:space:]]/ { p = $0; sub(/^[[:space:]]*-[[:space:]]*/, "", p); gsub(/[\047"]/, "", p); print p; next }
+  in_paths { exit }
+' "$CI_WORKFLOW" 2>/dev/null || true)
+# Read as lines, not word-split: an unquoted routing/** would expand to the files it matches.
+while IFS= read -r input; do
+  if printf '%s\n' "$ci_paths" | grep -Fxq -- "$input"; then
+    echo "  OK: $input"
+  else
+    echo "  FAIL: .github/workflows/routing-validation.yml does not run on $input, which this script checks"
+    FAILED=1
+  fi
+done < <(printf '%s\n' "$VALIDATOR_INPUTS" | tr ' ' '\n')
+echo ""
+
 # --- Summary ---
 if [ "$FAILED" -eq 0 ]; then
   echo "==============================="

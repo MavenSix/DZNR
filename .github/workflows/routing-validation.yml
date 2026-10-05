@@ -8,7 +8,12 @@ on:
       - 'governance/EVOLUTION.md'
       - 'scripts/**'
       - 'agents/**'
+      - 'memory-templates/**'
+      - 'workflows/**'
       - '.claude-plugin/plugin.json'
+      - 'docs/INSTALLATION.md'
+      - 'docs/PROMPT_LIBRARY.md'
+      - 'README.md'
   push:
     branches:
       - main

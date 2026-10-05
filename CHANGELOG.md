@@ -60,8 +60,11 @@ watches `workflows/**`, `memory-templates/**`, `docs/INSTALLATION.md`, `docs/PRO
 
 **Outside this repo:** the pitch QA module that passed the Fear of God readout is not shipped by
 DZNR. It lives in `~/Desktop/claude-skills-upgrade/pitch/modules/pitch-qa.md` and was corrected
-there: a new step 3B2 renders every PDF page with PDFKit and thumbnails the PPTX with Quick Look,
-and lists the three defects those renderers showed on 2026-10-01 with their fixes.
+there: a new step 3B2 renders every PDF page with PDFKit, renders the PPTX cover with Quick Look
+and every slide through a Keynote PDF export, and lists the three defects those renderers showed
+on 2026-10-01 with their fixes. `qlmanage -t` renders only the first slide and reports success into
+a missing folder, so the step makes the folder, fails when no PNG appears, and says plainly that
+slides 2 onward were not checked when Keynote is not installed.
 
 ## 2.14.0 - 2026-09-21
 

@@ -175,6 +175,55 @@ done < <(
 echo "  OK: $names_checked MCP table rows read"
 echo ""
 
+# --- Each connector is defined once (added v2.14.3) ---
+# DZNR OS keeps the first definition of a name it reads, files in sorted order, and drops the rest
+# with their owners: slack in plugin-connectors.md and workspace-and-data.md lost Tár that way, and
+# box listed in two categories of one file was reported as cross-listed. Names are compared as DZNR
+# OS reads them: a table row's first cell, or an individual spec's mcp-name, lowercased. A cluster's
+# own mcp-name names the cluster, not a server, so only its rows count.
+echo "Checking each connector is defined once..."
+defined=$(
+  for f in "$MCPS_DIR"/*.md; do
+    base=$(basename "$f")
+    [ "$base" = "_template.md" ] && continue
+    if [ "$base" = "plugin-connectors.md" ] || grep -q '^## MCPs in this cluster' "$f"; then
+      awk -v file="$base" '
+        /^\|[[:space:]]*MCP[[:space:]]*\|/ { in_table = 1; next }
+        in_table && /^\|/ {
+          if ($0 ~ /^\|[[:space:]:|-]+\|[[:space:]]*$/) next
+          split($0, cells, "|"); cell = cells[2]
+          gsub(/^[[:space:]]+|[[:space:]]+$/, "", cell)
+          if (cell != "") print tolower(cell) "\t" file
+          next
+        }
+        { in_table = 0 }
+      ' "$f"
+    else
+      awk -v file="$base" '
+        /^---$/ { n++; next }
+        n == 1 && /^mcp-name:/ {
+          sub(/^mcp-name:[[:space:]]*/, ""); sub(/[[:space:]]+$/, "")
+          if ($0 != "") print tolower($0) "\t" file
+          exit
+        }
+      ' "$f"
+    fi
+  done
+)
+defined_count=$(printf '%s\n' "$defined" | grep -c . || true)
+twice=$(printf '%s\n' "$defined" | awk -F '\t' '
+  $1 != "" { count[$1]++; files[$1] = (files[$1] == "" ? $2 : files[$1] ", " $2) }
+  END { for (n in count) if (count[n] > 1) print n "\t" files[n] }
+' | sort)
+if [ -n "$twice" ]; then
+  while IFS=$'\t' read -r name files; do
+    echo "  FAIL: connector \"$name\" is defined more than once ($files); keep one row and give it every owner"
+  done <<< "$twice"
+  FAILED=1
+fi
+echo "  OK: $defined_count connector definitions read"
+echo ""
+
 # --- MCP owners are subagents (added v2.14.1) ---
 # DZNR OS reads an owner as a subagent name, the way its registry does: parentheses dropped, split
 # on commas and " or ", lowercased, Tár as tar, spaces as hyphens. "cross-cutting" is the one owner

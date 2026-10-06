@@ -1,5 +1,5 @@
 ---
-mcp-name: adobe
+mcp-name: adobe-for-creativity
 status: ACTIVE
 primary-owner: snake-eyes
 secondary-owners: snape, morpheus
@@ -12,6 +12,12 @@ activated-date: 2026-05-26
 ## What this MCP does
 
 Adobe MCP wraps Adobe's creative tools (Express, Firefly, Lightroom, Photoshop-style image operations, document tools, asset library). Provides templated design, batch photo editing, social media resizing, photo retouching, video quick-cuts, image generation, and asset management.
+
+## Server name
+
+`mcp-name` is `adobe-for-creativity`, the server's own name as DZNR OS reads it. The claude.ai connector is "Adobe for creativity", which DZNR OS reads as `adobe-for-creativity` (prefix dropped, spaces to hyphens), and on 2026-10-06 both machines' daemons saw it under that name. Under `adobe` DZNR OS matched nothing and showed Adobe as having nothing to check, on both machines, for good.
+
+One form still does not match: the `adobe-for-creativity` plugin declares its server as "Adobe for creativity", with spaces, and DZNR OS reads a plugin server by its own name, so that one stays unspecified. One spec carries one name, and the hyphenated one is the connector the Mac's `claude mcp list` shows Connected (the plugin's server there needs authentication). `google-calendar` in `workspace-and-data.md` has the same caveat.
 
 ## Why DZNR uses it
 
@@ -78,3 +84,4 @@ ACTIVE in this session. For other users:
 ## Status history
 
 - 2026-05-26: ACTIVE (verified in current session; spec formalized during Phase 3.6.5)
+- 2026-10-06: `mcp-name` changed from `adobe` to `adobe-for-creativity`, the name both machines' DZNR OS daemons saw; under `adobe` nothing ever matched.

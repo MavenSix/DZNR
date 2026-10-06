@@ -58,7 +58,7 @@ Status flips between PENDING, CONFIGURED-NOT-ACTIVE, and ACTIVE do NOT require E
 
 ## Spec file shape
 
-Every MCP spec lives at `routing/mcps/[mcp-name].md` and follows this structure:
+Every MCP spec lives at `routing/mcps/[mcp-name].md` (one exception, `adobe.md`, whose mcp-name is `adobe-for-creativity`; its "Server name" section says why) and follows this structure:
 
 ```markdown
 ---
@@ -126,7 +126,7 @@ As of v1.6.0, DZNR has spec files for the following MCPs in `routing/mcps/`:
 - `magic-patterns.md`: CONFIGURED-NOT-ACTIVE (registry connected, session tools not yet surfaced)
 - `mobbin.md`: ACTIVE (through claude.ai, since 2026-09-30)
 - `pencil.md`: ACTIVE
-- `adobe.md`: ACTIVE (Snake Eyes)
+- `adobe.md`: ACTIVE (Snake Eyes; server `adobe-for-creativity`)
 
 ### Creative tech and 3D
 - `blender.md`: ACTIVE (when local Blender app is running)

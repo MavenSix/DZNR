@@ -17,7 +17,9 @@ Adobe MCP wraps Adobe's creative tools (Express, Firefly, Lightroom, Photoshop-s
 
 `mcp-name` is `adobe-for-creativity`, the server's own name as DZNR OS reads it. The claude.ai connector is "Adobe for creativity", which DZNR OS reads as `adobe-for-creativity` (prefix dropped, spaces to hyphens), and on 2026-10-06 both machines' daemons saw it under that name. Under `adobe` DZNR OS matched nothing and showed Adobe as having nothing to check, on both machines, for good.
 
-One form still does not match: the `adobe-for-creativity` plugin declares its server as "Adobe for creativity", with spaces, and DZNR OS reads a plugin server by its own name, so that one stays unspecified. One spec carries one name, and the hyphenated one is the connector the Mac's `claude mcp list` shows Connected (the plugin's server there needs authentication). `google-calendar` in `workspace-and-data.md` has the same caveat.
+One form still does not match: the `adobe-for-creativity` plugin declares its server as "Adobe for creativity", with spaces, and DZNR OS reads a plugin server by its own name, so that one stays unspecified. One spec carries one name, and the hyphenated one is the connector the Mac's `claude mcp list` shows Connected (the plugin's server there needs authentication). `google-calendar` in `workspace-and-data.md` has the same caveat. So the activation steps below connect the claude.ai connector, not the plugin.
+
+The file keeps the name `adobe.md`. `routing/MCPS.md` puts a spec at `routing/mcps/[mcp-name].md`, and every other individual spec follows it; this one does not, because the docs and agent prompts call it Adobe. `scripts/validate-routing.sh` looks for a spec's file name as well as its mcp-name when it checks that no ACTIVE connector is still called pending, so under `adobe-for-creativity.md` that check would look only for strings the docs never use. The validator fails an individual spec whose file name is not its mcp-name unless the spec has this section.
 
 ## Why DZNR uses it
 
@@ -78,10 +80,13 @@ Snape invocation (specific brand-visual tasks):
 ACTIVE in this session. For other users:
 
 1. Sign in to Adobe account
-2. Authenticate via the plugin_adobe-for-creativity_Adobe_for_creativity authenticate flow
+2. Connect the claude.ai connector "Adobe for creativity" (claude.ai Settings, Connectors). `claude mcp list` then shows `claude.ai Adobe for creativity` as Connected, which DZNR OS reads as `adobe-for-creativity`
 3. Verify by running adobe_mandatory_init
+
+Authenticating only the plugin (the plugin_adobe-for-creativity_Adobe_for_creativity authenticate flow) is not enough for DZNR OS. That server is `plugin:adobe-for-creativity:Adobe for creativity`, which DZNR OS reads as "adobe for creativity", with spaces; it matches no spec, so Adobe still shows as not configured.
 
 ## Status history
 
 - 2026-05-26: ACTIVE (verified in current session; spec formalized during Phase 3.6.5)
 - 2026-10-06: `mcp-name` changed from `adobe` to `adobe-for-creativity`, the name both machines' DZNR OS daemons saw; under `adobe` nothing ever matched.
+- 2026-10-06: activation steps connect the claude.ai connector, the server DZNR OS matches, rather than the plugin's; the file keeps the name `adobe.md` (see Server name).

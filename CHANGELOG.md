@@ -32,7 +32,10 @@ other PENDING connectors, no longer as ACTIVE.
 either machine, so DZNR OS showed it as having nothing to check for good. Both daemons list
 `adobe-for-creativity`, which is how DZNR OS reads the claude.ai connector "Adobe for creativity".
 The plugin's own server, "Adobe for creativity" with spaces, still matches no spec; the spec says so,
-as `google-calendar`'s does.
+as `google-calendar`'s does, and its activation steps now connect the claude.ai connector instead of
+authenticating the plugin, which left Adobe showing as not configured. The file keeps the name
+`adobe.md`, the one spec not named for its server; its "Server name" section and `routing/MCPS.md`
+say why.
 
 **`scripts/validate-routing.sh` holds the line.** The three rows that warned were the validator's
 known exceptions; the list is gone, so a row like them now fails. A new check fails any connector

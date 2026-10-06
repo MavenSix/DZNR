@@ -37,7 +37,9 @@ as `google-calendar`'s does.
 **`scripts/validate-routing.sh` holds the line.** The three rows that warned were the validator's
 known exceptions; the list is gone, so a row like them now fails. A new check fails any connector
 defined more than once, in one file or across two, reading names as DZNR OS does. Against 2.14.2's
-two connector files it fails on exactly box, gong, granola and slack.
+two connector files it fails on exactly box, gong, granola and slack. Another fails a spec's status
+or a cluster row's Status that does not start with one of the lifecycle's four, PENDING,
+CONFIGURED-NOT-ACTIVE, ACTIVE and DEPRECATED, so DOCUMENTED cannot stand in for PENDING.
 
 Run through DZNR OS's own registry with the DZNR root pointed at this tree: 4 problems before, 0
 after; 57 specs before, 55 after (the two second listings); and `adobe-for-creativity` matched to a

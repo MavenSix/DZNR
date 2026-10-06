@@ -303,6 +303,52 @@ for f in "$MCPS_DIR"/*.md; do
 done
 echo ""
 
+# --- Statuses are lifecycle states (added v2.14.3) ---
+# routing/MCPS.md's lifecycle gives a spec four statuses: PENDING, CONFIGURED-NOT-ACTIVE, ACTIVE
+# and DEPRECATED. DOCUMENTED is the step that writes a spec, and that spec's status is PENDING.
+# DZNR OS shows a status's first word as it is, so apple-notes, with no server on either machine,
+# showed DOCUMENTED while runninghub, in the same state, showed PENDING. Each spec's status and
+# each cluster row's Status cell must start with one of the four. plugin-connectors.md has
+# neither: DZNR OS gives its rows DOCUMENTED itself.
+echo "Checking statuses are lifecycle states..."
+statuses_checked=0
+while IFS=$'\t' read -r file name status; do
+  [ -z "$file" ] && continue
+  statuses_checked=$((statuses_checked + 1))
+  word=$(printf '%s' "$status" | grep -oE '^[A-Z][A-Z-]*' || true)
+  case "$word" in PENDING|CONFIGURED-NOT-ACTIVE|ACTIVE|DEPRECATED) continue ;; esac
+  echo "  FAIL: $file \"$name\" has status \"$status\"; start it with PENDING, CONFIGURED-NOT-ACTIVE, ACTIVE or DEPRECATED (routing/MCPS.md, MCP lifecycle)"
+  FAILED=1
+done < <(
+  for f in "$MCPS_DIR"/*.md; do
+    base=$(basename "$f")
+    [ "$base" = "_template.md" ] && continue
+    awk -v file="$base" '
+      /^---$/ { n++; next }
+      n == 1 && /^status:/ { s = $0; sub(/^status:[[:space:]]*/, "", s); sub(/[[:space:]]+$/, "", s); print file "\t" file "\t" s; next }
+      /^\|[[:space:]]*MCP[[:space:]]*\|/ {
+        in_table = 1; col = 0
+        k = split($0, head, "|")
+        for (i = 2; i < k; i++) {
+          h = tolower(head[i]); gsub(/^[[:space:]]+|[[:space:]]+$/, "", h)
+          if (h == "status") col = i
+        }
+        next
+      }
+      in_table && /^\|/ {
+        if ($0 ~ /^\|[[:space:]:|-]+\|[[:space:]]*$/) next
+        split($0, cells, "|"); name = cells[2]; s = cells[col]
+        gsub(/^[[:space:]]+|[[:space:]]+$/, "", name); gsub(/^[[:space:]]+|[[:space:]]+$/, "", s)
+        if (col > 0) print file "\t" name "\t" s
+        next
+      }
+      { in_table = 0 }
+    ' "$f"
+  done
+)
+echo "  OK: $statuses_checked statuses read"
+echo ""
+
 # --- An ACTIVE connector is not called pending elsewhere (added v2.14.1) ---
 # After Mobbin went ACTIVE, Sherlock's prompt still listed its activation as future work, the
 # evolution protocol still called it deferred, and the install guide still listed Higgsfield as

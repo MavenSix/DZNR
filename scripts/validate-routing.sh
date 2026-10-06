@@ -349,6 +349,28 @@ done < <(
 echo "  OK: $statuses_checked statuses read"
 echo ""
 
+# --- An individual spec is named for its server, or says why not (added v2.14.3) ---
+# routing/MCPS.md puts a spec at routing/mcps/[mcp-name].md. adobe.md keeps its name although its
+# server is adobe-for-creativity, because the docs call it Adobe and the pending check below
+# searches for the file name too. A file named otherwise without a "## Server name" section saying
+# why is a rename someone forgot, and the pending check would search for the wrong word.
+echo "Checking individual spec file names..."
+for f in "$MCPS_DIR"/*.md; do
+  base=$(basename "$f" .md)
+  case "$base" in _template|plugin-connectors) continue ;; esac
+  grep -q '^## MCPs in this cluster' "$f" && continue
+  mcp=$(awk '/^---$/{n++; next} n==1 && /^mcp-name:/{print $2; exit}' "$f" | tr '[:upper:]' '[:lower:]')
+  [ -z "$mcp" ] || [ "$base" = "$mcp" ] && continue
+  if grep -q '^## Server name' "$f"; then
+    echo "  OK: $base.md is $mcp, and its Server name section says why"
+  else
+    echo "  FAIL: routing/mcps/$base.md has mcp-name $mcp; name the file $mcp.md, or add a \"## Server name\" section saying why not"
+    FAILED=1
+  fi
+done
+echo "  OK: individual spec file names checked"
+echo ""
+
 # --- An ACTIVE connector is not called pending elsewhere (added v2.14.1) ---
 # After Mobbin went ACTIVE, Sherlock's prompt still listed its activation as future work, the
 # evolution protocol still called it deferred, and the install guide still listed Higgsfield as

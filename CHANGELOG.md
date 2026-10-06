@@ -39,7 +39,10 @@ known exceptions; the list is gone, so a row like them now fails. A new check fa
 defined more than once, in one file or across two, reading names as DZNR OS does. Against 2.14.2's
 two connector files it fails on exactly box, gong, granola and slack. Another fails a spec's status
 or a cluster row's Status that does not start with one of the lifecycle's four, PENDING,
-CONFIGURED-NOT-ACTIVE, ACTIVE and DEPRECATED, so DOCUMENTED cannot stand in for PENDING.
+CONFIGURED-NOT-ACTIVE, ACTIVE and DEPRECATED, so DOCUMENTED cannot stand in for PENDING. The check
+that no ACTIVE connector is still called pending looks for a spec's file name as well as its
+mcp-name, so a doc calling Adobe PENDING still fails under `adobe.md`; and an individual spec whose
+file name is not its mcp-name fails unless a "Server name" section says why, as `adobe.md`'s does.
 
 Run through DZNR OS's own registry with the DZNR root pointed at this tree: 4 problems before, 0
 after; 57 specs before, 55 after (the two second listings); and `adobe-for-creativity` matched to a

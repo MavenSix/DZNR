@@ -1,3 +1,47 @@
+## 2.14.3 - 2026-10-06
+
+### Connector specs DZNR OS can read without losing an owner
+
+Approved by Kevin on 2026-10-06. DZNR OS's registry reported four problems in these specs, the
+validator warned on three rows, and Adobe could never be checked. Each one is fixed here, and no
+owner is lost.
+
+**Slack, Granola and Gong were defined in two files.** Both `plugin-connectors.md` and
+`workspace-and-data.md` had a row for each. DZNR OS keeps the first definition it reads and drops
+the rest, so the `workspace-and-data.md` rows never counted: Tár did not own Slack. Each is now one
+row in `plugin-connectors.md` carrying every owner either file gave it. Slack is Sherlock, Morpheus,
+Tár and Snake Eyes; Granola and Gong are Sherlock and Snape.
+
+**Box was listed in two categories of one file**, Enterprise Search and Legal, and DZNR OS reported
+it as cross-listed. The Enterprise Search row already named Snake Eyes (Legal), so the Legal row
+goes and a line there points to it.
+
+**Two rows were second listings.** "slack (small-business)" and "Notion (via enterprise-search)"
+name no server: the plugins declare plain `slack` and `notion`, so DZNR OS could only show each as
+having nothing to check while the real server sat under the first row. Their owners move onto that
+row: Snake Eyes onto `slack`, Snape onto `notion`.
+
+**Apple Notes has no server on either machine.** `claude mcp list` on the Mac and the PC, the Mac's
+desktop config and both DZNR OS daemons show none. The row said ACTIVE under "Apple Notes", a name
+only a server declared with that space could match. It is now `apple-notes`, the name DZNR OS gives
+a claude.ai connector called "Apple Notes", and DOCUMENTED until one is installed. The install guide
+no longer lists it as ACTIVE.
+
+**Adobe is `adobe-for-creativity`.** Its spec said `mcp-name: adobe`, which matched nothing on
+either machine, so DZNR OS showed it as having nothing to check for good. Both daemons list
+`adobe-for-creativity`, which is how DZNR OS reads the claude.ai connector "Adobe for creativity".
+The plugin's own server, "Adobe for creativity" with spaces, still matches no spec; the spec says so,
+as `google-calendar`'s does.
+
+**`scripts/validate-routing.sh` holds the line.** The three rows that warned were the validator's
+known exceptions; the list is gone, so a row like them now fails. A new check fails any connector
+defined more than once, in one file or across two, reading names as DZNR OS does. Against 2.14.2's
+two connector files it fails on exactly box, gong, granola and slack.
+
+Run through DZNR OS's own registry with the DZNR root pointed at this tree: 4 problems before, 0
+after; 57 specs before, 55 after (the two second listings); and `adobe-for-creativity` matched to a
+server on both machines, where `adobe` matched none. The validator passes with no warnings, from 3.
+
 ## 2.14.2 - 2026-10-05
 
 ### Sherlock shares discover-brand with Snape

@@ -143,9 +143,10 @@ echo ""
 # --- MCP table names are server names (added v2.14.1) ---
 # DZNR OS matches a table row to a running server by the row's first cell, lowercased. A label
 # such as "Gmail and Calendar" or "PDF Tools" matches no server, so the connector's status never
-# shows. Rows named here are known not to be server names; each says why, and each is a warning.
+# shows. A second listing such as "slack (small-business)" is the same failure: the plugin declares
+# plain slack, so no server carries the longer name. Until v2.14.3 three rows were known exceptions
+# and warned; all three are fixed, so there are none, and a row like them fails.
 echo "Checking MCP table rows name a server..."
-KNOWN_NOT_SERVER_NAMES='notion (via enterprise-search)|apple notes|slack (small-business)'
 names_checked=0
 while IFS=$'\t' read -r file name; do
   [ -z "$name" ] && continue
@@ -154,11 +155,7 @@ while IFS=$'\t' read -r file name; do
   if printf '%s' "$lower" | grep -Eq '^[a-z0-9][a-z0-9._-]*$'; then
     continue
   fi
-  if printf '%s\n' "$KNOWN_NOT_SERVER_NAMES" | tr '|' '\n' | grep -Fxq "$lower"; then
-    echo "  WARN: $file row \"$name\" is not a server name (known: a second listing, or no server seen)"
-    continue
-  fi
-  echo "  FAIL: $file row \"$name\" is not a server name; use the server's own name (plugin:x:gmail is gmail, claude.ai Google Calendar is google-calendar)"
+  echo "  FAIL: $file row \"$name\" is not a server name; use the server's own name (plugin:x:gmail is gmail, claude.ai Google Calendar is google-calendar), and put a second listing's owners on the first"
   FAILED=1
 done < <(
   for f in "$MCPS_DIR"/*.md; do

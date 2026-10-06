@@ -37,7 +37,7 @@ Route through: **Sherlock** (research/synthesis) and **Tár** (memory when relev
 
 | MCP | Plugin | Purpose | Subagent Owner | Fallback |
 |-----|--------|---------|----------------|----------|
-| notion | enterprise-search + operations | Notion pages, databases | Sherlock (research) or Neo (project docs) | Paste content directly |
+| notion | enterprise-search + operations | Notion pages, databases, knowledge base search | Sherlock (research, knowledge sourcing) or Neo (project docs), Snape (brand docs) | Paste content directly |
 | atlassian | enterprise-search + operations | Confluence + Jira | Sherlock (research), Neo (Jira) | Manual export or paste |
 | guru | enterprise-search | Guru knowledge base | Sherlock | Manual export |
 | box | brand-voice + legal | Box docs, brand assets, legal contracts (the legal folder) | Sherlock (brand), Snake Eyes (Legal) | Local file paths |

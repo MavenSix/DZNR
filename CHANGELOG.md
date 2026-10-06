@@ -10,7 +10,8 @@ owner is lost.
 `workspace-and-data.md` had a row for each. DZNR OS keeps the first definition it reads and drops
 the rest, so the `workspace-and-data.md` rows never counted: Tár did not own Slack. Each is now one
 row in `plugin-connectors.md` carrying every owner either file gave it. Slack is Sherlock, Morpheus,
-Tár and Snake Eyes; Granola and Gong are Sherlock and Snape.
+Tár and Snake Eyes; Granola and Gong are Sherlock and Snape. Sherlock's MCP table and the workspace
+cluster's examples and triggers now send Slack, Notion, Granola and Gong to `plugin-connectors.md`.
 
 **Box was listed in two categories of one file**, Enterprise Search and Legal, and DZNR OS reported
 it as cross-listed. The Enterprise Search row already named Snake Eyes (Legal), so the Legal row

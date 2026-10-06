@@ -39,13 +39,13 @@ One caveat on `google-calendar`: the design, enterprise-search and operations pl
 
 All cross-cutting workspace MCPs follow the same shape:
 
-1. **Read first, write with confirmation.** These MCPs touch real user data. Tár reads memory and search results freely; write actions (Slack send, email send, Notion edit, calendar create) always require explicit user confirmation per DZNR's explicit-permission action rules.
+1. **Read first, write with confirmation.** These MCPs touch real user data. Tár reads memory and search results freely; write actions (email send, calendar create, Drive file create) always require explicit user confirmation per DZNR's explicit-permission action rules.
 2. **Search as the entry point.** Most invocations are "find that thing" via the enterprise-search skill cluster or the MCP's native search.
-3. **Memory bridge.** Tár writes references to project memory when these MCPs surface relevant project context (e.g., "Slack channel #project-alpha is the active discussion").
+3. **Memory bridge.** Tár writes references to project memory when these MCPs surface relevant project context (e.g., "the Drive folder Project Alpha / Briefs holds the current brief").
 
 ## Triggers
 
-Direct invocation by name ("check Slack", "search Google Drive", "look at the Granola transcript"). Plus capability-based triggers via the enterprise-search skill cluster ("find that doc about", "what did we decide on", "where was the conversation about").
+Direct invocation by name ("search Google Drive", "check my Gmail", "what's on my calendar", "pull the Shopify orders"). Slack, Notion, Granola and Gong triggers are with their rows in `plugin-connectors.md`. Plus capability-based triggers via the enterprise-search skill cluster ("find that doc about", "what did we decide on", "where was the conversation about").
 
 ## Workflow
 

@@ -25,16 +25,16 @@ The framework solves these by giving every MCP a single source of truth (one spe
 MCPs are owned by the subagent whose domain they extend. Examples:
 
 - **Figma MCP**: Snape (brand and design systems primarily) and partially Neo (figma-code-connect)
-- **Adobe MCP**: Snake Eyes (specialist invocation by name)
+- **Adobe MCP** (`adobe-for-creativity`): Snake Eyes (specialist invocation by name)
 - **Blender MCP**: Gibson (3D experience design)
 - **Magic Patterns MCP**: Snape (brand and UI exploration)
 - **Mobbin MCP**: Sherlock (design pattern research) and Snape (pattern reference)
 - **Higgsfield MCP**: Gibson (AI video generation as experience output) or Morpheus (video for pitch and campaign content)
 - **RunningHub (v2.5.0)**: Gibson primary; Cheetara (non-sref QKI renders, cloud mesh iteration), Morpheus (Seedance shotlist execution), Snake Eyes (community AI Apps by name). Aggregator fallback for image, video, 3D, and music; primary for Midjourney-via-API without sref; cloud ComfyUI when the PC is offline. No official MCP; reached via third-party wrapper or the DZNR OS native driver.
 - **Pencil MCP**: Snape (design file editing) and partially Neo (component code from design files)
-- **Slack MCP**: cross-cutting (Tár for memory and references, Morpheus for outbound, Sherlock for search)
+- **Slack MCP**: cross-cutting (Tár for memory and references, Morpheus for outbound, Sherlock for search, Snake Eyes for the small-business watchlist)
 - **Google Drive MCP**: cross-cutting (Sherlock for discovery, Morpheus for document delivery)
-- **Granola MCP**: cross-cutting (Sherlock for meeting transcripts as research input)
+- **Granola MCP**: cross-cutting (Sherlock for meeting transcripts as research input, Snape for brand voice)
 - **Plugin family MCPs (v2.4.0):** ~40 additional MCPs installed via plugins (data warehouses, project management, dev ops, marketing, legal, bio research). Documented as a family in `routing/mcps/plugin-connectors.md` rather than one file per MCP. Each row in that spec maps the MCP to its Snake Eyes cluster (or core subagent) with triggers and fallbacks.
 
 When an MCP serves multiple subagents, the spec lists primary owner first and secondary owners after.

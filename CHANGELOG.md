@@ -24,8 +24,9 @@ row: Snake Eyes onto `slack`, Snape onto `notion`.
 **Apple Notes has no server on either machine.** `claude mcp list` on the Mac and the PC, the Mac's
 desktop config and both DZNR OS daemons show none. The row said ACTIVE under "Apple Notes", a name
 only a server declared with that space could match. It is now `apple-notes`, the name DZNR OS gives
-a claude.ai connector called "Apple Notes", and DOCUMENTED until one is installed. The install guide
-no longer lists it as ACTIVE.
+a claude.ai connector called "Apple Notes", and PENDING until one is installed: `routing/MCPS.md`'s
+lifecycle has a spec whose MCP is not connected yet as PENDING. The install guide lists it with the
+other PENDING connectors, no longer as ACTIVE.
 
 **Adobe is `adobe-for-creativity`.** Its spec said `mcp-name: adobe`, which matched nothing on
 either machine, so DZNR OS showed it as having nothing to check for good. Both daemons list

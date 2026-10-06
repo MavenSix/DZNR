@@ -40,7 +40,7 @@ Route through: **Sherlock** (research/synthesis) and **Tár** (memory when relev
 | notion | enterprise-search + operations | Notion pages, databases | Sherlock (research) or Neo (project docs) | Paste content directly |
 | atlassian | enterprise-search + operations | Confluence + Jira | Sherlock (research), Neo (Jira) | Manual export or paste |
 | guru | enterprise-search | Guru knowledge base | Sherlock | Manual export |
-| box | brand-voice + legal | Box docs, brand assets, legal contracts | Sherlock (brand), Snake Eyes (Legal) | Local file paths |
+| box | brand-voice + legal | Box docs, brand assets, legal contracts (the legal folder) | Sherlock (brand), Snake Eyes (Legal) | Local file paths |
 | granola | brand-voice | Granola meeting notes and transcripts | Sherlock (research), Snape (brand voice) | Paste transcript directly |
 | gong | brand-voice | Gong call recordings and transcripts | Sherlock (research), Snape (brand voice) | Paste transcript directly |
 
@@ -124,7 +124,8 @@ Route through: **Snake Eyes Legal cluster**.
 |-----|--------|---------|----------------|----------|
 | docusign | legal | DocuSign envelopes, signatures | Snake Eyes (Legal) | Manual envelope setup |
 | egnyte | legal | Egnyte legal document storage | Snake Eyes (Legal) | Local file paths |
-| box | legal (also brand-voice) | Box legal folder | Snake Eyes (Legal) | Local file paths |
+
+Box is listed once, under Category 2, where Snake Eyes (Legal) is one of its owners. A second row here made DZNR OS report it as cross-listed, and DZNR OS keeps only the first row it reads.
 
 **Trigger patterns:** "send this contract to DocuSign", "pull the NDA from Egnyte", "sign this from Box"
 

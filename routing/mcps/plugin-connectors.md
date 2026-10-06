@@ -41,8 +41,8 @@ Route through: **Sherlock** (research/synthesis) and **Tár** (memory when relev
 | atlassian | enterprise-search + operations | Confluence + Jira | Sherlock (research), Neo (Jira) | Manual export or paste |
 | guru | enterprise-search | Guru knowledge base | Sherlock | Manual export |
 | box | brand-voice + legal | Box docs, brand assets, legal contracts (the legal folder) | Sherlock (brand), Snake Eyes (Legal) | Local file paths |
-| granola | brand-voice | Granola meeting notes and transcripts | Sherlock (research), Snape (brand voice) | Paste transcript directly |
-| gong | brand-voice | Gong call recordings and transcripts | Sherlock (research), Snape (brand voice) | Paste transcript directly |
+| granola | brand-voice | Granola meeting notes and transcripts | Sherlock (research, meeting transcripts as research input), Snape (brand voice) | Paste transcript directly |
+| gong | brand-voice | Gong call recordings and transcripts | Sherlock (research, call analysis), Snape (brand voice, via conversation analysis) | Paste transcript directly |
 
 **Trigger patterns:** "search Notion for", "find in Confluence", "check Guru", "pull the Box doc", "what did we say in that Granola call", "extract themes from Gong calls"
 
@@ -56,13 +56,14 @@ Route through: **Sherlock** (context gathering), **Morpheus** (outbound), or **T
 
 | MCP | Plugin | Purpose | Subagent Owner | Fallback |
 |-----|--------|---------|----------------|----------|
-| slack | operations | Slack messages, channels, threads | Sherlock (context) or Morpheus (drafting messages) | Copy-paste threads |
-| slack (small-business) | small-business | Slack watchlist for SMB | Snake Eyes (Small Business) | Copy-paste threads |
+| slack | operations + small-business | Slack messages, channels, threads, canvases; the SMB watchlist | Sherlock (context, search) or Morpheus (drafting and sending messages), Tár (memory + references), Snake Eyes (Small Business watchlist) | Copy-paste threads |
 | intercom | design | Customer support conversations | Sherlock (voice-of-customer research) | Manual export |
 
 **Trigger patterns:** "check the Slack thread on", "draft a Slack message about", "pull Intercom conversations about [feature]", "customer complaints from the last 30 days"
 
 **Workflow:** Sherlock uses Slack MCP for voice-of-customer research; Morpheus uses it for drafting outbound messages; Snake Eyes small-business cluster uses it for the SMB watchlist skills (`monday-brief`, `friday-brief`).
+
+**One row per server.** The small-business plugin declares its server as plain `slack`, and claude.ai's Slack connector reads as `slack` too, so a second row named "slack (small-business)" could never match a server: DZNR OS showed it as having nothing to check while `slack` itself was connected. Its owner, Snake Eyes, is on the one `slack` row instead, with Tár from `workspace-and-data.md`, which no longer lists Slack, Granola or Gong. Each of those three is defined once, here.
 
 ---
 

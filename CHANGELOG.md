@@ -1,3 +1,14 @@
+## 2.14.4 - 2026-10-07
+
+### The MCP index names the files that exist
+
+Approved by Kevin on 2026-10-07 ("Close the audit"). `routing/MCPS.md`'s "Currently documented MCPs" still
+listed `slack.md`, `granola.md`, `notion.md`, `gong.md`, `gmail-and-calendar.md`, `pdf-tools.md` and other
+files that do not exist (those connectors are rows in the cluster files), left out `browser-profile.md`,
+`graphify.md` and `playwright.md`, and said RunningHub needs an Enterprise-Shared key. The section now lists
+each spec file with its stated status and each cluster file's rows, and says a membership key runs RunningHub
+workflows and AI Apps while its Model API needs an Enterprise-Shared key. Documentation only.
+
 ## 2.14.3 - 2026-10-06
 
 ### Connector specs DZNR OS can read without losing an owner

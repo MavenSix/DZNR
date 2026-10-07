@@ -119,35 +119,25 @@ The pointer plus status flag is enough for the subagent to operate. Full workflo
 
 ## Currently documented MCPs
 
-As of v1.6.0, DZNR has spec files for the following MCPs in `routing/mcps/`:
+The spec files in `routing/mcps/` as of v2.14.4, and the status each spec states. Which of them is connected on a given machine is what DZNR OS's `dznr-os mcp status` reports; this list is the specs, not the machines. Most connectors are rows in a cluster file rather than files of their own.
 
-### Design and UI
+### One spec per connector
+- `adobe.md`: ACTIVE (server `adobe-for-creativity`)
+- `blender.md`: ACTIVE (when the local Blender app is running)
+- `browser-profile.md`: PENDING
 - `figma.md`: ACTIVE
+- `graphify.md`: ACTIVE for code, and docs through Claude; LIMITED for docs through Ollama
+- `higgsfield.md`: ACTIVE (through the claude.ai connector)
 - `magic-patterns.md`: CONFIGURED-NOT-ACTIVE (registry connected, session tools not yet surfaced)
 - `mobbin.md`: ACTIVE (through claude.ai, since 2026-09-30)
 - `pencil.md`: ACTIVE
-- `adobe.md`: ACTIVE (Snake Eyes; server `adobe-for-creativity`)
+- `playwright.md`: ACTIVE
+- `runninghub.md`: PENDING (aggregator: cloud ComfyUI plus about 420 model endpoints; a membership key runs workflows and AI Apps, and its Model API needs an Enterprise-Shared key; no official MCP)
 
-### Creative tech and 3D
-- `blender.md`: ACTIVE (when local Blender app is running)
-- `higgsfield.md`: ACTIVE
-- `runninghub.md`: PENDING (aggregator: cloud ComfyUI plus ~420 model endpoints; needs Enterprise-Shared key; no official MCP)
-
-### Workspace and data
-- `figma.md`: ACTIVE (also under Design)
-- `slack.md`: ACTIVE
-- `google-drive.md`: ACTIVE
-- `granola.md`: ACTIVE (meeting transcripts)
-- `notion.md`: ACTIVE
-- `gmail-and-calendar.md`: ACTIVE
-
-### Specialist
-- `gong.md`: ACTIVE
-- `pdf-tools.md`: ACTIVE
-- `shopify.md`: ACTIVE (when needed)
-- `supabase.md`: ACTIVE (when needed)
-- `vercel.md`: ACTIVE (when needed)
-- `netlify.md`: ACTIVE (when needed)
+### Clusters, one row per connector
+- `workspace-and-data.md`: ACTIVE (cluster): google-drive, gmail, google-calendar, pdf, shopify, apple-notes
+- `deployment-and-infra.md`: ACTIVE (cluster): vercel, netlify, supabase
+- `plugin-connectors.md`: DOCUMENTED (cluster; each row states its own): amplitude, amplitude-eu, bigquery, definite, hex, similarweb, supermetrics, ahrefs, pendo, notion, atlassian, guru, box, granola, gong, slack, intercom, linear, clickup, monday, asana, fireflies, github, datadog, pagerduty, klaviyo, hubspot, canva, docusign, egnyte, biorender, owkin, synapse, wiley
 
 ACTIVE status assumes the MCP server is connected in the user's current Claude session. Adopters may have different subsets active.
 

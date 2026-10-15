@@ -1,3 +1,9 @@
+## 2.15.0 - 2026-10-15
+
+### Cheetara's skills match the stages she owns
+
+Asked for by Kevin on 2026-10-15 ("She has more skills than QKI. Do a review of her skills and then apply them to the agent Cheetara"). Cheetara's roster listed only the four QKI skills, so DZNR OS showed her with four, while the workflows give her stages that use five more: `aesthetic-system` (style frames in `short-medium-form-video` and `long-form-narrative`), `immersive-experience-design` (the series bible in `long-form-narrative`), `brand-from-scratch` and `ds-theming` (world packs in `qki-serialized-world` and `pulse-os-artifacts`) and `seedance-director` (motion clips in `pulse-os-artifacts`). Each is now listed in her roster section as shared with its other owner, with a row in the shared-skills table saying how Tár tells them apart, and in her AGENT.md and README (1.1.0). No skill moves away from Snape or Gibson; the video shot list stays Gibson's, as his stage owns it. No trigger changes.
+
 ## 2.14.4 - 2026-10-07
 
 ### The MCP index names the files that exist

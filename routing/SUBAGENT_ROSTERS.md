@@ -17,7 +17,7 @@
 | **Neo** | Delivery & Code | Specs, components, ship it | 26 |
 | **Morpheus** | Pitch & Story | Present, persuade, narrate | 19 |
 | **Gandalf** | Workshop (peer + tool + orchestrator) | Kevin's personal craft + Innovation Accelerator pack. Called by Tár OR by other subagents. Orchestrates other subagents for IA (documented exception). | 44 |
-| **Cheetara** | QKI Worldbuilding | Aesthetic-first serialized-world asset generation. Engine + three generators + manifest contract. Prime Gate enforced. Coordinates MidJourney, Higgsfield, Weavy, Blender MCP. | 4 |
+| **Cheetara** | QKI Worldbuilding | Aesthetic-first serialized-world asset generation. Engine + three generators + manifest contract. Prime Gate enforced. Coordinates MidJourney, Higgsfield, Weavy, Blender MCP. Also the style, world-pack, series-bible and motion-clip stages of the video, narrative and Pulse OS workflows. | 4 + 5 shared |
 | **Snake Eyes** | Parked specialist arsenal | Silent. Deployed by name. Soft-routed for SEO. Twelve clusters plus Other/Misc. | ~141 |
 
 **Total skills routed through DZNR (Tár to 8 active subagents including Cheetara):** ~167
@@ -453,7 +453,7 @@ onboard, teach-impeccable, quieter
 
 **Role:** Owns the QKI (Quantum Kinetic Ink) cluster. Aesthetic-first serialized-world asset generation across characters, places, and objects. Loads the QKI style engine before any generator runs. Resolves the active world pack from context (via Snape clarifier if ambiguous). Coordinates external tools (MidJourney for hero 2D, Higgsfield for identity lock, Weavy for sheet compositing and mesh generation, Blender MCP or Unreal MCP for Layer 1 spatial framework). Writes to the shared asset manifest as the seam between generation and assembly.
 
-**Skills (4 total, plus 1 shared contract):**
+**Skills (9: 4 owned, 5 shared with Snape and Gibson, plus 1 shared contract):**
 
 ### Engine (1)
 
@@ -468,6 +468,18 @@ onboard, teach-impeccable, quieter
 | qki-character-generator | anthropic-skills | Character node + sheet (hero, turnaround, expressions, motion states). Registers Higgsfield Soul Character for identity lock. |
 | qki-place-generator | anthropic-skills | Environments, locations, cityscapes, buildings. Layer 1 first (Blender MCP or Unreal MCP), then drawn QKI establishing art on top. |
 | qki-object-generator | anthropic-skills | Vehicles, weapons, props. Material-led. Hero design + orthographic angles. Optional Weavy Tripo / Meshy mesh for 3D-ready objects. |
+
+### Shared with Snape and Gibson (5)
+
+The stages Cheetara owns in DZNR's workflows already use these (2026-10-15 review): `short-medium-form-video` s3 and `long-form-narrative` (style frames, art direction), `long-form-narrative` s1 (series bible), `qki-serialized-world` and `pulse-os-artifacts` (world pack drafting, motion clips). They stay Snape's and Gibson's too; the shared-skills table below says how Tár tells them apart.
+
+| Skill | Source | Purpose |
+|-------|--------|---------|
+| aesthetic-system | anthropic-skills (shared with Snape) | The visual language a set of frames shares: Cheetara's style frames for video and long-form art direction, the only place the style is set before anything moves. |
+| immersive-experience-design | anthropic-skills (shared with Gibson) | The world's architecture as a series bible: places, factions, rules, what a reader or viewer moves through. Cheetara's first stage of long-form narrative. |
+| brand-from-scratch | anthropic-skills (shared with Snape) | A world pack's identity drafted from temperament words (Chain 9 path 2): palette, faction marks, naming, before the QKI engine loads it. |
+| ds-theming | anthropic-skills (shared with Snape) | A world pack's palette as tokens per faction, so every generator draws from one source. |
+| seedance-director | kevin-authored (workshop folder, shared with Gibson) | Motion clips from approved QKI plates (Seedance): camera, timing and motion state per clip, the Prime Gate still applied to every frame. |
 
 ### Shared contract (not a callable skill)
 
@@ -591,6 +603,11 @@ Some skills serve multiple domains. Tár disambiguates by context:
 | content-creation | Snape + Morpheus | Snape for voice-defining content, Morpheus for campaign content |
 | status-report | Morpheus + Snake Eyes | Morpheus for outbound stakeholder version, Snake Eyes (ops) for internal version |
 | figma-code-connect | Snape + Neo | Snape for design-side, Neo for code-side |
+| aesthetic-system | Snape + Cheetara | Snape for a brand's aesthetic system, Cheetara for a world's or a film's style frames |
+| immersive-experience-design | Gibson + Cheetara | Gibson for experiences people walk or click through, Cheetara for a story world's series bible |
+| brand-from-scratch | Snape + Cheetara | Snape for a real brand, Cheetara for a fictional world pack's identity |
+| ds-theming | Snape + Cheetara | Snape for a product's design-system themes, Cheetara for a world pack's faction palettes |
+| seedance-director | Gibson + Cheetara | Gibson for experience and campaign motion, Cheetara for motion clips from QKI plates |
 
 ---
 

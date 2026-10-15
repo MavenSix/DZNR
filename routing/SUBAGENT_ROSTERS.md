@@ -17,7 +17,7 @@
 | **Neo** | Delivery & Code | Specs, components, ship it | 26 |
 | **Morpheus** | Pitch & Story | Present, persuade, narrate | 19 |
 | **Gandalf** | Workshop (peer + tool + orchestrator) | Kevin's personal craft + Innovation Accelerator pack. Called by Tár OR by other subagents. Orchestrates other subagents for IA (documented exception). | 44 |
-| **Cheetara** | QKI Worldbuilding | Aesthetic-first serialized-world asset generation. Engine + three generators + manifest contract. Prime Gate enforced. Coordinates MidJourney, Higgsfield, Weavy, Blender MCP. Also the style, world-pack, series-bible and motion-clip stages of the video, narrative and Pulse OS workflows. | 4 + 5 shared |
+| **Cheetara** | QKI Worldbuilding | Aesthetic-first serialized-world asset generation. Engine + three generators + manifest contract. Prime Gate enforced. Coordinates MidJourney, Higgsfield, Weavy, Blender MCP. Also the style, world-pack, series-bible and motion-clip stages of the video, narrative and Pulse OS workflows, Three.js for worlds that run in the browser, and Wan 3.0 shot briefs. | 5 + 16 shared |
 | **Snake Eyes** | Parked specialist arsenal | Silent. Deployed by name. Soft-routed for SEO. Twelve clusters plus Other/Misc. | ~141 |
 
 **Total skills routed through DZNR (Tár to 8 active subagents including Cheetara):** ~167
@@ -216,6 +216,7 @@ critique, audit, distill, extract, clarify, normalize
 |-------|--------|
 | seedance-director | kevin-authored (workshop folder) |
 | seedance-shotlist-director | kevin-authored (workshop folder) |
+| wan-video-prompts | kevin-authored (workshop folder, shared with Cheetara) | Wan 3.0 shot briefs for experience and campaign clips: frame and form, continuity, screen geography, timed beats, native sound (cases CC BY 4.0, imagineVid). |
 | game-studio | kevin-authored (workshop folder) |
 
 These three are Kevin-authored skills physically in `skills/workshop/` but routed to Gibson, not Gandalf. game-studio uses the Higgsfield MCP (ACTIVE).
@@ -453,7 +454,7 @@ onboard, teach-impeccable, quieter
 
 **Role:** Owns the QKI (Quantum Kinetic Ink) cluster. Aesthetic-first serialized-world asset generation across characters, places, and objects. Loads the QKI style engine before any generator runs. Resolves the active world pack from context (via Snape clarifier if ambiguous). Coordinates external tools (MidJourney for hero 2D, Higgsfield for identity lock, Weavy for sheet compositing and mesh generation, Blender MCP or Unreal MCP for Layer 1 spatial framework). Writes to the shared asset manifest as the seam between generation and assembly.
 
-**Skills (9: 4 owned, 5 shared with Snape and Gibson, plus 1 shared contract):**
+**Skills (21: 5 owned, 16 shared with Snape and Gibson, plus 1 shared contract):**
 
 ### Engine (1)
 
@@ -480,6 +481,25 @@ The stages Cheetara owns in DZNR's workflows already use these (2026-10-15 revie
 | brand-from-scratch | anthropic-skills (shared with Snape) | A world pack's identity drafted from temperament words (Chain 9 path 2): palette, faction marks, naming, before the QKI engine loads it. |
 | ds-theming | anthropic-skills (shared with Snape) | A world pack's palette as tokens per faction, so every generator draws from one source. |
 | seedance-director | kevin-authored (workshop folder, shared with Gibson) | Motion clips from approved QKI plates (Seedance): camera, timing and motion state per clip, the Prime Gate still applied to every frame. |
+
+### Three.js, ThreeUI and Wan (12, Kevin's install of 2026-10-15)
+
+Installed for Cheetara at Kevin's request from three repositories: [CloudAI-X/threejs-skills](https://github.com/CloudAI-X/threejs-skills) (the ten `threejs-*` skills, already in the workshop and identical at b1c6230, now shared with Gibson), [MavenSix/threeui](https://github.com/MavenSix/threeui) (Kevin's fork of ThreeUI, which `threeui-catalog` already covers: its 43 components match the fork's source-code.json) and [imagineVid/Awesome-wan-3-0-prompts-and-skills](https://github.com/imagineVid/Awesome-wan-3-0-prompts-and-skills) (a credited prompt library, CC BY 4.0, turned into the new workshop skill `wan-video-prompts`). Cheetara uses the Three.js set for the experience layer of a QKI world (Layer 1 in the browser, places and objects that must run live) and Wan for motion clips from approved plates; the Prime Gate holds on all of it.
+
+| Skill | Source | Purpose |
+|-------|--------|---------|
+| wan-video-prompts | kevin-authored (workshop folder; cases CC BY 4.0 from imagineVid) | Wan 3.0 shot briefs: frame and form first, continuity in words, screen geography, timed beats, a camera move per beat, native sound in the brief. Cheetara's motion clips from QKI plates, image-to-video, never "3D-realism". Shared with Gibson. |
+| threejs-fundamentals | kevin-authored (workshop folder, shared with Gibson) | Scene, camera, renderer and the render loop for a QKI world in the browser. |
+| threejs-geometry | kevin-authored (workshop folder, shared with Gibson) | Layer 1 blocking as geometry: the spatial frame under drawn art. |
+| threejs-materials | kevin-authored (workshop folder, shared with Gibson) | Materials that keep the drawn look (flat, toon, ink) rather than a render's. |
+| threejs-lighting | kevin-authored (workshop folder, shared with Gibson) | Lighting that serves the pack's palette, not physical realism. |
+| threejs-textures | kevin-authored (workshop folder, shared with Gibson) | QKI plates and linework as textures. |
+| threejs-animation | kevin-authored (workshop folder, shared with Gibson) | The seven motion states in a live scene. |
+| threejs-loaders | kevin-authored (workshop folder, shared with Gibson) | Bringing Weavy, Tripo and Meshy meshes into the scene. |
+| threejs-shaders | kevin-authored (workshop folder, shared with Gibson) | Ink, halftone and linework shaders: the drawn layer in GLSL. |
+| threejs-postprocessing | kevin-authored (workshop folder, shared with Gibson) | Outline and grain passes that hold the Prime Gate in motion. |
+| threejs-interaction | kevin-authored (workshop folder, shared with Gibson) | Picking and orbiting a world's places and objects. |
+| threeui-catalog | kevin-authored (workshop folder, shared with Gibson) | Ready ThreeUI components (Kevin's fork) for a world's site or interface before hand-building one. |
 
 ### Shared contract (not a callable skill)
 
@@ -608,6 +628,9 @@ Some skills serve multiple domains. Tár disambiguates by context:
 | brand-from-scratch | Snape + Cheetara | Snape for a real brand, Cheetara for a fictional world pack's identity |
 | ds-theming | Snape + Cheetara | Snape for a product's design-system themes, Cheetara for a world pack's faction palettes |
 | seedance-director | Gibson + Cheetara | Gibson for experience and campaign motion, Cheetara for motion clips from QKI plates |
+| wan-video-prompts | Cheetara + Gibson | Cheetara for motion clips from QKI plates, Gibson for experience and campaign clips on Wan |
+| threejs-* (the ten from CloudAI-X) | Gibson + Cheetara | Gibson for experiences and products in the browser, Cheetara for a QKI world's places and objects in the browser |
+| threeui-catalog | Gibson + Cheetara | Gibson for experience interfaces, Cheetara for a world's own site |
 
 ---
 

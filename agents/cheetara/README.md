@@ -3,7 +3,7 @@ name: cheetara
 description: "Worldbuilding subagent. Owns the QKI (Quantum Kinetic Ink) cluster: engine, three generators (character, place, object), and the shared asset manifest contract. Enforces the Prime Gate ruthlessly. Coordinates MidJourney, Higgsfield, Weavy, and Blender MCP for serialized-world asset generation."
 character: Cheetara
 archetype: fast, precise, sensor-based warrior
-version: 1.1.0
+version: 1.2.0
 status: production
 ---
 
@@ -39,6 +39,12 @@ Five more, shared with Snape and Gibson, for the stages she owns beyond QKI:
 - `immersive-experience-design` (series bible)
 - `brand-from-scratch` and `ds-theming` (world packs)
 - `seedance-director` (motion clips)
+
+And twelve installed on 2026-10-15, shared with Gibson:
+
+- `wan-video-prompts` (Wan 3.0 shot briefs for motion clips)
+- the ten `threejs-*` skills (a QKI world in the browser)
+- `threeui-catalog` (ready ThreeUI components)
 
 ## Status
 

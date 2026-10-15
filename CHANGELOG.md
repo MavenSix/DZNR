@@ -1,3 +1,15 @@
+## 2.16.0 - 2026-10-15
+
+### Three.js, ThreeUI and Wan skills for Cheetara
+
+Asked for by Kevin on 2026-10-15: install the skills from CloudAI-X/threejs-skills, MavenSix/threeui and imagineVid/Awesome-wan-3-0-prompts-and-skills for Cheetara, in DZNR and DZNR OS.
+
+- **CloudAI-X/threejs-skills** (b1c6230): its ten `threejs-*` skills were already in the workshop, byte for byte the same. They are now Cheetara's too, shared with Gibson.
+- **MavenSix/threeui** (Kevin's fork of ThreeUI, 68802d5) is a component library, not a skill; the workshop's `threeui-catalog` already covers it (its 43 components match the fork's `public/source-code.json`). Now shared with Cheetara.
+- **imagineVid/Awesome-wan-3-0-prompts-and-skills** (d789b69) is a credited prompt library with no skill file. It becomes a new workshop skill, `wan-video-prompts`: the shot-brief grammar its seven cases share, Cheetara's rules for motion clips from QKI plates (image-to-video, the drawn medium named, never "3D-realism", the Prime Gate on every frame), and the cases themselves in `references/cases.md`, each with its creator and source, under CC BY 4.0 (the licence copied beside them). Shared with Gibson.
+
+Cheetara's roster section, AGENT.md and README (1.2.0) list all twelve, with rows in the shared-skills table. No skill leaves Gibson. No trigger changes.
+
 ## 2.15.0 - 2026-10-15
 
 ### Cheetara's skills match the stages she owns

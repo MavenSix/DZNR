@@ -824,10 +824,12 @@ NODE 0: Cheetara resolves the engine
     → QKI. Continue to NODE 1, everything below unchanged.
   ELSE (a Pulse OS job, an author's manuscript, or any job naming no QKI pack)
     → Author world. This is the default.
-    → Cheetara loads author-world-authority FIRST and resolves the author's approved pack.
+    → Cheetara runs lore-engine first when the project has no lore/ folder or new inputs arrived since its last run:
+      canon.json, world-bible.md, questions.md, with the author's rulings.md applied.
+    → Cheetara loads author-world-authority and resolves the author's approved pack.
     → IF no approved pack: draft one from the manuscript and brief (brand-from-scratch, ds-theming for palette),
       present it, and wait for the author's approval. Never fall back to QKI.
-    → Open canon questions go to the author; only the subjects they touch wait.
+    → Open canon questions go to the author through lore/questions.md; only the subjects they touch wait.
     → Continue to NODE 2. In NODES 3A to 5, read "QKI sref anchor" as the hero path the pack's medium names,
       "Prime Gate" as the Fidelity Gate (both for a pack with qki: true), and Layer 1 limits as the pack's medium sets them.
 

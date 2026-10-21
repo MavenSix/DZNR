@@ -17,10 +17,10 @@
 | **Neo** | Delivery & Code | Specs, components, ship it | 26 |
 | **Morpheus** | Pitch & Story | Present, persuade, narrate | 19 |
 | **Gandalf** | Workshop (peer + tool + orchestrator) | Kevin's personal craft + Innovation Accelerator pack. Called by Tár OR by other subagents. Orchestrates other subagents for IA (documented exception). | 44 |
-| **Cheetara** | QKI and Author Worldbuilding | Aesthetic-first serialized-world asset generation. Resolves the engine first: QKI (engine + three generators + manifest contract, Prime Gate enforced) for a named QKI pack, the author-world engine (author's approved pack, Fidelity Gate) for an author's world, which is the default for Pulse OS jobs and anything naming no QKI pack. Coordinates MidJourney, Higgsfield, Weavy, Blender MCP. Also the style, world-pack, series-bible and motion-clip stages of the video, narrative and Pulse OS workflows, Three.js for worlds that run in the browser, and Wan 3.0 shot briefs. | 6 + 16 shared |
+| **Cheetara** | QKI and Author Worldbuilding | Aesthetic-first serialized-world asset generation. Resolves the engine first: QKI (engine + three generators + manifest contract, Prime Gate enforced) for a named QKI pack, the author-world engine (author's approved pack, Fidelity Gate) for an author's world, which is the default for Pulse OS jobs and anything naming no QKI pack, with the lore engine (canon, consistency check, canon questions) under it. Coordinates MidJourney, Higgsfield, Weavy, Blender MCP. Also the style, world-pack, series-bible and motion-clip stages of the video, narrative and Pulse OS workflows, Three.js for worlds that run in the browser, and Wan 3.0 shot briefs. | 7 + 16 shared |
 | **Snake Eyes** | Parked specialist arsenal | Silent. Deployed by name. Soft-routed for SEO. Twelve clusters plus Other/Misc. | ~141 |
 
-**Total skills routed through DZNR (Tár to 8 active subagents including Cheetara):** ~168
+**Total skills routed through DZNR (Tár to 8 active subagents including Cheetara):** ~169
 **Total skills in Snake Eyes' arsenal (parked, callable by name):** ~141
 **Total skills in Gandalf's workshop:** 44 (already counted in the active total above)
 **Grand total available across DZNR (active + parked, minus duplicates):** ~300+
@@ -456,7 +456,7 @@ onboard, teach-impeccable, quieter
 
 **Engine first.** QKI is one engine among others, never the default for someone else's world. A job that names a QKI pack runs the QKI cluster unchanged. Work for an author (a Pulse OS job, or anything not naming a QKI pack) is an author world: Cheetara loads `author-world-authority`, drafts the author world pack from the manuscript and brief if none is approved, waits for the author's approval, renders in the pack's medium (photographic, painterly, drawn, 3D-real or mixed), and holds every output to the Fidelity Gate (medium and canon). The QKI DNA and the Prime Gate apply to an author world only when its pack opts into a drawn medium and QKI. With no pack resolvable she never falls back to QKI.
 
-**Skills (22: 6 owned, 16 shared with Snape and Gibson, plus 1 shared contract):**
+**Skills (23: 7 owned, 16 shared with Snape and Gibson, plus 1 shared contract):**
 
 ### Engine (1)
 
@@ -471,6 +471,14 @@ onboard, teach-impeccable, quieter
 | author-world-authority | kevin-authored (workshop folder) | The style engine for an author's world. Drafts the author world pack from the manuscript, brief, tonal references and graphify lore graph (palette, materials, groups, plus medium, realism, era and place, camera, motion, sound, and the canon). Emits the author-world injection block, picks the hero path by medium, defines the Fidelity Gate. The author approves the pack before any render; canon questions go to the author. Read FIRST on every author-world asset. |
 
 The three generators serve both engines; under an author world they take the look, the hero path and the gate from `author-world-authority`.
+
+### Lore engine (1, added 2026-10-21)
+
+| Skill | Source | Purpose |
+|-------|--------|---------|
+| lore-engine | kevin-authored (workshop folder) | Canon and consistency for an author's world. Normalises chapters, session transcripts, notes, the brief and the project record into a corpus under the project's `lore/` folder (the originals untouched), builds a graphify lore graph over it (deep mode, `--update` on later runs), types the nodes (character, place, group, object, rule, event) in a post-pass, and writes `canon.json` and a cited `world-bible.md`. Flags attribute conflicts, timeline contradictions, rule violations, AMBIGUOUS edges, alias candidates and render gaps as numbered questions in `questions.md`, each with the passages, a proposed answer and the renders that wait. Records the author's answers in `rulings.md`, which win over the text. Never answers a canon question itself. Runs before `author-world-authority` drafts a pack, and again whenever new inputs arrive. |
+
+Not shared with Morpheus: his story work is pitch and outbound narrative (translation, not invention), which has no canon to check.
 
 ### Generators (3)
 
@@ -522,7 +530,7 @@ design-taste-frontend, gpt-taste, high-end-visual-design, critique
 
 (These belong to Gandalf's roster. Cheetara pulls Gandalf in mid-work for aesthetic taste passes on sheets before manifest write.)
 
-**Trigger keywords:** create a character, character sheet, worldbuilding, world pack, faction, QKI, Quantum Kinetic Ink, populate the world, build the faction, hero object, hero character, hero prop, establishing shot, cityscape, environment, contested site, Wound Keeper, Synthesis, Friends and Anarchists, F&A, drawn art, graphic novel, sref anchor, Soul Character, Prime Gate, add to the world, author world, author's world, Pulse OS world, World Bible, manuscript, Fidelity Gate.
+**Trigger keywords:** create a character, character sheet, worldbuilding, world pack, faction, QKI, Quantum Kinetic Ink, populate the world, build the faction, hero object, hero character, hero prop, establishing shot, cityscape, environment, contested site, Wound Keeper, Synthesis, Friends and Anarchists, F&A, drawn art, graphic novel, sref anchor, Soul Character, Prime Gate, add to the world, author world, author's world, Pulse OS world, World Bible, manuscript, Fidelity Gate, lore engine, canon check, continuity check, canon questions, ruling, rulings.
 
 **MCP dependencies:**
 - MidJourney (human-in-the-loop, no MCP)

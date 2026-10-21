@@ -378,7 +378,7 @@ See Chain 6 in `routing/CHAINS.md` for the full orchestration logic.
 
 ## Cheetara: QKI and Author Worldbuilding
 
-**Fast, precise, sensor-based warrior. Owns the QKI cluster: engine, three generators, manifest contract, and the author-world engine. Resolves the engine first: QKI for a named QKI pack, an author world for an author's work (the default for Pulse OS jobs and anything naming no QKI pack). Enforces the Prime Gate on QKI and the Fidelity Gate on author worlds. Coordinates MidJourney, Higgsfield, Weavy, Blender MCP.**
+**Fast, precise, sensor-based warrior. Owns the QKI cluster: engine, three generators, manifest contract, and the author-world engine with its lore engine. Resolves the engine first: QKI for a named QKI pack, an author world for an author's work (the default for Pulse OS jobs and anything naming no QKI pack). Enforces the Prime Gate on QKI and the Fidelity Gate on author worlds. Coordinates MidJourney, Higgsfield, Weavy, Blender MCP.**
 
 ### Primary triggers (Tár routes directly)
 - "create a character", "character sheet", "character node", "design a hero", "design a villain"
@@ -391,12 +391,15 @@ See Chain 6 in `routing/CHAINS.md` for the full orchestration logic.
 - "sref anchor", "Soul Character", "Prime Gate"
 - "new world pack", "set up a palette", "use these colours" (with a moodboard or palette input)
 - Author worlds: "Pulse OS world for", "the author's world", "World Bible for", "characters for [manuscript]", "author world pack", "Fidelity Gate" (Cheetara with `author-world-authority`, never QKI by default)
+- Lore engine: "check the canon", "canon check", "continuity check", "lore engine", "canon questions for [title]", "new chapters for [title]", an author's answer to a numbered canon question (Cheetara with `lore-engine`; it runs before `author-world-authority` drafts a pack)
 
 ### Context-dependent
 - "character": Cheetara claims when a world/QKI/faction context is present. Otherwise defers to Snape (brand-character work) or Gibson (AI character/NPC).
 - "environment": Cheetara claims for drawn-art world environments. Gibson claims for interactive 3D environments (webgl-threejs, immersive-experience-design). Snape clarifies if ambiguous.
 - "asset": Cheetara claims for QKI-context and author-world assets (character/place/object nodes with manifest). Neo claims for engineering assets. Snape claims for brand assets.
 - "graphic novel style", "drawn art" on an author's work: Cheetara, author world; QKI only if the author's approved pack opts into it.
+- "consistency check", "continuity", "audit the canon": Cheetara (`lore-engine`) when a manuscript, an author or a Pulse OS project is in context. Otherwise design-system consistency goes to Snape, and an experience or site audit to Sherlock.
+- "story" on an author's manuscript (its canon, its timeline, who is who): Cheetara with `lore-engine`. A pitch or narrative write-up stays with Morpheus.
 - "world": Cheetara claims for serialized-narrative worldbuilding. Gibson claims for experience-world architecture. Snape clarifies if ambiguous.
 
 ### Anti-triggers

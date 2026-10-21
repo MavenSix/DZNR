@@ -46,7 +46,7 @@ Most AI design agents are a single system prompt that says "be helpful." When th
 | **Neo** | Delivery and Code | Specs, components, ship. Platform-pure: Sitecore, Salesforce, AEM, React, native mobile, static sites, backend services. | 24 |
 | **Morpheus** | Pitch and Story | Outbound. Per-claim source attribution. Format-organized deliverables. | 19 |
 | **Gandalf** | Workshop tri-mode | Your personal craft. The ONLY subagent who can call others (in orchestrator mode, Innovation Accelerator only). | 44 |
-| **Cheetara** | QKI Worldbuilding | Aesthetic-first serialized-world asset generation. Engine + three generators + manifest contract. Prime Gate enforced ruthlessly. | 4 |
+| **Cheetara** | QKI and Author Worldbuilding | Aesthetic-first serialized-world asset generation. Engine + three generators + manifest contract. QKI for a named QKI pack, Prime Gate enforced ruthlessly; an author's world (the default for Pulse OS and anything naming no QKI pack) in the author's chosen medium, held to the Fidelity Gate. | 4 |
 | **Snake Eyes** | Specialist Arsenal | Silent. Seven specialist clusters. Called by name. Soft-routed for SEO. | ~55 |
 
 ---

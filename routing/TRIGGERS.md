@@ -376,9 +376,9 @@ See Chain 6 in `routing/CHAINS.md` for the full orchestration logic.
 
 ---
 
-## Cheetara: QKI Worldbuilding
+## Cheetara: QKI and Author Worldbuilding
 
-**Fast, precise, sensor-based warrior. Owns the QKI cluster: engine, three generators, manifest contract. Enforces Prime Gate. Coordinates MidJourney, Higgsfield, Weavy, Blender MCP.**
+**Fast, precise, sensor-based warrior. Owns the QKI cluster: engine, three generators, manifest contract, and the author-world engine. Resolves the engine first: QKI for a named QKI pack, an author world for an author's work (the default for Pulse OS jobs and anything naming no QKI pack). Enforces the Prime Gate on QKI and the Fidelity Gate on author worlds. Coordinates MidJourney, Higgsfield, Weavy, Blender MCP.**
 
 ### Primary triggers (Tár routes directly)
 - "create a character", "character sheet", "character node", "design a hero", "design a villain"
@@ -390,11 +390,13 @@ See Chain 6 in `routing/CHAINS.md` for the full orchestration logic.
 - Named packs: "Friends and Anarchists", "F&A", "Wound Keeper", "Synthesis"
 - "sref anchor", "Soul Character", "Prime Gate"
 - "new world pack", "set up a palette", "use these colours" (with a moodboard or palette input)
+- Author worlds: "Pulse OS world for", "the author's world", "World Bible for", "characters for [manuscript]", "author world pack", "Fidelity Gate" (Cheetara with `author-world-authority`, never QKI by default)
 
 ### Context-dependent
 - "character": Cheetara claims when a world/QKI/faction context is present. Otherwise defers to Snape (brand-character work) or Gibson (AI character/NPC).
 - "environment": Cheetara claims for drawn-art world environments. Gibson claims for interactive 3D environments (webgl-threejs, immersive-experience-design). Snape clarifies if ambiguous.
-- "asset": Cheetara claims for QKI-context assets (character/place/object nodes with manifest). Neo claims for engineering assets. Snape claims for brand assets.
+- "asset": Cheetara claims for QKI-context and author-world assets (character/place/object nodes with manifest). Neo claims for engineering assets. Snape claims for brand assets.
+- "graphic novel style", "drawn art" on an author's work: Cheetara, author world; QKI only if the author's approved pack opts into it.
 - "world": Cheetara claims for serialized-narrative worldbuilding. Gibson claims for experience-world architecture. Snape clarifies if ambiguous.
 
 ### Anti-triggers

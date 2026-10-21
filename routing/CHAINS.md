@@ -804,7 +804,7 @@ Otherwise: bundle executes end-to-end, all 6 artifacts delivered together.
 
 ## Chain 8: QKI World Asset (NEW, Cheetara owns)
 
-**Purpose:** Generate a single QKI asset (character, place, or object) or a compound set (populate a faction, build out the world) using the QKI engine, generators, and manifest contract. Serialized-world consistency is the north star.
+**Purpose:** Generate a single QKI asset (character, place, or object) or a compound set (populate a faction, build out the world) using the QKI engine, generators, and manifest contract. Serialized-world consistency is the north star. The same chain runs for an author's world under the author-world engine (`author-world-authority`); NODE 0 decides which, and QKI is never the default for an author's work.
 
 ### Entry conditions
 
@@ -813,11 +813,25 @@ A request matches Chain 8 when ANY of:
 - Explicit pack reference ("in Friends-and-Anarchists", "F&A", "Wound Keeper", "Synthesis")
 - QKI-explicit language ("QKI character", "graphic novel style", "sref anchor", "Prime Gate", "Soul Character")
 - A world pack is already active in project memory AND the request is a generation verb ("create", "design", "add", "populate")
+- An author's work: a Pulse OS job, a manuscript or World Bible, characters or places "for [title]" (author world, NODE 0)
 
 ### Decision tree
 
 ```
-NODE 1: Cheetara receives the request
+NODE 0: Cheetara resolves the engine
+
+  IF the job names a QKI pack ("in F&A", a pack in qki-style-authority/packs/)
+    → QKI. Continue to NODE 1, everything below unchanged.
+  ELSE (a Pulse OS job, an author's manuscript, or any job naming no QKI pack)
+    → Author world. This is the default.
+    → Cheetara loads author-world-authority FIRST and resolves the author's approved pack.
+    → IF no approved pack: draft one from the manuscript and brief (brand-from-scratch, ds-theming for palette),
+      present it, and wait for the author's approval. Never fall back to QKI.
+    → Open canon questions go to the author; only the subjects they touch wait.
+    → Continue to NODE 2. In NODES 3A to 5, read "QKI sref anchor" as the hero path the pack's medium names,
+      "Prime Gate" as the Fidelity Gate (both for a pack with qki: true), and Layer 1 limits as the pack's medium sets them.
+
+NODE 1: Cheetara receives the request (QKI)
 
   Cheetara loads qki-style-authority (the engine) FIRST.
   This is non-negotiable. No generator runs without the engine loaded.
@@ -930,14 +944,14 @@ NODE 5: Chain complete
 
 ## Chain 9: New QKI World Pack (NEW, Cheetara owns)
 
-**Purpose:** Author or extract a new world pack so future QKI generation can render against it. Required prerequisite when a user starts a new world and no pack exists.
+**Purpose:** Author or extract a new world pack so future QKI generation can render against it. Required prerequisite when a user starts a new QKI world and no pack exists. An author's world never comes here: its pack is drafted from the manuscript by `author-world-authority` (Chain 8 NODE 0) and approved by the author.
 
 ### Entry conditions
 
 A request matches Chain 9 when ANY of:
 - "new world", "set up a palette", "use these colours", "author a pack"
 - User uploads a palette file, a moodboard, or a brand reference and asks for a QKI world
-- Chain 8 attempted to run and Cheetara escalated because no pack was resolvable
+- Chain 8 attempted to run on a QKI world and Cheetara escalated because no QKI pack was resolvable
 
 ### Decision tree
 

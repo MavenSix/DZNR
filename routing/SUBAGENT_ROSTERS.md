@@ -17,10 +17,10 @@
 | **Neo** | Delivery & Code | Specs, components, ship it | 26 |
 | **Morpheus** | Pitch & Story | Present, persuade, narrate | 19 |
 | **Gandalf** | Workshop (peer + tool + orchestrator) | Kevin's personal craft + Innovation Accelerator pack. Called by Tár OR by other subagents. Orchestrates other subagents for IA (documented exception). | 44 |
-| **Cheetara** | QKI Worldbuilding | Aesthetic-first serialized-world asset generation. Engine + three generators + manifest contract. Prime Gate enforced. Coordinates MidJourney, Higgsfield, Weavy, Blender MCP. Also the style, world-pack, series-bible and motion-clip stages of the video, narrative and Pulse OS workflows, Three.js for worlds that run in the browser, and Wan 3.0 shot briefs. | 5 + 16 shared |
+| **Cheetara** | QKI and Author Worldbuilding | Aesthetic-first serialized-world asset generation. Resolves the engine first: QKI (engine + three generators + manifest contract, Prime Gate enforced) for a named QKI pack, the author-world engine (author's approved pack, Fidelity Gate) for an author's world, which is the default for Pulse OS jobs and anything naming no QKI pack. Coordinates MidJourney, Higgsfield, Weavy, Blender MCP. Also the style, world-pack, series-bible and motion-clip stages of the video, narrative and Pulse OS workflows, Three.js for worlds that run in the browser, and Wan 3.0 shot briefs. | 6 + 16 shared |
 | **Snake Eyes** | Parked specialist arsenal | Silent. Deployed by name. Soft-routed for SEO. Twelve clusters plus Other/Misc. | ~141 |
 
-**Total skills routed through DZNR (Tár to 8 active subagents including Cheetara):** ~167
+**Total skills routed through DZNR (Tár to 8 active subagents including Cheetara):** ~168
 **Total skills in Snake Eyes' arsenal (parked, callable by name):** ~141
 **Total skills in Gandalf's workshop:** 44 (already counted in the active total above)
 **Grand total available across DZNR (active + parked, minus duplicates):** ~300+
@@ -448,19 +448,29 @@ onboard, teach-impeccable, quieter
 
 ---
 
-## Cheetara: QKI Worldbuilding
+## Cheetara: QKI and Author Worldbuilding
 
 **Archetype:** Fast, precise, sensor-based warrior. Moves through the generation pipeline at speed, feels aesthetic drift before it fully surfaces, and strikes the Prime Gate the moment a render tries to sneak in where a drawn layer belongs. Operator, not artist.
 
 **Role:** Owns the QKI (Quantum Kinetic Ink) cluster. Aesthetic-first serialized-world asset generation across characters, places, and objects. Loads the QKI style engine before any generator runs. Resolves the active world pack from context (via Snape clarifier if ambiguous). Coordinates external tools (MidJourney for hero 2D, Higgsfield for identity lock, Weavy for sheet compositing and mesh generation, Blender MCP or Unreal MCP for Layer 1 spatial framework). Writes to the shared asset manifest as the seam between generation and assembly.
 
-**Skills (21: 5 owned, 16 shared with Snape and Gibson, plus 1 shared contract):**
+**Engine first.** QKI is one engine among others, never the default for someone else's world. A job that names a QKI pack runs the QKI cluster unchanged. Work for an author (a Pulse OS job, or anything not naming a QKI pack) is an author world: Cheetara loads `author-world-authority`, drafts the author world pack from the manuscript and brief if none is approved, waits for the author's approval, renders in the pack's medium (photographic, painterly, drawn, 3D-real or mixed), and holds every output to the Fidelity Gate (medium and canon). The QKI DNA and the Prime Gate apply to an author world only when its pack opts into a drawn medium and QKI. With no pack resolvable she never falls back to QKI.
+
+**Skills (22: 6 owned, 16 shared with Snape and Gibson, plus 1 shared contract):**
 
 ### Engine (1)
 
 | Skill | Source | Purpose |
 |-------|--------|---------|
-| qki-style-authority | anthropic-skills | The canonical QKI style engine. Fixed DNA (four-layer render model, linework law, Prime Gate). Loads the active world pack. Read FIRST on every asset. |
+| qki-style-authority | anthropic-skills | The canonical QKI style engine. Fixed DNA (four-layer render model, linework law, Prime Gate). Loads the active world pack. Read FIRST on every QKI asset. |
+
+### Author world engine (1)
+
+| Skill | Source | Purpose |
+|-------|--------|---------|
+| author-world-authority | kevin-authored (workshop folder) | The style engine for an author's world. Drafts the author world pack from the manuscript, brief, tonal references and graphify lore graph (palette, materials, groups, plus medium, realism, era and place, camera, motion, sound, and the canon). Emits the author-world injection block, picks the hero path by medium, defines the Fidelity Gate. The author approves the pack before any render; canon questions go to the author. Read FIRST on every author-world asset. |
+
+The three generators serve both engines; under an author world they take the look, the hero path and the gate from `author-world-authority`.
 
 ### Generators (3)
 
@@ -484,11 +494,11 @@ The stages Cheetara owns in DZNR's workflows already use these (2026-10-15 revie
 
 ### Three.js, ThreeUI and Wan (12, Kevin's install of 2026-10-15)
 
-Installed for Cheetara at Kevin's request from three repositories: [CloudAI-X/threejs-skills](https://github.com/CloudAI-X/threejs-skills) (the ten `threejs-*` skills, already in the workshop and identical at b1c6230, now shared with Gibson), [MavenSix/threeui](https://github.com/MavenSix/threeui) (Kevin's fork of ThreeUI, which `threeui-catalog` already covers: its 43 components match the fork's source-code.json) and [imagineVid/Awesome-wan-3-0-prompts-and-skills](https://github.com/imagineVid/Awesome-wan-3-0-prompts-and-skills) (a credited prompt library, CC BY 4.0, turned into the new workshop skill `wan-video-prompts`). Cheetara uses the Three.js set for the experience layer of a QKI world (Layer 1 in the browser, places and objects that must run live) and Wan for motion clips from approved plates; the Prime Gate holds on all of it.
+Installed for Cheetara at Kevin's request from three repositories: [CloudAI-X/threejs-skills](https://github.com/CloudAI-X/threejs-skills) (the ten `threejs-*` skills, already in the workshop and identical at b1c6230, now shared with Gibson), [MavenSix/threeui](https://github.com/MavenSix/threeui) (Kevin's fork of ThreeUI, which `threeui-catalog` already covers: its 43 components match the fork's source-code.json) and [imagineVid/Awesome-wan-3-0-prompts-and-skills](https://github.com/imagineVid/Awesome-wan-3-0-prompts-and-skills) (a credited prompt library, CC BY 4.0, turned into the new workshop skill `wan-video-prompts`). Cheetara uses the Three.js set for the experience layer of a world (for QKI: Layer 1 in the browser, places and objects that must run live) and Wan for motion clips from approved plates; on a QKI pack the Prime Gate holds on all of it, and on an author world the pack's medium decides and the Fidelity Gate holds.
 
 | Skill | Source | Purpose |
 |-------|--------|---------|
-| wan-video-prompts | kevin-authored (workshop folder; cases CC BY 4.0 from imagineVid) | Wan 3.0 shot briefs: frame and form first, continuity in words, screen geography, timed beats, a camera move per beat, native sound in the brief. Cheetara's motion clips from QKI plates, image-to-video, never "3D-realism". Shared with Gibson. |
+| wan-video-prompts | kevin-authored (workshop folder; cases CC BY 4.0 from imagineVid) | Wan 3.0 shot briefs: frame and form first, continuity in words, screen geography, timed beats, a camera move per beat, native sound in the brief. Cheetara's motion clips from approved plates, image-to-video; never "3D-realism" from a QKI plate, while an author world's pack medium decides. Shared with Gibson. |
 | threejs-fundamentals | kevin-authored (workshop folder, shared with Gibson) | Scene, camera, renderer and the render loop for a QKI world in the browser. |
 | threejs-geometry | kevin-authored (workshop folder, shared with Gibson) | Layer 1 blocking as geometry: the spatial frame under drawn art. |
 | threejs-materials | kevin-authored (workshop folder, shared with Gibson) | Materials that keep the drawn look (flat, toon, ink) rather than a render's. |
@@ -505,14 +515,14 @@ Installed for Cheetara at Kevin's request from three repositories: [CloudAI-X/th
 
 | File | Purpose |
 |------|---------|
-| qki-asset-pipeline/asset-manifest-schema.md | The seam. Shared record schema every generator writes to and every downstream assembly stage (Gibson, Neo) reads from. |
+| qki-asset-pipeline/asset-manifest-schema.md | The seam. Shared record schema every generator writes to and every downstream assembly stage (Gibson, Neo) reads from. Every record names the engine and pack it was made under (no engine field means QKI; author-world fields in `author-world-authority/references/manifest-fields.md`). |
 
 **Workshop skills Cheetara commonly CALLS Gandalf for:**
 design-taste-frontend, gpt-taste, high-end-visual-design, critique
 
 (These belong to Gandalf's roster. Cheetara pulls Gandalf in mid-work for aesthetic taste passes on sheets before manifest write.)
 
-**Trigger keywords:** create a character, character sheet, worldbuilding, world pack, faction, QKI, Quantum Kinetic Ink, populate the world, build the faction, hero object, hero character, hero prop, establishing shot, cityscape, environment, contested site, Wound Keeper, Synthesis, Friends and Anarchists, F&A, drawn art, graphic novel, sref anchor, Soul Character, Prime Gate, add to the world.
+**Trigger keywords:** create a character, character sheet, worldbuilding, world pack, faction, QKI, Quantum Kinetic Ink, populate the world, build the faction, hero object, hero character, hero prop, establishing shot, cityscape, environment, contested site, Wound Keeper, Synthesis, Friends and Anarchists, F&A, drawn art, graphic novel, sref anchor, Soul Character, Prime Gate, add to the world, author world, author's world, Pulse OS world, World Bible, manuscript, Fidelity Gate.
 
 **MCP dependencies:**
 - MidJourney (human-in-the-loop, no MCP)
@@ -627,9 +637,9 @@ Some skills serve multiple domains. Tár disambiguates by context:
 | immersive-experience-design | Gibson + Cheetara | Gibson for experiences people walk or click through, Cheetara for a story world's series bible |
 | brand-from-scratch | Snape + Cheetara | Snape for a real brand, Cheetara for a fictional world pack's identity |
 | ds-theming | Snape + Cheetara | Snape for a product's design-system themes, Cheetara for a world pack's faction palettes |
-| seedance-director | Gibson + Cheetara | Gibson for experience and campaign motion, Cheetara for motion clips from QKI plates |
-| wan-video-prompts | Cheetara + Gibson | Cheetara for motion clips from QKI plates, Gibson for experience and campaign clips on Wan |
-| threejs-* (the ten from CloudAI-X) | Gibson + Cheetara | Gibson for experiences and products in the browser, Cheetara for a QKI world's places and objects in the browser |
+| seedance-director | Gibson + Cheetara | Gibson for experience and campaign motion, Cheetara for motion clips from a world's approved plates (QKI or an author world) |
+| wan-video-prompts | Cheetara + Gibson | Cheetara for motion clips from a world's approved plates (QKI or an author world), Gibson for experience and campaign clips on Wan |
+| threejs-* (the ten from CloudAI-X) | Gibson + Cheetara | Gibson for experiences and products in the browser, Cheetara for a world's places and objects in the browser (QKI or an author world) |
 | threeui-catalog | Gibson + Cheetara | Gibson for experience interfaces, Cheetara for a world's own site |
 
 ---

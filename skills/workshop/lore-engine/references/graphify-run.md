@@ -60,6 +60,10 @@ commands, from the project folder (the run's working directory), with every path
 3. **Look things up:** `graphify explain "X" --graph lore/graphify-out/graph.json`, and `path`, `query`
    and `diagnose multigraph` the same way.
 
+Run each one as the whole command, exactly as written: nothing chained or around it (no `; echo $?`,
+no `&&`, no `cd ... &&`, no pipe, no redirect). DZNR OS refuses any of those, and the Bash tool already
+says when a command fails. The run's working directory is the project folder, so no `cd` is needed.
+
 Nothing else is allowed without a card: not `graphify extract`, `update`, `add`, `clone`, `watch` or
 `install`, and no shell operators around the command. A later run re-extracts the changed corpus units
 itself, merges them into graph.json, and runs `cluster-only` again.

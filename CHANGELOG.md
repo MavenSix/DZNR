@@ -1,3 +1,9 @@
+## 2.18.2 - 2026-10-21
+
+### graphify commands run alone
+
+A Residue run appended `; echo "EXIT_CODE=$?"` to `graphify cluster-only lore --no-label`, and DZNR OS refused it, as it refuses any chained command. `graphify-run.md` now says to run each allowed command whole and alone.
+
 ## 2.18.1 - 2026-10-21
 
 ### The lore engine runs graphify the way a DZNR OS run can

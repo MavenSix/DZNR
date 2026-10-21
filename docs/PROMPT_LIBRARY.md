@@ -595,7 +595,7 @@ the visual direction guidance.
 
 ## Category 10: QKI Worldbuilding (Cheetara)
 
-Cheetara owns aesthetic-first serialized-world asset generation using the QKI (Quantum Kinetic Ink) engine. Every asset (character, place, object) is drawn art with a fixed style DNA and a swappable world pack. She loads the engine first, resolves the active pack, dispatches the right generator, enforces the Prime Gate on every render, and writes the asset manifest.
+Cheetara owns aesthetic-first serialized-world asset generation. These prompts are for QKI (Quantum Kinetic Ink) worlds, where every asset (character, place, object) is drawn art with a fixed style DNA and a swappable world pack. She loads the engine first, resolves the active pack, dispatches the right generator, enforces the Prime Gate on every QKI render, and writes the asset manifest. An author's world (a Pulse OS job, or anything not naming a QKI pack) is not QKI: she runs it under `author-world-authority`, in the medium the author's approved pack declares, held to the Fidelity Gate.
 
 **Before you can generate:** a world pack must exist. If you have no pack yet, run prompt 35 (New QKI World Pack) first. If you already have a pack (F&A is the reference pack), skip to 32, 33, or 34.
 

@@ -80,10 +80,18 @@ from the evidence and ask; the author's answer goes in the pack.
 - **Tonal references:** films, photographers, painters, books the author names.
 - **The World Bible and its canon register**, when Sherlock has drafted one (`pulse-os-artifacts` s1):
   every entry cites its passages. Prefer it to a fresh read; it is what the author locked.
-- **The lore graph from graphify**, when present: characters, places, objects and their relations as
-  nodes and edges. Use it to find every passage that describes a subject and every relation a render must
-  respect (who stands where, who owns what, which place is beside which). The graph points at passages; the
-  passages are the canon.
+- **The lore engine's canon**, in the project's `lore/` folder (`lore-engine` builds it, and runs first
+  when it is missing or older than the job's inputs):
+  - `lore/canon.json`: every character, place, group, object, rule and event, each attribute with the
+    passages it came from, plus relations and the timeline. Read each subject's canon from here.
+  - `lore/rulings.md`: the author's rulings, dated. A ruling wins over the text from its date on; cite it
+    in the pack and in every render it touches.
+  - `lore/questions.md`: the open canon questions, numbered. A subject with an open question waits; ask
+    through those numbers rather than asking again.
+- **The lore graph from graphify** (`lore/graphify-out/`), when present: characters, places, objects and
+  their relations as nodes and edges. Use it to find every passage that describes a subject and every
+  relation a render must respect (who stands where, who owns what, which place is beside which). The graph
+  points at passages; the passages are the canon.
 
 ---
 

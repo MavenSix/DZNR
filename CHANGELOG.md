@@ -1,3 +1,9 @@
+## 2.18.1 - 2026-10-21
+
+### The lore engine runs graphify the way a DZNR OS run can
+
+The first Residue run (2026-10-21) could not run graphify: a DZNR OS run has nobody to approve its shell commands, so the agent built `graph.json` by hand and skipped clustering. DZNR OS now allows a fixed set of local graphify commands inside the project folder (its decision 236). `lore-engine/references/graphify-run.md` gains "Inside a DZNR OS run": the session extracts with graphify's own spec and writes graph.json, `graphify cluster-only lore --no-label` clusters and reports locally, and `explain`, `path`, `query` look things up. No author text reaches any model but the session's own.
+
 ## 2.18.0 - 2026-10-21
 
 ### The lore engine: an author's canon, checked and asked

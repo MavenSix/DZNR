@@ -36,6 +36,34 @@ The scan root is then `corpus`, and every node's `source_file` is relative to it
 `/graphify ...` is the graphify skill's pipeline, run by the host agent as its SKILL.md describes (Steps 1
 to 9). `graphify explain`, `path` and `query` are the CLI and read `graph.json` only.
 
+### Inside a DZNR OS run (the path that needs no approval)
+
+A DZNR OS run, a Pulse OS job above all, has nobody to approve shell commands one by one, so graphify's
+`/graphify` flow (its Python helper calls) cannot run there. DZNR OS allows exactly these graphify
+commands, from the project folder (the run's working directory), with every path inside it (decision 236):
+
+1. **Extract yourself.** Read the corpus and write the semantic extraction as graphify's extraction spec
+   (`~/.claude/skills/graphify/references/extraction-spec.md`) describes, then write
+   `lore/graphify-out/graph.json` in its node-link format (`nodes`, `links`, `file_type`, `relation`,
+   `confidence`). With subagents, give each one a slice of the corpus, as graphify's Part B does. The
+   manuscript is read by the session's own model only.
+2. **Cluster and report with graphify, locally:**
+
+   ```
+   graphify cluster-only lore --no-label
+   ```
+
+   It reads `lore/graphify-out/graph.json`, runs community detection, and writes `GRAPH_REPORT.md` and
+   `graph.html` beside it. `--no-label` is required: naming communities calls an outside model, and DZNR
+   OS refuses `cluster-only` without it and any `--backend`. Name the communities yourself in the canon
+   pass if they are worth naming.
+3. **Look things up:** `graphify explain "X" --graph lore/graphify-out/graph.json`, and `path`, `query`
+   and `diagnose multigraph` the same way.
+
+Nothing else is allowed without a card: not `graphify extract`, `update`, `add`, `clone`, `watch` or
+`install`, and no shell operators around the command. A later run re-extracts the changed corpus units
+itself, merges them into graph.json, and runs `cluster-only` again.
+
 ### Options, and why
 
 - **`--mode deep`** on every build and every update. graphify's extraction prompt tells deep mode to be

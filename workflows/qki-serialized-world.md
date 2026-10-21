@@ -2,7 +2,7 @@
 workflow: qki-serialized-world
 name: QKI Serialized World
 status: complete
-version: 1.0
+version: 1.1
 lead: cheetara
 supporting: [snape, gandalf, gibson, tar]
 chains: [8, 9]
@@ -272,7 +272,7 @@ The pack file; per asset the hero image (dual with a mesh for hero objects), she
 ## What this is not
 
 - Not a brand system (Snape; Chain 2). A pack looks like a style sheet but it is a QKI-specific contract.
-- Not a Pulse OS world (that workflow consumes QKI assets but organizes around a World Bible and a manuscript).
+- Not a Pulse OS world or any other author's world. Those run under `author-world-authority` in the medium the author chooses, organized around a World Bible and a manuscript; QKI applies there only if the author picks it. This workflow is for QKI worlds, named as such.
 - Not a 3D experience (brand activation workflow); Layer 1 here is never shipped as the look.
 - Not photoreal, ever. That is a Prime Gate fail.
 
@@ -287,3 +287,4 @@ Deliberate difference from the real run: s6 offers a RunningHub path for non-sre
 ## Changelog
 
 - 1.0 (2026-09-04): created from the two QKI test packs, Chains 8 and 9, and the style authority.
+- 1.1 (2026-10-21, DZNR 2.17.0): an author's world is not a QKI world by default; "What this is not" points author work at `author-world-authority`. No stage changes.

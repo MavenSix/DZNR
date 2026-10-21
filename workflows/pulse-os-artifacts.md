@@ -2,7 +2,7 @@
 workflow: pulse-os-artifacts
 name: Pulse OS Artifacts
 status: complete
-version: 1.0
+version: 1.1
 lead: cheetara
 supporting: [gibson, neo, sherlock, snape, morpheus, tar]
 chains: [8, 9, 3]
@@ -48,49 +48,49 @@ stages:
     gate: "Canon gate: author locks the Bible before any visual work"
     exit_allowed: true
   - id: s2
-    name: World pack from the Bible
+    name: Author world pack from the Bible
     owner: cheetara
-    chain_node: "Chain 9"
-    skills: [qki-style-authority, brand-from-scratch]
+    chain_node: "Chain 8 NODE 0"
+    skills: [author-world-authority, brand-from-scratch, ds-theming]
     models:
       draft: claude:sonnet
       standard: claude:opus
       hero: claude:opus
     tools: []
-    produces: [world pack: factions from the Bible's social structure, palette from the Bible's motifs, motion bias from tone]
+    produces: [author world pack: medium and realism from the brief and tonal references, era and place from the text, groups from the Bible's social structure, palette from its motifs and stated colours, camera, motion and sound from its tone, the canon each subject renders from, open canon questions with proposed answers]
     checkpoint: true
-    checkpoint_prompt: "The pack reads the Bible as [n] factions with [palette description]. Confirm, or is the visual identity meant to be something other than QKI?"
-    gate: null
+    checkpoint_prompt: "The pack reads the Bible as [medium, realism], [era and place], [n] groups, [palette description], with [n] open canon questions. Approve it, or correct it first? QKI applies only if you choose a drawn medium and QKI."
+    gate: "Author approval: nothing renders from a pack the author has not approved"
     exit_allowed: false
   - id: s3
     name: Character nodes
     owner: cheetara
     chain_node: "Chain 8 NODE 3A"
-    skills: [qki-character-generator]
+    skills: [author-world-authority, qki-character-generator]
     models:
       draft: runninghub:midjourney-v7
       standard: midjourney:own-account-web
       hero: midjourney:own-account-web
     tools: [midjourney-web, higgsfield-mcp, weavy, runninghub]
-    produces: [per character: node record citing Bible passages, hero portrait, turnaround, expression sheet, Soul Character lock]
+    produces: [per character: node record citing Bible passages, hero portrait in the pack's medium, turnaround, expression sheet, Soul Character lock]
     checkpoint: true
-    checkpoint_prompt: "[Character] portrait passed the Prime Gate and matches Bible passages [refs]. Lock the identity?"
-    gate: "Prime Gate plus canon check: a render that contradicts the Bible fails regardless of quality"
+    checkpoint_prompt: "[Character] portrait passed the Fidelity Gate and matches Bible passages [refs]. Lock the identity?"
+    gate: "Fidelity Gate (the pack's medium and the canon; the Prime Gate as well only if the pack opted into QKI): a render that contradicts the Bible fails regardless of quality"
     exit_allowed: false
   - id: s4
     name: Location nodes
     owner: cheetara
     chain_node: "Chain 8 NODE 3B"
-    skills: [qki-place-generator]
+    skills: [author-world-authority, qki-place-generator]
     models:
       draft: runninghub:midjourney-v7
       standard: midjourney:own-account-web
       hero: midjourney:own-account-web
     tools: [blender-mcp, midjourney-web, higgsfield-mcp, runninghub]
-    produces: [per location: Layer 1 block, establishing shot, reference element lock, geography entry in the Bible]
+    produces: [per location: Layer 1 block, establishing shot in the pack's medium, reference element lock, geography entry in the Bible]
     checkpoint: false
     checkpoint_prompt: null
-    gate: "Prime Gate plus canon check"
+    gate: "Fidelity Gate"
     exit_allowed: false
   - id: s5
     name: Scene compositions
@@ -111,16 +111,16 @@ stages:
     name: Scene assets
     owner: cheetara
     chain_node: "Chain 8"
-    skills: [qki-place-generator, qki-object-generator, seedance-director]
+    skills: [author-world-authority, qki-place-generator, qki-object-generator, seedance-director, wan-video-prompts]
     models:
       draft: runninghub:wan-3.0
       standard: runninghub:seedance-2.5
       hero: higgsfield:video
     tools: [higgsfield-mcp, runninghub, elevenlabs-mcp]
-    produces: [plates, motion clips, ambient audio cues, manifest entries with World Bible references]
+    produces: [plates, motion clips, ambient audio cues, manifest entries with engine, pack and World Bible references]
     checkpoint: false
     checkpoint_prompt: null
-    gate: "Prime Gate plus canon check"
+    gate: "Fidelity Gate"
     exit_allowed: false
   - id: s7
     name: Knowledge base export
@@ -167,14 +167,16 @@ cost_envelope_usd: [40, 400]
 time_envelope: "World Bible and pack in a day; characters and locations one to two days for a novel-scale cast; scene compositions scale with scene count; the target the product sets is weeks, not years"
 exit_criteria:
   - "World Bible locked by the author before any render"
+  - "Author world pack approved by the author before any render; no canon question answered by guess"
   - "Every asset and scene cites the manuscript passages it derives from"
-  - "No render shipped that failed the Prime Gate or the canon check"
+  - "No render shipped that failed the Fidelity Gate (medium and canon), or the Prime Gate on a pack that opted into QKI"
   - "Recurring characters identity-locked (Soul Character plus cref)"
   - "Every record maps to a Pulse core entity: Project, WorldBible, Character, Location, Scene, SceneComposition, Asset, Deployment"
   - "The author approved every scene composition individually"
 memory_writes:
   - "world.bible_path and canon_locked_at"
-  - "world.pack (active)"
+  - "world.pack (active; engine author-world unless the author chose QKI) and approved_by_author"
+  - "world.canon_rulings (the author's answers to canon questions)"
   - "world.identity_locks"
   - "world.scene_index (scene id to passage refs to composition to assets)"
   - "world.canon_violations (caught and corrected, with the rule that was hit)"
@@ -190,8 +192,10 @@ Produce the artifacts a Pulse OS world is made of: the World Bible, the characte
 Three Pulse principles govern every stage and override DZNR's own defaults where they conflict:
 
 1. **The author is the director.** Agents propose, the author decides. Every stage with a checkpoint here is one the author must approve; DZNR does not auto-proceed on silence.
-2. **The world is the unit of work.** World Bible coherence is the number one constraint. "An agent change that breaks canon is a defect regardless of how good the output looks." The canon check is a gate alongside the Prime Gate, and it wins ties.
+2. **The world is the unit of work.** World Bible coherence is the number one constraint. "An agent change that breaks canon is a defect regardless of how good the output looks." The canon check is the heart of the Fidelity Gate, the gate every render here passes, and it wins ties.
 3. **Deploy to the creator's domain.** Nothing here is trapped in DZNR, Pulse, or any vendor. Exports are records and files the author owns.
+
+**The world is the author's, so the engine is too.** This is an author world, never QKI by default. Cheetara loads `author-world-authority`, the author approves the pack, and the pack's medium (photographic, painterly, drawn, 3D-real or mixed) decides how everything looks. QKI's rules, its Prime Gate among them, apply only if the author chooses a drawn medium and QKI.
 
 ## Stages
 
@@ -199,17 +203,17 @@ Three Pulse principles govern every stage and override DZNR's own defaults where
 
 Pulse stage 1. Sherlock extracts entities from the manuscript (characters, locations, objects, rules, motifs) and drafts the World Bible with a canon register: every entry cites the passages it came from. The author corrects, redirects, and **locks canon**. Nothing visual starts before the lock. Exit allowed: a locked Bible is a complete deliverable on its own and is the knowledge base's spine.
 
-### s2. World pack from the Bible
+### s2. Author world pack from the Bible
 
-Pulse stage 2 begins. Cheetara reads the Bible's social structure as factions and its motifs and tone as palette and motion bias, then drafts a world pack via Chain 9 path 2 (the Bible supplies the temperament words). Checkpoint asks whether QKI is the intended visual identity; if the author wants photoreal or another style, this workflow hands the visual stages to Gibson with a different render law, but the Bible, canon check, and entity mapping stay.
+Pulse stage 2 begins. Cheetara resolves the engine as an author world and drafts the author world pack through `author-world-authority`: medium and realism from the creative brief and tonal references, era and place from the text, groups from the Bible's social structure, palette from its motifs and stated colours (with `brand-from-scratch` or `ds-theming` for extraction), camera, motion and sound from its tone, and the canon each subject renders from. Everything the text leaves open or contradicts becomes a canon question for the author, with the passages and a proposed answer. Checkpoint: the author approves the pack, or corrects it first. Nothing renders before the approval. A photoreal or historical world stays with Cheetara under its own pack; QKI is used only if the author picks it.
 
 ### s3. Character nodes
 
-Chain 8 NODE 3A per character, with one addition: each node record cites the Bible passages it portrays, and the gate is the Prime Gate **plus** a canon check against those passages. A beautiful portrait with the wrong eye colour fails. Identity lock (Higgsfield Soul Character plus Midjourney cref) is mandatory for any character that appears in more than one scene. Checkpoint per character: the author locks the identity.
+Chain 8 NODE 3A per character, under the author world: each node record cites the Bible passages it portrays, the hero portrait takes the path the pack's medium names, and the gate is the **Fidelity Gate**: the pack's medium plus a canon check against those passages. A beautiful portrait with the wrong eye colour fails; a photographic portrait in a photographic pack never fails for looking real. Identity lock (Higgsfield Soul Character plus Midjourney cref) is mandatory for any character that appears in more than one scene. Checkpoint per character: the author locks the identity.
 
 ### s4. Location nodes
 
-Chain 8 NODE 3B per location: Layer 1 block first, establishing shot over it, reference element lock. The location's geography entry in the Bible is updated from the block (distances, adjacency) so the knowledge base and the render agree.
+Chain 8 NODE 3B per location: Layer 1 block first, establishing shot over it in the pack's medium, reference element lock. The location's geography entry in the Bible is updated from the block (distances, adjacency) so the knowledge base and the render agree.
 
 ### s5. Scene compositions
 
@@ -217,7 +221,7 @@ Pulse stage 3. Gibson proposes, scene by scene, tied to specific passages: compo
 
 ### s6. Scene assets
 
-Cheetara renders plates and motion clips against the approved compositions. Video tiers: Wan 3.0 via RunningHub for drafts, Seedance 2.5 via RunningHub for standard (this is how the shot lists execute; Seedance has no direct API), Higgsfield for hero and for anything with an identity-locked character. Ambient audio cues through ElevenLabs. `confidential_default` is true because a manuscript is unpublished intellectual property; RunningHub is used only with the author's consent recorded in memory, and never for real-person likenesses.
+Cheetara renders plates and motion clips against the approved compositions, in the pack's medium, with the Fidelity Gate on every frame (`wan-video-prompts` and `seedance-director` write the author-world briefs). Video tiers: Wan 3.0 via RunningHub for drafts, Seedance 2.5 via RunningHub for standard (this is how the shot lists execute; Seedance has no direct API), Higgsfield for hero and for anything with an identity-locked character. Ambient audio cues through ElevenLabs. `confidential_default` is true because a manuscript is unpublished intellectual property; RunningHub is used only with the author's consent recorded in memory, and never for real-person likenesses.
 
 ### s7. Knowledge base export
 
@@ -230,7 +234,7 @@ Gibson assembles the scenes into a walkthrough (R3F, the same immersive layer Pu
 ## Checkpoints
 
 - **s1** lock canon.
-- **s2** confirm pack and visual identity.
+- **s2** approve the author world pack (medium, canon, open questions).
 - **s3** lock each character identity.
 - **s5** approve each scene.
 - **s8** hand off.
@@ -257,3 +261,4 @@ Items to verify against the Pulse codebase when this runs for real: the exact fi
 ## Changelog
 
 - 1.0 (2026-09-04): created from the Pulse OS product description and the QKI world workflow.
+- 1.1 (2026-10-21, DZNR 2.17.0): an author's world is an author world, never QKI by default (Kevin, 2026-10-21). s2 drafts an author world pack through `author-world-authority` and the author approves it; s3, s4 and s6 gate on the Fidelity Gate (medium and canon), with the Prime Gate only for a pack that opts into QKI; the photoreal hand-off to Gibson is gone, since Cheetara renders any medium under the author's pack.

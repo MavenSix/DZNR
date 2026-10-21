@@ -79,6 +79,22 @@ corpus). It takes a backend (`--backend gemini|kimi|claude|openai|deepseek|ollam
 is set) and that backend's spend. Either way, semantic extraction is model spend: deep mode costs more than
 the default, and `graphify-out/cost.json` records every run's tokens, which the engine reports.
 
+### Who reads the manuscript
+
+A manuscript is unpublished intellectual property (`pulse-os-artifacts` is `confidential_default: true`),
+and semantic extraction sends it to whichever model reads it. DZNR's backend policy is in
+`routing/mcps/graphify.md` (Kevin's call, 2026-09-16): Claude by default, through the session already
+signed in, with Ollama as a local fallback that does not yet produce a usable graph. So:
+
+- Before a run, check that `GEMINI_API_KEY` and `GOOGLE_API_KEY` are unset for it. graphify's skill flow
+  switches to Gemini whenever either is set, which would send the author's text to a second vendor without
+  anyone choosing that.
+- Name the backend that read the corpus in the run report, as the graphify spec requires ("a fallback is
+  never silent").
+- `dznr-os graph build <path> --docs` is DZNR's wrapper for the headless path with that policy built in.
+  Its spec does not say it passes `--mode deep` or `--out`, so the lore engine uses graphify's own
+  `/graphify` flow until that is confirmed.
+
 ---
 
 ## Node types: graphify cannot be told them

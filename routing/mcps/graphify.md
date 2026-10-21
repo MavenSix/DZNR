@@ -2,7 +2,7 @@
 mcp-name: graphify
 status: ACTIVE (code path, and docs via Claude) / LIMITED (docs via Ollama)
 primary-owner: neo
-secondary-owners: sherlock, tar
+secondary-owners: sherlock, tar, cheetara
 proposal-doc: n/a (evaluated and installed 2026-09-16)
 activated-date: 2026-09-16
 ---
@@ -51,6 +51,13 @@ It fills three gaps nothing else covers:
    derived rather than remembered.
 3. **Orphan detection.** Callables with no inbound `calls`/`references`/`re_exports` edge. See
    the accuracy note below — it is a lead generator, not an oracle.
+
+**Lore (Cheetara, 2026-10-21).** `lore-engine` graphs an author's corpus (chapters, sessions, notes,
+brief) in the project's `lore/` folder with `/graphify corpus --mode deep`, then `--update --mode deep`
+as new chapters arrive, and builds a cited canon and a consistency check on top. It is the doc path on a
+corpus with no parser, which is where this spec said the doc path earns its keep. The manuscript is
+confidential, so the Claude-by-default backend policy below holds, and a set Gemini key is unset for the
+run.
 
 ## Triggers
 

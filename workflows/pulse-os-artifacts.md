@@ -2,7 +2,7 @@
 workflow: pulse-os-artifacts
 name: Pulse OS Artifacts
 status: complete
-version: 1.1
+version: 1.2
 lead: cheetara
 supporting: [gibson, neo, sherlock, snape, morpheus, tar]
 chains: [8, 9, 3]
@@ -25,6 +25,9 @@ inputs_required:
   - id: author_direction
     source: inline
     on_missing: ask
+  - id: lore
+    source: memory
+    on_missing: stage:s0
   - id: world_bible
     source: memory
     on_missing: stage:s1
@@ -32,6 +35,21 @@ inputs_required:
     source: memory
     on_missing: stage:s2
 stages:
+  - id: s0
+    name: Lore engine
+    owner: cheetara
+    chain_node: "Chain 8 NODE 0"
+    skills: [lore-engine]
+    models:
+      draft: claude:sonnet
+      standard: claude:opus
+      hero: claude:opus
+    tools: [graphify]
+    produces: [lore/ in the project folder: corpus normalised from inputs/<job-id>/ with the originals untouched; graphify lore graph (deep mode, --update on later runs); canon.json and a world-bible.md with every fact cited; questions.md with numbered canon questions (conflicts, timeline, rule breaks, AMBIGUOUS links, alias candidates, render gaps); rulings.md applied]
+    checkpoint: false
+    checkpoint_prompt: null
+    gate: "Canon gate: no fact without a cited passage, no canon question answered by the engine"
+    exit_allowed: true
   - id: s1
     name: Ingest and World Bible
     owner: sherlock
@@ -42,9 +60,9 @@ stages:
       standard: claude:opus
       hero: claude:opus
     tools: []
-    produces: [entity extraction: characters, locations, objects, rules, motifs; draft World Bible; canon register]
+    produces: [World Bible from lore/world-bible.md with motifs and themes added; canon register (lore/canon.json); the open canon questions put to the author]
     checkpoint: true
-    checkpoint_prompt: "Draft World Bible: [n] characters, [n] locations, [n] rules, [n] motifs. Lock this as canon, or correct first?"
+    checkpoint_prompt: "World Bible: [n] characters, [n] locations, [n] rules, [n] motifs, [n] open canon questions (lore/questions.md). Lock this as canon and answer what you can, or correct first?"
     gate: "Canon gate: author locks the Bible before any visual work"
     exit_allowed: true
   - id: s2
@@ -166,6 +184,7 @@ deliverables:
 cost_envelope_usd: [40, 400]
 time_envelope: "World Bible and pack in a day; characters and locations one to two days for a novel-scale cast; scene compositions scale with scene count; the target the product sets is weeks, not years"
 exit_criteria:
+  - "Lore engine run on every input before the pack is drafted; every canon fact cites a passage; no canon question answered by the engine"
   - "World Bible locked by the author before any render"
   - "Author world pack approved by the author before any render; no canon question answered by guess"
   - "Every asset and scene cites the manuscript passages it derives from"
@@ -174,9 +193,10 @@ exit_criteria:
   - "Every record maps to a Pulse core entity: Project, WorldBible, Character, Location, Scene, SceneComposition, Asset, Deployment"
   - "The author approved every scene composition individually"
 memory_writes:
+  - "world.lore_path (the project's lore/ folder) and lore_run_at"
   - "world.bible_path and canon_locked_at"
   - "world.pack (active; engine author-world unless the author chose QKI) and approved_by_author"
-  - "world.canon_rulings (the author's answers to canon questions)"
+  - "world.canon_rulings (the author's answers to canon questions, kept in lore/rulings.md)"
   - "world.identity_locks"
   - "world.scene_index (scene id to passage refs to composition to assets)"
   - "world.canon_violations (caught and corrected, with the rule that was hit)"
@@ -199,13 +219,17 @@ Three Pulse principles govern every stage and override DZNR's own defaults where
 
 ## Stages
 
+### s0. Lore engine
+
+Runs first, before anything is drafted, and again whenever a job brings new chapters, sessions or notes. Cheetara's `lore-engine` normalises the job's files (`inputs/<job-id>/`) into a corpus under the project's `lore/` folder without touching the originals, builds the graphify lore graph over it (`/graphify corpus --mode deep` the first time, `/graphify corpus --update --mode deep` after, so a new chapter re-extracts only itself), and writes `canon.json` and `world-bible.md` with every fact cited to its passage. Then the consistency check: one subject with conflicting values across sources, timeline contradictions, a world rule stated then broken, graphify's AMBIGUOUS links, two names that may be one person, and the gaps the art will need. Each becomes a numbered item in `questions.md` with the passages, a proposed answer and the renders that wait. A later author correction beats an earlier session statement and is reported as resolved. The engine never answers a canon question; the author's answers go in `rulings.md` and win over the text from then on. Exit allowed: the canon and its questions are useful on their own.
+
 ### s1. Ingest and World Bible
 
-Pulse stage 1. Sherlock extracts entities from the manuscript (characters, locations, objects, rules, motifs) and drafts the World Bible with a canon register: every entry cites the passages it came from. The author corrects, redirects, and **locks canon**. Nothing visual starts before the lock. Exit allowed: a locked Bible is a complete deliverable on its own and is the knowledge base's spine.
+Pulse stage 1. Sherlock starts from the lore engine's `world-bible.md` and canon register (`canon.json`: every entry cites the passages it came from), adds the motifs and themes the canon does not hold, and puts the open questions in `questions.md` to the author. The author corrects, redirects, answers what they can (each answer recorded in `rulings.md`), and **locks canon**. Nothing visual starts before the lock. Exit allowed: a locked Bible is a complete deliverable on its own and is the knowledge base's spine.
 
 ### s2. Author world pack from the Bible
 
-Pulse stage 2 begins. Cheetara resolves the engine as an author world and drafts the author world pack through `author-world-authority`: medium and realism from the creative brief and tonal references, era and place from the text, groups from the Bible's social structure, palette from its motifs and stated colours (with `brand-from-scratch` or `ds-theming` for extraction), camera, motion and sound from its tone, and the canon each subject renders from. Everything the text leaves open or contradicts becomes a canon question for the author, with the passages and a proposed answer. Checkpoint: the author approves the pack, or corrects it first. Nothing renders before the approval. A photoreal or historical world stays with Cheetara under its own pack; QKI is used only if the author picks it.
+Pulse stage 2 begins. Cheetara resolves the engine as an author world and drafts the author world pack through `author-world-authority`, reading the lore engine's `canon.json` and `rulings.md` (s0 runs again first if new inputs arrived since the Bible was locked): medium and realism from the creative brief and tonal references, era and place from the text, groups from the Bible's social structure, palette from its motifs and stated colours (with `brand-from-scratch` or `ds-theming` for extraction), camera, motion and sound from its tone, and the canon each subject renders from. Everything the text leaves open or contradicts is already a numbered canon question in `lore/questions.md`, with the passages and a proposed answer; the pack cites those numbers rather than asking again. Checkpoint: the author approves the pack, or corrects it first. Nothing renders before the approval. A photoreal or historical world stays with Cheetara under its own pack; QKI is used only if the author picks it.
 
 ### s3. Character nodes
 
@@ -233,7 +257,7 @@ Gibson assembles the scenes into a walkthrough (R3F, the same immersive layer Pu
 
 ## Checkpoints
 
-- **s1** lock canon.
+- **s1** lock canon, and answer the open canon questions the author can (s0 has none of its own: it asks, the author answers here).
 - **s2** approve the author world pack (medium, canon, open questions).
 - **s3** lock each character identity.
 - **s5** approve each scene.
@@ -243,7 +267,7 @@ More checkpoints than any other workflow except the IA. That is the product prin
 
 ## Deliverables
 
-World Bible (markdown, the knowledge base spine); per character and location the hero image (dual with mesh where a location or object needs Layer 1 geometry in the experience), sheets, and identity locks; per scene the composition record and assets (plates, clips, audio cues); the manifest with passage citations; the entity export; the walkthrough build.
+The lore folder (corpus, lore graph, `canon.json`, `world-bible.md`, `questions.md`, `rulings.md`); World Bible (markdown, the knowledge base spine); per character and location the hero image (dual with mesh where a location or object needs Layer 1 geometry in the experience), sheets, and identity locks; per scene the composition record and assets (plates, clips, audio cues); the manifest with passage citations; the entity export; the walkthrough build.
 
 ## What this is not
 
@@ -261,4 +285,5 @@ Items to verify against the Pulse codebase when this runs for real: the exact fi
 ## Changelog
 
 - 1.0 (2026-09-04): created from the Pulse OS product description and the QKI world workflow.
+- 1.2 (2026-10-21, DZNR 2.18.0): s0 added. Cheetara's `lore-engine` runs before the World Bible and before `author-world-authority` drafts a pack: corpus, graphify lore graph, cited canon, the consistency check and numbered canon questions, with the author's rulings winning over the text. s1 starts from its outputs.
 - 1.1 (2026-10-21, DZNR 2.17.0): an author's world is an author world, never QKI by default (Kevin, 2026-10-21). s2 drafts an author world pack through `author-world-authority` and the author approves it; s3, s4 and s6 gate on the Fidelity Gate (medium and canon), with the Prime Gate only for a pack that opts into QKI; the photoreal hand-off to Gibson is gone, since Cheetara renders any medium under the author's pack.

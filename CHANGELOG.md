@@ -1,3 +1,17 @@
+## 2.17.0 - 2026-10-21
+
+### Author worlds: QKI is one engine among others
+
+Asked for by Kevin on 2026-10-21. Pulse OS, his author studio, will call DZNR's agents through the DZNR OS API so authors' novels become immersive web experiences. Cheetara was built so QKI was the only world: she refused to work without a QKI world pack, routed to "New QKI World Pack", loaded `qki-style-authority` first, and the Prime Gate rejected anything that read as 3D or photoreal. An author whose novel is a realist thriller or a photographic historical piece would have had Kevin's QKI graphic-novel style forced on their world. QKI must become one engine among others, never the default for someone else's world.
+
+- **New workshop skill `author-world-authority`**, the style engine for an author's world. It drafts an author world pack from the manuscript, creative brief, tonal references and the graphify lore graph: palette, materials and group language in the QKI pack contract, plus what QKI fixes and an author chooses (medium, realism level, era and place, camera, motion, sound) and the canon each subject renders from. It emits the style-injection block, picks the hero render path by the pack's medium, adds the manifest fields that record engine and pack, and defines the **Fidelity Gate**: an output fails when it contradicts the pack's medium or the canon (names, looks, places, timeline), never because it looks 3D or real when the pack says it should. The author approves the pack before any asset renders; open canon questions go back to the author as questions, never guessed.
+- **Cheetara resolves the engine before anything else** (AGENT.md and README 1.3.0). A job naming a QKI pack runs exactly as before. Work for an author (a Pulse OS job, or anything not naming a QKI pack) is an author world: `author-world-authority`, the author's approved pack, the Fidelity Gate. The QKI DNA and the Prime Gate apply to an author world only if its pack opts into a drawn medium and QKI. With no pack she never falls back to QKI; she drafts one from the manuscript and asks the author to approve it.
+- **Routing:** the roster (6 owned + 16 shared), triggers, and Chains 8 (a new NODE 0 resolves the engine) and 9 (QKI packs only) say the same. The root README and `/conduct` no longer say she enforces the Prime Gate on every render.
+- **`wan-video-prompts`:** "QKI rules win" and "never 3D-realism" are scoped to QKI plates; a new section gives the author-world rule (the pack's medium decides, canon in the brief, the Fidelity Gate on every frame).
+- **Workflows:** `pulse-os-artifacts` 1.1 drafts an author world pack at s2 for the author's approval and gates s3, s4 and s6 on the Fidelity Gate; its photoreal hand-off to Gibson is gone. `qki-serialized-world` 1.1 says author work is not QKI by default. `docs/workflows.html` rebuilt.
+
+**Not in this repo:** the four `qki-*` skills and `qki-asset-pipeline/asset-manifest-schema.md` live in Kevin's skills library and `~/Documents/MavenSix/qki-worldbuilding-system`, not here, so they are unchanged. Until they carry their own short "Author Worlds" sections, `author-world-authority` lists every substitution a generator makes under an author world, and a record with no `engine` field still means QKI. QKI behaviour for QKI packs is unchanged.
+
 ## 2.16.0 - 2026-10-15
 
 ### Three.js, ThreeUI and Wan skills for Cheetara

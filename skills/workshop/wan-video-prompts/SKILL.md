@@ -1,11 +1,11 @@
 ---
 name: wan-video-prompts
-description: Writing shot briefs for Wan 3.0 video (text-to-video and image-to-video, native audio), learned from a credited library of seven working cases. Use when a clip is to be made with Wan (DZNR OS reaches it through Runway as `wan3`), when Cheetara turns approved QKI plates into motion clips, or when any agent needs a video prompt that holds identity, screen direction and pacing across shots. Pairs with seedance-director for Seedance; this is the Wan grammar.
+description: Writing shot briefs for Wan 3.0 video (text-to-video and image-to-video, native audio), learned from a credited library of seven working cases. Use when a clip is to be made with Wan (DZNR OS reaches it through Runway as `wan3`), when Cheetara turns a world's approved plates (QKI or an author's world) into motion clips, or when any agent needs a video prompt that holds identity, screen direction and pacing across shots. Pairs with seedance-director for Seedance; this is the Wan grammar.
 ---
 
 # Wan 3.0 shot briefs
 
-A Wan clip is only as legible as its brief. The cases in `references/cases.md` (seven, each credited to its creator, CC BY 4.0) work for the same reasons, and those reasons are the skill. Read the cases for the directing logic; never copy a case's look into client or QKI work.
+A Wan clip is only as legible as its brief. The cases in `references/cases.md` (seven, each credited to its creator, CC BY 4.0) work for the same reasons, and those reasons are the skill. Read the cases for the directing logic; never copy a case's look into client, author or QKI work.
 
 ## The brief, in the order the model reads it
 
@@ -18,15 +18,30 @@ A Wan clip is only as legible as its brief. The cases in `references/cases.md` (
 7. **Sound inside the brief.** Native audio is written with its timing, not added later: wind and distant surf first, then the cue that lands the beat (cases 6 and 7). With a voice reference, say who speaks and when.
 8. **A motivated last beat.** End on the reveal or the turn the clip exists for (case 3), not on a fade because the clock ran out.
 
+## Cheetara's motion clips: which engine
+
+Cheetara resolves the engine before she writes a brief. A plate from a QKI pack follows the QKI section below. A plate from an author's world (a Pulse OS job, or anything not naming a QKI pack) follows the author-world section after it. QKI is never assumed for an author's work.
+
 ## Cheetara's motion clips from QKI plates
 
-Cheetara uses this with the QKI engine, in this order, and the QKI rules win wherever they meet Wan's habits:
+On a QKI pack, Cheetara uses this with the QKI engine, in this order, and the QKI rules win wherever they meet Wan's habits:
 
 - Load `qki-style-authority` and resolve the world pack before writing a word. The pack's motion state (Stillness, Flow, Resonance, Collapse and the rest) sets how things move; write it into step 4 and step 5.
 - Image-to-video from the approved plate, always (step 2's reference form): the plate is the identity, the place and the palette. Say "preserve the linework, flat colour fields and ink texture of the attached plate".
 - **Never "3D-realism", "photoreal", "cinematic lighting with depth of field"** in a QKI brief: they pull the clip toward a render, and a render fails the Prime Gate however good it looks. Name the drawn medium instead ("hand-drawn ink and flat colour, graphic-novel panel motion"), as case 2 does for cel animation.
 - Every output frame passes the Prime Gate before it reaches the manifest. A clip that reads as a 3D render is regenerated with a sharper drawn-medium directive, never accepted to keep the pipeline moving.
 - Record the brief, the model (`runway:wan3` or the route used) and the plate it came from in the asset manifest.
+
+## Cheetara's motion clips from an author's world
+
+On an author world the pack's medium decides, and the author's rules win wherever they meet Wan's habits:
+
+- Load `author-world-authority` and the author's approved pack before writing a word. The pack's motion language sets how things move; write it into step 4 and step 5, and its camera language into step 5.
+- Image-to-video from the approved plate, always: the plate is the identity, the place and the palette. Say what to preserve in the pack's own medium ("preserve the faces, wardrobe, film grain and available light of the attached still").
+- Name the pack's medium in step 1, whatever it is. A photographic or 3D-real pack may ask for "cinematic 3D-realism" or "photoreal"; a painterly or drawn pack names its own medium instead, as the QKI section does. The QKI exclusions apply only when the pack opted into QKI.
+- Put the canon in step 2: the subject's stated look and age at this point in the story, with the passages it comes from.
+- Every output frame passes the Fidelity Gate before it reaches the manifest: wrong medium or broken canon is regenerated with that field stated harder. A clip never fails for looking real when the pack says it should.
+- Record the brief, the model, the plate, the engine and pack, and the canon passages in the asset manifest.
 
 ## Cost and route in DZNR OS
 

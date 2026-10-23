@@ -124,9 +124,9 @@ what DZNR OS can do end to end today.
 
 **Not covered, and not pretended:**
 
-    score and music     `suno` has no public API, and the RunningHub music lane needs an
-                        Enterprise-Shared key Kevin has declined on cost. There is no working
-                        path. Bring music from outside.
+    score and music     `suno` has no public API, and RunningHub (ACTIVE) runs music only
+                        where a saved workflow or AI App offers it; none is recorded yet, so
+                        there is no working path. Bring music from outside.
     voice cloning       of a real person — Kevin's own, a client's founder. Out of scope until
                         the consent question in `open_questions` is answered. Nothing here
                         clones anyone, and that is a decision rather than an omission.

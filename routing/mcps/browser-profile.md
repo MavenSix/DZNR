@@ -22,7 +22,7 @@ Two drivers have been stubs since Phase 1 and both name the same missing thing:
     krea              no public generation API at all
 
 Midjourney has **no API**, so the subscription Kevin pays for is reachable by a person in a
-browser and by nothing else. RunningHub resells Midjourney, which is a different purchase and
+browser and by nothing else. RunningHub (ACTIVE) runs Midjourney only where a saved workflow or AI App offers it, and it
 cannot carry an sref lock. A logged-in browser is the only route to the account he already has.
 
 ## What this is NOT, and the limits are the important part
@@ -74,8 +74,8 @@ These are narrower than the rest of the registry because the surface is wider:
 
 ## Fallback (when MCP is PENDING or the session has expired)
 
-The existing stub refusals, unchanged: `midjourney` via RunningHub for unlocked prompts — itself
-currently blocked on tier, see decision 169 — or `flux` with a trained style, which is where QKI
+The existing stub refusals, unchanged: `midjourney` via RunningHub for unlocked prompts, where a saved
+workflow or AI App offers it (RunningHub is ACTIVE through the DZNR OS driver), or `flux` with a trained style, which is where QKI
 work actually runs today. **A style trained on Kevin's own work reaches further than an sref does**,
 and that is now the better lane rather than the consolation.
 

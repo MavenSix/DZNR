@@ -226,8 +226,8 @@ Roughly 75 seconds per shot. Serial, and worth running while the shot list is st
 Owner gibson. ElevenLabs for narration or a character voice, via `dznr-os say`.
 
 **Score is not available and this workflow does not pretend otherwise.** `suno` is a stub with no
-public API and the RunningHub music lane needs an Enterprise-Shared key Kevin has declined. Bring
-music from outside, or cut without it.
+public API, and RunningHub (ACTIVE) runs music only where a saved workflow or AI App offers it;
+none is recorded yet. Bring music from outside, or cut without it.
 
 ### s7. Edit
 
@@ -271,7 +271,7 @@ somewhere around two minutes; `long-form-narrative` is the stub for that and is 
   thirty-shot piece does not.
 
 **What this cost Kevin to make possible: nothing new.** Runway, Fal and ElevenLabs are accounts he
-already has. RunningHub Enterprise is not required at any stage.
+already has, plus RunningHub where a saved workflow or AI App serves a step.
 
 ## Changelog
 

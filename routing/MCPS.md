@@ -30,7 +30,7 @@ MCPs are owned by the subagent whose domain they extend. Examples:
 - **Magic Patterns MCP**: Snape (brand and UI exploration)
 - **Mobbin MCP**: Sherlock (design pattern research) and Snape (pattern reference)
 - **Higgsfield MCP**: Gibson (AI video generation as experience output) or Morpheus (video for pitch and campaign content)
-- **RunningHub (v2.5.0)**: Gibson primary; Cheetara (non-sref QKI renders, cloud mesh iteration), Morpheus (Seedance shotlist execution), Snake Eyes (community AI Apps by name). Aggregator fallback for image, video, 3D, and music; primary for Midjourney-via-API without sref; cloud ComfyUI when the PC is offline. No official MCP; reached via third-party wrapper or the DZNR OS native driver.
+- **RunningHub (v2.5.0, ACTIVE 2026-10-23)**: Gibson primary; Cheetara (upscale before motion, cloud mesh iteration, non-sref variations), Morpheus (Seedance shotlist execution), Snake Eyes (community AI Apps by name). DZNR OS reaches it through its native `runninghub` driver with Kevin's key, which runs saved workflows and community AI Apps (Topaz upscalers, Seedance, Kling, Wan and others where an app or workflow offers them); cloud ComfyUI when the PC is offline. Midjourney sref work stays on Kevin's own account.
 - **Pencil MCP**: Snape (design file editing) and partially Neo (component code from design files)
 - **Slack MCP**: cross-cutting (Tár for memory and references, Morpheus for outbound, Sherlock for search, Snake Eyes for the small-business watchlist)
 - **Google Drive MCP**: cross-cutting (Sherlock for discovery, Morpheus for document delivery)
@@ -132,7 +132,7 @@ The spec files in `routing/mcps/` as of v2.14.4, and the status each spec states
 - `mobbin.md`: ACTIVE (through claude.ai, since 2026-09-30)
 - `pencil.md`: ACTIVE
 - `playwright.md`: ACTIVE
-- `runninghub.md`: PENDING (aggregator: cloud ComfyUI plus about 420 model endpoints; a membership key runs workflows and AI Apps, and its Model API needs an Enterprise-Shared key; no official MCP)
+- `runninghub.md`: ACTIVE (through the DZNR OS `runninghub` driver with Kevin's key: saved workflows and community AI Apps, Topaz upscalers, Seedance, Kling, Wan and others where an app or workflow offers them; cloud ComfyUI; sref work stays on Kevin's own Midjourney account)
 
 ### Clusters, one row per connector
 - `workspace-and-data.md`: ACTIVE (cluster): google-drive, gmail, google-calendar, pdf, shopify, apple-notes

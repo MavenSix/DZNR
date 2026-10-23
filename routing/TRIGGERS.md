@@ -194,8 +194,8 @@ Example: "Rebuild their immersive experience" → Sherlock asks user → if conf
 - "shotlist", "director's shotlist", "break this script into shots"
 - "game studio", "build a game", "make a game", "browser game", "multiplayer game"
 - Immersive world sites (Gibson with `immersive-world-site`; Neo builds): "immersive site", "world site", "novel as a world", "Pulse OS experience", "explorable site", "a world not a page", "districts", "game-like landing"
-- "RunningHub", "run this on RunningHub", "cloud ComfyUI", "run the ComfyUI workflow" (aggregator, spec at `routing/mcps/runninghub.md`)
-- "Kling", "Wan", "Sora-2", "Veo", "Midjourney via API", "batch Midjourney" (model names with no direct account route to Gibson, who executes via RunningHub)
+- "RunningHub", "run this on RunningHub", "cloud ComfyUI", "run the ComfyUI workflow", "Topaz" (ACTIVE through the DZNR OS `runninghub` driver: saved workflows and community AI Apps; spec at `routing/mcps/runninghub.md`)
+- "Kling", "Wan", "Seedance" (model names with no direct account route to Gibson, who executes them through a RunningHub workflow or AI App that offers the model)
 
 ### Context-dependent
 - "design": Gibson claims if request mentions: experience, immersive, spatial, AI, narrative, world

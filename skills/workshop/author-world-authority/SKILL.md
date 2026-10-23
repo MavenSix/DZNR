@@ -110,7 +110,10 @@ The full contract is `references/author-world-pack-schema.md`. Draft in this ord
 1. **Read the canon first.** Pull every stated look for each character, place and object, with the passage
    it came from. Pull the timeline (when the story happens, what has happened to whom by each scene).
 2. **Medium and realism from the brief and the tonal references.** A brief that names Gregory Crewdson and
-   *Zodiac* is asking for photographs, not ink. Propose; never assume.
+   *Zodiac* is asking for photographs, not ink. Propose; never assume. `style-library` entries that fit
+   the text and the brief may be offered to the author as options (two or three, each named with its one
+   line), never imposed: the author chooses, and the choice goes in the pack. `kevin-taste` is never
+   loaded for an author's world.
 3. **Era and place** from the text: the decade, the city, the technology a character could hold.
 4. **Palette, materials and groups.** Groups come from the story's social structure. Palette comes from the
    motifs, the tone and the stated colours in the text. Hand extraction from a reference to
@@ -216,7 +219,13 @@ An asset NEVER fails because it looks 3D, photographic or real when the pack say
 does not run on an author world unless the pack opted into QKI.
 
 The canon wins ties: a beautiful render that breaks canon fails, and a plain one that holds canon is
-regenerated for quality, not for fidelity. On a fail, regenerate with the contradicted field stated harder
+regenerated for quality, not for fidelity.
+
+**Then the quality gate.** An asset that passes the Fidelity Gate goes on to `quality-gate`, which scores
+concept, craft, finish, originality, legibility and series coherence within the pack. It runs after the
+Fidelity Gate, never instead of it, and never marks the author's chosen medium, realism or palette down.
+A fix it proposes that would change the pack (a new palette, a new medium) is offered to the author as a
+suggestion through the pack, never applied. On a fail, regenerate with the contradicted field stated harder
 in the prompt. Three fails on the same asset: voice the gap and take it to the author as a canon question
 in `lore/questions.json` (through Pulse OS on a Pulse OS job), since the pack or the canon may need a
 ruling.
@@ -298,7 +307,7 @@ The steps in order:
 4. Build the prompt: prepend the injection block with the pack and canon filled.
 5. Route by the pack's medium (the table above).
 6. Write the asset to the project inbox and tag its manifest entry (`references/manifest-fields.md`).
-7. Run the Fidelity Gate. Ship only on a pass.
+7. Run the Fidelity Gate, then `quality-gate`. Ship only when both pass.
 
 ---
 

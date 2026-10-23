@@ -223,8 +223,11 @@ stays listed with its status, so Pulse OS can show the author what was asked and
   `deferred` (the author chose not to answer yet; not asked again until new sources touch it).
 - `ruling`: the ruling's text for a `ruled` or `deferred` question, from rulings.json; null otherwise.
 
-The file is rewritten whole on each run, never edited in place by anyone else. Pulse OS answers through
-rulings.json, not by changing a status here.
+The file is rewritten whole on each run. One other writer is allowed, and only for two fields: when the author
+answers in Pulse OS, DZNR OS records the answer in rulings.json and rulings.md and, in the same step, sets the
+answered questions' `status` and `ruling` here, so Pulse OS shows the answer at once instead of after the next run.
+The engine still treats rulings.json and rulings.md as the record: on its next run it derives every status from
+them and rewrites the file, so a status set this way is confirmed, never trusted on its own.
 
 ---
 

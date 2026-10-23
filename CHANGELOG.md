@@ -1,3 +1,9 @@
+## 2.19.1 - 2026-10-23
+
+### DZNR OS may set a question's status when the author answers in Pulse OS
+
+DZNR OS's author-answer endpoint (its decision 246) records an answer in rulings.json and rulings.md and sets the answered questions' `status` and `ruling` in questions.json in the same step, so Pulse OS shows it at once. `questions-and-rulings.md` now allows exactly that one other writer, for those two fields; the engine still derives every status from the rulings on its next run.
+
 ## 2.19.0 - 2026-10-23
 
 ### An author answers through Pulse OS

@@ -326,7 +326,21 @@ When the experience launch IS the experience (immersive activation, generative i
 
 During Innovation Accelerator Stage 4, Gandalf may pull Gibson for experience prototype work as part of the synthesis. This is rare but documented.
 
-## Skill Roster (34 routed via Gibson)
+## Skill Roster (35 routed via Gibson)
+
+### Quality and immersive worlds (1 owned + 5 shared, added 2026-10-23)
+
+Kevin, 2026-10-23: "here is the biggest challenge of all for both Pulse OS AND DZNR OS: Quality and style." Gibson owns the world-not-a-page pattern and the experience steps of the method.
+
+| Skill | Owner | Purpose for Gibson |
+|-------|-------|---------|
+| immersive-world-site | Gibson (kevin-authored, workshop folder) | A world, not a page: thesis, districts or chapters, scroll as camera, in-world copy and HUD, one art direction, respect controls (sound off, skip, replay, reduced motion), a keepsake, a performance budget; maps an author's canon into the structure for Pulse OS |
+| legendary-standard | Gandalf | Steps 4 and 5 for experience and campaign heroes, 7 (staging), 8 (experience motion), 10 (finish) |
+| quality-gate | Gandalf | Before any experience asset or site ships |
+| style-library | Snape | Style cues and templates for experiences and campaigns |
+| prompt-architecture | Gandalf | Every generation prompt and every site brief |
+| kevin-taste | Snape | DZNR's own experiences and Pulse OS chrome; never an author's world |
+
 
 ### Experience engineering (8)
 

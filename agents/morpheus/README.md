@@ -22,6 +22,16 @@ status: production
 
 Use `@dznr:morpheus:morpheus` in Claude Code to invoke directly, or just describe what you need to DZNR. Tár will route automatically.
 
+## Copy layers for the quality standard
+
+Kevin, 2026-10-23: "For both DZNR and Pulse, the quality has to be legendary and I'm not there yet." Six workshop skills answer it (added in v2.20.0).
+
+| Skill | Morpheus's role |
+|-------|---------|
+| legendary-standard | Writes the thesis line, the type layer's copy and the in-world micro-detail |
+| prompt-architecture | Real copy written into every brief |
+| quality-gate | Legibility of meaning (via Snape) |
+
 ## Status
 
 Production v1.0.0. See `CHANGELOG.md` for shipping history.

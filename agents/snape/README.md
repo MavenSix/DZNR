@@ -22,6 +22,17 @@ status: production
 
 Use `@dznr:snape:snape` in Claude Code to invoke directly, or just describe what you need to DZNR. Tár will route automatically.
 
+## Quality and style
+
+Kevin, 2026-10-23: "For both DZNR and Pulse, the quality has to be legendary and I'm not there yet." Six workshop skills answer it (added in v2.20.0).
+
+| Skill | Snape's role |
+|-------|---------|
+| style-library | Owns it: 23 styles with cues, hex and prompt templates; options for an author, never imposed |
+| kevin-taste | Owns it: Kevin's twelve taste principles, for DZNR's own work only |
+| legendary-standard | Runs thesis, reference lock, palette and type layer on DZNR's own work and brands |
+| quality-gate, prompt-architecture | Calls them (Gandalf owns them) |
+
 ## Status
 
 Production v1.0.0. See `CHANGELOG.md` for shipping history.

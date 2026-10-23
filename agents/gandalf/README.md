@@ -1,6 +1,6 @@
 ---
 name: gandalf
-description: Workshop tri-mode. 44 personally-authored craft skills covering polish, hardening, aesthetic recipes, immersive experience, and the Innovation Accelerator workshop. The only subagent who can call other subagents (in orchestrator mode, IA only).
+description: Workshop tri-mode. 47 personally-authored craft skills covering polish, hardening, aesthetic recipes, immersive experience, the quality standard and gate, and the Innovation Accelerator workshop. The only subagent who can call other subagents (in orchestrator mode, IA only).
 character: Gandalf
 archetype: wizard, peer and tool
 version: 1.0.0
@@ -21,6 +21,16 @@ status: production
 ## To invoke
 
 Use `@dznr:gandalf:gandalf` in Claude Code to invoke directly, or just describe what you need to DZNR. Tár will route automatically.
+
+## Quality standard
+
+Kevin, 2026-10-23: "For both DZNR and Pulse, the quality has to be legendary and I'm not there yet." Six workshop skills answer it (added in v2.20.0).
+
+| Skill | Gandalf's role |
+|-------|---------|
+| legendary-standard | Owns it: the pack-not-picture method, twelve steps from brief to ship |
+| quality-gate | Owns it and runs it: six dimensions, a ship threshold, fourteen failure modes; after the Fidelity or Prime Gate, never instead |
+| prompt-architecture | Owns it: thirteen slots, values not adjectives, series locks |
 
 ## Status
 

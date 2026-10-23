@@ -327,6 +327,17 @@ In Innovation Accelerator Chain 6:
 
 ## Skill Roster (19 routed via Morpheus)
 
+### Copy layers for the quality standard (3 shared, added 2026-10-23)
+
+Morpheus writes the words in every pack: the thesis line (Step 1 of `legendary-standard`), the type layer's copy (Step 6) and the in-world micro-detail (Step 9). On an author world every in-world fact comes from `lore/canon.json` or a ruling, never invention. Workshop calls still route through Snape.
+
+| Skill | Owner | When Morpheus uses it |
+|-------|-------|---------|
+| legendary-standard | Gandalf | Steps 1, 6 and 9: the thesis sentence, the headline and label copy, the micro-detail sheet |
+| prompt-architecture | Gandalf | Real copy written into every build brief, so no model writes filler |
+| quality-gate | Gandalf (via Snape) | Legibility of meaning and F6, F7: the three-second reading and the in-world small print |
+
+
 ### Pitch and presentation (6)
 
 | Skill | Source | Purpose |

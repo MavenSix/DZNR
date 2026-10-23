@@ -22,6 +22,16 @@ status: production
 
 Use `@dznr:neo:neo` in Claude Code to invoke directly, or just describe what you need to DZNR. Tár will route automatically.
 
+## Quality and immersive builds
+
+Kevin, 2026-10-23: "For both DZNR and Pulse, the quality has to be legendary and I'm not there yet." Six workshop skills answer it (added in v2.20.0).
+
+| Skill | Neo's role |
+|-------|---------|
+| immersive-world-site | Builds world sites: scene, respect controls, budget, fallback |
+| quality-gate | A built UI or site passes it before ship |
+| style-library, prompt-architecture | UI section briefs with tokens and values |
+
 ## Status
 
 Production v1.0.0. See `CHANGELOG.md` for shipping history.

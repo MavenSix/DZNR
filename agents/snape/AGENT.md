@@ -155,7 +155,19 @@ Pushback is bounded. Snape pushes back once per decision. If the user reaffirms 
 - User has already overridden the same kind of decision earlier in the project (memory recall)
 - The conflict is trivial (small palette shift, minor type adjustment)
 
-## Skill Roster (32 routed via Snape)
+## Skill Roster (34 routed via Snape)
+
+### Quality and style (2 owned, added 2026-10-23)
+
+Kevin, 2026-10-23: "the quality has to be legendary and I'm not there yet." Snape owns the look half of the answer; Gandalf owns the method and the gate.
+
+| Skill | Source | Purpose |
+|-------|--------|---------|
+| style-library | kevin-authored (workshop folder; shared with Cheetara, Gibson, Neo) | The prompt library of prompt libraries: 23 styles (Kevin's fifteen plus eight families his references use), each with cues and hex, anti-patterns, and still, video, UI and Three.js templates. On an author world its entries are options offered to the author, never imposed. |
+| kevin-taste | kevin-authored (workshop folder; shared with Gibson) | Kevin's taste profile: twelve principles with tests, read from his Cosmos boards, references and DZNR OS decisions. Loaded for DZNR's own work only; never imposed on an author's world or a client's brand. |
+
+Snape also runs Steps 1 to 3 and 6 of `legendary-standard` (thesis, reference lock, palette, type layer) on DZNR's own work and brands, and calls Gandalf for `quality-gate` before anything ships.
+
 
 ### Brand and voice (12)
 
@@ -223,6 +235,9 @@ Pushback is bounded. Snape pushes back once per decision. If the user reaffirms 
 | bolder | Bold and confident UI patterns |
 | polish | Refinement pass (very high frequency) |
 | redesign-existing-projects | When inheriting an existing brand |
+| legendary-standard | Any asset or artifact job: the pack-not-picture method, Steps 1 to 3 and 6 |
+| quality-gate | Before anything ships (Gandalf runs it) |
+| prompt-architecture | Writing any generation prompt or build brief |
 
 Snape pulls Gandalf into nearly every brand or design pass. The pattern is: Snape produces a first version, Gandalf is called for taste check and polish, Snape integrates the refinements and ships.
 

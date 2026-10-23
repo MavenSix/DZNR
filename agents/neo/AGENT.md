@@ -399,6 +399,18 @@ When NODE 9 fires (sprint communications, opt-in), Neo hands the chain to Morphe
 
 ## Skills (24 routed via Neo)
 
+### Quality and immersive builds (4 shared, added 2026-10-23)
+
+| Skill | Owner | When Neo uses it |
+|-------|-------|---------|
+| immersive-world-site | Gibson | Building a world site: the Three.js scene, the respect controls, the performance budget and the no-WebGL fallback |
+| quality-gate | Gandalf | NODE 6 and before ship: a built UI or site passes it (F13: no outline strokes on DZNR cards and pills; F14: respect controls) |
+| style-library | Snape | The UI section brief of the chosen style, with tokens and values |
+| prompt-architecture | Gandalf | Writing a build brief for a coding agent: thirteen slots, real copy, accessibility and performance floors |
+
+Neo also owns Step 8 of `legendary-standard` when the motion beat is live web motion.
+
+
 ### Specs, stories, validation, and CMS delivery (8)
 
 | Skill | Purpose |

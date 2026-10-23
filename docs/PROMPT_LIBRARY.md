@@ -611,7 +611,7 @@ idle, combat, ritual, dialogue]. Identity lock: [YES for recurring
 character / NO for one-off].
 ```
 
-**What you get.** Character node record. MidJourney hero prompt with QKI sref anchor (you drop the keeper in `inbox/character/`). Higgsfield Soul Character registration + `--cref` capture if identity lock is YES. Full sheet (turnaround, expression sheet, motion-state key poses) composited in Weavy. Manifest entry with pack, faction, motion states, layer, source tool, and identity lock reference.
+**What you get.** Character node record. MidJourney hero prompt with QKI sref anchor (you drop the keeper in `inbox/character/`). Higgsfield Soul Character registration + the Midjourney Edit Model reference frame if identity lock is YES. Full sheet (turnaround, expression sheet, motion-state key poses) composited in Weavy. Manifest entry with pack, faction, motion states, layer, source tool, and identity lock reference.
 
 **Variation.** Add `background-tier only` for non-hero characters (skips identity lock, single sheet), or `with faction material override` if the character carries a specific material treatment beyond the pack default.
 

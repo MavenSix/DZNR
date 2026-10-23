@@ -216,7 +216,7 @@ Build a world that holds across episodes: a palette-agnostic drawn style (Quantu
 
 ### s1. Load the engine
 
-Chain 8 NODE 1, non-negotiable. `qki-style-authority` supplies the fixed DNA: four-layer render model (spatial foundation, ink linework, colour holds, reality-breaking overlays), seven motion states (Stillness, Eruption, Flow, Suspension, Collapse, Resonance, Quantum Fracture), composition law, the Prime Gate, and the Midjourney parameter block (engine sref anchor, `--sw 250`, `--v 8.2`, `--cref` once locked).
+Chain 8 NODE 1, non-negotiable. `qki-style-authority` supplies the fixed DNA: four-layer render model (spatial foundation, ink linework, colour holds, reality-breaking overlays), seven motion states (Stillness, Eruption, Flow, Suspension, Collapse, Resonance, Quantum Fracture), composition law, the Prime Gate, and the Midjourney parameter block (engine sref anchor, `--sw 250`, `--v 8.2`, Edit Model references once locked).
 
 ### s2. Author or extract the world pack
 
@@ -244,7 +244,7 @@ Gandalf when the render is close-not-right: `design-taste-frontend` for characte
 
 ### s8. Identity lock and variations
 
-Higgsfield Soul Character for recurring characters; reference element for places and hero objects; `--cref` captured. Weavy for sheet compositing, turnarounds, expression sheets, orthographics. If Higgsfield is unavailable, fall back to `--cref` only and flag the weaker lock in the manifest.
+Higgsfield Soul Character for recurring characters; reference element for places and hero objects; Edit Model reference frame recorded. Weavy for sheet compositing, turnarounds, expression sheets, orthographics. If Higgsfield is unavailable, fall back to Midjourney Edit Model references only and flag the weaker lock in the manifest.
 
 ### s9. Mesh (hero objects, optional)
 

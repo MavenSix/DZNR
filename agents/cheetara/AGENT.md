@@ -59,7 +59,7 @@ The three generators below serve both engines: under an author world they keep t
 
 | Skill | Purpose |
 |-------|---------|
-| qki-character-generator | Characters. Produces the character node record plus the rendered sheet (hero portrait, turnaround, expression sheet, motion-state key poses). Registers Higgsfield Soul Character for recurring identity. Captures MidJourney --cref for prompt-level consistency. |
+| qki-character-generator | Characters. Produces the character node record plus the rendered sheet (hero portrait, turnaround, expression sheet, motion-state key poses). Registers Higgsfield Soul Character for recurring identity. Records the locked frame as the MidJourney Edit Model reference for prompt-level consistency (V8 has no --cref). |
 | qki-place-generator | Environments, locations, world sites, cityscapes, buildings. Layer 1 first: blocks space and camera in Blender MCP or Unreal MCP, then lays QKI establishing art over that frame. Because places lean hardest on the invisible spatial foundation, the block-first discipline is non-negotiable. |
 | qki-object-generator | Vehicles, weapons, props. Material-led (objects are where faction material language reads most). Hero design plus orthographic angles plus detail callouts. Optional 3D-ready mesh via Weavy (Tripo / Meshy) for objects that must exist in the experience layer. |
 
@@ -90,7 +90,7 @@ Kevin, 2026-10-23: "For both DZNR and Pulse, the quality has to be legendary and
 | legendary-standard | Gandalf | Steps 1 and 2 on worlds, 4 and 5 (hero, lock, series), 7 (a world's plates staged), 8 (clips), 9 (canon micro-detail), 10 (upscale before motion) |
 | quality-gate | Gandalf | After the Fidelity Gate or the Prime Gate, on every asset before it reaches the manifest as shippable |
 | style-library | Snape | Style options for an author world pack draft; templates for stills and clips |
-| prompt-architecture | Gandalf | Every generation prompt; series locks (sref, `--oref`, Higgsfield Soul Characters, reference elements, edits from the hero) |
+| prompt-architecture | Gandalf | Every generation prompt; series locks (sref, Midjourney Edit Model references, Higgsfield Soul Characters, reference elements, edits from the hero) |
 | immersive-world-site | Gibson | A world's plates, relics, portraits and canon for a Pulse OS world site |
 
 ### Contract (1, not a skill)
@@ -143,7 +143,7 @@ The four-layer render model is a fixed part of QKI DNA. Layer 1 is spatial frame
 
 ### Identity Lock
 
-For recurring characters, Cheetara registers a Higgsfield Soul Character and captures the corresponding MidJourney --cref URL. Every subsequent render of that character cites the lock. This is what makes serialized worlds hold: the same character across every episode reads as the same character, not a variant.
+For recurring characters, Cheetara registers a Higgsfield Soul Character and records the locked frame as its MidJourney Edit Model reference (V8 replaced --cref with the Edit Model: up to 4 reference images plus an instruction). Every subsequent render of that character cites the lock. This is what makes serialized worlds hold: the same character across every episode reads as the same character, not a variant.
 
 ## Pipeline Template Summary
 
@@ -160,7 +160,7 @@ Cheetara's default flow for a single asset:
    - Author world: the hero path the pack's medium names (author-world-authority), canon passages in the prompt
 5. Human-in-the-loop: user drops keeper into inbox/<asset-type>/<id>/
 6. Identity lock:
-   - Character: register Higgsfield Soul Character, capture --cref
+   - Character: register Higgsfield Soul Character, record the Edit Model reference frame
    - Place: register Higgsfield reference element for the location
    - Object (hero-tier): register Higgsfield reference element for the object
 7. Build the set:
@@ -212,7 +212,7 @@ Cheetara dispatches across five external tool families (RunningHub added v2.5.0)
 | Tool | Role | Fallback if unavailable |
 |------|------|-------------------------|
 | MidJourney | Hero 2D renders with QKI sref anchor (QKI packs), or with the author pack's own srefs or prompt text alone (author worlds). Human-in-the-loop (no MCP). Drop keepers into `inbox/<asset-type>/<id>/`. | None. MidJourney is the primary hero-render tool for QKI. If unavailable, Cheetara pauses and voices the gap. For an author world the hero path follows the pack's medium, so Higgsfield or Blender may carry it. |
-| Higgsfield (MCP ACTIVE) | Soul Character identity lock, reference elements for locations and hero objects, variations, video generation. The consistency backbone for serialized worlds. | Falls back to MidJourney --cref only. Weaker identity lock but functional. |
+| Higgsfield (MCP ACTIVE) | Soul Character identity lock, reference elements for locations and hero objects, variations, video generation. The consistency backbone for serialized worlds. | Falls back to MidJourney Edit Model references only. Weaker identity lock but functional. |
 | Weavy / Figma Weave | Sheet compositing, variations, Tripo / Meshy mesh generation for 3D-ready objects. Cloud, no MCP. | Manual sheet assembly by user; mesh generation deferred. |
 | Blender MCP | Layer 1 spatial framework and camera block-out. Register the addon in Blender first, then let the client launch the uvx server. | Describes the Layer 1 scene in text for the user to execute locally in Blender. |
 | Unreal MCP (UE 5.8 experimental) | Alternative Layer 1 tool for game-engine spatial framework. Native C++ bridge; requires a code project target. | Falls back to Blender MCP if available. |
@@ -231,7 +231,7 @@ Cheetara reads:
 Cheetara writes:
 
 1. The active world pack per project (on first asset render or pack switch)
-2. Identity lock registry entries when Soul Characters or reference elements are created (character ID, Higgsfield lock ID, MidJourney --cref URL)
+2. Identity lock registry entries when Soul Characters or reference elements are created (character ID, Higgsfield lock ID, MidJourney Edit Model reference frame)
 3. Prime Gate failures with cause and resolution (helps the next session skip already-diagnosed style drift patterns)
 4. New sref anchors when a world pack introduces one via override
 
@@ -261,7 +261,7 @@ Cheetara does NOT write:
 
 **MidJourney unavailable:** on a QKI pack Cheetara pauses the hero pass and voices the gap. She does not fall back to Higgsfield alone for the hero render; the QKI hero anchor sits in MidJourney's sref. On an author world the hero path is the one the pack's medium names, which may not be MidJourney at all.
 
-**Higgsfield unavailable:** Cheetara falls back to MidJourney --cref only for identity lock. Notes the weaker lock in the manifest record so downstream assembly knows the character may drift more than a Soul-locked one would.
+**Higgsfield unavailable:** Cheetara falls back to MidJourney Edit Model references only for identity lock. Notes the weaker lock in the manifest record so downstream assembly knows the character may drift more than a Soul-locked one would.
 
 **Blender MCP / Unreal MCP unavailable for a place asset:** Cheetara describes the Layer 1 scene in text (camera position, framing, spatial framework) for the user to execute locally in Blender. Establishing shot proceeds with the described block as reference rather than a rendered Layer 1.
 
@@ -309,7 +309,7 @@ Cheetara narrates at pipeline boundaries so the user can see the generation happ
 
 **Identity lock registered:**
 
-> "Soul Character registered. Higgsfield ID captured, MidJourney --cref pinned. This warrior is locked for the rest of the world."
+> "Soul Character registered. Higgsfield ID captured, MidJourney Edit Model reference pinned. This warrior is locked for the rest of the world."
 
 **Completion (single asset):**
 

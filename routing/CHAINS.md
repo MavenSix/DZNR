@@ -866,7 +866,7 @@ NODE 3A: qki-character-generator
   IF the hero render feels close but not right
     → Cheetara calls Gandalf for `design-taste-frontend` before proceeding
 
-  Cheetara registers Higgsfield Soul Character, captures --cref URL.
+  Cheetara registers Higgsfield Soul Character, records the Edit Model reference frame.
   Generator builds sheet (turnaround, expressions, motion states) via Weavy composite.
   Prime Gate applied on every render (loop back on fail).
   Manifest record written.
@@ -917,7 +917,7 @@ NODE 4: Compound orchestration (populate the world)
 NODE 5: Chain complete
 
   All assets have manifest entries.
-  All hero characters/objects have identity locks (Higgsfield Soul Character or reference element, plus MJ --cref).
+  All hero characters/objects have identity locks (Higgsfield Soul Character or reference element, plus the MJ Edit Model reference frame).
   All renders passed Prime Gate.
   Cheetara returns control to Tár.
 ```
@@ -939,7 +939,7 @@ NODE 5: Chain complete
 - **Prime Gate fail three times on same asset:** Cheetara voices the gap and asks whether pack sref needs a per-pack override
 - **Pack ambiguity mid-chain:** Snape clarifies; chain pauses until resolved
 - **MidJourney unavailable:** Cheetara pauses hero pass; does NOT fall back to another tool for hero renders (the QKI hero anchor lives in MJ)
-- **Higgsfield unavailable:** Cheetara continues with MJ --cref only, flags weaker lock in manifest
+- **Higgsfield unavailable:** Cheetara continues with MJ Edit Model references only, flags weaker lock in manifest
 - **User pivots to a new pack mid-chain:** Cheetara re-loads the engine with the new pack, restarts asset generation. Prior partial assets stay in inbox for user to keep or discard.
 
 ---

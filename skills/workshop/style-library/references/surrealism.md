@@ -47,8 +47,10 @@ Slots are in braces. On an author world, every slot comes from the approved auth
 ### Still: Midjourney
 
 ```text
-Surreal campaign photograph, {THESIS, e.g. "the body as terrain"}: {FIGURE} with face hidden, standing at the edge of a perfect circular portal cut into {TERRAIN_A}, through the circle {TERRAIN_B} at the same sun angle, {MATERIAL_DETAILS}, small human scale against vast landscape, natural {LIGHT_TIME} light, warm-cool split, shot on medium format, crisp fabric texture, muted earth palette with one {ACCENT_COLOUR} accent --ar {4:5 | 16:9} --style raw --s 100 --no melting, floating eyes, extra limbs, text --sref {SREF_CODE} --sw {100-250}
+Surreal campaign photograph, {THESIS, e.g. "the body as terrain"}: {FIGURE} with face hidden, standing at the edge of a perfect circular portal cut into {TERRAIN_A}, through the circle {TERRAIN_B} at the same sun angle, {MATERIAL_DETAILS}, small human scale against vast landscape, natural {LIGHT_TIME} light, warm-cool split, shot on medium format, crisp fabric texture, muted earth palette with one {ACCENT_COLOUR} accent --ar {4:5 | 16:9} --raw --s 100 --no melting, floating eyes, extra limbs, text --sref {SREF_CODE} --sw {100-250}
 ```
+
+For Midjourney V8.2, the full set for this style (hero still, series variant, Edit Model instruction for the series, video beat and a filled example) is in `midjourney-legendary` (`references/library-styles.md`, Surrealism), with the parameter recipes and Kevin's sref library.
 
 ### Still: natural language (Nano Banana, Higgsfield)
 

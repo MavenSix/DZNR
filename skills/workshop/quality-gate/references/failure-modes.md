@@ -12,7 +12,7 @@ Each failure was named from the 2026-10-23 research (`legendary-standard/referen
 - **Test:** at 100 percent, are surfaces airbrushed, skin plastic, fabric waxy, edges haloed, blacks
   crushed with bloom? Any yes fails.
 - **Fix:** name the light source and its quality ("overcast north-window daylight", "one large softbox
-  top-left"); name two wear marks; Midjourney `--style raw --s 50` and `--no glow, bloom, lens flare`;
+  top-left"); name two wear marks; Midjourney `--raw --s 50` and `--no glow, bloom, lens flare`;
   in natural language, "no glow, matte finish, real surface texture". Finish with 2 to 4 percent grain and
   a lifted black.
 - **Owner:** whoever made the asset (Cheetara, Gibson); Gandalf re-checks.
@@ -97,8 +97,8 @@ Each failure was named from the 2026-10-23 research (`legendary-standard/referen
 ## F11. Identity drift (blocker)
 - **Seen in:** @kreevslab's achievement was consistency across about 35 frames; drift breaks the series.
 - **Test:** across the series, does a recurring face, costume, object, marque or vehicle change? Yes fails.
-- **Fix:** re-lock and regenerate from the hero: `--sref` with the same `--sw`, `--cref` (v6) or `--oref`
-  (v7), Higgsfield Soul Character and reference elements, Nano Banana edits from the approved hero.
+- **Fix:** re-lock and regenerate from the hero: `--sref` with the same `--sw` and `--seed`, Midjourney
+  Edit Model references (up to 4; V8 has no `--cref` or `--oref`), Higgsfield Soul Character and reference elements, Nano Banana edits from the approved hero.
 - **Owner:** Cheetara (identity lock), Gibson.
 
 ## F12. Depth gimmick (major)

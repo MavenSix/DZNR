@@ -47,8 +47,10 @@ Slots are in braces. On an author world, every slot comes from the approved auth
 ### Still: Midjourney
 
 ```text
-Product catalogue photograph of {OBJECT}, {ERA_ANCHOR, e.g. "a 1987 Sony that never shipped"}, {VIEW: orthographic side profile | three-quarter at eye height | top-down flat-lay} on a seamless {GROUND_COLOUR} sweep, {BODY_MATERIALS}, {CONTROLS: each control and what it sets}, one {SIGNAL_COLOUR} {SIGNAL_PART}, {WEAR_1}, {WEAR_2}, large soft key light top-left, white bounce right, soft contact shadow, medium format, 80mm, f/11, neutral grade, fine film grain --ar {4:5 | 1:1} --style raw --s 50 --no glow, lens flare, neon, text --sref {SREF_CODE} --sw {100-250}
+Product catalogue photograph of {OBJECT}, {ERA_ANCHOR, e.g. "a 1987 Sony that never shipped"}, {VIEW: orthographic side profile | three-quarter at eye height | top-down flat-lay} on a seamless {GROUND_COLOUR} sweep, {BODY_MATERIALS}, {CONTROLS: each control and what it sets}, one {SIGNAL_COLOUR} {SIGNAL_PART}, {WEAR_1}, {WEAR_2}, large soft key light top-left, white bounce right, soft contact shadow, medium format, 80mm, f/11, neutral grade, fine film grain --ar {4:5 | 1:1} --raw --s 50 --no glow, lens flare, neon, text --sref {SREF_CODE} --sw {100-250}
 ```
+
+For Midjourney V8.2, the full set for this style (hero still, series variant, Edit Model instruction for the series, video beat and a filled example) is in `midjourney-legendary` (`references/library-styles.md`, Instrument-grade Product), with the parameter recipes and Kevin's sref library.
 
 ### Still: natural language (Nano Banana, Higgsfield)
 

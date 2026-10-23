@@ -48,8 +48,10 @@ Slots are in braces. On an author world, every slot comes from the approved auth
 ### Still: Midjourney
 
 ```text
-Pixel art scene, {SCENE_SUBJECT}, 320x180 logical resolution, limited 12 colour palette of {PALETTE_WORDS e.g. ink indigo, dusk violet, lilac, coral, cream}, ordered dithering in the sky, crisp single-pixel edges, no anti-aliasing, {LIGHT_SOURCE} with rim pixels, one {SIGNAL_COLOUR} focal detail on {FOCAL_SPRITE}, lo-fi calm mood --ar 16:9 --style raw --s 100 --no blur, smooth gradient, anti-aliasing, text --sref {SREF_CODE} --sw {100-200}
+Pixel art scene, {SCENE_SUBJECT}, 320x180 logical resolution, limited 12 colour palette of {PALETTE_WORDS e.g. ink indigo, dusk violet, lilac, coral, cream}, ordered dithering in the sky, crisp single-pixel edges, no anti-aliasing, {LIGHT_SOURCE} with rim pixels, one {SIGNAL_COLOUR} focal detail on {FOCAL_SPRITE}, lo-fi calm mood --ar 16:9 --raw --s 100 --no blur, smooth gradient, anti-aliasing, text --sref {SREF_CODE} --sw {100-200}
 ```
+
+For Midjourney V8.2, the full set for this style (hero still, series variant, Edit Model instruction for the series, video beat and a filled example) is in `midjourney-legendary` (`references/library-styles.md`, Pixel Art), with the parameter recipes and Kevin's sref library.
 
 After generation, downscale to the logical resolution, quantise to the palette, and upscale by an integer with nearest-neighbour.
 

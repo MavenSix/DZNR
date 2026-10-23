@@ -47,8 +47,10 @@ Slots are in braces. On an author world, every slot comes from the approved auth
 ### Still: Midjourney
 
 ```text
-Overhead photograph of a design scrapbook board on kraft paper, {N} printed frames of {WORK_SUBJECT} at different sizes, each slightly rotated, held with torn masking tape and one paper clip, one large hero frame, contact-sheet borders, pencil grid marks, soft window daylight from above, small shadows under lifted paper edges, open paper in the gutters for annotation, flat neutral grade --ar {4:5 | 1:1} --style raw --s 50 --no text, letters, stickers, vignette --sref {SREF_CODE} --sw {100-200}
+Overhead photograph of a design scrapbook board on kraft paper, {N} printed frames of {WORK_SUBJECT} at different sizes, each slightly rotated, held with torn masking tape and one paper clip, one large hero frame, contact-sheet borders, pencil grid marks, soft window daylight from above, small shadows under lifted paper edges, open paper in the gutters for annotation, flat neutral grade --ar {4:5 | 1:1} --raw --s 50 --no text, letters, stickers, vignette --sref {SREF_CODE} --sw {100-200}
 ```
+
+For Midjourney V8.2, the full set for this style (hero still, series variant, Edit Model instruction for the series, video beat and a filled example) is in `midjourney-legendary` (`references/library-styles.md`, Scrapbook), with the parameter recipes and Kevin's sref library.
 
 Composite the real frames and the handwriting in the type layer; the generated board is a backdrop.
 

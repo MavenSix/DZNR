@@ -49,8 +49,10 @@ Slots are in braces. On an author world, every slot comes from the approved auth
 ### Still: Midjourney
 
 ```text
-Fictional user interface screen, {DEVICE_OR_CONTEXT}, monochrome white hairline instrument graphics on true black, one hero {HERO_INSTRUMENT: radial gauge with tick marks | wireframe globe | polar 24-hour chart}, a strip of {N} small instruments ({LIST}), tiny uppercase mono labels, bracketed section numbers, corner brackets framing the screen, one {SIGNAL_COLOUR} signal element on {SIGNAL_ELEMENT}, precise, film-UI craft, flat front-on view --ar 16:9 --style raw --s 50 --no gradient, purple glow, 3d, people --sref {SREF_CODE} --sw {100-250}
+Fictional user interface screen, {DEVICE_OR_CONTEXT}, monochrome white hairline instrument graphics on true black, one hero {HERO_INSTRUMENT: radial gauge with tick marks | wireframe globe | polar 24-hour chart}, a strip of {N} small instruments ({LIST}), tiny uppercase mono labels, bracketed section numbers, corner brackets framing the screen, one {SIGNAL_COLOUR} signal element on {SIGNAL_ELEMENT}, precise, film-UI craft, flat front-on view --ar 16:9 --raw --s 50 --no gradient, purple glow, 3d, people --sref {SREF_CODE} --sw {100-250}
 ```
+
+For Midjourney V8.2, the full set for this style (hero still, series variant, Edit Model instruction for the series, video beat and a filled example) is in `midjourney-legendary` (`references/library-styles.md`, HUD Instrument), with the parameter recipes and Kevin's sref library.
 
 Use stills like this as mood and reference only; build the real interface in code with real data.
 

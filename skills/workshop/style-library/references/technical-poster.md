@@ -47,10 +47,12 @@ Slots are in braces. On an author world, every slot comes from the approved auth
 ### Still: Midjourney
 
 ```text
-Studio render of {SUBJECT}, {MATERIALS}, {DETAILS: three mechanical or material specifics}, entering frame from the {EDGE} at a diagonal, cropped at {CROP_POINT}, pale cool-grey seamless background, soft overhead softbox, crisp detail, product-catalogue photography, 100mm, large empty area on the {SIDE} for typography --ar 4:5 --style raw --s 75 --no text, letters, logo, watermark, glow --sref {SREF_CODE} --sw {100-250}
+Studio render of {SUBJECT}, {MATERIALS}, {DETAILS: three mechanical or material specifics}, entering frame from the {EDGE} at a diagonal, cropped at {CROP_POINT}, pale cool-grey seamless background, soft overhead softbox, crisp detail, product-catalogue photography, 100mm, large empty area on the {SIDE} for typography --ar 4:5 --raw --s 75 --no text, letters, logo, watermark, glow --sref {SREF_CODE} --sw {100-250}
 ```
 
-Blueprint lens: `Exploded-view technical illustration of {SUBJECT}, every component separated along its assembly axis with even spacing, 0.5pt black linework on {PAPER_COLOUR} paper, orthographic three-quarter view, no shading, no gradients, one {SIGNAL_COLOUR} hero part --ar 4:5 --style raw --no text, numbers, letters`
+For Midjourney V8.2, the full set for this style (hero still, series variant, Edit Model instruction for the series, video beat and a filled example) is in `midjourney-legendary` (`references/library-styles.md`, Technical Poster), with the parameter recipes and Kevin's sref library.
+
+Blueprint lens: `Exploded-view technical illustration of {SUBJECT}, every component separated along its assembly axis with even spacing, 0.5pt black linework on {PAPER_COLOUR} paper, orthographic three-quarter view, no shading, no gradients, one {SIGNAL_COLOUR} hero part --ar 4:5 --raw --no text, numbers, letters`
 
 ### Still: natural language (Nano Banana, Higgsfield)
 

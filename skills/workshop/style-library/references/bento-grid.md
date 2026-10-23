@@ -47,8 +47,10 @@ Slots are in braces. On an author world, every slot comes from the approved auth
 ### Still: Midjourney
 
 ```text
-Interface design shot of a bento grid of {TILE_COUNT} rounded tiles on a {GROUND_COLOUR} field, one large hero tile containing {HERO_IMAGE}, smaller tiles holding {TILE_CONTENTS: one idea each}, all tile colours sampled from the hero image, {DISPLAY_TYPE_STYLE} for one huge number, 24px radii, even gaps, soft shadows, one {SIGNAL_COLOUR} accent, flat front-on view, crisp --ar 16:10 --style raw --s 100 --v 7 --no clutter, gradients, emoji --sref {SREF_CODE} --sw {100-200}
+Interface design shot of a bento grid of {TILE_COUNT} rounded tiles on a {GROUND_COLOUR} field, one large hero tile containing {HERO_IMAGE}, smaller tiles holding {TILE_CONTENTS: one idea each}, all tile colours sampled from the hero image, {DISPLAY_TYPE_STYLE} for one huge number, 24px radii, even gaps, soft shadows, one {SIGNAL_COLOUR} accent, flat front-on view, crisp --ar 16:10 --raw --s 100 --v 8.2 --no clutter, gradients, emoji --sref {SREF_CODE} --sw {100-200}
 ```
+
+For Midjourney V8.2, the full set for this style (hero still, series variant, Edit Model instruction for the series, video beat and a filled example) is in `midjourney-legendary` (`references/library-styles.md`, Bento Grid), with the parameter recipes and Kevin's sref library.
 
 ### Still: natural language (Nano Banana, Higgsfield)
 

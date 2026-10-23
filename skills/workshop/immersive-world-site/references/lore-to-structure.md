@@ -12,7 +12,7 @@ as `site/plan.md` in the project folder, every element citing the canon entry it
 | District or chapter | `place` entities, `event` timeline order | Districts for a geography-led book, chapters for an arc-led one; the author chooses when unclear |
 | District map, minimap | `place` relations (adjacent, inside, visible from) | Geography from canon only; Blender MCP Layer 1 block when distances matter |
 | Character dossier | `character` attributes with passages; the identity lock | Epithet and bio in the author's words or approved paraphrase; age at the reader's current point in the story |
-| Portrait | the identity lock (Higgsfield Soul Character, `--oref`, reference elements) | Fidelity Gate on the canon look, then `quality-gate` |
+| Portrait | the identity lock (Higgsfield Soul Character, Midjourney Edit Model references, reference elements) | Fidelity Gate on the canon look, then `quality-gate` |
 | Relic | `object` attributes; the micro-detail sheet | Materials and markings from the text; an unknown marking is a canon question, not an invention |
 | Faction badge and colour | `group`, the pack's group palette | Within the pack palette; never a new hue |
 | HUD readouts | `rule` entities, world mechanics in the brief | A readout must state a rule the text gives ("the tide covers the ward twice a day") |

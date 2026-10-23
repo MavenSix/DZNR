@@ -47,8 +47,11 @@ Slots are in braces. On an author world, every slot comes from the approved auth
 ### Still: Midjourney
 
 ```text
-Mature 1990s cyberpunk cel animation still, {CHARACTER: adult, role, look from canon}, {POSE_AND_ACTION}, {CONNECTION: wired to a desk by ribbon cables at the nape | an armoured glove plugged into a console}, {SETTING} dense with {HARDWARE}, varied-weight ink linework, flat cel colour with one hard shadow tone, painted background, muted lilac-grey and desaturated teal, one {SIGNAL_COLOUR} glow from {LIGHT_SOURCE}, film-cel grain --niji 6 --ar {16:9 | 2:3} --style raw --s 100 --no chibi, moe, 3d render, glossy --sref {SREF_CODE} --sw {100-250}
+Mature 1990s cyberpunk cel animation still, {CHARACTER: adult, role, look from canon}, {POSE_AND_ACTION}, {CONNECTION: wired to a desk by ribbon cables at the nape | an armoured glove plugged into a console}, {SETTING} dense with {HARDWARE}, varied-weight ink linework, flat cel colour with one hard shadow tone, painted background, muted lilac-grey and desaturated teal, one {SIGNAL_COLOUR} glow from {LIGHT_SOURCE}, film-cel grain --niji 7 --ar {16:9 | 2:3} --s 100 --no chibi, moe, 3d render, glossy
 ```
+
+Niji 7 is a separate model (`--niji 7`), more literal than Niji 6, with a cleaner, flatter line. The docs read on 2026-10-23 confirm Personalization and Moodboards for Niji 7 but do not confirm `--sref` or `--raw` on it, so a look locked by an sref runs on V8.2 instead.
+For Midjourney V8.2, the full set for this style (hero still, series variant, Edit Model instruction for the series, video beat and a filled example) is in `midjourney-legendary` (`references/library-styles.md`, Mature 90s Anime), with the parameter recipes and Kevin's sref library.
 
 ### Still: natural language (Nano Banana, Higgsfield)
 

@@ -47,8 +47,10 @@ Slots are in braces. On an author world, every slot comes from the approved auth
 ### Still: Midjourney
 
 ```text
-Swiss International Style poster photograph composition: {HERO_OBJECT} photographed on {GROUND_COLOUR} seamless, cropped by a perfect circle mask at the top right, large empty white field occupying the left half for typography, flat even light, no shadow, one {SIGNAL_COLOUR} element, strict geometric balance --ar 2:3 --style raw --s 50 --v 7 --no gradient, glow, texture, text --sref {SREF_CODE} --sw {100-200}
+Swiss International Style poster photograph composition: {HERO_OBJECT} photographed on {GROUND_COLOUR} seamless, cropped by a perfect circle mask at the top right, large empty white field occupying the left half for typography, flat even light, no shadow, one {SIGNAL_COLOUR} element, strict geometric balance --ar 2:3 --raw --s 50 --v 8.2 --no gradient, glow, texture, text --sref {SREF_CODE} --sw {100-200}
 ```
+
+For Midjourney V8.2, the full set for this style (hero still, series variant, Edit Model instruction for the series, video beat and a filled example) is in `midjourney-legendary` (`references/library-styles.md`, Swiss Design), with the parameter recipes and Kevin's sref library.
 
 Set all type by hand on the grid afterwards.
 

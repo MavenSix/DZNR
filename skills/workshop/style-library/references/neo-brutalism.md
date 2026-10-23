@@ -49,8 +49,10 @@ Slots are in braces. On an author world, every slot comes from the approved auth
 ### Still: Midjourney
 
 ```text
-Neo-brutalist poster for {SUBJECT}, giant heavy grotesk word "{WORD}" bleeding off the right edge, mixed light and black weights, flat {SIGNAL_COLOUR} block aligned to a visible grid, black and white high-contrast photograph of {IMAGE_SUBJECT} with horizontal motion blur, halftone dots, photocopy grain, newsprint off-white ground, hard offset shadow on one block, Swiss poster composition --ar {4:5 | 2:3} --style raw --s 75 --no gradient, glass, glow, 3D --sref {SREF_CODE} --sw {100-200}
+Neo-brutalist poster for {SUBJECT}, giant heavy grotesk word "{WORD}" bleeding off the right edge, mixed light and black weights, flat {SIGNAL_COLOUR} block aligned to a visible grid, black and white high-contrast photograph of {IMAGE_SUBJECT} with horizontal motion blur, halftone dots, photocopy grain, newsprint off-white ground, hard offset shadow on one block, Swiss poster composition --ar {4:5 | 2:3} --raw --s 75 --no gradient, glass, glow, 3D --sref {SREF_CODE} --sw {100-200}
 ```
+
+For Midjourney V8.2, the full set for this style (hero still, series variant, Edit Model instruction for the series, video beat and a filled example) is in `midjourney-legendary` (`references/library-styles.md`, Neo-Brutalism), with the parameter recipes and Kevin's sref library.
 
 Set the real words by hand in the type layer; use the generated poster as the backdrop and texture.
 

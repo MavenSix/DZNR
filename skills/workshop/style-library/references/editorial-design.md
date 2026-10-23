@@ -47,8 +47,10 @@ Slots are in braces. On an author world, every slot comes from the approved auth
 ### Still: Midjourney
 
 ```text
-Campaign photograph for {SUBJECT}, {THESIS_IMAGE: e.g. a faceless figure in a dusty-pink technical suit standing on a snowy ridge}, {LIGHT: blue hour with a burning orange horizon}, {COMPOSITION: subject in the lower third, large empty sky above for a headline}, muted palette with one {SIGNAL_COLOUR} element, medium format, natural light, crisp fabric texture, fine grain --ar 4:5 --style raw --s 75 --v 7 --no text, logo --sref {SREF_CODE} --sw {100-250}
+Campaign photograph for {SUBJECT}, {THESIS_IMAGE: e.g. a faceless figure in a dusty-pink technical suit standing on a snowy ridge}, {LIGHT: blue hour with a burning orange horizon}, {COMPOSITION: subject in the lower third, large empty sky above for a headline}, muted palette with one {SIGNAL_COLOUR} element, medium format, natural light, crisp fabric texture, fine grain --ar 4:5 --raw --s 75 --v 8.2 --no text, logo --sref {SREF_CODE} --sw {100-250}
 ```
+
+For Midjourney V8.2, the full set for this style (hero still, series variant, Edit Model instruction for the series, video beat and a filled example) is in `midjourney-legendary` (`references/library-styles.md`, Editorial Design), with the parameter recipes and Kevin's sref library.
 
 Set the headline, wordmark and captions by hand afterwards (the type layer); never ask the model for them.
 

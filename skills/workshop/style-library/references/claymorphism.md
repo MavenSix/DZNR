@@ -47,8 +47,10 @@ Slots are in braces. On an author world, every slot comes from the approved auth
 ### Still: Midjourney
 
 ```text
-Soft 3D clay render of {SUBJECT}, {SECONDARY_OBJECTS} on two depth planes, matte clay with gentle subsurface scattering, milky translucent resin details, palette {CLAY_1}, {CLAY_2} and {GROUND_COLOUR} with one {SIGNAL_COLOUR} accent on {SIGNAL_PART}, large soft area light top-left, warm bounce from below, ambient occlusion in creases, soft contact shadow, plain {GROUND_COLOUR} background, generous negative space on the left --ar {4:5 | 16:9} --style raw --s 100 --no gloss, outline, text, neon, chrome --sref {SREF_CODE} --sw {100-200}
+Soft 3D clay render of {SUBJECT}, {SECONDARY_OBJECTS} on two depth planes, matte clay with gentle subsurface scattering, milky translucent resin details, palette {CLAY_1}, {CLAY_2} and {GROUND_COLOUR} with one {SIGNAL_COLOUR} accent on {SIGNAL_PART}, large soft area light top-left, warm bounce from below, ambient occlusion in creases, soft contact shadow, plain {GROUND_COLOUR} background, generous negative space on the left --ar {4:5 | 16:9} --raw --s 100 --no gloss, outline, text, neon, chrome --sref {SREF_CODE} --sw {100-200}
 ```
+
+For Midjourney V8.2, the full set for this style (hero still, series variant, Edit Model instruction for the series, video beat and a filled example) is in `midjourney-legendary` (`references/library-styles.md`, Claymorphism), with the parameter recipes and Kevin's sref library.
 
 ### Still: natural language (Nano Banana, Higgsfield)
 

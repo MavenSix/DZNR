@@ -49,8 +49,10 @@ Slots are in braces. On an author world, every slot comes from the approved auth
 ### Still: Midjourney
 
 ```text
-Fashion editorial photograph, {FIGURE: role}, face hidden by {CONCEALMENT: a hood and moulded visor | a knitted balaclava | back turned}, wearing {GARMENT: construction and materials}, {GEAR}, one {SIGNAL_COLOUR} {SIGNAL_PART}, {SETTING: seamless greige studio sweep | snowy ridge at blue hour}, {POSE}, soft key light at 45 degrees, medium format, 85mm, crisp fabric texture, water beading, muted mineral palette, no logos --ar 4:5 --style raw --s 75 --no logo, text, face visible, neon --sref {SREF_CODE} --sw {100-250}
+Fashion editorial photograph, {FIGURE: role}, face hidden by {CONCEALMENT: a hood and moulded visor | a knitted balaclava | back turned}, wearing {GARMENT: construction and materials}, {GEAR}, one {SIGNAL_COLOUR} {SIGNAL_PART}, {SETTING: seamless greige studio sweep | snowy ridge at blue hour}, {POSE}, soft key light at 45 degrees, medium format, 85mm, crisp fabric texture, water beading, muted mineral palette, no logos --ar 4:5 --raw --s 75 --no logo, text, face visible, neon --sref {SREF_CODE} --sw {100-250}
 ```
+
+For Midjourney V8.2, the full set for this style (hero still, series variant, Edit Model instruction for the series, video beat and a filled example) is in `midjourney-legendary` (`references/library-styles.md`, Techwear Editorial), with the parameter recipes and Kevin's sref library.
 
 ### Still: natural language (Nano Banana, Higgsfield)
 

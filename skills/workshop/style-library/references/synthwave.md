@@ -51,8 +51,10 @@ Slots are in braces. On an author world, every slot comes from the approved auth
 ### Still: Midjourney
 
 ```text
-Cinematic night film still, {SUBJECT} on a wet empty road at {PLACE}, low camera near the asphalt, {SIGNAL_LIGHT e.g. sodium street lamps} as the only light family, deep reflections on the wet road, glossy {OBJECT_FINISH}, light haze, halation on highlights, slight anamorphic flare on the brightest lamp only, near-black sky, 35mm anamorphic, fine film grain --ar 2.39:1 --style raw --s 100 --no grid, sunset, palm trees, purple gradient, chrome text --sref {SREF_CODE} --sw {100-250}
+Cinematic night film still, {SUBJECT} on a wet empty road at {PLACE}, low camera near the asphalt, {SIGNAL_LIGHT e.g. sodium street lamps} as the only light family, deep reflections on the wet road, glossy {OBJECT_FINISH}, light haze, halation on highlights, slight anamorphic flare on the brightest lamp only, near-black sky, 35mm anamorphic, fine film grain --ar 21:9 --raw --s 100 --no grid, sunset, palm trees, purple gradient, chrome text --sref {SREF_CODE} --sw {100-250}
 ```
+
+For Midjourney V8.2, the full set for this style (hero still, series variant, Edit Model instruction for the series, video beat and a filled example) is in `midjourney-legendary` (`references/library-styles.md`, Synthwave), with the parameter recipes and Kevin's sref library.
 
 ### Still: natural language (Nano Banana, Higgsfield)
 

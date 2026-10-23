@@ -49,8 +49,11 @@ Slots are in braces. On an author world, every slot comes from the approved auth
 ### Still: Midjourney
 
 ```text
-Comic illustration, {CHARACTER: design from the character sheet}, {ACTION} in {SETTING}, heavy black ink linework with tapered weight, flat cel colour, one hard-edged shadow shape per form, {PALETTE: up to five fills} on near-black, {EFFECT: smoke | sparks} drawn as flat white graphic shapes, riso print grain, slight colour misregistration --niji 6 --ar {9:16 | 16:9} --style raw --s 100 --no 3d render, soft shading, gradient, glow --sref {SREF_CODE} --sw {150-300}
+Comic illustration, {CHARACTER: design from the character sheet}, {ACTION} in {SETTING}, heavy black ink linework with tapered weight, flat cel colour, one hard-edged shadow shape per form, {PALETTE: up to five fills} on near-black, {EFFECT: smoke | sparks} drawn as flat white graphic shapes, riso print grain, slight colour misregistration --niji 7 --ar {9:16 | 16:9} --s 100 --no 3d render, soft shading, gradient, glow
 ```
+
+Niji 7 is a separate model (`--niji 7`), more literal than Niji 6, with a cleaner, flatter line. The docs read on 2026-10-23 confirm Personalization and Moodboards for Niji 7 but do not confirm `--sref` or `--raw` on it, so a look locked by an sref runs on V8.2 instead.
+For Midjourney V8.2, the full set for this style (hero still, series variant, Edit Model instruction for the series, video beat and a filled example) is in `midjourney-legendary` (`references/library-styles.md`, Ink and Cel Illustration), with the parameter recipes and Kevin's sref library.
 
 Build the world pass first with the same suffix: a character sheet (front, side, back, three expressions), three environments, and six action poses.
 

@@ -47,8 +47,10 @@ Slots are in braces. On an author world, every slot comes from the approved auth
 ### Still: Midjourney
 
 ```text
-Wide establishing photograph of {PLACE: e.g. "a monolithic concrete archive set into a sea cliff"}, {ARCHITECTURE: masses and openings}, {MATERIALS}, {WEATHER: fog | overcast | blue hour | night rain}, one lone figure at the base for scale, {PERSPECTIVE: symmetrical | one-point}, level camera, horizon on the lower third, still water reflecting the mass, the only warm light is {WARM_SOURCE} in {WARM_COLOUR}, atmospheric perspective, 24mm, cinematic still, fine grain --ar 21:9 --style raw --s 75 --no lens flare, god rays, crowds, text --sref {SREF_CODE} --sw {100-250}
+Wide establishing photograph of {PLACE: e.g. "a monolithic concrete archive set into a sea cliff"}, {ARCHITECTURE: masses and openings}, {MATERIALS}, {WEATHER: fog | overcast | blue hour | night rain}, one lone figure at the base for scale, {PERSPECTIVE: symmetrical | one-point}, level camera, horizon on the lower third, still water reflecting the mass, the only warm light is {WARM_SOURCE} in {WARM_COLOUR}, atmospheric perspective, 24mm, cinematic still, fine grain --ar 21:9 --raw --s 75 --no lens flare, god rays, crowds, text --sref {SREF_CODE} --sw {100-250}
 ```
+
+For Midjourney V8.2, the full set for this style (hero still, series variant, Edit Model instruction for the series, video beat and a filled example) is in `midjourney-legendary` (`references/library-styles.md`, Monumental Calm), with the parameter recipes and Kevin's sref library.
 
 ### Still: natural language (Nano Banana, Higgsfield)
 

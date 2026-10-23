@@ -6,8 +6,8 @@ description: >
   the 13-section build prompt published on hyliox.io/prompt into a fixed order that works for stills,
   video, UI and 3D; says the order each kind of model reads in; replaces adjectives with slots and values
   (an adjective-to-value table); treats negative space both as room left for the type layer and as a
-  short, specific exclusion line; and shows how to lock a look across a series (sref and sw, character and
-  omni reference, Higgsfield Soul Characters and reference elements, image-to-image edits from the
+  short, specific exclusion line; and shows how to lock a look across a series (sref and sw, Midjourney Edit
+  Model references, Higgsfield Soul Characters and reference elements, image-to-image edits from the
   approved hero, a trained Flux style, reference assignment in video). Ends with worked before and after
   pairs. Owned by Gandalf; used by every agent that writes a generation prompt or a build brief. Triggers
   on "write the prompt", "prompt for", "brief for", "improve this prompt", "why does this look generic",
@@ -51,10 +51,13 @@ The style templates in `style-library/references/*.md` are these slots already f
 
 ## 2. The order models read in
 
-- **Midjourney:** the first words weigh most. Subject and medium first, then setting, then light, lens and
-  finish, then parameters at the end (`--ar`, `--style raw`, `--s`, `--sref`, `--sw`, `--no`, `--v 7` or
-  `--niji 6`). Comma-separated clauses; no instructions ("make it look like" is noise). Keep it under
-  about 60 words of description; past that, later clauses are ignored.
+- **Midjourney (V8.2, the default since 2026-07-24):** V8 reads long, specific, natural-language prompts
+  best. Subject and thesis first, then medium and lens, light, palette with named hues, materials and
+  wear, composition and the empty area for the type layer, then micro-detail; parameters at the end
+  (`--ar`, `--raw`, `--s`, `--sref`, `--sw`, `--p <profile code>`, `--no`, `--v 8.2`, or `--niji 7` for
+  Niji). Text to render goes in double quotes. Describe, do not instruct; only the Edit Model takes
+  instructions. V8 has no `--q`, no `::` weights, no `--cref` or `--oref`. The full grammar, the
+  parameter recipes and Kevin's sref library are in `midjourney-legendary`.
 - **Nano Banana and Higgsfield (natural language):** full sentences, imperative, one idea per sentence.
   Assign every attached image a job before describing anything ("Image 1 is the approved hero; keep its
   object, materials and light."). Say what to change and say "change nothing else".
@@ -101,8 +104,8 @@ Two kinds, both deliberate.
 
 | Lock | Tool | How |
 |---|---|---|
-| Style reference | Midjourney (Kevin's account) | `--sref {code}` with `--sw 100` (default) to `250` (strong); keep the same code and weight for the whole series |
-| Character or object reference | Midjourney | `--cref {url}` with `--cw` (v6), or `--oref {url}` with `--ow` (v7) |
+| Style reference | Midjourney (Kevin's account) | `--sref {code}` with `--sw` (0 to 1000, default 100; DZNR starts QKI at 250); keep the same code, weight and `--seed` for the whole series |
+| Character or object reference | Midjourney Edit Model (V8.2) | Up to 4 reference images, the locked hero first, plus an instruction prompt ("same character, same costume; change only the shot"). `--cref` and `--oref` do not exist in V8; `midjourney-legendary` has the series method |
 | Identity lock | Higgsfield | Soul Character for a recurring person, reference elements for objects and places |
 | Edit from the hero | Nano Banana, Higgsfield | Attach the approved hero: "Same {subject}, same materials, same light and lens. Change only {one variable}." |
 | Trained style | Flux | A style trained on the pack's approved frames; the style token first in every prompt |
@@ -131,7 +134,7 @@ What goes wrong: no thesis, no palette, no heritage, "cinematic lighting" gives 
 **After** (instrument-grade-product, slots filled for DZNR's own work):
 
 ```text
-Product catalogue photograph of over-ear studio headphones as Braun would have made them in 1968, three-quarter view at eye height on a seamless #E3E6E8 sweep, bead-blasted aluminium yokes, matte bone #EDEAE3 ear cups with perforated grille, knurled volume ring with printed 0 to 10 legend, one TE orange #FF5A1F cable strain relief, faint scuff on the headband, large soft key light top-left, white bounce right, soft contact shadow, top third empty, medium format, 80mm, f/11, neutral grade, fine grain --ar 4:5 --style raw --s 50 --no glow, lens flare, logo, text
+Product catalogue photograph of over-ear studio headphones as Braun would have made them in 1968, three-quarter view at eye height on a seamless #E3E6E8 sweep, bead-blasted aluminium yokes, matte bone #EDEAE3 ear cups with perforated grille, knurled volume ring with printed 0 to 10 legend, one TE orange #FF5A1F cable strain relief, faint scuff on the headband, large soft key light top-left, white bounce right, soft contact shadow, top third empty, medium format, 80mm, f/11, neutral grade, fine grain --ar 4:5 --raw --s 50 --v 8.2 --no glow, lens flare, logo, text
 ```
 
 ### Video beat

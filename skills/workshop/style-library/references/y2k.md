@@ -51,8 +51,10 @@ Slots are in braces. On an author world, every slot comes from the approved auth
 ### Still: Midjourney
 
 ```text
-Product catalogue photograph of {OBJECT}, a {YEAR} consumer device that never shipped, translucent {SHELL_COLOUR} polycarbonate shell showing the green PCB, ribbon cable and screws inside, frosted silicone grips, brushed chrome trim, one {SIGNAL_COLOUR} button, tiny printed legends, {WEAR_CUE}, three-quarter view on seamless white, soft key light and a backlight glowing through the shell, soft contact shadow, medium format, 80mm, f/11, fine grain --ar {4:5 | 1:1} --style raw --s 50 --no bubbles, sparkles, chrome gradient text, neon --sref {SREF_CODE} --sw {100-250}
+Product catalogue photograph of {OBJECT}, a {YEAR} consumer device that never shipped, translucent {SHELL_COLOUR} polycarbonate shell showing the green PCB, ribbon cable and screws inside, frosted silicone grips, brushed chrome trim, one {SIGNAL_COLOUR} button, tiny printed legends, {WEAR_CUE}, three-quarter view on seamless white, soft key light and a backlight glowing through the shell, soft contact shadow, medium format, 80mm, f/11, fine grain --ar {4:5 | 1:1} --raw --s 50 --no bubbles, sparkles, chrome gradient text, neon --sref {SREF_CODE} --sw {100-250}
 ```
+
+For Midjourney V8.2, the full set for this style (hero still, series variant, Edit Model instruction for the series, video beat and a filled example) is in `midjourney-legendary` (`references/library-styles.md`, Y2K Aesthetic), with the parameter recipes and Kevin's sref library.
 
 ### Still: natural language (Nano Banana, Higgsfield)
 

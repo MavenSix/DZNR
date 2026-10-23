@@ -50,8 +50,10 @@ Slots are in braces. On an author world, every slot comes from the approved auth
 ### Still: Midjourney
 
 ```text
-Data visualisation still, {SYSTEM_SUBJECT} shown as {N} glowing point-cloud clusters in {ENTITY_COLOUR} with {SYSTEM_ACCENT} rim particles, thin white connecting lines at low opacity with additive glow where dense, tiny amber monospace labels on nodes reading {REAL_LABELS}, near-black #050608 void, slow orbital three-quarter view, shallow depth of field, subtle bloom, fine film grain, one caption-safe band at the bottom --ar {16:9 | 9:16} --style raw --s 150 --no purple gradient, lens flare, lorem text --sref {SREF_CODE} --sw {100-250}
+Data visualisation still, {SYSTEM_SUBJECT} shown as {N} glowing point-cloud clusters in {ENTITY_COLOUR} with {SYSTEM_ACCENT} rim particles, thin white connecting lines at low opacity with additive glow where dense, tiny amber monospace labels on nodes reading {REAL_LABELS}, near-black #050608 void, slow orbital three-quarter view, shallow depth of field, subtle bloom, fine film grain, one caption-safe band at the bottom --ar {16:9 | 9:16} --raw --s 150 --no purple gradient, lens flare, lorem text --sref {SREF_CODE} --sw {100-250}
 ```
+
+For Midjourney V8.2, the full set for this style (hero still, series variant, Edit Model instruction for the series, video beat and a filled example) is in `midjourney-legendary` (`references/library-styles.md`, Cybercore), with the parameter recipes and Kevin's sref library.
 
 ### Still: natural language (Nano Banana, Higgsfield)
 

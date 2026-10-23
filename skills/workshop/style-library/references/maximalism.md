@@ -47,8 +47,10 @@ Slots are in braces. On an author world, every slot comes from the approved auth
 ### Still: Midjourney
 
 ```text
-{HERO_OBJECT} exploding into frame at a diagonal, {MACRO_DETAIL: splash, crumbs, flying ingredients} frozen mid-air, saturated {GROUND_COLOUR} background, a huge {DISPLAY_STYLE} word shape behind the object partly hidden by it, hard key light with crisp shadows, print grain, palette of {HEX_1}, {HEX_2}, {HEX_3} only, high-end advertising photograph, 50mm --ar 4:5 --style raw --s 250 --v 7 --no extra colours, watermark --sref {SREF_CODE} --sw {150-300}
+{HERO_OBJECT} exploding into frame at a diagonal, {MACRO_DETAIL: splash, crumbs, flying ingredients} frozen mid-air, saturated {GROUND_COLOUR} background, a huge {DISPLAY_STYLE} word shape behind the object partly hidden by it, hard key light with crisp shadows, print grain, palette of {HEX_1}, {HEX_2}, {HEX_3} only, high-end advertising photograph, 50mm --ar 4:5 --raw --s 250 --v 8.2 --no extra colours, watermark --sref {SREF_CODE} --sw {150-300}
 ```
+
+For Midjourney V8.2, the full set for this style (hero still, series variant, Edit Model instruction for the series, video beat and a filled example) is in `midjourney-legendary` (`references/library-styles.md`, Maximalism), with the parameter recipes and Kevin's sref library.
 
 Leave the word as a blank shape or remove it, and set the real display word by hand; models garble large type.
 

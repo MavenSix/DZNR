@@ -47,8 +47,10 @@ Slots are in braces. On an author world, every slot comes from the approved auth
 ### Still: Midjourney
 
 ```text
-{SUBJECT} set into {SETTING: a warm terrazzo wall | a black stage}, {MATERIAL}, small in frame with vast empty space around it, {LIGHT: raking late-afternoon sunlight with soft window shadows | one soft key from above}, one {SIGNAL_COLOUR} light source, architectural photography, 35mm, f/8, calm, restrained --ar 16:9 --style raw --s 50 --v 7 --no clutter, props, text, glow --sref {SREF_CODE} --sw {100-200}
+{SUBJECT} set into {SETTING: a warm terrazzo wall | a black stage}, {MATERIAL}, small in frame with vast empty space around it, {LIGHT: raking late-afternoon sunlight with soft window shadows | one soft key from above}, one {SIGNAL_COLOUR} light source, architectural photography, 35mm, f/8, calm, restrained --ar 16:9 --raw --s 50 --v 8.2 --no clutter, props, text, glow --sref {SREF_CODE} --sw {100-200}
 ```
+
+For Midjourney V8.2, the full set for this style (hero still, series variant, Edit Model instruction for the series, video beat and a filled example) is in `midjourney-legendary` (`references/library-styles.md`, Minimalism), with the parameter recipes and Kevin's sref library.
 
 ### Still: natural language (Nano Banana, Higgsfield)
 

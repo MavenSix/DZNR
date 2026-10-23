@@ -49,8 +49,10 @@ Slots are in braces. On an author world, every slot comes from the approved auth
 ### Still: Midjourney
 
 ```text
-Archival {press | catalogue | field-test} photograph of {SUBJECT}, {ERA_ANCHOR, e.g. "a 1999 portable data terminal that never shipped"}, {VIEW} {SETTING: on a cracked concrete airfield apron | in a fluorescent-lit white hangar | on a seamless white sweep}, {BODY: materials and colours}, one {SIGNAL_COLOUR} {SIGNAL_PART}, {WEAR_1}, {WEAR_2}, {WEAR_3}, {SCALE_CUE}, flat overcast daylight, medium format, 80mm, f/8, neutral grade, slightly lifted blacks, fine film grain --ar {1:1 | 4:5 | 3:2} --style raw --s 50 --no glow, neon, lens flare, logo, text --sref {SREF_CODE} --sw {100-250}
+Archival {press | catalogue | field-test} photograph of {SUBJECT}, {ERA_ANCHOR, e.g. "a 1999 portable data terminal that never shipped"}, {VIEW} {SETTING: on a cracked concrete airfield apron | in a fluorescent-lit white hangar | on a seamless white sweep}, {BODY: materials and colours}, one {SIGNAL_COLOUR} {SIGNAL_PART}, {WEAR_1}, {WEAR_2}, {WEAR_3}, {SCALE_CUE}, flat overcast daylight, medium format, 80mm, f/8, neutral grade, slightly lifted blacks, fine film grain --ar {1:1 | 4:5 | 3:2} --raw --s 50 --no glow, neon, lens flare, logo, text --sref {SREF_CODE} --sw {100-250}
 ```
+
+For Midjourney V8.2, the full set for this style (hero still, series variant, Edit Model instruction for the series, video beat and a filled example) is in `midjourney-legendary` (`references/library-styles.md`, Grounded Speculative Realism), with the parameter recipes and Kevin's sref library.
 
 ### Still: natural language (Nano Banana, Higgsfield)
 

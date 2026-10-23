@@ -47,8 +47,10 @@ Slots are in braces. On an author world, every slot comes from the approved auth
 ### Still: Midjourney
 
 ```text
-{HERO_OBJECT_OR_BACKDROP} behind two frosted acrylic panels, the panels blur and slightly refract the {BACKDROP_TEXTURE} behind them, 1px bright inner edge on each panel, faint thin-film iridescent fringe on one edge only, {GROUND_COLOUR} field, one {SIGNAL_COLOUR} accent, soft area light top-left, no glow, no neon, studio product photograph, 85mm, f/5.6 --ar {16:9 | 4:5} --style raw --s 100 --v 7 --no bloom, lens flare, text --sref {SREF_CODE} --sw {100-200}
+{HERO_OBJECT_OR_BACKDROP} behind two frosted acrylic panels, the panels blur and slightly refract the {BACKDROP_TEXTURE} behind them, 1px bright inner edge on each panel, faint thin-film iridescent fringe on one edge only, {GROUND_COLOUR} field, one {SIGNAL_COLOUR} accent, soft area light top-left, no glow, no neon, studio product photograph, 85mm, f/5.6 --ar {16:9 | 4:5} --raw --s 100 --v 8.2 --no bloom, lens flare, text --sref {SREF_CODE} --sw {100-200}
 ```
+
+For Midjourney V8.2, the full set for this style (hero still, series variant, Edit Model instruction for the series, video beat and a filled example) is in `midjourney-legendary` (`references/library-styles.md`, Glassmorphism), with the parameter recipes and Kevin's sref library.
 
 ### Still: natural language (Nano Banana, Higgsfield)
 

@@ -86,7 +86,7 @@ stop the gate alone).
 
 | # | Failure | Sev | Test (yes means failed) | Fix in one line |
 |---|---|---|---|---|
-| F1 | AI sheen | B | Glow, plastic skin, waxy fabric, airbrushed surfaces, HDR halo on edges | Flat motivated light, name the wear, `--style raw`, grade down, add grain |
+| F1 | AI sheen | B | Glow, plastic skin, waxy fabric, airbrushed surfaces, HDR halo on edges | Flat motivated light, name the wear, `--raw` with a low `--s`, grade down, add grain |
 | F2 | Loose palette | B | More than one signal hue, or a hue not in the pack | Re-sample the signal from the subject; recolour or regenerate with the hex |
 | F3 | No type layer | M | A frame meant to carry meaning has no designed type | Set display plus label faces by hand (Step 6) |
 | F4 | Model-made lettering | B | Any text the model generated: garbled, fake brand marks, pseudo-kanji | Regenerate without text; set it in Figma, Pencil or code |
@@ -96,7 +96,7 @@ stop the gate alone).
 | F8 | No staging | M | The work is shown raw on a flat background when it will live in a context | Stage it: a device on a set, a plate in a mockup, a scene in a film |
 | F9 | Generic composition | M | Centred hero pose, symmetrical template grid, or a layout from a starter kit, with no reason | Recompose from the thesis: orthographic plate, one-third, crop, type-behind-object |
 | F10 | Default lighting | M | "Cinematic lighting" mush: unmotivated rim light, teal-orange by default, no source | Name the light: source, direction, quality, time; match the pack's camera language |
-| F11 | Identity drift | B | A recurring subject's face, costume, object or marque changes across the series | Re-lock (sref, `--oref`, Higgsfield Soul Character, reference elements) and regenerate from the hero |
+| F11 | Identity drift | B | A recurring subject's face, costume, object or marque changes across the series | Re-lock (sref, Midjourney Edit Model references, Higgsfield Soul Character, reference elements) and regenerate from the hero |
 | F12 | Depth gimmick | M | Parallax or pop-out depth carries the piece with no type or art direction behind it | Remove the trick or earn it: art-direct the layers, add the type system |
 | F13 | Outline strokes on DZNR UI cards and pills | M | DZNR OS or Pulse OS chrome uses 1px strokes to separate cards, pills or tags | Fill plus a soft two-layer shadow (DZNR OS decision 218); strokes return only under Increase Contrast |
 | F14 | Missing respect controls | B (sites) | An immersive site with motion or sound lacks sound off, skip, replay or reduced motion | Add them (`immersive-world-site`) |

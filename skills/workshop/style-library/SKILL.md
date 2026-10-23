@@ -30,7 +30,9 @@ client brand, the client's system leads and an entry may inform it.
 
 **How an entry is used.** Fill its template slots from `pack.md` (`legendary-standard`), write the prompt
 in the order `prompt-architecture` gives, and check the result with `quality-gate`, which reads each
-entry's "Gate notes".
+entry's "Gate notes". Each entry's Midjourney still is written for V8.2; the style's full Midjourney set
+(hero still, series variant, Edit Model instruction, video beat and a filled example), the parameter
+recipes and Kevin's sref library are in `midjourney-legendary`.
 
 ---
 
@@ -89,6 +91,7 @@ These entries say what a style looks like and how to prompt it. They point to, a
 - `minimalist-ui`: the build recipe for Minimalism and editorial document UIs.
 - `critique` and `polish`: run by `quality-gate`.
 - `wan-video-prompts` and `seedance-director`: the full video grammar behind each entry's video beat.
+- `midjourney-legendary`: the V8.2 grammar and every style's Midjourney prompt set.
 - `threejs-*` and `threeui-catalog`: the build path behind each entry's 3D note.
 
 Where a taste skill bans a typeface as a default (Helvetica, Inter) and an entry names it deliberately

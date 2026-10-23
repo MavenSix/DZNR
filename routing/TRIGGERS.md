@@ -316,14 +316,14 @@ Example: "Rebuild their immersive experience" → Sherlock asks user → if conf
 | **Code remediation** | harden, polish, optimize, fixing-accessibility, fixing-metadata, fixing-motion-performance, adapt |
 | **Critical thinking** | critique, audit, distill, extract, clarify, normalize, redesign-existing-projects |
 | **Meta / process** | onboard, teach-impeccable, quieter, arrange, full-output-enforcement |
-| **Quality standard** | legendary-standard, quality-gate, prompt-architecture |
+| **Quality standard** | legendary-standard, quality-gate, prompt-architecture, midjourney-legendary |
 
 ### Primary triggers
 - **By skill name**: "use [workshop-skill-name]": e.g. "use design-taste-frontend", "run polish on this"
 - **By verb**: "harden", "polish", "optimize", "tighten", "clarify", "distill", "extract", "normalize", "arrange"
 - **By outcome**: "give this taste", "make this feel high-end", "redesign this", "level this up"
 - **Workshop signals**: "Kevin's version of", "my custom skill for", "the workshop skill"
-- **Quality standard**: "legendary", "make it legendary", "quality bar", "raise the bar", "asset pack", "make a pack" (`legendary-standard`); "quality gate", "gate this", "score this", "is this ready to ship", "is this legendary", "does this look like AI", "slop check" (`quality-gate`); "write the prompt", "improve this prompt", "why does this look generic", "lock the look", "keep the series consistent" (`prompt-architecture`)
+- **Quality standard**: "legendary", "make it legendary", "quality bar", "raise the bar", "asset pack", "make a pack" (`legendary-standard`); "quality gate", "gate this", "score this", "is this ready to ship", "is this legendary", "does this look like AI", "slop check" (`quality-gate`); "write the prompt", "improve this prompt", "why does this look generic", "lock the look", "keep the series consistent" (`prompt-architecture`); "Midjourney", "MJ prompt", "V8", "V8.2", "sref", "my srefs", "style reference", "style code", "moodboard", "profile code", "Edit Model", "Niji 7", "Midjourney video", "draft mode", "legendary prompt library" (`midjourney-legendary`; on a QKI pack Cheetara with `qki-style-authority` first, on an author's work Cheetara with the author's pack)
 
 ### Context-dependent
 - "polish": Gandalf if request implies workshop-level refinement. Snape if "polish the visual design." Neo if "polish the code."

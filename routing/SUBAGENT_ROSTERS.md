@@ -16,13 +16,13 @@
 | **Gibson** | Experience Engineering + AI Product | Immersive, 3D, spatial, AI-driven futures; world-not-a-page sites for Pulse OS | 35 |
 | **Neo** | Delivery & Code | Specs, components, ship it | 26 |
 | **Morpheus** | Pitch & Story | Present, persuade, narrate | 19 |
-| **Gandalf** | Workshop (peer + tool + orchestrator) | Kevin's personal craft + Innovation Accelerator pack, and the quality standard and gate every asset passes. Called by Tár OR by other subagents. Orchestrates other subagents for IA (documented exception). | 47 |
-| **Cheetara** | QKI and Author Worldbuilding | Aesthetic-first serialized-world asset generation. Resolves the engine first: QKI (engine + three generators + manifest contract, Prime Gate enforced) for a named QKI pack, the author-world engine (author's approved pack, Fidelity Gate) for an author's world, which is the default for Pulse OS jobs and anything naming no QKI pack, with the lore engine (canon, consistency check, canon questions) under it. Coordinates MidJourney, Higgsfield, Weavy, Blender MCP. Also the style, world-pack, series-bible and motion-clip stages of the video, narrative and Pulse OS workflows, Three.js for worlds that run in the browser, and Wan 3.0 shot briefs. Most asset steps of the quality standard. | 7 + 21 shared |
+| **Gandalf** | Workshop (peer + tool + orchestrator) | Kevin's personal craft + Innovation Accelerator pack, and the quality standard and gate every asset passes. Called by Tár OR by other subagents. Orchestrates other subagents for IA (documented exception). | 48 |
+| **Cheetara** | QKI and Author Worldbuilding | Aesthetic-first serialized-world asset generation. Resolves the engine first: QKI (engine + three generators + manifest contract, Prime Gate enforced) for a named QKI pack, the author-world engine (author's approved pack, Fidelity Gate) for an author's world, which is the default for Pulse OS jobs and anything naming no QKI pack, with the lore engine (canon, consistency check, canon questions) under it. Coordinates MidJourney, Higgsfield, Weavy, Blender MCP. Also the style, world-pack, series-bible and motion-clip stages of the video, narrative and Pulse OS workflows, Three.js for worlds that run in the browser, and Wan 3.0 shot briefs. Most asset steps of the quality standard. | 7 + 22 shared |
 | **Snake Eyes** | Parked specialist arsenal | Silent. Deployed by name. Soft-routed for SEO. Twelve clusters plus Other/Misc. | ~141 |
 
-**Total skills routed through DZNR (Tár to 8 active subagents including Cheetara):** ~175
+**Total skills routed through DZNR (Tár to 8 active subagents including Cheetara):** ~176
 **Total skills in Snake Eyes' arsenal (parked, callable by name):** ~141
-**Total skills in Gandalf's workshop:** 47 (already counted in the active total above)
+**Total skills in Gandalf's workshop:** 48 (already counted in the active total above)
 **Grand total available across DZNR (active + parked, minus duplicates):** ~300+
 
 ---
@@ -114,7 +114,7 @@
 These two live physically in `skills/workshop/` but route to Snape, not Gandalf, as the Gibson-routed workshop skills do.
 
 **Workshop skills Snape commonly CALLS Gandalf for:**
-frontend-design, design-taste-frontend, ui-ux-pro-max, high-end-visual-design, stitch-design-taste, gpt-taste, baseline-ui, industrial-brutalist-ui, minimalist-ui, typeset, colorize, bolder, brandkit, polish, redesign-existing-projects, legendary-standard, quality-gate, prompt-architecture
+frontend-design, design-taste-frontend, ui-ux-pro-max, high-end-visual-design, stitch-design-taste, gpt-taste, baseline-ui, industrial-brutalist-ui, minimalist-ui, typeset, colorize, bolder, brandkit, polish, redesign-existing-projects, legendary-standard, quality-gate, prompt-architecture, midjourney-legendary
 
 (These belong to Gandalf's roster: Snape pulls Gandalf in when needed.)
 
@@ -253,7 +253,7 @@ These three are Kevin-authored skills physically in `skills/workshop/` but route
 The Three.js twelve above are Kevin-authored skills physically in `skills/workshop/` but routed to Gibson, not Gandalf. They carry Three.js API-level implementation detail (audited against r160+) behind Gibson's existing `webgl-threejs` and `3d-experience-design` skills: constructor signatures, `three/addons/` import paths, and working examples. Source: https://github.com/MavenSix/threejs-skills
 
 **Workshop skills Gibson commonly CALLS Gandalf for:**
-image-to-code, imagegen-frontend-web, imagegen-frontend-mobile, animate, delight, overdrive, full-output-enforcement, legendary-standard, quality-gate, prompt-architecture
+image-to-code, imagegen-frontend-web, imagegen-frontend-mobile, animate, delight, overdrive, full-output-enforcement, legendary-standard, quality-gate, prompt-architecture, midjourney-legendary
 
 (These belong to Gandalf's roster: Gibson pulls Gandalf in when needed.)
 
@@ -375,14 +375,14 @@ onboard, teach-impeccable, quieter
 
 **Archetype:** The wizard who has been around forever. Knows things others don't. Arrives precisely when he means to. Mentor energy. Cross-cutting craftsman.
 
-**Role:** Owns Kevin's 41 personally-authored workshop skills from `~/.claude/skills/`. Operates two ways simultaneously:
+**Role:** Owns Kevin's 42 personally-authored workshop skills from `~/.claude/skills/`. Operates two ways simultaneously:
 
 1. **As peer subagent:** Tár routes directly to Gandalf when the trigger is workshop-specific (e.g. "use design-taste-frontend", "harden this", "polish this output").
 2. **As a tool:** Other subagents pull Gandalf in mid-work when they need one of his specific tools. Snape doing brand work calls Gandalf for `design-taste-frontend`. Neo doing code work calls Gandalf for `harden`. Gibson doing experience work calls Gandalf for `imagegen-frontend-web`.
 
 **Override authority:** When a workshop skill overlaps with a plugin or anthropic-core skill, Gandalf's version wins. Kevin's `frontend-design` beats any plugin version.
 
-### Skills (41 total): Gandalf's full roster
+### Skills (42 total): Gandalf's full roster
 
 #### Design taste (6)
 | Skill |
@@ -441,14 +441,15 @@ onboard, teach-impeccable, quieter
 | normalize |
 | redesign-existing-projects |
 
-#### Quality standard (3, added 2026-10-23)
+#### Quality standard (4, added 2026-10-23)
 | Skill |
 |-------|
 | legendary-standard |
 | quality-gate |
 | prompt-architecture |
+| midjourney-legendary |
 
-The method (pack, not picture), the ship check (runs after the Fidelity Gate or the Prime Gate, never instead) and the prompt structure. Every producing agent calls them.
+The method (pack, not picture), the ship check (runs after the Fidelity Gate or the Prime Gate, never instead), the prompt structure, and the Midjourney V8.2 prompt library with Kevin's sref library (v2.21.0). Every producing agent calls them.
 
 #### Meta / process (5)
 | Skill |
@@ -467,7 +468,7 @@ The method (pack, not picture), the ship check (runs after the Fidelity Gate or 
 - Gibson calls Gandalf for imagegen-* skills, animate, delight
 - Sherlock calls Gandalf for critique, audit, distill, extract
 - Morpheus calls Gandalf for onboard, teach-impeccable, quieter
-- Every producing agent calls Gandalf for legendary-standard, quality-gate and prompt-architecture before an asset, artifact or site ships
+- Every producing agent calls Gandalf for legendary-standard, quality-gate and prompt-architecture before an asset, artifact or site ships, and for midjourney-legendary whenever the tool is Midjourney
 
 ---
 
@@ -479,7 +480,7 @@ The method (pack, not picture), the ship check (runs after the Fidelity Gate or 
 
 **Engine first.** QKI is one engine among others, never the default for someone else's world. A job that names a QKI pack runs the QKI cluster unchanged. Work for an author (a Pulse OS job, or anything not naming a QKI pack) is an author world: Cheetara loads `author-world-authority`, drafts the author world pack from the manuscript and brief if none is approved, waits for the author's approval, renders in the pack's medium (photographic, painterly, drawn, 3D-real or mixed), and holds every output to the Fidelity Gate (medium and canon). The QKI DNA and the Prime Gate apply to an author world only when its pack opts into a drawn medium and QKI. With no pack resolvable she never falls back to QKI.
 
-**Skills (28: 7 owned, 21 shared with Snape, Gibson and Gandalf, plus 1 shared contract):**
+**Skills (29: 7 owned, 22 shared with Snape, Gibson and Gandalf, plus 1 shared contract):**
 
 ### Engine (1)
 
@@ -542,7 +543,7 @@ Installed for Cheetara at Kevin's request from three repositories: [CloudAI-X/th
 | threejs-interaction | kevin-authored (workshop folder, shared with Gibson) | Picking and orbiting a world's places and objects. |
 | threeui-catalog | kevin-authored (workshop folder, shared with Gibson) | Ready ThreeUI components (Kevin's fork) for a world's site or interface before hand-building one. |
 
-### Quality and style (5 shared, added 2026-10-23)
+### Quality and style (6 shared, added 2026-10-23)
 
 | Skill | Source | Purpose |
 |-------|--------|---------|
@@ -551,6 +552,7 @@ Installed for Cheetara at Kevin's request from three repositories: [CloudAI-X/th
 | style-library | kevin-authored (workshop folder, Snape) | Style options offered to an author in the pack draft, never imposed; templates for stills and clips. |
 | prompt-architecture | kevin-authored (workshop folder, Gandalf) | Every generation prompt; series locks. |
 | immersive-world-site | kevin-authored (workshop folder, Gibson) | A world's plates, relics, portraits and canon for a Pulse OS world site. |
+| midjourney-legendary | kevin-authored (workshop folder, Gandalf) | Every Midjourney V8.2 prompt: hero, series variant, Edit Model coverage, video beat; Kevin's srefs only where the QKI engine or the author's pack calls for them. |
 
 ### Shared contract (not a callable skill)
 
@@ -688,6 +690,7 @@ Some skills serve multiple domains. Tár disambiguates by context:
 | style-library | Snape (owner) + Cheetara, Gibson, Neo | Snape for DZNR's own work and brands; Cheetara offers entries to an author as options; Gibson for experiences; Neo for UI section briefs |
 | kevin-taste | Snape (owner) + Gibson | DZNR's own work only; never an author's world or a client's brand |
 | immersive-world-site | Gibson (owner) + Neo, Cheetara | Gibson designs, Neo builds, Cheetara supplies a world's assets and canon |
+| midjourney-legendary | Gandalf (owner) + Snape, Cheetara, Gibson | Snape for DZNR's own work and brands, Cheetara for worlds (QKI's engine or the author's pack resolves the sref), Gibson for experience and campaign heroes |
 
 ---
 

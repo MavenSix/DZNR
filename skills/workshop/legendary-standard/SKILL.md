@@ -110,8 +110,8 @@ Generate the hero widely, approve one, and **lock it before making anything else
 the lock, not from fresh prompts: @kreevslab built a whole storyboard from one Midjourney base character
 with a single `--sref`, using an edit model for every angle, ratio and beat.
 - **Owner:** Cheetara (worlds), Gibson (experience and campaign heroes), Snape (brand).
-- **Tool:** Midjourney on Kevin's own account with `--sref` (interactive sessions only, through the browser
-  profile), Flux with a trained style (where QKI work runs today), Higgsfield (identity lock), Nano Banana
+- **Tool:** Midjourney V8.2 on Kevin's own account with `--sref` (interactive sessions only, through the
+  browser profile; prompts, recipes and Kevin's sref library in `midjourney-legendary`), Flux with a trained style (where QKI work runs today), Higgsfield (identity lock), Nano Banana
   (image-to-image edits from the hero).
 - **Done when:** the hero is approved and its lock id is recorded.
 
@@ -122,7 +122,8 @@ feed with fixed framing (@an_improbable_future). Lay the series out as a contact
 as one body of work.
 - **Owner:** Cheetara, Gibson.
 - **Tool:** Nano Banana or Higgsfield edits from the locked hero ("same object, same light, change only
-  the colourway"); Midjourney `--sref` with the same seed family; Higgsfield reference elements.
+  the colourway"); Midjourney's Edit Model from the locked hero (up to 4 references) or `--sref` with the same `--seed`
+  (`midjourney-legendary`); Higgsfield reference elements.
 - **Done when:** at least six frames, one variable changed in each, and the contact sheet passes the
   series-coherence line of `quality-gate`.
 
@@ -212,6 +213,8 @@ For UI and sites, `polish` and `critique` run inside the gate's craft and legibi
   target defaults, not decisions.
 - `critique` and `polish`: run by `quality-gate` for UI and sites.
 - `seedance-director`, `wan-video-prompts`: Step 8's grammar.
+- `midjourney-legendary`: Steps 4, 5, 8 and 10 when the tool is Midjourney: V8.2 grammar, parameter
+  recipes, Kevin's sref library, and a hero, series, Edit Model and video prompt for every style.
 - `qki-style-authority`, `author-world-authority`, `lore-engine`: Step 0 and the gates that run before
   `quality-gate`.
 

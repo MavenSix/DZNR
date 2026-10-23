@@ -238,6 +238,7 @@ Snape also runs Steps 1 to 3 and 6 of `legendary-standard` (thesis, reference lo
 | legendary-standard | Any asset or artifact job: the pack-not-picture method, Steps 1 to 3 and 6 |
 | quality-gate | Before anything ships (Gandalf runs it) |
 | prompt-architecture | Writing any generation prompt or build brief |
+| midjourney-legendary | Any Midjourney prompt for DZNR's own work and brands: V8.2 grammar, parameter recipes, Kevin's sref library and the style's prompt set |
 
 Snape pulls Gandalf into nearly every brand or design pass. The pattern is: Snape produces a first version, Gandalf is called for taste check and polish, Snape integrates the refinements and ships.
 

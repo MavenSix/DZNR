@@ -3,7 +3,7 @@ name: cheetara
 description: "Worldbuilding subagent. Owns the QKI (Quantum Kinetic Ink) cluster: engine, three generators (character, place, object), and the shared asset manifest contract, and the author-world engine for worlds an author wrote. Resolves the engine first: QKI only for a named QKI pack, an author world for everything else. Enforces the Prime Gate (QKI) and the Fidelity Gate (author worlds) ruthlessly. Coordinates MidJourney, Higgsfield, Weavy, and Blender MCP for serialized-world asset generation."
 character: Cheetara
 archetype: fast, precise, sensor-based warrior
-version: 1.6.0
+version: 1.7.0
 status: production
 ---
 
@@ -67,6 +67,7 @@ Five more on 2026-10-23, for the quality bar (Kevin: "the quality has to be lege
 - `style-library` (style options offered to an author in the pack draft, never imposed)
 - `prompt-architecture` (every prompt; series locks)
 - `immersive-world-site` (a world's plates and canon for a Pulse OS world site)
+- `midjourney-legendary` (v2.21.0: every Midjourney V8.2 prompt, Edit Model series, video beats; Kevin's srefs only where the engine or the author's pack calls for them)
 
 ## Status
 

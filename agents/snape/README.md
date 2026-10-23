@@ -31,7 +31,7 @@ Kevin, 2026-10-23: "For both DZNR and Pulse, the quality has to be legendary and
 | style-library | Owns it: 23 styles with cues, hex and prompt templates; options for an author, never imposed |
 | kevin-taste | Owns it: Kevin's twelve taste principles, for DZNR's own work only |
 | legendary-standard | Runs thesis, reference lock, palette and type layer on DZNR's own work and brands |
-| quality-gate, prompt-architecture | Calls them (Gandalf owns them) |
+| quality-gate, prompt-architecture, midjourney-legendary | Calls them (Gandalf owns them); `midjourney-legendary` holds the V8.2 prompt set for every style he owns |
 
 ## Status
 

@@ -1,3 +1,14 @@
+## 2.19.0 - 2026-10-23
+
+### An author answers through Pulse OS
+
+Kevin, 2026-10-23: "build the author answer endpoint for the API but with the understanding that the author will be using Pulse OS and not DZNR. But if questions come up, they should be answering them through the Pulse interface experience." DZNR OS's API is adding endpoints that read and write these files in a project folder; this release is the skills' side of that contract. Until now a canon question or a pack approval went "to the author" with no word on how, and Residue's were answered in a DZNR OS session, which works only when the author is Kevin.
+
+- **`lore-engine`** writes `lore/questions.json` beside `questions.md` on every run (`version`, `project`, `generated_at`, and per question `id`, `kind`, `subject`, `question`, `passages`, `proposal`, `blocks`, `status`, `ruling`). Ids are stable across runs; a question resolved by a later source, ruled or deferred stays listed with its status. It reads `lore/rulings.json`, which Pulse OS appends to when the author answers in Pulse (`decision` of `answer`, `accept_proposal` or `defer`; `received` as `Pulse OS (key <name>)`), with `rulings.md`: both append-only, kept level each run, and on a disagreement the later entry wins and the run reports it. A `defer` ruling keeps a question open but unasked until new sources touch it, as Residue's R3 did. Shapes in `references/questions-and-rulings.md`; the register's `deferred` status in `canon-schema.md`.
+- **`author-world-authority`** writes the pack to `lore/world-pack.md` with a `pack_version` (now a string), and reads `lore/pack-approval.json`: `approve` sets `approved_by_author`; `revise` drafts the next version applying the note, keeps the old one, and awaits approval again. A new "Through Pulse OS" section.
+- **Through Pulse OS, never mid-run.** On a job from Pulse OS (an API job; its prompt or project says so), questions are written to `questions.json` and the pack awaits `pack-approval.json` for Pulse OS to show the author; the job ends with them summarised in its final answer and never asks mid-run (DZNR OS refuses mid-run questions, its decision 241), and never puts them to Kevin in DZNR OS. Said in both skills, Cheetara 1.5.0 (AGENT.md and README) and `pulse-os-artifacts`.
+- **Workflows:** `pulse-os-artifacts` 1.3. The checkpoints (s1, s2, s3, s5, s8) are answered by the author in Pulse OS through DZNR OS's checkpoint endpoint, and each checkpoint prompt says so. `docs/workflows.html` rebuilt.
+
 ## 2.18.2 - 2026-10-21
 
 ### graphify commands run alone

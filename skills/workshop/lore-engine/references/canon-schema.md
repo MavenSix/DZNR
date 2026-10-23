@@ -1,7 +1,9 @@
 # Canon Schema
 
-The contract for `lore/sources.json`, `lore/canon.json` and the layout of `lore/world-bible.md`. Every
-later job reads these, so the shapes are fixed; a change is a new `schema` version.
+The contract for `lore/sources.json`, `lore/canon.json` and the layout of `lore/world-bible.md`.
+`lore/questions.json` and `lore/rulings.json`, the forms DZNR OS and Pulse OS read and write, are in
+`questions-and-rulings.md`. Every later job reads these, so the shapes are fixed; a change is a new
+`schema` version.
 
 ---
 
@@ -227,8 +229,12 @@ The register that keeps question numbers stable:
 
 - `key` is `<kind>:<subject>:<attribute or relation or event>`. The same key on a later run keeps its
   number. A new key takes the next free number; numbers are never reused.
-- `status`: `open`, `resolved` (by a later author statement), `settled` (`ruling` names it), `withdrawn`
-  (its passages left the text, with `reason`).
+- `status`: `open`, `resolved` (by a later author statement), `settled` (`ruling` names it), `deferred`
+  (a `defer` ruling names it: still open, not asked again until a new or changed unit touches its
+  subject), `withdrawn` (its passages left the text, with `reason`).
+- `questions.json` (`references/questions-and-rulings.md`) is written from this register on every run.
+  Its `status` maps: `open` and `deferred` as they are, `settled` as `ruled`, `resolved` and `withdrawn`
+  as `resolved`.
 
 ---
 

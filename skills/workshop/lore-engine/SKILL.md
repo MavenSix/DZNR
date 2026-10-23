@@ -9,8 +9,10 @@ description: >
   the check nobody ships: one entity with conflicting values across sources, timeline contradictions, a
   world rule stated then broken, graphify's AMBIGUOUS edges, near-duplicate entities that may be one, and
   gaps the art will need that the text never gives. Writes questions.md (numbered, passages quoted, a
-  proposed answer, the renders that wait) and records the author's answers in rulings.md, which win over
-  the text from then on. Never answers a canon question itself. Everything lives in the project's lore/
+  proposed answer, the renders that wait) and questions.json beside it for Pulse OS to show the author,
+  and records the author's answers in rulings.md, reading rulings.json, which Pulse OS writes when the
+  author answers in Pulse; rulings win over the text from then on. Never answers a canon question itself,
+  and never asks one mid-run: a Pulse OS job ends with its questions summarised in its final answer. Everything lives in the project's lore/
   folder so author-world-authority and every later job read it. Triggers before an author world pack is
   drafted, whenever a Pulse OS job brings new chapters, sessions or notes, and on "check the canon",
   "continuity check", "world bible for", "canon questions" or an author's answer to one.
@@ -54,7 +56,9 @@ Pulse OS sends an author's files through the DZNR OS API, and they land in the j
     canon.json                   the canon, machine-readable (references/canon-schema.md)
     world-bible.md               the canon, readable, every fact cited
     questions.md                 open canon questions for the author, numbered
+    questions.json               the same questions for Pulse OS, rewritten every run
     rulings.md                   the author's rulings, appended and dated, never edited
+    rulings.json                 the same rulings, machine form; Pulse OS appends when the author answers
 ```
 
 The corpus is cumulative across jobs: a new job adds units or replaces the units it revises, and nothing
@@ -82,6 +86,11 @@ it.
   they arrived in. Only a revised version of the same chapter replaces the old one.
 - **Only the subject a question touches waits.** Every question names the renders it holds; nothing else
   waits on it.
+- **Questions reach the author through Pulse OS when the job came from Pulse OS** (an API job; its prompt
+  or project says so). They are written to `questions.json` for Pulse OS to show the author, and the job
+  ends with them summarised in its final answer. Never ask mid-run: DZNR OS refuses mid-run questions
+  (its decision 241), and the author is in Pulse OS, not DZNR OS. Never put them to Kevin in DZNR OS for
+  the author.
 - **No em or en dashes** in anything the engine writes for the author (Pulse's voice rule).
 
 ---
@@ -160,8 +169,12 @@ From the typed graph and the corpus passages (schema in `references/canon-schema
    which. Each relation cites its passages; the graph edge that pointed at it is kept as a reference.
 4. **Timeline.** Events with the order or time the text states (a date, "the spring after the flood", an
    age), their place and who is present, kept apart from the order the chapters tell them in.
-5. **Apply rulings.** Every ruling in `rulings.md` settles its attribute, relation or event. The text's
-   claims stay in canon.json as history; the ruling is the value.
+5. **Apply rulings.** Read `rulings.md` and `rulings.json` and bring them level first (each gets the
+   entries it lacks; a disagreement goes to the later entry and is reported; the steps are in
+   `references/questions-and-rulings.md`). Every `answer` or `accept_proposal` ruling settles its
+   attribute, relation or event; the text's claims stay in canon.json as history and the ruling is the
+   value. A `defer` ruling settles nothing: its questions stay open, are not asked again, and return the
+   first run a new or changed unit touches their subject.
 
 Claims from units that did not change are carried over from the previous canon.json by body hash; only new
 and changed units are re-read.
@@ -190,22 +203,32 @@ and not asked. What is left is a question.
   citation, and each open point marked with its question number. Layout in `references/canon-schema.md`.
 - `questions.md`: regenerated each run with stable numbers (Q7 stays Q7 across runs; a new question takes
   the next number). Format in `references/questions-and-rulings.md`.
-- `rulings.md`: never rewritten. The engine only appends, and only the author's answers.
+- `questions.json`: written beside it on every run, from the same register (shape in
+  `references/questions-and-rulings.md`). Every numbered question stays listed with its status (`open`,
+  `resolved`, `ruled`, `deferred`); DZNR OS reads it and Pulse OS shows it to the author.
+- `rulings.md` and `rulings.json`: never rewritten. The engine only appends, and only the author's answers.
 
 Then report in plain language: units added or changed, entities, open questions by kind, what resolved
-since the last run, and graphify's token cost for the run (from `graphify-out/cost.json`).
+since the last run, any disagreement between rulings.md and rulings.json, and graphify's token cost for
+the run (from `graphify-out/cost.json`). On a Pulse OS job that report is the job's final answer, and it
+lists every open question by number with its subject and one line, and says they are waiting for the
+author in Pulse OS. The run ends there; it never stops to ask.
 
 ---
 
 ## Recording a Ruling
 
-When the author answers a question (a Pulse OS job reply, a session line, a direct message):
+When the author answers in Pulse OS, Pulse OS appends the ruling to `rulings.json` through the DZNR OS
+API (`received`: `Pulse OS (key <name>)`), and the next run writes its rulings.md entry. When the author
+answers any other way (a session line, a direct message):
 
-1. Append a ruling to `rulings.md`, dated, citing the question number, with the author's words verbatim.
-   "Go with your proposal" is a ruling: record the proposal as the value and quote the author's words.
+1. Append a ruling to `rulings.md` and `rulings.json`, dated, citing the question number, with the
+   author's words verbatim. "Go with your proposal" is a ruling (`accept_proposal`): record the proposal as
+   the value and quote the author's words. "Not yet" is a ruling too (`defer`, as Residue's R3).
 2. Re-run steps 3 to 5 with no graphify run (the corpus did not change). The ruled item moves to
    "Settled by ruling" in questions.md and its value enters canon.json and the bible.
-3. Tell whoever was waiting that the subject is clear: the renders the question held can go ahead.
+3. Tell whoever was waiting that the subject is clear: the renders the question held can go ahead. On a
+   Pulse OS job that is the job's final answer; Pulse OS shows it to the author.
 
 A ruling is changed only by a later ruling that names the one it replaces. Neither the engine nor any agent
 edits or removes a ruling.
@@ -221,7 +244,9 @@ edits or removes a ruling.
 - **The Fidelity Gate** checks a render against the subject's canon entry and its rulings.
 - **Sherlock's World Bible** in `pulse-os-artifacts` starts from `world-bible.md` and `questions.md`.
 - **Any later job** on the same project reads `lore/` first and runs the engine again only when new inputs
-  arrived.
+  arrived or `rulings.json` has rulings `rulings.md` lacks.
+- **DZNR OS's API** reads `questions.json` and appends to `rulings.json` for Pulse OS, so the author sees
+  the questions and answers them in Pulse.
 
 ---
 
@@ -231,6 +256,7 @@ edits or removes a ruling.
   what graphify's real behaviour means for this design. Read before step 2.
 - `references/canon-schema.md`: `sources.json`, `canon.json` and the `world-bible.md` layout.
 - `references/consistency-checks.md`: the six checks, the date ranking, and the cost-of-waiting map.
-- `references/questions-and-rulings.md`: the formats of `questions.md` and `rulings.md`.
+- `references/questions-and-rulings.md`: the formats of `questions.md`, `rulings.md`, `questions.json`
+  and `rulings.json`, and how the two rulings files are kept level.
 - `references/example.md`: a worked example on an invented two-chapter snippet, with the exact
   questions.md items it produces.

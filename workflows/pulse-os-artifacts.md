@@ -2,7 +2,7 @@
 workflow: pulse-os-artifacts
 name: Pulse OS Artifacts
 status: complete
-version: 1.2
+version: 1.3
 lead: cheetara
 supporting: [gibson, neo, sherlock, snape, morpheus, tar]
 chains: [8, 9, 3]
@@ -45,7 +45,7 @@ stages:
       standard: claude:opus
       hero: claude:opus
     tools: [graphify]
-    produces: [lore/ in the project folder: corpus normalised from inputs/<job-id>/ with the originals untouched; graphify lore graph (deep mode, --update on later runs); canon.json and a world-bible.md with every fact cited; questions.md with numbered canon questions (conflicts, timeline, rule breaks, AMBIGUOUS links, alias candidates, render gaps); rulings.md applied]
+    produces: [lore/ in the project folder: corpus normalised from inputs/<job-id>/ with the originals untouched; graphify lore graph (deep mode, --update on later runs); canon.json and a world-bible.md with every fact cited; questions.md and questions.json with numbered canon questions (conflicts, timeline, rule breaks, AMBIGUOUS links, alias candidates, render gaps) for Pulse OS to show the author; rulings.md and rulings.json applied]
     checkpoint: false
     checkpoint_prompt: null
     gate: "Canon gate: no fact without a cited passage, no canon question answered by the engine"
@@ -60,9 +60,9 @@ stages:
       standard: claude:opus
       hero: claude:opus
     tools: []
-    produces: [World Bible from lore/world-bible.md with motifs and themes added; canon register (lore/canon.json); the open canon questions put to the author]
+    produces: [World Bible from lore/world-bible.md with motifs and themes added; canon register (lore/canon.json); the open canon questions put to the author in Pulse OS (lore/questions.json)]
     checkpoint: true
-    checkpoint_prompt: "World Bible: [n] characters, [n] locations, [n] rules, [n] motifs, [n] open canon questions (lore/questions.md). Lock this as canon and answer what you can, or correct first?"
+    checkpoint_prompt: "World Bible: [n] characters, [n] locations, [n] rules, [n] motifs, [n] open canon questions (lore/questions.md). Lock this as canon and answer what you can, or correct first? The author answers in Pulse OS, through DZNR OS's checkpoint endpoint."
     gate: "Canon gate: author locks the Bible before any visual work"
     exit_allowed: true
   - id: s2
@@ -75,9 +75,9 @@ stages:
       standard: claude:opus
       hero: claude:opus
     tools: []
-    produces: [author world pack: medium and realism from the brief and tonal references, era and place from the text, groups from the Bible's social structure, palette from its motifs and stated colours, camera, motion and sound from its tone, the canon each subject renders from, open canon questions with proposed answers]
+    produces: [author world pack in lore/world-pack.md with its pack_version, awaiting lore/pack-approval.json from Pulse OS: medium and realism from the brief and tonal references, era and place from the text, groups from the Bible's social structure, palette from its motifs and stated colours, camera, motion and sound from its tone, the canon each subject renders from, open canon questions with proposed answers]
     checkpoint: true
-    checkpoint_prompt: "The pack reads the Bible as [medium, realism], [era and place], [n] groups, [palette description], with [n] open canon questions. Approve it, or correct it first? QKI applies only if you choose a drawn medium and QKI."
+    checkpoint_prompt: "The pack reads the Bible as [medium, realism], [era and place], [n] groups, [palette description], with [n] open canon questions. Approve it, or correct it first? QKI applies only if you choose a drawn medium and QKI. The author answers in Pulse OS, through DZNR OS's checkpoint endpoint."
     gate: "Author approval: nothing renders from a pack the author has not approved"
     exit_allowed: false
   - id: s3
@@ -92,7 +92,7 @@ stages:
     tools: [midjourney-web, higgsfield-mcp, weavy, runninghub]
     produces: [per character: node record citing Bible passages, hero portrait in the pack's medium, turnaround, expression sheet, Soul Character lock]
     checkpoint: true
-    checkpoint_prompt: "[Character] portrait passed the Fidelity Gate and matches Bible passages [refs]. Lock the identity?"
+    checkpoint_prompt: "[Character] portrait passed the Fidelity Gate and matches Bible passages [refs]. Lock the identity? The author answers in Pulse OS, through DZNR OS's checkpoint endpoint."
     gate: "Fidelity Gate (the pack's medium and the canon; the Prime Gate as well only if the pack opted into QKI): a render that contradicts the Bible fails regardless of quality"
     exit_allowed: false
   - id: s4
@@ -122,7 +122,7 @@ stages:
     tools: [figjam-mcp]
     produces: [per scene: composition, atmosphere, lighting, sound cue, character presence, tied to specific passages; shot list where motion is wanted]
     checkpoint: true
-    checkpoint_prompt: "Scene [n] proposes [composition] for passage [ref] with [characters present]. Approve, redirect, or skip?"
+    checkpoint_prompt: "Scene [n] proposes [composition] for passage [ref] with [characters present]. Approve, redirect, or skip? The author answers in Pulse OS, through DZNR OS's checkpoint endpoint."
     gate: "Canon check per scene"
     exit_allowed: false
   - id: s6
@@ -167,7 +167,7 @@ stages:
     tools: [claude-code, vercel-mcp]
     produces: [assembled walkthrough of the scenes, ready for Pulse Studio polish and deploy]
     checkpoint: true
-    checkpoint_prompt: "Walkthrough assembled: [n] scenes, [n] characters, [n] locations, all canon-checked. Hand to Pulse Studio for polish and deploy?"
+    checkpoint_prompt: "Walkthrough assembled: [n] scenes, [n] characters, [n] locations, all canon-checked. Hand to Pulse Studio for polish and deploy? The author answers in Pulse OS, through DZNR OS's checkpoint endpoint."
     gate: null
     exit_allowed: true
 deliverables:
@@ -195,8 +195,8 @@ exit_criteria:
 memory_writes:
   - "world.lore_path (the project's lore/ folder) and lore_run_at"
   - "world.bible_path and canon_locked_at"
-  - "world.pack (active; engine author-world unless the author chose QKI) and approved_by_author"
-  - "world.canon_rulings (the author's answers to canon questions, kept in lore/rulings.md)"
+  - "world.pack (active; engine author-world unless the author chose QKI), its pack_version and approved_by_author"
+  - "world.canon_rulings (the author's answers to canon questions, kept in lore/rulings.md and lore/rulings.json)"
   - "world.identity_locks"
   - "world.scene_index (scene id to passage refs to composition to assets)"
   - "world.canon_violations (caught and corrected, with the rule that was hit)"
@@ -211,7 +211,7 @@ Produce the artifacts a Pulse OS world is made of: the World Bible, the characte
 
 Three Pulse principles govern every stage and override DZNR's own defaults where they conflict:
 
-1. **The author is the director.** Agents propose, the author decides. Every stage with a checkpoint here is one the author must approve; DZNR does not auto-proceed on silence.
+1. **The author is the director.** Agents propose, the author decides. Every stage with a checkpoint here is one the author must approve; DZNR does not auto-proceed on silence. The author does this in Pulse OS, not DZNR OS (see "The author answers in Pulse OS" below).
 2. **The world is the unit of work.** World Bible coherence is the number one constraint. "An agent change that breaks canon is a defect regardless of how good the output looks." The canon check is the heart of the Fidelity Gate, the gate every render here passes, and it wins ties.
 3. **Deploy to the creator's domain.** Nothing here is trapped in DZNR, Pulse, or any vendor. Exports are records and files the author owns.
 
@@ -221,15 +221,15 @@ Three Pulse principles govern every stage and override DZNR's own defaults where
 
 ### s0. Lore engine
 
-Runs first, before anything is drafted, and again whenever a job brings new chapters, sessions or notes. Cheetara's `lore-engine` normalises the job's files (`inputs/<job-id>/`) into a corpus under the project's `lore/` folder without touching the originals, builds the graphify lore graph over it (`/graphify corpus --mode deep` the first time, `/graphify corpus --update --mode deep` after, so a new chapter re-extracts only itself), and writes `canon.json` and `world-bible.md` with every fact cited to its passage. Then the consistency check: one subject with conflicting values across sources, timeline contradictions, a world rule stated then broken, graphify's AMBIGUOUS links, two names that may be one person, and the gaps the art will need. Each becomes a numbered item in `questions.md` with the passages, a proposed answer and the renders that wait. A later author correction beats an earlier session statement and is reported as resolved. The engine never answers a canon question; the author's answers go in `rulings.md` and win over the text from then on. Exit allowed: the canon and its questions are useful on their own.
+Runs first, before anything is drafted, and again whenever a job brings new chapters, sessions or notes. Cheetara's `lore-engine` normalises the job's files (`inputs/<job-id>/`) into a corpus under the project's `lore/` folder without touching the originals, builds the graphify lore graph over it (`/graphify corpus --mode deep` the first time, `/graphify corpus --update --mode deep` after, so a new chapter re-extracts only itself), and writes `canon.json` and `world-bible.md` with every fact cited to its passage. Then the consistency check: one subject with conflicting values across sources, timeline contradictions, a world rule stated then broken, graphify's AMBIGUOUS links, two names that may be one person, and the gaps the art will need. Each becomes a numbered item in `questions.md`, and in `questions.json` for Pulse OS to show the author, with the passages, a proposed answer and the renders that wait. A later author correction beats an earlier session statement and is reported as resolved. The engine never answers a canon question; the author answers in Pulse OS, Pulse OS appends the ruling to `rulings.json`, and the engine mirrors it into `rulings.md`; rulings win over the text from then on. Exit allowed: the canon and its questions are useful on their own.
 
 ### s1. Ingest and World Bible
 
-Pulse stage 1. Sherlock starts from the lore engine's `world-bible.md` and canon register (`canon.json`: every entry cites the passages it came from), adds the motifs and themes the canon does not hold, and puts the open questions in `questions.md` to the author. The author corrects, redirects, answers what they can (each answer recorded in `rulings.md`), and **locks canon**. Nothing visual starts before the lock. Exit allowed: a locked Bible is a complete deliverable on its own and is the knowledge base's spine.
+Pulse stage 1. Sherlock starts from the lore engine's `world-bible.md` and canon register (`canon.json`: every entry cites the passages it came from), adds the motifs and themes the canon does not hold, and puts the open questions to the author in Pulse OS (`questions.json`, with `questions.md`). The author corrects, redirects, answers what they can (each answer recorded in `rulings.md`), and **locks canon**. Nothing visual starts before the lock. Exit allowed: a locked Bible is a complete deliverable on its own and is the knowledge base's spine.
 
 ### s2. Author world pack from the Bible
 
-Pulse stage 2 begins. Cheetara resolves the engine as an author world and drafts the author world pack through `author-world-authority`, reading the lore engine's `canon.json` and `rulings.md` (s0 runs again first if new inputs arrived since the Bible was locked): medium and realism from the creative brief and tonal references, era and place from the text, groups from the Bible's social structure, palette from its motifs and stated colours (with `brand-from-scratch` or `ds-theming` for extraction), camera, motion and sound from its tone, and the canon each subject renders from. Everything the text leaves open or contradicts is already a numbered canon question in `lore/questions.md`, with the passages and a proposed answer; the pack cites those numbers rather than asking again. Checkpoint: the author approves the pack, or corrects it first. Nothing renders before the approval. A photoreal or historical world stays with Cheetara under its own pack; QKI is used only if the author picks it.
+Pulse stage 2 begins. Cheetara resolves the engine as an author world and drafts the author world pack through `author-world-authority`, reading the lore engine's `canon.json` and `rulings.md` (s0 runs again first if new inputs arrived since the Bible was locked): medium and realism from the creative brief and tonal references, era and place from the text, groups from the Bible's social structure, palette from its motifs and stated colours (with `brand-from-scratch` or `ds-theming` for extraction), camera, motion and sound from its tone, and the canon each subject renders from. Everything the text leaves open or contradicts is already a numbered canon question in `lore/questions.md`, with the passages and a proposed answer; the pack cites those numbers rather than asking again. Checkpoint: the author approves the pack, or corrects it first, in Pulse OS: the pack is written to `lore/world-pack.md` with its `pack_version` and awaits `lore/pack-approval.json` (approve, or revise with a note, which drafts the next version for approval again). Nothing renders before the approval. A photoreal or historical world stays with Cheetara under its own pack; QKI is used only if the author picks it.
 
 ### s3. Character nodes
 
@@ -255,7 +255,18 @@ Neo maps everything to the Pulse core entities (Project, WorldBible, Character, 
 
 Gibson assembles the scenes into a walkthrough (R3F, the same immersive layer Pulse uses) so the author can experience the world before Pulse Studio's polish and deploy stages (Pulse stages 4 and 5) take over. Checkpoint: hand off.
 
+## The author answers in Pulse OS
+
+This workflow runs as Pulse OS jobs through the DZNR OS API, and the author is in Pulse OS, not DZNR OS. Everything that goes "to the author" goes there, never to Kevin in DZNR OS:
+
+- **Canon questions** are written to `lore/questions.json` for Pulse OS to show the author; the author's answers come back as rulings in `lore/rulings.json`.
+- **Pack approval** awaits `lore/pack-approval.json`.
+- **Checkpoints** (s1, s2, s3, s5, s8) are answered by the author in Pulse OS through DZNR OS's checkpoint endpoint.
+- **Each job ends** with its open questions and anything awaiting approval summarised in its final answer. No stage asks mid-run: DZNR OS refuses mid-run questions (its decision 241).
+
 ## Checkpoints
+
+All answered by the author in Pulse OS, through DZNR OS's checkpoint endpoint.
 
 - **s1** lock canon, and answer the open canon questions the author can (s0 has none of its own: it asks, the author answers here).
 - **s2** approve the author world pack (medium, canon, open questions).
@@ -285,5 +296,6 @@ Items to verify against the Pulse codebase when this runs for real: the exact fi
 ## Changelog
 
 - 1.0 (2026-09-04): created from the Pulse OS product description and the QKI world workflow.
+- 1.3 (2026-10-23, DZNR 2.19.0): the author answers in Pulse OS (Kevin, 2026-10-23). Canon questions go to `lore/questions.json`, rulings come back in `lore/rulings.json`, the pack awaits `lore/pack-approval.json` by `pack_version`, and every checkpoint prompt says the author answers in Pulse OS through DZNR OS's checkpoint endpoint. Jobs end with the questions summarised and never ask mid-run.
 - 1.2 (2026-10-21, DZNR 2.18.0): s0 added. Cheetara's `lore-engine` runs before the World Bible and before `author-world-authority` drafts a pack: corpus, graphify lore graph, cited canon, the consistency check and numbered canon questions, with the author's rulings winning over the text. s1 starts from its outputs.
 - 1.1 (2026-10-21, DZNR 2.17.0): an author's world is an author world, never QKI by default (Kevin, 2026-10-21). s2 drafts an author world pack through `author-world-authority` and the author approves it; s3, s4 and s6 gate on the Fidelity Gate (medium and canon), with the Prime Gate only for a pack that opts into QKI; the photoreal hand-off to Gibson is gone, since Cheetara renders any medium under the author's pack.

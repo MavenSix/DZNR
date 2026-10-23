@@ -11,7 +11,9 @@ description: >
   prepends, and defines the Fidelity Gate: an output fails when it contradicts the pack's declared medium
   or the canon in the author's text (names, looks, places, timeline), never because it looks 3D or real
   when the pack says it should. The author approves the pack before any asset renders; open canon
-  questions go back to the author as questions, never guessed. Triggers whenever Cheetara works for an
+  questions go back to the author as questions, never guessed. On a Pulse OS job both go through Pulse
+  OS: the questions in lore/questions.json, the pack awaiting lore/pack-approval.json, and the job ends
+  with them summarised in its final answer, never asking mid-run. Triggers whenever Cheetara works for an
   author, a Pulse OS job arrives, or a job names no QKI pack.
 ---
 
@@ -52,6 +54,8 @@ the manuscript and brief (below) and ask the author to approve it.
 - The author approves the pack before any asset renders
 - The canon in the author's text: names, looks, places, timeline, and every ruling the author has given
 - Open canon questions go to the author as questions, never guessed
+- On a Pulse OS job, the author answers in Pulse OS: never Kevin in DZNR OS, and never a question asked
+  mid-run (see "Through Pulse OS" below)
 - The Fidelity Gate on every output
 - Identity lock for recurring subjects, and every asset tagged in the manifest with its engine and pack
 
@@ -88,6 +92,10 @@ from the evidence and ask; the author's answer goes in the pack.
     in the pack and in every render it touches.
   - `lore/questions.md`: the open canon questions, numbered. A subject with an open question waits; ask
     through those numbers rather than asking again.
+  - `lore/questions.json` and `lore/rulings.json`: the same questions and rulings in the form DZNR OS
+    reads and Pulse OS writes (`lore-engine/references/questions-and-rulings.md`). A question `ruled` in
+    questions.json is settled; one `open` or `deferred` still holds its renders.
+- **The author's pack decision**, `lore/pack-approval.json`, when Pulse OS has written one (below).
 - **The lore graph from graphify** (`lore/graphify-out/`), when present: characters, places, objects and
   their relations as nodes and edges. Use it to find every passage that describes a subject and every
   relation a render must respect (who stands where, who owns what, which place is beside which). The graph
@@ -112,10 +120,40 @@ The full contract is `references/author-world-pack-schema.md`. Draft in this ord
    world sounds like.
 6. **Open questions.** Everything a render must decide that the text leaves open or contradicts.
 
-Then present the pack to the author in plain language: the medium and realism in one line, the palette,
-the groups, the canon each subject renders from, and the open questions. **Nothing renders until the
-author approves**, and the approval date goes in the pack (`approved_by_author`). A change the author asks
-for later is a new pack version, approved the same way.
+Write the pack to `lore/world-pack.md` with its `pack_version` (`"1"` for the first draft) in the status
+line at the top and in the pack itself, so an approval can name the version it approved. Then present the
+pack to the author in plain language: the medium and realism in one line, the palette, the groups, the
+canon each subject renders from, and the open questions. **Nothing renders until the author approves**,
+and the approval date goes in the pack (`approved_by_author`). A change the author asks for later is a new
+pack version, approved the same way.
+
+### The author's decision (`lore/pack-approval.json`)
+
+When the author decides in Pulse OS, Pulse OS writes the decision through the DZNR OS API:
+
+```json
+{
+  "version": 1,
+  "pack_version": "1",
+  "decision": "approve",
+  "note": "Approved. Keep the grain heavy.",
+  "at": "2026-10-22T10:40:00Z",
+  "received": "Pulse OS (key salt-road-studio)"
+}
+```
+
+Read it at the start of every job on the project, before any render:
+
+- **`approve`**: when `pack_version` matches the pack in `lore/world-pack.md` (or is null, which approves
+  the version current at `at`), set `approved_by_author` to the `at` date with the author's `note` and
+  `received`, and the pack renders. An approval naming an older version than the pack now holds approves
+  nothing: report it and keep waiting.
+- **`revise`**: draft a new pack version applying the `note` (`pack_version` plus one), keep the old
+  version beside it (`lore/world-pack-v<n>.md`), set the new one's `approved_by_author` to null, and await
+  approval again. Nothing renders from the new version until it is approved.
+
+A decision the author gives any other way (a session line, a message) is recorded in the pack the same
+way, quoting the author's words.
 
 ---
 
@@ -128,10 +166,29 @@ A canon question is anything a render must decide that the author has not decide
 - The timeline is unclear: is she twelve or fifteen in the barn scene
 - The brief and the text disagree: the brief says 1970s, the cars in chapter 2 are from the 1990s
 
-Each question goes to the author with the passages, what the render needs, and a proposed answer. Only the
+Each question goes to the author with the passages, what the render needs, and a proposed answer, as a
+numbered item in `lore/questions.md` and `lore/questions.json` (the lore engine writes both). Only the
 subject it touches waits; other assets go ahead. The author's answer is written into the pack's canon as a
 ruling, with its date, and every later render cites it. A guessed answer that turns out wrong is a canon
 violation in every asset that used it, so the cheap place to catch it is the question.
+
+---
+
+## Through Pulse OS (when the job came from Pulse OS)
+
+A Pulse OS job is an API job through DZNR OS: its prompt or its project says it came from Pulse OS. The
+author is in Pulse OS, not DZNR OS, so everything that goes "to the author" goes there:
+
+- **Canon questions** are written to `lore/questions.json` (with questions.md) for Pulse OS to show the
+  author. The author answers in Pulse and Pulse OS appends the ruling to `lore/rulings.json`.
+- **Pack approval**: the drafted pack in `lore/world-pack.md`, with its `pack_version`, awaits
+  `lore/pack-approval.json`.
+- **The job ends** with the open questions and the pack awaiting approval summarised in its final answer
+  (each question by number, subject and one line; the pack's version, medium and realism), saying they
+  wait for the author in Pulse OS. It never asks mid-run: DZNR OS refuses mid-run questions (its decision
+  241). It never puts the author's questions to Kevin in DZNR OS.
+
+The next job on the project reads the rulings and the decision and carries on from them.
 
 ---
 
@@ -160,8 +217,9 @@ does not run on an author world unless the pack opted into QKI.
 
 The canon wins ties: a beautiful render that breaks canon fails, and a plain one that holds canon is
 regenerated for quality, not for fidelity. On a fail, regenerate with the contradicted field stated harder
-in the prompt. Three fails on the same asset: voice the gap and take it to the author, since the pack or
-the canon may need a ruling.
+in the prompt. Three fails on the same asset: voice the gap and take it to the author as a canon question
+in `lore/questions.json` (through Pulse OS on a Pulse OS job), since the pack or the canon may need a
+ruling.
 
 ---
 
@@ -233,7 +291,8 @@ Additions under an author world:
 
 The steps in order:
 
-1. Load the approved author pack. If none, draft one and wait for the author's approval.
+1. Load the approved author pack. If none, draft one and wait for the author's approval
+   (`lore/pack-approval.json` on a Pulse OS job).
 2. Resolve the subject's canon entry (passages, rulings) and its group.
 3. Choose the motion language for the asset (still sheets need none).
 4. Build the prompt: prepend the injection block with the pack and canon filled.

@@ -22,8 +22,9 @@ pack:
   author: string
   work: string                 # the title the world comes from
   authority_version: string    # author-world-authority version this pack was drafted against
-  pack_version: int            # 1, then +1 for every change the author approves
+  pack_version: string         # "1", then one more for every revision; also in world-pack.md's status line
   approved_by_author: iso8601 | null   # null = draft; nothing renders from a draft
+  approval_received: string | null     # where the approval came from: "Pulse OS (key <name>)", a session
   sources: [string]            # manuscript chapters, brief, tonal references, lore graph path
 
   medium: photographic | painterly | drawn | 3d-real | mixed
@@ -88,9 +89,11 @@ pack:
       - question: string
         answer: string
         date: iso8601
+      ruling_id: string        # R<n> in lore/rulings.md and lore/rulings.json
 
   open_questions:
     - question: string
+      id: string               # Q<n> in lore/questions.json; the pack cites it rather than asking again
       refs: [string]           # the passages that raise it
       needed_for: string       # what render needs the answer
       proposal: string         # the answer DZNR would suggest
@@ -112,6 +115,32 @@ and a `motion_bias` from the seven states).
 
 A pack renders only when it is valid **and** `approved_by_author` is set. Medium and realism are never
 defaulted: if the brief and text leave them open, they are open questions until the author answers.
+
+---
+
+## Where the Pack Lives, and How the Author Approves It
+
+The pack is written to the project's `lore/world-pack.md`, its `pack_version` in the status line at the
+top and in the YAML. An earlier version, when the author asks for a revision, is kept as
+`lore/world-pack-v<n>.md`. The author's decision arrives as `lore/pack-approval.json` when the author
+decides in Pulse OS:
+
+```json
+{ "version": 1, "pack_version": "1", "decision": "approve", "note": "string",
+  "at": "2026-10-22T10:40:00Z", "received": "Pulse OS (key salt-road-studio)" }
+```
+
+| Field | Meaning |
+|---|---|
+| `version` | 1, the file's shape |
+| `pack_version` | the pack version decided on; null means the version current at `at` |
+| `decision` | `approve` sets `approved_by_author` (and `approval_received`); `revise` means draft the next version applying `note`, keep the old one, and await approval again |
+| `note` | the author's words: a condition on an approval, or what to change for a revision |
+| `at` | when the author decided, ISO 8601 |
+| `received` | where it came from, `Pulse OS (key <name>)` from Pulse |
+
+`author-world-authority` reads it at the start of every job, before any render. An approval naming an
+older version than `world-pack.md` now holds approves nothing and is reported.
 
 ---
 
@@ -147,7 +176,7 @@ pack:
   author: (the author)
   work: The Salt Road
   authority_version: "1.0"
-  pack_version: 1
+  pack_version: "1"
   approved_by_author: null
   medium: photographic
   medium_notes: "35mm colour negative, available light, visible grain"

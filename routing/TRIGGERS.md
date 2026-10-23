@@ -79,12 +79,15 @@ Before any per-subagent trigger below is evaluated, Tár scans the `triggers` bl
 - "wireframe" (when about visual structure)
 - "color system", "typography", "spacing system"
 - "design handoff", "dev handoff" (the design side)
+- Style library (Snape with `style-library`): "style library", "which style", "pick a style", "style options", "prompt for a [style]", and any style name: "Claymorphism", "Cybercore", "Neo-Brutalism", "Scrapbook", "Surrealism", "Y2K", "Pixel Art", "Synthwave", "Glassmorphism", "Neumorphism", "Bento Grid", "Editorial Design", "Swiss Design", "Minimalism", "Maximalism", "technical poster", "HUD", "instrument-grade"
+- Kevin's taste (Snape with `kevin-taste`): "Kevin's taste", "my taste", "the way I like it", "my Cosmos", "DZNR OS look", "Pulse OS look"
 - **Magic Patterns triggers (PENDING MCP connection):** "Magic Patterns", "magicpatterns", "generate UI options", "show me design variants", "explore UI directions", "iterate on this design", "variants of this component", "text to UI", "generate UI from prompt"
 
 ### Context-dependent
 - "design": see "design" disambiguation rules below. Default trigger if no other context.
 - "UI": Snape claims if request mentions: pattern, system, library, component
 - "polish": could be Snape (visual polish) or Gandalf (workshop `polish` skill: see Gandalf section)
+- A style name on an author's work (a Pulse OS job, a manuscript): Cheetara, who offers `style-library` entries to the author as options in the pack draft; Snape only for DZNR's own work and brands. `kevin-taste` never loads for an author's world.
 
 ### Anti-triggers
 - "deploy", "ship", "production", "commit", "merge" → Neo's territory
@@ -190,6 +193,7 @@ Example: "Rebuild their immersive experience" → Sherlock asks user → if conf
 - "Seedance", "Seedance prompt", "video prompt" (AI video generation)
 - "shotlist", "director's shotlist", "break this script into shots"
 - "game studio", "build a game", "make a game", "browser game", "multiplayer game"
+- Immersive world sites (Gibson with `immersive-world-site`; Neo builds): "immersive site", "world site", "novel as a world", "Pulse OS experience", "explorable site", "a world not a page", "districts", "game-like landing"
 - "RunningHub", "run this on RunningHub", "cloud ComfyUI", "run the ComfyUI workflow" (aggregator, spec at `routing/mcps/runninghub.md`)
 - "Kling", "Wan", "Sora-2", "Veo", "Midjourney via API", "batch Midjourney" (model names with no direct account route to Gibson, who executes via RunningHub)
 
@@ -294,14 +298,14 @@ Example: "Rebuild their immersive experience" → Sherlock asks user → if conf
 
 ## Gandalf: Workshop (peer + tool)
 
-**Kevin's accumulated personal craft. 38 skills authored locally in `~/.claude/skills/`. Operates two ways: Tár routes to him as a peer subagent AND other subagents call him as a tool mid-work.**
+**Kevin's accumulated personal craft. 41 skills authored locally in `~/.claude/skills/`. Operates two ways: Tár routes to him as a peer subagent AND other subagents call him as a tool mid-work.**
 
 ### Operating model
 1. **As peer**: Tár routes directly to Gandalf when the trigger is workshop-specific (e.g. "use design-taste-frontend", "harden this", "polish this")
 2. **As tool**: Other subagents pull Gandalf in mid-work when they need one of his specific tools. Example: Snape doing brand work calls Gandalf for `design-taste-frontend`. Neo doing code work calls Gandalf for `harden`.
 3. **Override authority**: When a workshop skill overlaps with a plugin/anthropic-core skill, Gandalf's version wins. (Already established: Kevin's `frontend-design` beats plugin versions.)
 
-### Gandalf's full roster (38 workshop skills)
+### Gandalf's full roster (41 workshop skills)
 
 | Category | Skills |
 |----------|--------|
@@ -312,12 +316,14 @@ Example: "Rebuild their immersive experience" → Sherlock asks user → if conf
 | **Code remediation** | harden, polish, optimize, fixing-accessibility, fixing-metadata, fixing-motion-performance, adapt |
 | **Critical thinking** | critique, audit, distill, extract, clarify, normalize, redesign-existing-projects |
 | **Meta / process** | onboard, teach-impeccable, quieter, arrange, full-output-enforcement |
+| **Quality standard** | legendary-standard, quality-gate, prompt-architecture |
 
 ### Primary triggers
 - **By skill name**: "use [workshop-skill-name]": e.g. "use design-taste-frontend", "run polish on this"
 - **By verb**: "harden", "polish", "optimize", "tighten", "clarify", "distill", "extract", "normalize", "arrange"
 - **By outcome**: "give this taste", "make this feel high-end", "redesign this", "level this up"
 - **Workshop signals**: "Kevin's version of", "my custom skill for", "the workshop skill"
+- **Quality standard**: "legendary", "make it legendary", "quality bar", "raise the bar", "asset pack", "make a pack" (`legendary-standard`); "quality gate", "gate this", "score this", "is this ready to ship", "is this legendary", "does this look like AI", "slop check" (`quality-gate`); "write the prompt", "improve this prompt", "why does this look generic", "lock the look", "keep the series consistent" (`prompt-architecture`)
 
 ### Context-dependent
 - "polish": Gandalf if request implies workshop-level refinement. Snape if "polish the visual design." Neo if "polish the code."
@@ -325,6 +331,7 @@ Example: "Rebuild their immersive experience" → Sherlock asks user → if conf
 - "design taste": Gandalf claims (this is his core territory)
 - "fix": Gandalf claims if it matches a `fixing-*` skill (accessibility, metadata, motion performance)
 - "make this better": Gandalf claims if no other subagent has a clearer trigger
+- "quality gate" on an author's asset: Gandalf runs `quality-gate` only after Cheetara's Fidelity Gate has passed (after the Prime Gate on a QKI pack); it never replaces either
 
 ### Anti-triggers
 - "brand from scratch" (Snape: Gandalf doesn't define brand identity)

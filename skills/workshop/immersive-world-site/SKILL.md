@@ -113,6 +113,29 @@ structure as part of the pack or a checkpoint (through Pulse OS on a Pulse OS jo
 spoilers follow the reader's position when Pulse OS supplies it (a chapter the reader has not reached
 stays locked).
 
+## Earning a sceptical author
+
+Authors are already wary of AI (Kevin, 2026-10-23: "this has to be amazing. So amazing, it starts to
+remove the skepticism"). On every Pulse OS experience the site itself carries the trust rules
+(`legendary-standard/references/author-trust.md`, T1 to T8), and `quality-gate` blocks on any of them:
+
+- **The author first.** The first screen shows the author's name and one of their sentences before any
+  DZNR or Pulse mark, over a plate of their world at SHIP: never a menu, a form, a loader on its own or a
+  template (T1, T6).
+- **Every element shows its passage.** Each district, dossier, relic and scene carries the quoted passage
+  it came from, with chapter and page, visibly (a margin note, a caption, a "from the book" drawer), not
+  only in the manifest (T1).
+- **The author chose it.** The spatial model, the districts, the style and every scene are the author's
+  choices through Pulse OS (T2). Nothing the author removed comes back (T8).
+- **A quiet mode.** A text-led treatment (the author's prose largest, stills not camera travel, cuts not
+  scrubbing, sound off) is a mode the author can make the default, beside the reduced-motion control (T5).
+- **No unsettled faces.** A character whose look is open in `lore/questions.json` or not yet locked
+  appears unseen: from behind, in shadow, as a sealed dossier with no portrait (T7).
+- **Provenance in plain words.** A "how this was made" note per asset: the tools by name, made for this
+  book, kept in its project, and only the confidentiality DZNR OS guarantees (T4).
+- **No generic AI look.** Every `quality-gate` failure mode blocks on author work; AI sheen and
+  meaningless spectacle first (T3).
+
 ## Who does what
 
 | Agent | Part |
@@ -136,5 +159,7 @@ MCP when the canon's geography matters. Sound from ElevenLabs or Wan's native au
 ## Reference files
 
 - `references/lore-to-structure.md`: the canon-to-site map in full, with the fields each element reads.
+- `references/pulse-integration.md`: how Pulse OS reaches all of this through the DZNR OS API, what stays
+  Kevin's private, and what Pulse's own interface must do to earn the author's trust.
 - `references/site-brief-template.md`: the structured build brief (the prompt-architecture slots for a
   world site), with a worked example on an invented world.

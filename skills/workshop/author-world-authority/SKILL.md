@@ -111,8 +111,11 @@ The full contract is `references/author-world-pack-schema.md`. Draft in this ord
    it came from. Pull the timeline (when the story happens, what has happened to whom by each scene).
 2. **Medium and realism from the brief and the tonal references.** A brief that names Gregory Crewdson and
    *Zodiac* is asking for photographs, not ink. Propose; never assume. `style-library` entries that fit
-   the text and the brief may be offered to the author as options (two or three, each named with its one
-   line), never imposed: the author chooses, and the choice goes in the pack. `kevin-taste` is never
+   the text and the brief are offered to the author as options (two or three, each named with its one
+   line and shown in one option still of a place or object from the canon), never imposed: the author
+   chooses by seeing, and the choice goes in the pack. When Pulse OS sent `style` or `styles` on the job,
+   those ids are the author's choice: record them in the pack and offer no others unless asked. Every
+   pack also offers a quieter treatment (fewer effects, text-led). `kevin-taste` is never
    loaded for an author's world.
 3. **Era and place** from the text: the decade, the city, the technology a character could hold.
 4. **Palette, materials and groups.** Groups come from the story's social structure. Palette comes from the
@@ -126,7 +129,8 @@ The full contract is `references/author-world-pack-schema.md`. Draft in this ord
 Write the pack to `lore/world-pack.md` with its `pack_version` (`"1"` for the first draft) in the status
 line at the top and in the pack itself, so an approval can name the version it approved. Then present the
 pack to the author in plain language: the medium and realism in one line, the palette, the groups, the
-canon each subject renders from, and the open questions. **Nothing renders until the author approves**,
+canon each subject renders from, and the open questions. **Nothing renders until the author approves**
+(except the option stills of the style offer, "Earning a sceptical author" below),
 and the approval date goes in the pack (`approved_by_author`). A change the author asks for later is a new
 pack version, approved the same way.
 
@@ -232,6 +236,35 @@ ruling.
 
 ---
 
+## Earning a sceptical author
+
+Authors come to this already wary of AI. The pack is where their trust is won or lost, so this authority
+holds the trust rules (`legendary-standard/references/author-trust.md`, T1 to T8, each with its test for
+`quality-gate`, every one a blocker on author work):
+
+1. **Their sentences are the material (T1).** Every subject renders from cited passages, and every asset
+   reaches the author with its passage quoted beside it.
+2. **Nothing without the author (T2).** The pack, the style, every scene and every checkpoint are the
+   author's choice in Pulse OS. Styles are offered, two or three `style-library` entries chosen from the
+   manuscript and brief, each with one option still made in it, so the author chooses by seeing. The choice
+   (or the `style`/`styles` ids Pulse OS sent on the job) is recorded in the pack.
+3. **No generic AI look (T3).** Every `quality-gate` failure mode is a blocker on author work, AI sheen and
+   meaningless spectacle above all; the Fidelity Gate's "could illustrate any book" fails first.
+4. **Plain provenance (T4).** What made each asset, that it was made for this book and kept in its project,
+   and only what DZNR OS guarantees: API jobs are confidential by default, a confidential job uses no
+   aggregator, the author's files stay in the project as inputs. No training claim from DZNR.
+5. **Restraint on offer (T5).** Every pack draft offers a quieter treatment: fewer effects, text-led.
+6. **First impression at the bar (T6).** The first frame the author sees is their world at SHIP, never a
+   menu, a draft or a sample.
+7. **No face before it is settled (T7).** An open canon question on a character's look blocks every
+   render that would show it, the s2 option stills included (they show places and objects only).
+8. **The author can remove anything (T8).** A removal is recorded in the pack and never comes back.
+
+**The option stills are the one render before approval.** At s2 the pack is a draft; the only renders it
+may make are the option stills (one per offered style, of a place or object from the canon, never a
+character), each through the Fidelity Gate on the canon and `quality-gate` at SHIP, labelled as options.
+Everything else waits for `approved_by_author`.
+
 ## The Style-Injection Block
 
 Every generator prepends this to any image or video prompt under an author world, filling the bracketed
@@ -327,5 +360,6 @@ Two mechanisms hold an author's world together across dozens of assets, as they 
 
 - `references/author-world-pack-schema.md`: the author world pack contract, its validation, and a short
   worked example. Read this to draft or load a pack.
+- `legendary-standard/references/author-trust.md`: the eight trust rules with their tests.
 - `references/manifest-fields.md`: the fields an author-world asset adds to the shared asset manifest
   (`qki-asset-pipeline/asset-manifest-schema.md`), and how a record says which engine made it.

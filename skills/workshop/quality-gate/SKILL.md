@@ -105,6 +105,15 @@ F13 applies to DZNR's own product chrome only, never to an author's or client's 
 
 ---
 
+## Author work: the trust checks
+
+On an author's world (every Pulse OS job), run the eight trust checks of
+`legendary-standard/references/author-trust.md` (T1 to T8) after the Fidelity Gate and before scoring,
+and add their block to the scorecard. Each is a blocker. On author work every failure mode above is a
+blocker too, the ones marked M included, and F1 (AI sheen) and F6 (meaningless spectacle) are checked
+first: an author wary of AI must never be shown the thing they expect from it. Nothing below SHIP is
+shown to an author, the s2 option stills included.
+
 ## Called by the Fidelity Gate
 
 `author-world-authority` hands an asset here after its Fidelity Gate passes. The scorecard records the

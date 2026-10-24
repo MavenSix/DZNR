@@ -44,7 +44,8 @@ goes in the pack, and a test that says whether the step is done.
 | A client brand | the client's brand system (Snape) | `quality-gate` |
 
 `kevin-taste` is never imposed on an author's world or a client's brand. On an author world the
-`style-library` entries are options offered to the author, and the author's pack decides. Nothing in this
+`style-library` entries are options offered to the author, and the author's pack decides. Authors come
+wary of AI: on their worlds the trust rules (`references/author-trust.md`) block alongside the gates. Nothing in this
 method overrides a Fidelity Gate or Prime Gate failure: `quality-gate` runs after them, never instead.
 
 ---
@@ -223,3 +224,6 @@ For UI and sites, `polish` and `critique` run inside the gate's craft and legibi
 - `references/tool-map.md`: every tool by step, with its DZNR route, status and fallback.
 - `references/pack-template.md`: the `pack.md` skeleton to copy.
 - `references/evidence.md`: the 36 references this method was drawn from, one line each.
+- `references/author-trust.md`: earning a sceptical author, eight rules with their tests, blocking on
+  every author's world.
+- `references/quickstart.md`: how Kevin makes one legendary asset in DZNR OS, step by step.

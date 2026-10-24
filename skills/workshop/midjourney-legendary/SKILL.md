@@ -209,14 +209,34 @@ The order that works is the one `prompt-architecture` gives: hero first, lock se
    and V8.2. Use it on the website; if it is refused, explore at `--sd` with `--c 30 to 60` instead.
    `--sref random` in Draft gives 24 different styles.
 2. **Curate.** Contact sheet; keep two or three directions; record why each was kept.
-3. **Lock.** Pick the hero, write the lock into `pack.md` (prompt, seed, sref, `--sw`, `--p`, `--ar`, `--s`).
-4. **Finals in HD.** Rerun the seedlocked hero with `--hd` (or "Run batch as HD"); then the series through
+3. **Rerun with Thinking (alpha).** See "Kevin works on the alpha site" below.
+4. **Lock.** Pick the hero, write the lock into `pack.md` (prompt, seed, sref, `--sw`, `--p`, `--ar`, `--s`).
+5. **Finals in HD.** Rerun the seedlocked hero with `--hd` (or "Run batch as HD"); then the series through
    the Edit Model at `--hd`.
-5. **Finish outside Midjourney.** Type layer, upscale where needed, grade.
-6. **Then video.** Animate the approved still (section 10).
+6. **Finish outside Midjourney.** Type layer, upscale where needed, grade.
+7. **Then video.** Animate the approved still (section 10).
 
-Thinking Mode ("Rerun (Thinking)", where the model checks where it missed the prompt and regenerates) is
-alpha-only as of October 2026; do not build a step on it.
+### Kevin works on the alpha site
+
+Kevin's Midjourney workspace is `alpha.midjourney.com/imagine` (Kevin, 2026-10-23). V8.2 is still the newest
+model there as of 2026-10-23 (V9 is in early internal testing with no release date; a new Niji is expected
+soon: re-check https://updates.midjourney.com before relying on either). What alpha adds, per its changelogs:
+
+- **Thinking Mode.** Open a V8.2 job (standard or edit) in the lightbox and choose "Rerun (Thinking)": the
+  model looks at the image, finds where it missed the prompt and regenerates. Midjourney says it improves
+  prompt accuracy, typography and coherence. Use it as step **3** above, after curation and before the
+  lock: on any kept candidate that drifted from the brief, on a frame that must render a short word or
+  label in quotes, and on dense multi-subject compositions. Compare the rerun with the original on the
+  contact sheet and keep the better one; record "thinking" in `pack.md` when the hero came from a rerun. It
+  does not replace the type layer: set real type by hand for anything longer than a few words.
+- **Draft in 24-image grids** on V8.1 and V8.2 (step 1).
+- **Shared folders.** Put each pack's curated set in one folder, shared with whoever reviews it (a Pulse
+  author through Kevin, a teammate), so curation happens in one place.
+- **Moodboards** accept large uploads in batches with progress shown, which makes a moodboard built from a
+  pack's approved frames a practical series lock (section 7).
+- **Video** says when Extend or Loop reaches its length cap.
+
+Sources: updates.midjourney.com "Alpha Changelog 10/7/26" and "Testing Thinking Mode" (2026-10-08).
 
 ## 10. Video
 

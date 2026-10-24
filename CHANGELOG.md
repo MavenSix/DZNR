@@ -1,3 +1,9 @@
+## 2.21.1 - 2026-10-23
+
+### Kevin's Midjourney is the alpha site
+
+Kevin, 2026-10-23: "You're not using the latest Midjourney I can see: this is my styles URL https://alpha.midjourney.com/imagine". V8.2 is still the newest model there (V9 is in early internal testing, a new Niji is expected), but alpha adds Thinking Mode, 24-image Draft grids, shared folders and faster moodboard uploads. `midjourney-legendary` now treats alpha as Kevin's workspace and makes "Rerun (Thinking)" step 3 of draft-to-hero, for kept candidates that drifted, short in-image words and dense compositions.
+
 ## 2.21.0 - 2026-10-23
 
 ### The legendary Midjourney library, and RunningHub is good

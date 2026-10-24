@@ -572,7 +572,7 @@ design-taste-frontend, gpt-taste, high-end-visual-design, critique
 - Higgsfield (MCP ACTIVE per v1.14.0)
 - Weavy / Figma Weave (cloud, no MCP)
 - Blender MCP (ACTIVE when Blender is running locally)
-- Unreal MCP (UE 5.8 experimental, alternative to Blender)
+- Unreal MCP (UE 5.8 experimental, alternative to Blender; Kevin is adding it, 2026-10-23, and it gets a DZNR spec once its real tools are known; see `routing/MCPS.md`)
 - Local ComfyUI (optional, free mesh iteration)
 
 **Cross-subagent relationships:**

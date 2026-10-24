@@ -141,6 +141,13 @@ The spec files in `routing/mcps/` as of v2.14.4, and the status each spec states
 
 ACTIVE status assumes the MCP server is connected in the user's current Claude session. Adopters may have different subsets active.
 
+### Being added by Kevin (no DZNR spec yet)
+
+Kevin, 2026-10-23: "I will be adding the Framer AND Unreal MCP to Claude as well." Neither has a spec in `routing/mcps/` yet, and none is written ahead of time: each gets its DZNR spec (through `_template.md`) once it is connected and its real tool list is known, so no agent routes to a tool it has not seen. Until then they are not DZNR routes.
+
+- **Framer MCP:** likely owners Gibson (experience sites) and Neo (the build), for author and DZNR sites that `immersive-world-site` plans.
+- **Unreal MCP:** likely owner Cheetara (Layer 1 spatial blocking and real-time worlds, beside Blender MCP), with Gibson for real-time experience scenes. The rosters already name it as Blender's alternative for Layer 1; its status stays unspecced until the spec exists.
+
 ---
 
 ## How to add a new MCP

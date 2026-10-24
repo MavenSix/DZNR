@@ -8,7 +8,8 @@ description: >
   anti-sheen realism, editorial restraint, maximal density, series consistency, exploration. Kevin's sref
   library: all 21 codes registered in DZNR, the three characterised (3730410722, 1464381114, 1226151696)
   with best_for and the styles each serves, the 18 whose look is not yet characterised; how an sref pairs
-  with a written palette, blending codes, moodboards, and --p by profile code. The library itself: for
+  with a written palette, blending codes, moodboards, and Kevin's profile code (--p, private to DZNR's own
+  work and QKI, never an author's). The library itself: for
   each of the 23 style-library styles and the six highest-scoring reference families, a hero still, a
   series variant, the Edit Model instruction that holds the series, a Midjourney video beat, and a filled
   example. Series in V8 (Edit Model with up to 4 references, seeds, sref plus moodboard, the locked hero),
@@ -61,9 +62,9 @@ where a workflow or app offers it.
 | Draft | `--draft` on the website: 24 images at 512px for 0.4 GPU min | See the conflict note in section 9 |
 | Video | image-to-video, 5 s, extend 4 s at a time to 21 s; `--motion low` / `high`, `--raw`, `--loop`, `--end`, `--bs 1`, `2` or `4`; 480p SD, 720p HD | `--sref`, image prompts and edit references in a video prompt |
 
-Kevin's "Global V7 Profile" works in V8.2 (there is no Global V8 profile). `--p` takes the profile's ID or
-code, never its name, and the code is not recorded yet, so every template here carries `--p <profile
-code>` as a slot to fill or delete.
+Kevin's profile works in V8.2 (there is no Global V8 profile). `--p` (or its long form `--profile`) takes
+the profile's ID or code, never its name. Kevin's is recorded (Kevin, 2026-10-23): `--p 94b2bfcd-291e-4745-8ac6-a07a7c643e0b`, for
+DZNR's own work and QKI only (section 6).
 
 ## 2. How V8.2 reads a prompt
 
@@ -119,7 +120,7 @@ of the prompt frozen, so a grid tells you what that parameter did.
 | **Series consistency** | the same prompt skeleton, `--seed <n>`, the same `--sref`, `--sw`, `--p`, `--ar` and `--s`; `--c 0`; no `--w`; coverage through the Edit Model | V8 seeds are "99% identical"; weird is not fully seed-stable; one variable per frame is the series rule of `legendary-standard` |
 | **Exploration** (before a hero exists) | Draft mode on the website, `--c 30 to 60`, `--sref random`, `--exp 5 to 25`, `--w 50 to 500` | variety and strangeness are the point; `--sref random` in Draft gives 24 different styles; the `--exp` range (0 to 100) is from a third party, not a docs page |
 | **Sref-led look** | `--sref <code> --sw 100 to 300` (QKI starts at 250), the colours written in the text | the sref carries rendering, the text carries colour, `--sw` balances them (section 6) |
-| **Personal taste** | `--p <profile code>`, with `--s` as its strength | `--s` also scales how strongly a profile or moodboard applies |
+| **Personal taste** | `--p 94b2bfcd-291e-4745-8ac6-a07a7c643e0b` on DZNR's own work and QKI; on an author world the author's own `{profile}` or nothing; `--s` is its strength | `--s` also scales how strongly a profile or moodboard applies |
 | **Finals** | `--hd`, the hero's seed and every other parameter unchanged; `--ar` no wider than 4:1 | HD is native 2048px at 1.3 GPU min; "Run batch as HD" reruns a seedlocked prompt in HD |
 | **Words in the image** | the words in double quotes, `--raw`, `--s` at 100 or below | quoted text renders best; raw and lower stylize help when it fails |
 
@@ -152,7 +153,18 @@ scales its influence, and `--w` is removed from moodboard jobs. Use one when a s
 
 **Profiles.** `--p` alone applies the defaults selected in settings; `--p <ID or code>` applies one
 profile; the name never works. A profile ID converts to a code at submit. Extra V8 profiles can be made
-and do not work in V7.
+and do not work in V7. `--profile` is the long form of `--p`.
+
+**Kevin's profile.** Kevin, 2026-10-23: "--profile 94b2bfcd-291e-4745-8ac6-a07a7c643e0b this is my profile code." DZNR writes it as
+`--p 94b2bfcd-291e-4745-8ac6-a07a7c643e0b`. It is Kevin's private instrument, like his srefs:
+
+- **Used** on DZNR's own work (DZNR OS, Pulse OS chrome, Kevin's brand and pitches) and on QKI, on Kevin's
+  own Midjourney account (alpha.midjourney.com), where it fills every `{P}` slot.
+- **Never** written into a `style-library` entry, never offered to an author as an option, never placed in
+  an author's world pack, and never sent through the DZNR OS API: `GET /style-library` and
+  `GET /style-library/:id` already strip `--p` and `--profile` with their values from every field.
+- **On an author world** `{P}` is the author's own `{profile}` from their approved pack, or nothing. A
+  template written for authors keeps `{profile}` as a slot the pack fills, or carries none.
 
 **Version of the sref engine.** V8 changed the default sref engine in March 2026; the docs give no
 `--sv` values for V8.1 or V8.2 (not confirmed), so no template writes `--sv`. Judge every code from a
@@ -274,12 +286,14 @@ Sources: updates.midjourney.com "Alpha Changelog 10/7/26" and "Testing Thinking 
 1. Resolve the world (Step 0 of `legendary-standard`) and pick the style (`style-library`).
 2. Open the style's section in `references/library-kevins-fifteen.md`,
    `references/library-reference-styles.md` or `references/library-top-references.md`.
-3. Fill the slots from `pack.md`; set the recipe from section 5; add `{SREF}` and `{P}` or delete them.
+3. Fill the slots from `pack.md`; set the recipe from section 5; add `{SREF}` and `{P}` or delete them
+   (Kevin's codes and profile on DZNR's own work and QKI; the author's own, or none, on an author world).
 4. Draft, curate, lock, then the series variant and the Edit Model instruction, then the video beat.
 5. Gate with `quality-gate` (after the Fidelity Gate or the Prime Gate where they apply).
 
 Slots are in braces. `{SREF}` is either `--sref <code> --sw <weight>` from the pack or nothing; `{P}` is
-either `--p <profile code>` or nothing; `{SEED}` is the locked hero's seed.
+`--p 94b2bfcd-291e-4745-8ac6-a07a7c643e0b` (Kevin's profile) on DZNR's own work and QKI, the author's own `{profile}` from the approved
+pack on an author world, or nothing; `{SEED}` is the locked hero's seed.
 
 ## Reference files
 

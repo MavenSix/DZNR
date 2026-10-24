@@ -1,7 +1,8 @@
 # The library: the eight styles found in Kevin's references
 
 The same five prompts per style as `library-kevins-fifteen.md`, with the same slot rules: `{SREF}` is
-`--sref <code> --sw <weight>` or nothing, `{P}` is `--p <profile code>` or nothing, `{SEED}` is the
+`--sref <code> --sw <weight>` or nothing, `{P}` is `--p 94b2bfcd-291e-4745-8ac6-a07a7c643e0b` (Kevin's profile) on DZNR's own work and QKI, the author's own
+`{profile}` from the approved pack on an author world, or nothing, `{SEED}` is the
 locked hero's seed. Three of these styles carry one of Kevin's characterised codes by default, and say
 why; a pack can always override.
 

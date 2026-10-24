@@ -15,7 +15,7 @@ Midjourney account and never through an aggregator.
 | Setting | Value | Note |
 |---|---|---|
 | Version | `--v 8.2` | current default since 2026-07-24 |
-| Profile | Kevin's "Global V7 Profile" | works in V8.2; pass its code as `--p <profile code>`. The code is not recorded yet, so templates carry the slot; the name is not a valid value |
+| Profile | `--p 94b2bfcd-291e-4745-8ac6-a07a7c643e0b` | Kevin's profile code (Kevin, 2026-10-23: "--profile 94b2bfcd-291e-4745-8ac6-a07a7c643e0b this is my profile code"); works in V8.2; `--profile` is the long form. DZNR's own work and QKI only, never an author's |
 | Style weight | `--sw 250` | the QKI default: the drawn style holds while the stated palette still reads. In range (0 to 1000, default 100) |
 | Default code | `3730410722` | used by QKI generators when no `best_for` matches |
 
@@ -95,7 +95,10 @@ A lone figure standing beside a small machine on a stone floor, one window behin
   keeping before it is lost.
 - **Moodboards:** `--p <moodboard ID>`; no `--sw`, no `--sv`; `--s` scales the influence. A moodboard
   can carry a world's places and materials while a code carries the rendering.
-- **Profile by code:** `--p <profile code>`. `--s` scales how strongly the profile applies.
+- **Profile by code:** `--p 94b2bfcd-291e-4745-8ac6-a07a7c643e0b` is Kevin's. `--s` scales how strongly the profile applies. Like the
+  codes above, it is Kevin's private instrument: never in a `style-library` entry, never offered to an
+  author or put in an author's pack, never through the DZNR OS API (which strips `--p` and `--profile`).
+  On an author world `{P}` is the author's own `{profile}` from the pack, or nothing.
 - **A pack's own sref:** Midjourney cannot make a code from an upload; its Style Creator makes styles.
   A world that needs a bespoke look registers the resulting code in its pack's `midjourney` block.
 

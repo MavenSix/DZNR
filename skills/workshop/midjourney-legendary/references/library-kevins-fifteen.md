@@ -5,7 +5,8 @@ that holds the series, a Midjourney video beat, and a filled example grounded in
 and anti-patterns live in the style's `style-library` entry; this file is its V8.2 prompt set.
 
 Slots are in braces. `{SREF}` is `--sref <code> --sw <weight>` from the pack, or nothing. `{P}` is
-`--p <profile code>`, or nothing. `{SEED}` is the locked hero's seed. On an author world every slot comes
+`--p 94b2bfcd-291e-4745-8ac6-a07a7c643e0b` (Kevin's profile) on DZNR's own work and QKI, the author's own `{profile}` from the approved
+pack on an author world, or nothing. `{SEED}` is the locked hero's seed. On an author world every slot comes
 from the approved pack and canon; on DZNR's own work, from `kevin-taste`. Every video beat starts from the
 approved still, in HD where the plan allows.
 

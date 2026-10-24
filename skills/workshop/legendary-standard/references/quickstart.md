@@ -6,11 +6,10 @@ way through.
 
 ## The steps
 
-1. **Name the world in the request.** In DZNR OS, type (or say) what you want and whose world it is:
-   - DZNR's own: "Make a legendary hero for the DZNR OS launch: the field recorder that never shipped."
-   - An author's: "Make a legendary pack for scene 4 of The Salt Road" (a Pulse OS author's project).
-   - QKI: "Make a legendary key art for the Wound Keepers' stronghold, QKI."
-   The world decides the taste: `kevin-taste` for DZNR's own, the author's approved pack for an author,
+1. **Name the world in the request.** In DZNR OS, type (or say) what you want and whose world it is.
+   DZNR's own: "Make a legendary hero for the DZNR OS launch: the field recorder that never shipped." An
+   author's: "Make a legendary pack for scene 4 of The Salt Road" (a Pulse OS author's project). QKI:
+   "Make a legendary key art for the Wound Keepers' stronghold, QKI." The world decides the taste: `kevin-taste` for DZNR's own, the author's approved pack for an author,
    `qki-style-authority` for QKI. Tár routes it.
 
 2. **Approve the thesis.** Snape (DZNR and brands) or Cheetara (worlds) writes `pack.md`: one sentence,
@@ -23,13 +22,13 @@ way through.
    tools the pack names. For Midjourney you get the prompts to run yourself (step 4); for the other tools
    (Nano Banana, Higgsfield, Wan via Runway, Kling) DZNR OS runs them under the spend gate.
 
-4. **Run Midjourney yourself on alpha.midjourney.com/imagine.**
-   - Paste the hero prompt. On DZNR's own work and QKI it already carries your srefs and your profile,
-     `--p 94b2bfcd-291e-4745-8ac6-a07a7c643e0b`. On an author's world it carries only what the author's
-     pack holds, never your codes or profile.
-   - Explore first in **Draft** (24-image grids, cheap). Keep two or three directions.
-   - On a kept candidate that drifted, has a short word to render, or is dense: **Rerun (Thinking)**.
-   - Put the curated set in one shared folder. Save the chosen hero into the project's inbox.
+4. **Run Midjourney yourself on alpha.midjourney.com/imagine.** Paste the hero prompt. On DZNR's own
+   work and QKI it already carries your srefs and your profile, `--p
+   94b2bfcd-291e-4745-8ac6-a07a7c643e0b`; on an author's world it carries only what the author's pack
+   holds, never your codes or profile. Explore first in **Draft** (24-image grids, cheap) and keep two or
+   three directions. On a kept candidate that drifted, has a short word to render, or is dense, choose
+   **Rerun (Thinking)**. Put the curated set in one shared folder and save the chosen hero into the
+   project's inbox.
 
 5. **Approve the hero frame.** Cheetara or Gibson records the lock (prompt, seed, sref, `--sw`, `--p`,
    `--ar`, `--s`) in `pack.md`. **You approve the hero here.** Everything else is made from it.
